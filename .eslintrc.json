@@ -1,5 +1,5 @@
 {
-  "extends": ["next", "airbnb-typescript"],
+  "extends": ["airbnb", "airbnb-typescript"],
   "parserOptions": {
     "project": "./tsconfig.json"
   },
