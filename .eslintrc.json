@@ -3,5 +3,5 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["**/*.js", "**/*.jsx", "**/*.mjs"]
+  "ignorePatterns": ["**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs", "**/*.config.ts"]
 }
