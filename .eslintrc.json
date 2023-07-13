@@ -3,6 +3,10 @@
   "parserOptions": {
     "project": "./tsconfig.json"
   },
+  "ignorePatterns": [
+    "node_modules",
+    "*.config.*"
+  ],
   "rules": {
     "import/no-extraneous-dependencies": "off",
     "import/extensions": [
