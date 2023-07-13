@@ -4,10 +4,10 @@ import Test from '@/components/dashboard/test';
 import Monitor from '@/components/dashboard/monitor';
 import Header from '@/components/header';
 
-export default async function Home() {
+export default async function Dashboard() {
   return (
     <>
-      <header className="fixed w-screen border-b-2 h-16  bg-white">
+      <header className="fixed w-screen border-b-2 h-16 bg-white">
         <Header />
       </header>
       <main className="columns-1 md:columns-3">
