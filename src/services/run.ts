@@ -1,5 +1,3 @@
-// import axios from 'axios';
-
 export default async function runSimulation() {
   const command = '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer';
   const argumentsObject: any = {
@@ -22,5 +20,7 @@ export default async function runSimulation() {
     body: JSON.stringify(config),
   });
 
-  console.log('response', response);
+  // Control errors
+
+  return response;
 }
