@@ -1,18 +1,18 @@
-// /* eslint-disable global-require */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable global-require */
 
-// export default async function POST(request: Request) {
-//   // const { spawn } = require('child_process');
-//   console.log('request', request);
-//   // const simulation = spawn(command, args);
-//   // console.log('simulation', simulation);
-// }
+import { NextResponse } from 'next/server';
 
-// // export async function GET(simulation: any) {
-// //   simulation.stdout.on('data', (output: any) => { console.log(output.toString()); });
-// //   simulation.stderr.on('data', (output: any) => { console.error(output.toString()); });
-// //   simulation.on('error', (output: any) => { console.error(output.toString()); });
-// //   simulation.on('close', (output: any) => { console.log(output.toString()); });
-// // }
+export async function POST(request: Request) {
+  const { command, argumentsArray }: any = await request.json();
+  const { spawn } = require('child_process');
+  const simulation = spawn(command, argumentsArray);
 
-// // NextResponse
-// // NextRequest
+  // Move to GET
+  simulation.stdout.on('data', (output: any) => { console.log(output.toString()); });
+  simulation.stderr.on('data', (output: any) => { console.error(output.toString()); });
+  simulation.on('error', (output: any) => { console.error(output.toString()); });
+  simulation.on('close', (output: any) => { console.log(output.toString()); });
+
+  return NextResponse.json(simulation);
+}

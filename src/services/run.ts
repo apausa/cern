@@ -1,8 +1,8 @@
 // import axios from 'axios';
 
-export default async function getSimulation() {
+export default async function runSimulation() {
   const command = '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer';
-  const argumentsObject = {
+  const argumentsObject: any = {
     arg0: 'exec',
     arg1: '-C',
     arg2: '-B',
@@ -15,12 +15,12 @@ export default async function getSimulation() {
     arg9: '/work/script.sh',
   };
 
-  const argumentsArray = [{ ...argumentsObject }];
-
-  const url = '/api/spawn';
+  const argumentsArray = Object.keys(argumentsObject).map(((entry) => argumentsObject[entry]));
   const config = { command, argumentsArray };
-  //   const response = await axios.post(url, config);
+  const response = await fetch('/api/spawn', {
+    method: 'POST',
+    body: JSON.stringify(config),
+  });
 
-  console.log(url, config);
-  // return response;
+  console.log('response', response);
 }
