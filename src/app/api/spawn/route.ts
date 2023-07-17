@@ -14,5 +14,5 @@ export async function POST(request: Request) {
   simulation.on('error', (output: any) => { console.error('error', output.toString()); });
   simulation.on('close', (output: any) => { console.log('close', output.toString()); });
 
-  return NextResponse.json(null);
+  return NextResponse.json(simulation);
 }
