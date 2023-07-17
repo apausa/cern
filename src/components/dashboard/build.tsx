@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import getSimulation from '@/services/run';
+import runSimulation from '@/services/run';
 
 export default async function Build() {
   return (
@@ -10,7 +10,7 @@ export default async function Build() {
       <button
         type="button"
         className="button"
-        onClick={() => getSimulation()}
+        onClick={() => runSimulation()}
       >
         Run simulation
 
