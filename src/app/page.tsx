@@ -1,19 +1,19 @@
-'use client';
+import React, { useReducer, useEffect } from 'react';
 
-import React, { useEffect, useState } from 'react';
 import Build from '@/components/dashboard/Build';
 import Test from '@/components/dashboard/Test';
-import Monitor from '@/components/dashboard/Monitor';
+import Deploy from '@/components/dashboard/Deploy';
 import Header from '@/components/Header';
 
-export default async function Dashboard() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [status, setStatus] = useState(false);
-  const handleClick = () => { setStatus(true); };
+import { createSimulation, readAllSimulations } from '@/state/actions/simulationActions';
+import simulationReducer from '@/state/reducers/simulationReducer';
 
-  useEffect(() => {
-    console.log('test');
-  }, [status]);
+export default async function Dashboard() {
+  const [state, dispatch]: any = useReducer(simulationReducer, []);
+  const handleSubmit = () => { dispatch(createSimulation); };
+  const handleChange = () => { dispatch(updateSimulation); };
+
+  useEffect(() => { dispatch(readAllSimulations()); }, []);
 
   return (
     <>
@@ -21,9 +21,9 @@ export default async function Dashboard() {
         <Header />
       </header>
       <main className="columns-1 md:columns-3">
-        <Build handleClick={handleClick} />
-        <Test />
-        <Monitor />
+        <Build handleSubmit={handleSubmit} handleChange={handleChange} />
+        <Test state={state} />
+        <Deploy />
       </main>
     </>
   );

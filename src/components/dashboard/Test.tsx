@@ -1,16 +1,23 @@
 import React from 'react';
 
-export default async function Test() {
+// @todo: delete functionality
+
+export default async function Test({ simulations }: any) {
   return (
     <div className="pt-20 pl-4 h-screen border-l-2">
       <h2 className="font-bold">Test</h2>
-      <table className="table-auto">
-        <tbody>
-          <tr>
-            <td>Running simulation</td>
-          </tr>
-        </tbody>
-      </table>
+      <ul>
+        {
+        simulations.map((simulation: any, index: number) => (
+          <li>
+            <div>{index}</div>
+            <div>{simulation.date}</div>
+            <div>{simulation.status}</div>
+          </li>
+        ))
+        }
+
+      </ul>
     </div>
   );
 }
