@@ -5,14 +5,15 @@ export default function dashboardReducer(currentState: any, action: any) {
 
   switch (action.type) {
     case dashboardConstants.CREATE_SIMULATION:
-      nextState = [...nextState, action.data];
+      nextState = [...currentState, action.data];
       break;
     case dashboardConstants.READ_ALL_SIMULATIONS:
+      nextState = action.data;
       break;
     case dashboardConstants.UPDATE_SIMULATION:
-      break;
+      break; // @next
     case dashboardConstants.DELETE_SIMULATION:
-      break;
+      break; // @next
     default:
       break;
   }

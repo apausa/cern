@@ -16,13 +16,13 @@ export async function readAllSimulations() {
   return { type: actionConstants.READ_ALL_SIMULATIONS, data };
 }
 
-export async function updateSimulation(simulation: any) {
+export async function updateSimulation(simulation: any) { // @next
   const { data }: any = await fetch('/api/spawn', { method: 'PUT', body: JSON.stringify(simulation) });
 
   return { type: actionConstants.UPDATE_SIMULATION, data };
 }
 
-export async function deleteSimulation(simulation: any) {
+export async function deleteSimulation(simulation: any) { // @next
   const { data }: any = await fetch('/api/spawn', { method: 'DELETE', body: JSON.stringify(simulation) });
 
   return { type: actionConstants.DELETE_SIMULATION, data };
