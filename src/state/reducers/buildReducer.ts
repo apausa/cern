@@ -1,4 +1,4 @@
-import buildConstants from '../constants/buildConstants';
+import { buildConstants } from '../constants/buildConstants';
 
 export default function buildReducer(currentState: any, action: any) {
   const nextState = currentState;
