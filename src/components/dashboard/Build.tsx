@@ -1,22 +1,22 @@
 'use client';
 
 import React, { useReducer } from 'react';
-import inputReducer from '@/state/reducers/inputReducers';
+import buildReducer from '@/state/reducers/buildReducer';
 
 export default async function Build({ handleSubmit }: any) {
-  const [state, dispatch]: any = useReducer(inputReducer, {
+  const [state, dispatch]: any = useReducer(buildReducer, {
     command: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
     arguments: {
-      argument0: 'exec',
-      argument1: '-C',
-      argument2: '-B',
-      argument3: '/cvmfs:/cvmfs,/tmp:/tmp,/work:/work',
-      argument4: '--pwd',
-      argument5: '/work',
-      argument6: '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503',
-      argument7: '/bin/bash',
-      argument8: '-c',
-      argument9: '/work/script.sh',
+      argument0: { value: 'exec', status: true },
+      argument1: { value: '-C', status: true },
+      argument2: { value: '-B', status: true },
+      argument3: { value: '/cvmfs:/cvmfs,/tmp:/tmp,/work:/work', status: true },
+      argument4: { value: '--pwd', status: true },
+      argument5: { value: '/work', status: true },
+      argument6: { value: '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503', status: true },
+      argument7: { value: '/bin/bash', status: true },
+      argument8: { value: '-c', status: true },
+      argument9: { value: '/work/script.sh', status: true },
     },
   });
 
