@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useReducer } from 'react';
 
 import Build from '@/components/dashboard/Build';

@@ -6,10 +6,12 @@ import buildReducer from '@/state/reducers/buildReducer';
 import { initialArgument } from '@/state/constants/buildConstants';
 import updateInput from '@/state/actions/buildActions';
 
-export default async function Build({ handleCreateSimulation }: any) {
+export default function Build({ handleCreateSimulation }: any) {
   const [state, dispatch]: any = useReducer(buildReducer, initialArgument);
   const handleChange = (event: any) => { dispatch(updateInput(event)); };
   const handleSubmit = () => { handleCreateSimulation(state); };
+
+  console.log('state', state);
 
   return (
     <div className="pt-20 pl-4 h-screen border-l-2">
@@ -21,6 +23,7 @@ export default async function Build({ handleCreateSimulation }: any) {
             <>
               <label htmlFor={`${index}`}>{argument.description}</label>
               <input
+                className="rounded text-pink-500"
                 type="checkbox"
                 id={`${index}`}
                 name={`${index}`}

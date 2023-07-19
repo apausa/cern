@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default async function Deploy() {
+export default function Deploy() {
   return (
     <div className="pt-20 pl-4 h-screen border-l-2">
       <h2 className="font-bold">Deploy</h2>
