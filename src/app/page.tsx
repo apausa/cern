@@ -12,9 +12,10 @@ import dashboardReducer from '@/state/reducers/dashboardReducer';
 
 export default function Dashboard() {
   const [state, dispatch]: any = useReducer(dashboardReducer, []);
-  const handleCreateSimulation = (simulation: any) => { dispatch(createSimulation(simulation)); };
+  const handleCreateSimulation = (simulation: any) => { (createSimulation(dispatch, simulation)); };
 
-  // useEffect(() => { dispatch(readAllSimulations()); }, []);
+  console.log('state', state);
+  // useEffect(() => { dispatch(readAllSimulations()); }, []); @next
 
   return (
     <>

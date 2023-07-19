@@ -8,6 +8,7 @@
     "*.config.*"
   ],
   "rules": {
+    "react/no-array-index-key": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/extensions": [
        "error",

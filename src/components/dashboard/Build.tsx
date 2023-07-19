@@ -3,28 +3,26 @@
 import React, { useReducer } from 'react';
 
 import buildReducer from '@/state/reducers/buildReducer';
-import { buildConstants, initialArgument } from '@/state/constants/buildConstants';
+import { initialArgument } from '@/state/constants/buildConstants';
+import updateInput from '@/state/actions/buildActions';
 
 export default function Build({ handleCreateSimulation }: any) {
-  const [state, dispatch]: any = useReducer(buildReducer, initialArgument);
+  const [buildState, dispatch]: any = useReducer(buildReducer, initialArgument);
 
-  const handleSubmit = () => { handleCreateSimulation(state); };
-  const handleChange = (event: any) => {
-    dispatch({ type: buildConstants.UPDATE_INPUT, event });
+  const handleChange = (event: any) => { dispatch(updateInput(event)); };
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    handleCreateSimulation(buildState);
   };
 
   return (
-    <div className="pt-20 pl-4 h-screen border-l-2">
+    <div className="pt-20 pl-4 h-screen border-l-2 overflow-auto">
       <h2 className="font-bold">Build</h2>
       <form onSubmit={handleSubmit}>
-        <p>{state.command}</p>
-        <br />
-        <legend>Arguments</legend>
+        <legend>{buildState.command}</legend>
         {
-          state.arguments.map((argument: any, index: number) => (
-            // eslint-disable-next-line react/no-array-index-key
+          buildState.clientArgs.map((argument: any, index: number) => (
             <div key={`${index}`}>
-              <label htmlFor={`${index}`}>{argument.description}</label>
               <input
                 className="rounded text-pink-500"
                 type="checkbox"
@@ -32,12 +30,39 @@ export default function Build({ handleCreateSimulation }: any) {
                 name={`${index}`}
                 checked={argument.status}
                 onChange={handleChange}
+                disabled
               />
+              <label htmlFor={`${index}`}>{argument.description}</label>
             </div>
           ))
         }
         <br />
-        <input type="submit" value="Run simulation" />
+        <input
+          className="
+            text-blue-700
+            hover:text-white
+            border
+            border-blue-700
+            hover:bg-blue-800
+            focus:ring-4
+            focus:outline-none
+            focus:ring-blue-300
+            font-medium
+            rounded-lg
+            text-sm
+            px-5
+            py-2.5
+            text-center
+            mr-2
+            mb-2
+            dark:border-blue-500
+            dark:text-blue-500
+            dark:hover:text-white
+            dark:hover:bg-blue-500
+            dark:focus:ring-blue-800"
+          type="submit"
+          value="Run simulation"
+        />
       </form>
     </div>
   );

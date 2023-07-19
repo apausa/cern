@@ -4,7 +4,7 @@ export const buildConstants = {
 
 export const initialArgument = {
   command: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
-  arguments: [
+  clientArgs: [
     { description: 'exec', status: true },
     { description: '-C', status: true },
     { description: '-B', status: true },
