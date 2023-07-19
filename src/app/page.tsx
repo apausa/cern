@@ -14,7 +14,6 @@ export default function Dashboard() {
   const [state, dispatch]: any = useReducer(dashboardReducer, []);
   const handleCreateSimulation = (simulation: any) => { (createSimulation(dispatch, simulation)); };
 
-  console.log('state', state);
   // useEffect(() => { dispatch(readAllSimulations()); }, []); @next
 
   return (
