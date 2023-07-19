@@ -7,7 +7,11 @@ export default function dashboardReducer(currentState: any, action: any) {
     case dashboardConstants.CREATE_SIMULATION:
       nextState = [...nextState, action.data];
       break;
+    case dashboardConstants.READ_ALL_SIMULATIONS:
+      break;
     case dashboardConstants.UPDATE_SIMULATION:
+      break;
+    case dashboardConstants.DELETE_SIMULATION:
       break;
     default:
       break;

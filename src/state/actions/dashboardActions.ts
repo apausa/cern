@@ -8,6 +8,14 @@ export async function createSimulation(simulation: any) {
   return { type: actionConstants.CREATE_SIMULATION, data };
 }
 
+export function readAllSimulations() {
+  return null;
+}
+
 export function updateSimulation() {
+  return null;
+}
+
+export function deleteSimulation() {
   return null;
 }
