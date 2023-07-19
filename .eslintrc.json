@@ -8,11 +8,16 @@
     "*.config.*"
   ],
   "rules": {
+    "react/no-array-index-key": "warn",
     "import/no-extraneous-dependencies": "off",
     "import/extensions": [
        "error",
        "ignorePackages",
        {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never",
         "": "never"
        }
     ]
