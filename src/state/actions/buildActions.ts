@@ -1,5 +1,5 @@
 import { buildConstants } from '../constants/buildConstants';
 
-export default function checkInput(event: any) {
-  return { type: buildConstants.CHECK_INPUT, event };
+export default function updateInput({ event }: any) {
+  return { type: buildConstants.UPDATE_INPUT, event };
 }

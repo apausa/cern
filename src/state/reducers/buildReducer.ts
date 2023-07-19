@@ -4,8 +4,11 @@ export default function buildReducer(currentState: any, action: any) {
   const nextState = currentState;
 
   switch (action.type) {
-    case buildConstants.CHECK_INPUT:
+    case buildConstants.UPDATE_INPUT: {
+      const { event: { target: { name, value } } } = action;
+      nextState.arguments[+name].status = value;
       break;
+    }
     default:
       break;
   }

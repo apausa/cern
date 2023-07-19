@@ -1,5 +1,5 @@
 export const buildConstants = {
-  CHECK_INPUT: 'CHECK_INPUT',
+  UPDATE_INPUT: 'UPDATE_INPUT',
 };
 
 export const initialArgument = {

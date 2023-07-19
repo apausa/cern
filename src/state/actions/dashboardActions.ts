@@ -1,13 +1,14 @@
 import actionConstants from '../constants/dashboardConstants';
 
 export async function createSimulation(simulation: any) {
-  // @todo: modify when receiving
+  console.log('action simulation', simulation);
+
   // const argumentsArray = Object.keys(argumentsObject).map(((entry) => argumentsObject[entry]));
   // const config = { command, argumentsArray };
+  // const { data }: any = await fetch('/api/spawn',
+  // { method: 'POST', body: JSON.stringify(simulation) });
 
-  const { data }: any = await fetch('/api/spawn', { method: 'POST', body: JSON.stringify(simulation) });
-
-  return { type: actionConstants.CREATE_SIMULATION, data };
+  // return { type: actionConstants.CREATE_SIMULATION, data };
 }
 
 export async function readAllSimulations() {
