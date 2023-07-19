@@ -10,7 +10,7 @@ import Header from '@/components/Header';
 import { createSimulation } from '@/state/actions/dashboardActions';
 import dashboardReducer from '@/state/reducers/dashboardReducer';
 
-export default async function Dashboard() {
+export default function Dashboard() {
   const [state, dispatch]: any = useReducer(dashboardReducer, []);
   const handleCreateSimulation = (simulation: any) => { dispatch(createSimulation(simulation)); };
 
