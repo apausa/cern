@@ -6,8 +6,6 @@ export default function buildReducer(currentState: any, action: any) {
   switch (action.type) {
     case buildConstants.CHECK_INPUT:
       break;
-    case buildConstants.UNCHECK_INPUT:
-      break;
     default:
       break;
   }

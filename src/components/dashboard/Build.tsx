@@ -4,25 +4,27 @@ import React, { useReducer } from 'react';
 
 import buildReducer from '@/state/reducers/buildReducer';
 import { initialArgument } from '@/state/constants/buildConstants';
+import checkInput from '@/state/actions/buildActions';
 
 export default async function Build({ handleSubmit }: any) {
   const [state, dispatch]: any = useReducer(buildReducer, initialArgument);
+  const handleChange = (event: any) => { dispatch(checkInput(event)); };
 
   return (
     <div className="pt-20 pl-4 h-screen border-l-2">
       <h2 className="font-bold">Build</h2>
       <form onSubmit={() => handleSubmit}>
-        <legend>{state[0].command}</legend>
+        <legend>{state.command}</legend>
         {
-          Object.keys(state[0].arguments).map((key: any) => (
+          state.arguments.map((argument: any, index: number) => (
             <>
-              <label htmlFor={key}>{key}</label>
+              <label htmlFor={`${index}`}>{argument.description}</label>
               <input
                 type="checkbox"
-                id={key}
-                name={key}
-                onChange={handleOnChange}
-                checked
+                id={`${index}`}
+                name={argument.description}
+                checked={argument.status}
+                onChange={handleChange}
                 disabled
               />
             </>
