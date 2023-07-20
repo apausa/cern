@@ -1,3 +1,5 @@
+/* eslint-disable max-len */
+
 'use client';
 
 import React, { useReducer } from 'react';
