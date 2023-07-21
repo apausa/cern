@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 import Build from '@/components/dashboard/Build';
 import Test from '@/components/dashboard/Test';
@@ -12,6 +12,7 @@ import Header from '@/components/Header';
 import dashboardReducer from '@/lib/reducers/dashboardReducer';
 import dashboardConstants from '@/lib/constants/dashboardConstants';
 import { createSimulation } from '@/lib/services/simulation';
+import { connectWebSocket } from '@/lib/services/ws';
 
 export default function Dashboard() {
   const [state, dispatch]: any = useReducer(dashboardReducer, []);
@@ -20,7 +21,7 @@ export default function Dashboard() {
     dispatch({ type: dashboardConstants.CREATE_SIMULATION, simulation });
   };
 
-  // useEffect(() => { dispatch(readAllSimulations()); }, []); @next
+  useEffect(() => { connectWebSocket(); }, []);
 
   return (
     <>

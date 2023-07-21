@@ -1,10 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable global-require */
 
-export default function webSocket() {
+import { NextResponse } from 'next/server';
+
+export async function GET() {
   const express = require('express');
-  const server = require('http').createServer(express);
   const { WebSocketServer } = require('ws');
+
+  const server = express();
+  const PORT = 8000;
 
   const wss = new WebSocketServer({ server });
 
@@ -18,5 +22,8 @@ export default function webSocket() {
     });
   });
 
-  server.listen(8000, () => console.log(`Listening on port ${8000}`));
+  server.get('/', (req: any, res: any) => { res.send('Hello world!'); });
+  server.listen(PORT, () => console.log(`Listening on port ${8000}`));
+
+  return NextResponse.json(null);
 }
