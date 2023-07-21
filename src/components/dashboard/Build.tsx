@@ -2,14 +2,13 @@
 
 import React, { useReducer } from 'react';
 
-import buildReducer from '@/state/reducers/buildReducer';
-import { initialArgument } from '@/state/constants/buildConstants';
-import updateInput from '@/state/actions/buildActions';
+import buildReducer from '@/lib/reducers/buildReducer';
+import { buildConstants, initialArgument } from '@/lib/constants/buildConstants';
 
 export default function Build({ handleCreateSimulation }: any) {
   const [buildState, dispatch]: any = useReducer(buildReducer, initialArgument);
 
-  const handleChange = (event: any) => { dispatch(updateInput(event)); };
+  const handleChange = (event: any) => { dispatch({ type: buildConstants.UPDATE_INPUT, event }); };
   const handleSubmit = (event: any) => {
     event.preventDefault();
     handleCreateSimulation(buildState);

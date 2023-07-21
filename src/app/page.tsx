@@ -9,12 +9,16 @@ import Test from '@/components/dashboard/Test';
 import Deploy from '@/components/dashboard/Deploy';
 import Header from '@/components/Header';
 
-import { createSimulation } from '@/state/actions/dashboardActions';
-import dashboardReducer from '@/state/reducers/dashboardReducer';
+import dashboardReducer from '@/lib/reducers/dashboardReducer';
+import dashboardConstants from '@/lib/constants/dashboardConstants';
+import { createSimulation } from '@/lib/services/simulation';
 
 export default function Dashboard() {
   const [state, dispatch]: any = useReducer(dashboardReducer, []);
-  const handleCreateSimulation = (simulation: any) => { (createSimulation(dispatch, simulation)); };
+  const handleCreateSimulation = async (buildState: any) => {
+    const simulation = await createSimulation(buildState);
+    dispatch({ type: dashboardConstants.CREATE_SIMULATION, simulation });
+  };
 
   // useEffect(() => { dispatch(readAllSimulations()); }, []); @next
 
