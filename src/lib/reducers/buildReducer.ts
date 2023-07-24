@@ -1,15 +1,18 @@
-import { buildConstants } from '../constants/buildConstants';
+import { BashScript, BuildAction } from '@/types/buildTypes';
 
-export default function buildReducer(currentState: any, action: any) {
-  // Deep copy to force 'Build' component to refresh, find a better alternative
+export default function buildReducer(currentState: BashScript, action: BuildAction) {
   const nextState = JSON.parse(JSON.stringify(currentState));
 
   switch (action.type) {
-    case buildConstants.UPDATE_INPUT: {
+    case 'UPDATE_INPUT_CHECKBOX': {
       const { event: { target: { name } } } = action;
       nextState.clientArgs[+name].status = !nextState.clientArgs[+name].status;
-      break;
-    }
+
+      break; }
+    case 'UPDATE_INPUT_RADIO': {
+      break; }
+    case 'UPDATE_INPUT_NUMBER': {
+      break; }
     default: break;
   }
 

@@ -1,27 +1,25 @@
-/* eslint-disable max-len */
-
 'use client';
 
-import React, { useEffect, useReducer } from 'react';
+import React, { useReducer } from 'react';
 
-import Build from '@/components/dashboard/Build';
 import Test from '@/components/dashboard/Test';
 import Deploy from '@/components/dashboard/Deploy';
 import Header from '@/components/Header';
+import Build from '@/components/dashboard/build/Build';
 
 import dashboardReducer from '@/lib/reducers/dashboardReducer';
-import dashboardConstants from '@/lib/constants/dashboardConstants';
 import { createSimulation } from '@/lib/services/simulation';
-import { connectWebSocket } from '@/lib/services/ws';
+import DashboardAction from '@/types/dashboard/dashboardTypes';
 
 export default function Dashboard() {
   const [state, dispatch]: any = useReducer(dashboardReducer, []);
+
   const handleCreateSimulation = async (buildState: any) => {
     const simulation = await createSimulation(buildState);
-    dispatch({ type: dashboardConstants.CREATE_SIMULATION, simulation });
-  };
+    const action: DashboardAction = { type: 'CREATE_SIMULATION', simulation };
 
-  useEffect(() => { connectWebSocket(); }, []);
+    dispatch(action);
+  };
 
   return (
     <>

@@ -1,19 +1,29 @@
-export const buildConstants = {
-  UPDATE_INPUT: 'UPDATE_INPUT',
+import {
+  BashScript, EvalCmd, O2Cmd,
+} from '@/types/buildTypes';
+
+const evalCmd: EvalCmd = {
+  title: 'eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
+  description: 'Software version',
 };
 
-export const initialArgument = {
-  command: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
-  clientArgs: [
-    { description: 'exec', status: true },
-    { description: '-C', status: true },
-    { description: '-B', status: true },
-    { description: '/cvmfs:/cvmfs,/tmp:/tmp,/work:/work', status: true },
-    { description: '--pwd', status: true },
-    { description: '/work', status: true },
-    { description: '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503', status: true },
-    { description: '/bin/bash', status: true },
-    { description: '-c', status: true },
-    { description: '/work/script.sh', status: true },
+const o2Cmd: O2Cmd = {
+  title: 'o2-sim',
+  description: 'O2 Simulaton',
+  args: [
+    {
+      isChecked: false,
+      title: '-n',
+      value: 0,
+      min: 0,
+      max: 10,
+    },
+    { isChecked: false, title: '-e', value: 'TGeant4' },
+    { isChecked: false, title: '-g', value: 'pythia8pp' },
+    { isChecked: false, title: '--configKeyValues', value: 'align-geom.mDetectors=none' },
   ],
 };
+
+const initialState: BashScript = [evalCmd, o2Cmd];
+
+export default initialState;
