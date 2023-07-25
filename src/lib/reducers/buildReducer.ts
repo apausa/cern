@@ -1,6 +1,6 @@
-import { BashScript, BuildAction } from '@/types/buildTypes';
+import { BashScript, BuildReducerAction } from '@/types/dashboard/build';
 
-export default function buildReducer(currentState: BashScript, action: BuildAction) {
+export default function buildReducer(currentState: BashScript, action: BuildReducerAction) {
   const nextState = JSON.parse(JSON.stringify(currentState));
 
   switch (action.type) {

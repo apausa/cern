@@ -11,7 +11,7 @@ import buildReducer from '@/lib/reducers/buildReducer';
 import initialState from '@/lib/constants/buildConstants';
 
 // Types
-import { BashScript, EvalCmd, O2Cmd } from '@/types/dashboard/build/build';
+import { BashScript, EvalCmd, O2Cmd } from '@/types/dashboard/build';
 
 export default function Build({ handleCreateSimulation }: any) {
   const [buildState, dispatch]: [BashScript, any] = useReducer(buildReducer, initialState);

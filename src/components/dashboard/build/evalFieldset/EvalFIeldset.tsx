@@ -3,7 +3,7 @@
 import React from 'react';
 
 // Types
-import { EvalFieldsetProps } from '@/types/dashboard/build/evalFieldset/evalFieldset';
+import { EvalFieldsetProps } from '@/types/dashboard/build';
 
 export default function EvalFieldset({ command }: EvalFieldsetProps) {
   return (

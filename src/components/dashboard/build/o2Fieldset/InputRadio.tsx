@@ -3,7 +3,7 @@
 import React from 'react';
 
 // Types
-import { InputRadioAction, InputRadioProps } from '@/types/dashboard/build/o2Fieldset/inputRadio';
+import { InputRadioAction, InputRadioProps } from '@/types/dashboard/build';
 
 export default function InputRadio({ arg, dispatch }: InputRadioProps) {
   const handleChange = (event: any) => {

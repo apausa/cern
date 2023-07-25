@@ -8,7 +8,7 @@ import InputRadio from './InputRadio';
 import InputCheckbox from './InputCheckbox';
 
 // Types
-import { O2FieldsetProps } from '@/types/dashboard/build/o2Fieldset/o2Fieldset';
+import { O2FieldsetProps } from '@/types/dashboard/build';
 
 export default function O2Fieldset({ command, dispatch }: O2FieldsetProps) {
   return (

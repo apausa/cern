@@ -3,7 +3,7 @@
 import React from 'react';
 
 // Types
-import { InputCheckboxAction, InputCheckboxProps } from '@/types/dashboard/build/o2Fieldset/inputCheckbox';
+import { InputCheckboxAction, InputCheckboxProps } from '@/types/dashboard/build';
 
 export default function InputCheckbox({ arg, dispatch }: InputCheckboxProps) {
   const handleChange = (event: any) => {

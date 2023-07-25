@@ -3,7 +3,7 @@
 import React from 'react';
 
 // Types
-import { InputNumberAction, InputNumberProps } from '@/types/dashboard/build/o2Fieldset/inputNumber';
+import { InputNumberAction, InputNumberProps } from '@/types/dashboard/build';
 
 export default function InputNumber({ arg, dispatch }: InputNumberProps) {
   const handleChange = (event: any) => {
