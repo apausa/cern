@@ -15,8 +15,7 @@ export default function InputRadio({ arg, dispatch }: InputRadioProps) {
   return (
     <>
       {arg.input.options.map((option) => (
-        <div>
-          <label htmlFor={option}>{option}</label>
+        <div key={option}>
           <input
             type="radio"
             id={option}
@@ -27,6 +26,7 @@ export default function InputRadio({ arg, dispatch }: InputRadioProps) {
             checked={option === arg.value}
             disabled={!arg.isChecked}
           />
+          <label htmlFor={option}>{option}</label>
         </div>
       ))}
     </>

@@ -14,7 +14,6 @@ export default function InputNumber({ arg, dispatch }: InputNumberProps) {
 
   return (
     <div>
-      <label htmlFor={arg!.title}>{arg!.title}</label>
       <input
         type="number"
         id={arg.title}
@@ -26,6 +25,7 @@ export default function InputNumber({ arg, dispatch }: InputNumberProps) {
         min={arg.input.min}
         max={arg.input.max}
       />
+      <label htmlFor={arg!.title}>{arg!.title}</label>
     </div>
   );
 }
