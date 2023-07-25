@@ -14,6 +14,7 @@ export default function InputCheckbox({ arg, dispatch }: InputCheckboxProps) {
 
   return (
     <div>
+      <br />
       <input
         type="checkbox"
         id={arg.title}
@@ -24,6 +25,7 @@ export default function InputCheckbox({ arg, dispatch }: InputCheckboxProps) {
         checked={arg.isChecked}
       />
       <label htmlFor={arg.title}>{arg.title}</label>
+      <p>{arg.value}</p>
     </div>
   );
 }

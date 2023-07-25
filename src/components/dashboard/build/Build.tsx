@@ -27,11 +27,15 @@ export default function Build({ handleCreateSimulation }: any) {
       <form onSubmit={handleSubmit}>
         {buildState.map((command: EvalCmd | O2Cmd, index: number) => (
           <div key={command.title}>
+            <br />
+            <br />
             {index === 0 && (<EvalFieldset command={command as EvalCmd} />)}
             {index === 1 && (<O2Fieldset command={command as O2Cmd} dispatch={dispatch} />)}
           </div>
         ))}
 
+        <br />
+        <br />
         <input type="submit" />
       </form>
     </div>

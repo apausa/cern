@@ -1,4 +1,4 @@
-import { BashScript, EvalCmd, O2Cmd } from '@/types/dashboard/build/buildTypes';
+import { BashScript, EvalCmd, O2Cmd } from '@/types/dashboard/build/build';
 
 const evalCmd: EvalCmd = {
   description: 'Software version',
@@ -13,7 +13,7 @@ const o2Cmd: O2Cmd = {
     {
       isChecked: false,
       title: '-n',
-      value: 0,
+      value: 10,
       input: { min: 0, max: 10 },
     },
     {
