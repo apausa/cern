@@ -1,4 +1,4 @@
-import { BashScript, EvalCmd, O2Cmd } from '@/types/dashboard/build/build';
+import { BashScript, EvalCmd, O2Cmd } from '@/types/dashboard/build';
 
 const evalCmd: EvalCmd = {
   description: 'Software version',
