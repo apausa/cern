@@ -1,4 +1,8 @@
-import { BashScript, BuildReducerAction } from '@/types/dashboard/build';
+/* eslint-disable no-param-reassign */
+
+import {
+  BashScript, BashScriptCmds, BuildReducerAction,
+} from '@/types/dashboard/build';
 
 export default function buildReducer(currentState: BashScript, action: BuildReducerAction) {
   const nextState = JSON.parse(JSON.stringify(currentState));
@@ -6,12 +10,21 @@ export default function buildReducer(currentState: BashScript, action: BuildRedu
   switch (action.type) {
     case 'UPDATE_INPUT_CHECKBOX': {
       const { event: { target: { name } } } = action;
-      nextState.clientArgs[+name].status = !nextState.clientArgs[+name].status;
+
+      nextState.forEach((cmd: BashScriptCmds) => {
+        cmd.args.forEach((arg: any) => {
+          if (arg.title === name) arg.isChecked = !arg.isChecked;
+        });
+      });
 
       break; }
     case 'UPDATE_INPUT_RADIO': {
       break; }
     case 'UPDATE_INPUT_NUMBER': {
+      const { event: { target } } = action;
+
+      console.log(target);
+
       break; }
     default: break;
   }

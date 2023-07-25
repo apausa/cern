@@ -1,14 +1,17 @@
-import { Dispatch, FormEvent } from 'react';
+import { Dispatch } from 'react';
 
 // Bash script
 
 export type BashScript = [EvalCmd, O2Cmd];
+
+export type BashScriptCmds = EvalCmd | O2Cmd;
 
 // Eval command and arguments
 
 export type EvalCmd = {
   title: 'eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
   description: string,
+  args: []
 };
 
 // O2 Command and arguments
@@ -54,25 +57,27 @@ export type O2CmdConfigArg = {
 
 export type O2FieldsetProps = {
   command: O2Cmd,
-  dispatch: any, // @develop
+  dispatch: Dispatch<BuildReducerAction>
 };
+
+export type O2FieldsetArgs = O2CmdNumberArg | O2CmdTGeantArg | O2CmdPythiaArg | O2CmdConfigArg;
 
 // Input checkbox
 
 export type InputCheckboxAction = {
   type: 'UPDATE_INPUT_CHECKBOX',
-  event: FormEvent
+  event: any // @develop
 };
 
 export type InputCheckboxProps = {
-  arg: O2CmdNumberArg | O2CmdTGeantArg | O2CmdPythiaArg | O2CmdConfigArg,
+  arg: O2FieldsetArgs,
   dispatch: Dispatch<InputCheckboxAction>
 };
 // Input radio
 
 export type InputRadioAction = {
   type: 'UPDATE_INPUT_RADIO',
-  event: FormEvent
+  event: any // @develop
 };
 
 export type InputRadioProps = {
@@ -84,7 +89,7 @@ export type InputRadioProps = {
 
 export type InputNumberAction = {
   type: 'UPDATE_INPUT_NUMBER',
-  event: FormEvent
+  event: any // @develop
 };
 
 export type InputNumberProps = {

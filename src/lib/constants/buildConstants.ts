@@ -3,7 +3,7 @@ import { BashScript, EvalCmd, O2Cmd } from '@/types/dashboard/build';
 const evalCmd: EvalCmd = {
   description: 'Software version',
   title: 'eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
-
+  args: [],
 };
 
 const o2Cmd: O2Cmd = {
