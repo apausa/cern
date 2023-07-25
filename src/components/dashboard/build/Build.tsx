@@ -29,6 +29,7 @@ export default function Build({ handleCreateSimulation }: any) {
           <div key={command.title}>
             <br />
             <br />
+            {/* // @develop */}
             {index === 0 && (<EvalFieldset command={command as EvalCmd} />)}
             {index === 1 && (<O2Fieldset command={command as O2Cmd} dispatch={dispatch} />)}
           </div>

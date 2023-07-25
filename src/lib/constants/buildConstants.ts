@@ -11,23 +11,27 @@ const o2Cmd: O2Cmd = {
   title: 'o2-sim',
   args: [
     {
+      type: 'number',
       isChecked: false,
       title: '-n',
       value: 10,
       input: { min: 0, max: 10 },
     },
     {
+      type: 'radio',
       isChecked: false,
       title: '-e',
       value: 'TGeant4',
       input: { options: ['TGeant3', 'TGeant4'] },
     },
     {
+      type: 'checkbox',
       isChecked: false,
       title: '-g',
       value: 'pythia8pp',
     },
     {
+      type: 'checkbox',
       isChecked: false,
       title: '--configKeyValues',
       value: 'align-geom.mDetectors=none',

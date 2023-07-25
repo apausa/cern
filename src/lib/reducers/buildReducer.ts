@@ -19,6 +19,14 @@ export default function buildReducer(currentState: BashScript, action: BuildRedu
 
       break; }
     case 'UPDATE_INPUT_RADIO': {
+      const { event: { target: { value, name } } } = action;
+
+      nextState.forEach((cmd: BashScriptCmds) => {
+        cmd.args.forEach((arg: any) => {
+          if (arg.title === name) arg.value = value;
+        });
+      });
+
       break; }
     case 'UPDATE_INPUT_NUMBER': {
       const { event: { target } } = action;

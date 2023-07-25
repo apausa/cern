@@ -17,9 +17,9 @@ export default function InputRadio({ arg, dispatch }: InputRadioProps) {
       {arg.input.options.map((option) => (
         <div key={option}>
           <input
-            type="radio"
+            type={arg.type}
             id={option}
-            name={option}
+            name={arg.title}
             onChange={handleChange}
             value={option}
             // Custom

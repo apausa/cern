@@ -15,7 +15,7 @@ export default function InputNumber({ arg, dispatch }: InputNumberProps) {
   return (
     <div>
       <input
-        type="number"
+        type={arg.type}
         name={arg.title}
         onChange={handleChange}
         value={arg.value}

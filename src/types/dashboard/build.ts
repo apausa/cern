@@ -28,6 +28,7 @@ export type O2Cmd = {
 };
 
 export type O2CmdNumberArg = {
+  type: 'number',
   isChecked: boolean,
   title: '-n',
   value: number,
@@ -35,6 +36,7 @@ export type O2CmdNumberArg = {
 };
 
 export type O2CmdTGeantArg = {
+  type: 'radio',
   isChecked: boolean,
   title: '-e',
   value: 'TGeant3' | 'TGeant4',
@@ -42,12 +44,14 @@ export type O2CmdTGeantArg = {
 };
 
 export type O2CmdPythiaArg = {
+  type: 'checkbox',
   isChecked: boolean,
   title: '-g',
   value: 'pythia8pp',
 };
 
 export type O2CmdConfigArg = {
+  type: 'checkbox',
   isChecked: boolean,
   title: '--configKeyValues',
   value: 'align-geom.mDetectors=none',
