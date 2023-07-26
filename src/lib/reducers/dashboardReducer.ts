@@ -1,4 +1,4 @@
-import DashboardAction from '@/types/dashboard/dashboard';
+import DashboardAction from '@/types/components/dashboard/dashboard';
 
 export default function dashboardReducer(currentState: any, action: DashboardAction) {
   let nextState = currentState;

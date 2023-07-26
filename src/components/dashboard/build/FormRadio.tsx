@@ -3,7 +3,7 @@
 import React from 'react';
 
 // Types
-import { FormOtherAction, FormRadioProps } from '@/types/dashboard/build';
+import { FormOtherAction, FormRadioProps } from '@/types/components/dashboard/build';
 
 export default function FormRadio({ arg, dispatch }: FormRadioProps) {
   const handleChange = (event: any) => {

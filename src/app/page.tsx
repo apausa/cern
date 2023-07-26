@@ -9,8 +9,8 @@ import Build from '@/components/dashboard/build/Build';
 
 import dashboardReducer from '@/lib/reducers/dashboardReducer';
 import { createSimulation } from '@/lib/services/simulation';
-import DashboardAction from '@/types/dashboard/dashboard';
-import { BashScript } from '@/types/dashboard/build';
+import DashboardAction from '@/types/components/dashboard/dashboard';
+import { BashScript } from '@/types/components/dashboard/build';
 
 export default function Dashboard() {
   const [state, dispatch]: any = useReducer(dashboardReducer, []);

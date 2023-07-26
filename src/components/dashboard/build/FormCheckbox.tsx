@@ -3,7 +3,7 @@
 import React from 'react';
 
 // Types
-import { FormCheckboxAction, FormCheckboxProps } from '@/types/dashboard/build';
+import { FormCheckboxAction, FormCheckboxProps } from '@/types/components/dashboard/build';
 
 export default function FormCheckbox({ arg, dispatch }: FormCheckboxProps) {
   const handleChange = (event: any) => {
