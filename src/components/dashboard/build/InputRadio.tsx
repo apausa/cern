@@ -3,11 +3,11 @@
 import React from 'react';
 
 // Types
-import { InputRadioAction, InputRadioProps } from '@/types/dashboard/build';
+import { InputOtherAction, InputRadioProps } from '@/types/dashboard/build';
 
 export default function InputRadio({ arg, dispatch }: InputRadioProps) {
   const handleChange = (event: any) => {
-    const action: InputRadioAction = { type: 'UPDATE_INPUT_RADIO', event };
+    const action: InputOtherAction = { type: 'UPDATE_INPUT_OTHER', event };
 
     dispatch(action);
   };
@@ -17,9 +17,9 @@ export default function InputRadio({ arg, dispatch }: InputRadioProps) {
       {arg.input.options.map((option) => (
         <div key={option}>
           <input
-            type={arg.type}
+            type="radio"
             id={option}
-            name={arg.title}
+            name={arg.name}
             onChange={handleChange}
             value={option}
             // Custom

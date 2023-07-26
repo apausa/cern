@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import {
-  BashScript, BashScriptCmds, BuildReducerAction,
+  BashScript, O2Cmd, BuildReducerAction, O2CmdArgs,
 } from '@/types/dashboard/build';
 
 export default function buildReducer(currentState: BashScript, action: BuildReducerAction) {
@@ -11,27 +11,21 @@ export default function buildReducer(currentState: BashScript, action: BuildRedu
     case 'UPDATE_INPUT_CHECKBOX': {
       const { event: { target: { name } } } = action;
 
-      nextState.forEach((cmd: BashScriptCmds) => {
-        cmd.args.forEach((arg: any) => {
-          if (arg.title === name) arg.isChecked = !arg.isChecked;
+      nextState.forEach((cmd: O2Cmd) => {
+        cmd.args.forEach((arg: O2CmdArgs | undefined) => {
+          if (arg!.name === name) arg!.isChecked = !arg!.isChecked;
         });
       });
 
       break; }
-    case 'UPDATE_INPUT_RADIO': {
+    case 'UPDATE_INPUT_OTHER': {
       const { event: { target: { value, name } } } = action;
 
-      nextState.forEach((cmd: BashScriptCmds) => {
-        cmd.args.forEach((arg: any) => {
-          if (arg.title === name) arg.value = value;
+      nextState.forEach((cmd: O2Cmd) => {
+        cmd.args.forEach((arg: O2CmdArgs | undefined) => {
+          if (arg!.name === name) arg!.value = value;
         });
       });
-
-      break; }
-    case 'UPDATE_INPUT_NUMBER': {
-      const { event: { target } } = action;
-
-      console.log(target);
 
       break; }
     default: break;

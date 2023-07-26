@@ -2,39 +2,37 @@ import { BashScript, EvalCmd, O2Cmd } from '@/types/dashboard/build';
 
 const evalCmd: EvalCmd = {
   description: 'Software version',
-  title: 'eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
-  args: [],
+  name: 'eval',
+  args: ['$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)'],
 };
 
 const o2Cmd: O2Cmd = {
   description: 'O2 Simulaton',
-  title: 'o2-sim',
+  name: 'o2-sim',
   args: [
     {
-      type: 'number',
       isChecked: false,
-      title: '-n',
+      name: '-n',
       value: 10,
-      input: { min: 0, max: 10 },
+      input: { type: 'number', min: 0, max: 10 },
     },
     {
-      type: 'radio',
       isChecked: false,
-      title: '-e',
+      name: '-e',
       value: 'TGeant4',
-      input: { options: ['TGeant3', 'TGeant4'] },
+      input: { type: 'radio', options: ['TGeant3', 'TGeant4'] },
     },
     {
-      type: 'checkbox',
       isChecked: false,
-      title: '-g',
+      name: '-g',
       value: 'pythia8pp',
+      input: { type: null },
     },
     {
-      type: 'checkbox',
       isChecked: false,
-      title: '--configKeyValues',
+      name: '--configKeyValues',
       value: 'align-geom.mDetectors=none',
+      input: { type: null },
     },
   ],
 };

@@ -3,11 +3,11 @@
 import React from 'react';
 
 // Types
-import { InputNumberAction, InputNumberProps } from '@/types/dashboard/build';
+import { InputOtherAction, InputNumberProps } from '@/types/dashboard/build';
 
 export default function InputNumber({ arg, dispatch }: InputNumberProps) {
   const handleChange = (event: any) => {
-    const action: InputNumberAction = { type: 'UPDATE_INPUT_NUMBER', event };
+    const action: InputOtherAction = { type: 'UPDATE_INPUT_OTHER', event };
 
     dispatch(action);
   };
@@ -15,8 +15,8 @@ export default function InputNumber({ arg, dispatch }: InputNumberProps) {
   return (
     <div>
       <input
-        type={arg.type}
-        name={arg.title}
+        type="number"
+        name={arg.name}
         onChange={handleChange}
         value={arg.value}
         // Custom

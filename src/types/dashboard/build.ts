@@ -9,16 +9,16 @@ export type BashScriptCmds = EvalCmd | O2Cmd;
 // Eval command and arguments
 
 export type EvalCmd = {
-  title: 'eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
   description: string,
-  args: []
+  name: 'eval',
+  args: ['$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)']
 };
 
 // O2 Command and arguments
 
 export type O2Cmd = {
-  title: 'o2-sim',
   description: string,
+  name: 'o2-sim',
   args: [
     O2CmdNumberArg?,
     O2CmdTGeantArg?,
@@ -28,43 +28,39 @@ export type O2Cmd = {
 };
 
 export type O2CmdNumberArg = {
-  type: 'number',
-  isChecked: boolean,
-  title: '-n',
+  name: '-n',
   value: number,
-  input: { min: number, max: number },
+  isChecked: boolean,
+
+  input: { type: 'number', min: number, max: number },
 };
 
 export type O2CmdTGeantArg = {
-  type: 'radio',
-  isChecked: boolean,
-  title: '-e',
+  name: '-e',
   value: 'TGeant3' | 'TGeant4',
-  input: { options: ['TGeant3', 'TGeant4'] },
+  isChecked: boolean,
+
+  input: { type: 'radio', options: ['TGeant3', 'TGeant4'] },
 };
 
 export type O2CmdPythiaArg = {
-  type: 'checkbox',
-  isChecked: boolean,
-  title: '-g',
+  name: '-g',
   value: 'pythia8pp',
+  isChecked: boolean,
+
+  input: { type: null }
 };
 
 export type O2CmdConfigArg = {
-  type: 'checkbox',
-  isChecked: boolean,
-  title: '--configKeyValues',
+  name: '--configKeyValues',
   value: 'align-geom.mDetectors=none',
+  isChecked: boolean,
+
+  input: { type: null }
+
 };
 
-// O2 Fieldset
-
-export type O2FieldsetProps = {
-  command: O2Cmd,
-  dispatch: Dispatch<BuildReducerAction>
-};
-
-export type O2FieldsetArgs = O2CmdNumberArg | O2CmdTGeantArg | O2CmdPythiaArg | O2CmdConfigArg;
+export type O2CmdArgs = O2CmdNumberArg | O2CmdTGeantArg | O2CmdPythiaArg | O2CmdConfigArg;
 
 // Input checkbox
 
@@ -74,39 +70,26 @@ export type InputCheckboxAction = {
 };
 
 export type InputCheckboxProps = {
-  arg: O2FieldsetArgs,
+  arg: O2CmdArgs,
   dispatch: Dispatch<InputCheckboxAction>
 };
 // Input radio
 
-export type InputRadioAction = {
-  type: 'UPDATE_INPUT_RADIO',
+export type InputOtherAction = {
+  type: 'UPDATE_INPUT_OTHER',
   event: any // @develop
 };
 
 export type InputRadioProps = {
   arg: O2CmdTGeantArg
-  dispatch: Dispatch<InputRadioAction>
-};
-
-// Input number
-
-export type InputNumberAction = {
-  type: 'UPDATE_INPUT_NUMBER',
-  event: any // @develop
+  dispatch: Dispatch<InputOtherAction>
 };
 
 export type InputNumberProps = {
   arg: O2CmdNumberArg,
-  dispatch: Dispatch<InputNumberAction>
-};
-
-// Event fieldset
-
-export type EvalFieldsetProps = {
-  command: EvalCmd,
+  dispatch: Dispatch<InputOtherAction>
 };
 
 // Reducer
 
-export type BuildReducerAction = InputNumberAction | InputRadioAction | InputCheckboxAction;
+export type BuildReducerAction = InputOtherAction | InputCheckboxAction;

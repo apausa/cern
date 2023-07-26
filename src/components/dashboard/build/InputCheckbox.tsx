@@ -14,19 +14,18 @@ export default function InputCheckbox({ arg, dispatch }: InputCheckboxProps) {
 
   return (
     <div>
-      <br />
       <input
         type="checkbox"
-        id={arg.title}
-        name={arg.title}
+        id={arg.name}
+        name={arg.name}
         onChange={handleChange}
         value={arg.value}
         // Custom
         checked={arg.isChecked}
       />
-      <label htmlFor={arg.title}>{arg.title}</label>
+      <label htmlFor={arg.name}>{arg.name}</label>
       <p>
-        Value →
+        Selected value →
         {' '}
         {arg.value}
       </p>
