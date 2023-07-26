@@ -4,7 +4,7 @@ import {
   BashScript, O2Cmd, BuildReducerAction, O2CmdArgs,
 } from '@/types/dashboard/build';
 
-export default function buildReducer(currentState: BashScript, action: BuildReducerAction) {
+export default function buildReducer(currentState: BashScript, action: BuildReducerAction | any) {
   const nextState = JSON.parse(JSON.stringify(currentState));
 
   switch (action.type) {
@@ -28,6 +28,9 @@ export default function buildReducer(currentState: BashScript, action: BuildRedu
       });
 
       break; }
+    case 'READ_BUILD_STATE': {
+      break;
+    }
     default: break;
   }
 

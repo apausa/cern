@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 
 // Components
 import InputNumber from './InputNumber';
@@ -18,11 +18,14 @@ import {
 
 export default function Build({ handleCreateSimulation }: any) {
   const [buildState, dispatch]: [BashScript, any] = useReducer(buildReducer, initialState);
-
   const handleSubmit = (event: any) => {
     event.preventDefault();
     handleCreateSimulation(buildState);
   };
+
+  useEffect(() => {
+    dispatch({ type: 'READ_BUILD_STATE' });
+  }, []);
 
   return (
     <div className="pt-20 pl-4 h-screen border-l-2 overflow-auto">
