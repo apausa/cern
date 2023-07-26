@@ -8,7 +8,7 @@ import Header from '@/components/Header';
 import Build from '@/components/dashboard/build/Build';
 
 import dashboardReducer from '@/lib/reducers/dashboardReducer';
-import { createSimulation } from '@/lib/services/simulation';
+import { createSimulation } from '@/services/simulation';
 import DashboardAction from '@/types/components/dashboard/dashboard';
 import { BashScript } from '@/types/components/dashboard/build';
 

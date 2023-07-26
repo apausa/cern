@@ -1,9 +1,15 @@
-import { BashScript, EvalCmd, O2Cmd } from '@/types/dashboard/build';
+import { BashScript, EvalCmd, O2Cmd } from '@/types/components/dashboard/build';
 
 const evalCmd: EvalCmd = {
   description: 'Software version',
   name: 'eval',
-  args: ['$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)'],
+  args: [
+    {
+      isChecked: true,
+      name: '$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
+      value: '\\',
+      input: { type: null },
+    }],
 };
 
 const o2Cmd: O2Cmd = {

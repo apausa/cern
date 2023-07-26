@@ -6,12 +6,25 @@ export type BashScript = [EvalCmd, O2Cmd];
 
 export type BashScriptCmds = EvalCmd | O2Cmd;
 
+export type BashScriptArgs = O2CmdNumberArg
+| O2CmdTGeantArg
+| O2CmdPythiaArg
+| O2CmdConfigArg
+| EvalCmdVersionArg;
+
 // Eval command and arguments
 
 export type EvalCmd = {
   description: string,
   name: 'eval',
-  args: ['$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)']
+  args: [EvalCmdVersionArg]
+};
+
+export type EvalCmdVersionArg = {
+  isChecked: boolean,
+  name: '$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
+  value: '\\',
+  input: { type: null },
 };
 
 // O2 Command and arguments
@@ -60,8 +73,6 @@ export type O2CmdConfigArg = {
 
 };
 
-export type O2CmdArgs = O2CmdNumberArg | O2CmdTGeantArg | O2CmdPythiaArg | O2CmdConfigArg;
-
 // Form checkbox
 
 export type FormCheckboxAction = {
@@ -70,7 +81,7 @@ export type FormCheckboxAction = {
 };
 
 export type FormCheckboxProps = {
-  arg: O2CmdArgs,
+  arg: BashScriptArgs,
   dispatch: Dispatch<FormCheckboxAction>
 };
 // Form radio

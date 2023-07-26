@@ -38,27 +38,18 @@ export default function Build({ handleCreateSimulation }: any) {
 
             <legend>{command.description}</legend>
             <p>{command.name}</p>
-
-            {(command.name === 'eval') && (
-              <>
-                <p>{command.args[0]}</p>
-                <br />
-                <br />
-              </>
-            )}
-            {(command.name === 'o2-sim') && (command.args.map((arg) => (
+            {(command.args.map((arg) => (
               <div key={arg!.name}>
                 <br />
                 <FormCheckbox arg={arg!} dispatch={dispatch} />
-                {arg?.input.type === 'number' && <FormNumber arg={arg as O2CmdNumberArg} dispatch={dispatch} />}
-                {arg?.input.type === 'radio' && <FormRadio arg={arg as O2CmdTGeantArg} dispatch={dispatch} />}
+                {arg!.input.type === 'number' && <FormNumber arg={arg as O2CmdNumberArg} dispatch={dispatch} />}
+                {arg!.input.type === 'radio' && <FormRadio arg={arg as O2CmdTGeantArg} dispatch={dispatch} />}
               </div>
             )))}
-
+            <br />
+            <br />
           </fieldset>
         ))}
-        <br />
-        <br />
         <input type="submit" />
       </form>
     </div>
