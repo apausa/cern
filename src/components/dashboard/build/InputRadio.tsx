@@ -12,7 +12,6 @@ export default function InputRadio({ arg, dispatch }: InputRadioProps) {
     dispatch(action);
   };
 
-  console.log(arg);
   return (
     <>
       {arg.input.options.map((option) => (
