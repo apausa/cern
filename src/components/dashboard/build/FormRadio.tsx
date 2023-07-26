@@ -3,11 +3,11 @@
 import React from 'react';
 
 // Types
-import { InputOtherAction, InputRadioProps } from '@/types/dashboard/build';
+import { FormOtherAction, FormRadioProps } from '@/types/dashboard/build';
 
-export default function InputRadio({ arg, dispatch }: InputRadioProps) {
+export default function FormRadio({ arg, dispatch }: FormRadioProps) {
   const handleChange = (event: any) => {
-    const action: InputOtherAction = { type: 'UPDATE_INPUT_OTHER', event };
+    const action: FormOtherAction = { type: 'UPDATE_FORM_OTHER', event };
 
     dispatch(action);
   };

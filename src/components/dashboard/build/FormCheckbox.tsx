@@ -3,11 +3,11 @@
 import React from 'react';
 
 // Types
-import { InputCheckboxAction, InputCheckboxProps } from '@/types/dashboard/build';
+import { FormCheckboxAction, FormCheckboxProps } from '@/types/dashboard/build';
 
-export default function InputCheckbox({ arg, dispatch }: InputCheckboxProps) {
+export default function FormCheckbox({ arg, dispatch }: FormCheckboxProps) {
   const handleChange = (event: any) => {
-    const action: InputCheckboxAction = { type: 'UPDATE_INPUT_CHECKBOX', event };
+    const action: FormCheckboxAction = { type: 'UPDATE_FORM_CHECKBOX', event };
 
     dispatch(action);
   };

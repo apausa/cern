@@ -3,9 +3,9 @@
 import React, { useReducer, useEffect } from 'react';
 
 // Components
-import InputNumber from './InputNumber';
-import InputRadio from './InputRadio';
-import InputCheckbox from './InputCheckbox';
+import FormNumber from './FormNumber';
+import FormRadio from './FormRadio';
+import FormCheckbox from './FormCheckbox';
 
 // Lib
 import buildReducer from '@/lib/reducers/buildReducer';
@@ -13,18 +13,18 @@ import initialState from '@/lib/constants/buildConstants';
 
 // Types
 import {
-  BashScript, EvalCmd, O2Cmd, O2CmdNumberArg, O2CmdTGeantArg,
+  BuildUseReducer, EvalCmd, O2Cmd, O2CmdNumberArg, O2CmdTGeantArg,
 } from '@/types/dashboard/build';
 
 export default function Build({ handleCreateSimulation }: any) {
-  const [buildState, dispatch]: [BashScript, any] = useReducer(buildReducer, initialState);
+  const [buildState, dispatch]: BuildUseReducer = useReducer(buildReducer, initialState);
   const handleSubmit = (event: any) => {
     event.preventDefault();
     handleCreateSimulation(buildState);
   };
 
   useEffect(() => {
-    dispatch({ type: 'READ_BUILD_STATE' });
+    dispatch({ type: 'READ_FORM' });
   }, []);
 
   return (
@@ -49,9 +49,9 @@ export default function Build({ handleCreateSimulation }: any) {
             {(command.name === 'o2-sim') && (command.args.map((arg) => (
               <div key={arg!.name}>
                 <br />
-                <InputCheckbox arg={arg!} dispatch={dispatch} />
-                {arg?.input.type === 'number' && <InputNumber arg={arg as O2CmdNumberArg} dispatch={dispatch} />}
-                {arg?.input.type === 'radio' && <InputRadio arg={arg as O2CmdTGeantArg} dispatch={dispatch} />}
+                <FormCheckbox arg={arg!} dispatch={dispatch} />
+                {arg?.input.type === 'number' && <FormNumber arg={arg as O2CmdNumberArg} dispatch={dispatch} />}
+                {arg?.input.type === 'radio' && <FormRadio arg={arg as O2CmdTGeantArg} dispatch={dispatch} />}
               </div>
             )))}
 

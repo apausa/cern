@@ -3,11 +3,11 @@
 import React from 'react';
 
 // Types
-import { InputOtherAction, InputNumberProps } from '@/types/dashboard/build';
+import { FormOtherAction, FormNumberProps } from '@/types/dashboard/build';
 
-export default function InputNumber({ arg, dispatch }: InputNumberProps) {
+export default function FormNumber({ arg, dispatch }: FormNumberProps) {
   const handleChange = (event: any) => {
-    const action: InputOtherAction = { type: 'UPDATE_INPUT_OTHER', event };
+    const action: FormOtherAction = { type: 'UPDATE_FORM_OTHER', event };
 
     dispatch(action);
   };

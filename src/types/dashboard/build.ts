@@ -62,34 +62,36 @@ export type O2CmdConfigArg = {
 
 export type O2CmdArgs = O2CmdNumberArg | O2CmdTGeantArg | O2CmdPythiaArg | O2CmdConfigArg;
 
-// Input checkbox
+// Form checkbox
 
-export type InputCheckboxAction = {
-  type: 'UPDATE_INPUT_CHECKBOX',
+export type FormCheckboxAction = {
+  type: 'UPDATE_FORM_CHECKBOX',
   event: any // @develop
 };
 
-export type InputCheckboxProps = {
+export type FormCheckboxProps = {
   arg: O2CmdArgs,
-  dispatch: Dispatch<InputCheckboxAction>
+  dispatch: Dispatch<FormCheckboxAction>
 };
-// Input radio
+// Form radio
 
-export type InputOtherAction = {
-  type: 'UPDATE_INPUT_OTHER',
+export type FormOtherAction = {
+  type: 'UPDATE_FORM_OTHER',
   event: any // @develop
 };
 
-export type InputRadioProps = {
+export type FormRadioProps = {
   arg: O2CmdTGeantArg
-  dispatch: Dispatch<InputOtherAction>
+  dispatch: Dispatch<FormOtherAction>
 };
 
-export type InputNumberProps = {
+export type FormNumberProps = {
   arg: O2CmdNumberArg,
-  dispatch: Dispatch<InputOtherAction>
+  dispatch: Dispatch<FormOtherAction>
 };
 
 // Reducer
 
-export type BuildReducerAction = InputOtherAction | InputCheckboxAction;
+export type BuildReducerAction = FormOtherAction | FormCheckboxAction;
+
+export type BuildUseReducer = [BashScript, Dispatch<any>];

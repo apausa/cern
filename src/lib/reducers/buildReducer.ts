@@ -8,7 +8,10 @@ export default function buildReducer(currentState: BashScript, action: BuildRedu
   const nextState = JSON.parse(JSON.stringify(currentState));
 
   switch (action.type) {
-    case 'UPDATE_INPUT_CHECKBOX': {
+    case 'READ_FORM': {
+      break;
+    }
+    case 'UPDATE_FORM_CHECKBOX': {
       const { event: { target: { name } } } = action;
 
       nextState.forEach((cmd: O2Cmd) => {
@@ -18,7 +21,7 @@ export default function buildReducer(currentState: BashScript, action: BuildRedu
       });
 
       break; }
-    case 'UPDATE_INPUT_OTHER': {
+    case 'UPDATE_FORM_OTHER': {
       const { event: { target: { value, name } } } = action;
 
       nextState.forEach((cmd: O2Cmd) => {
@@ -28,9 +31,6 @@ export default function buildReducer(currentState: BashScript, action: BuildRedu
       });
 
       break; }
-    case 'READ_BUILD_STATE': {
-      break;
-    }
     default: break;
   }
 

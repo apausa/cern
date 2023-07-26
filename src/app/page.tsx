@@ -10,11 +10,12 @@ import Build from '@/components/dashboard/build/Build';
 import dashboardReducer from '@/lib/reducers/dashboardReducer';
 import { createSimulation } from '@/lib/services/simulation';
 import DashboardAction from '@/types/dashboard/dashboard';
+import { BashScript } from '@/types/dashboard/build';
 
 export default function Dashboard() {
   const [state, dispatch]: any = useReducer(dashboardReducer, []);
 
-  const handleCreateSimulation = async (buildState: any) => {
+  const handleCreateSimulation = async (buildState: BashScript) => {
     const simulation = await createSimulation(buildState);
     const action: DashboardAction = { type: 'CREATE_SIMULATION', simulation };
 
