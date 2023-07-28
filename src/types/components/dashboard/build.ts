@@ -23,7 +23,7 @@ export type EvalCmd = {
 export type EvalCmdVersionArg = {
   isChecked: boolean,
   name: '$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
-  value: '\\',
+  value: '\n',
   input: { type: null },
 };
 

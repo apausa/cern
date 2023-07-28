@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 
 import {
-  BashScript, O2Cmd, BuildReducerAction, O2CmdArgs,
+  BashScript, O2Cmd, BuildReducerAction, BashScriptArgs,
 } from '@/types/components/dashboard/build';
 
 export default function buildReducer(currentState: BashScript, action: BuildReducerAction | any) {
@@ -15,7 +15,7 @@ export default function buildReducer(currentState: BashScript, action: BuildRedu
       const { event: { target: { name } } } = action;
 
       nextState.forEach((cmd: O2Cmd) => {
-        cmd.args.forEach((arg: O2CmdArgs | undefined) => {
+        cmd.args.forEach((arg: BashScriptArgs | undefined) => {
           if (arg!.name === name) arg!.isChecked = !arg!.isChecked;
         });
       });
@@ -25,7 +25,7 @@ export default function buildReducer(currentState: BashScript, action: BuildRedu
       const { event: { target: { value, name } } } = action;
 
       nextState.forEach((cmd: O2Cmd) => {
-        cmd.args.forEach((arg: O2CmdArgs | undefined) => {
+        cmd.args.forEach((arg: BashScriptArgs | undefined) => {
           if (arg!.name === name) arg!.value = value;
         });
       });

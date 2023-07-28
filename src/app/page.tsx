@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import React, { useReducer } from 'react';
@@ -7,8 +9,8 @@ import Deploy from '@/components/dashboard/Deploy';
 import Header from '@/components/Header';
 import Build from '@/components/dashboard/build/Build';
 
-import dashboardReducer from '@/lib/reducers/dashboardReducer';
-import { createSimulation } from '@/services/simulation';
+import dashboardReducer from '@/lib/reducers/dashboard';
+import { createSimulation } from '@/services/dashboard';
 import DashboardAction from '@/types/components/dashboard/dashboard';
 import { BashScript } from '@/types/components/dashboard/build';
 

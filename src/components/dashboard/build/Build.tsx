@@ -8,8 +8,8 @@ import FormRadio from './FormRadio';
 import FormCheckbox from './FormCheckbox';
 
 // Lib
-import buildReducer from '@/lib/reducers/buildReducer';
-import initialState from '@/lib/constants/buildConstants';
+import buildReducer from '@/lib/reducers/build';
+import initialState from '@/lib/constants/build';
 
 // Types
 import {

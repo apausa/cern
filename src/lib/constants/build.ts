@@ -7,7 +7,7 @@ const evalCmd: EvalCmd = {
     {
       isChecked: true,
       name: '$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
-      value: '\\',
+      value: '\n',
       input: { type: null },
     }],
 };
