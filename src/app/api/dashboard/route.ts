@@ -17,7 +17,7 @@ export async function POST(request: Request) {
     bashScript, title: scriptName, date: new Date(), status: 'IN_PROGRESS',
   };
 
-  await createScript(bashScript, scriptName);
+  await createScript(bashScript, filePath);
   await executeScript(filePath);
 
   return NextResponse.json(simulation);

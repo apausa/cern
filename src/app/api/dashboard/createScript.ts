@@ -20,9 +20,11 @@ const createScript = async (bashScript: BashScript, filePath: string) => {
 
   try {
     await fs.writeFile(filePath, content);
+    await fs.chmod(filePath, '755');
+
     console.log(`${filePath} created`); // @delete
   } catch (error) {
-    console.error(error); // @delete
+    console.error(`error: ${filePath}`); // @delete
   }
 
   return filePath;
