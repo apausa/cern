@@ -2,7 +2,7 @@
 
 import {
   BashScript, O2Cmd, BuildReducerAction, BashScriptArgs,
-} from '@/types/components/dashboard/build';
+} from '@/types/build';
 
 export default function buildReducer(currentState: BashScript, action: BuildReducerAction | any) {
   const nextState = JSON.parse(JSON.stringify(currentState));

@@ -14,7 +14,7 @@ import initialState from '@/lib/constants/build';
 // Types
 import {
   BuildUseReducer, EvalCmd, O2Cmd, O2CmdNumberArg, O2CmdTGeantArg,
-} from '@/types/components/dashboard/build';
+} from '@/types/build';
 
 export default function Build({ handleCreateSimulation }: any) {
   const [buildState, dispatch]: BuildUseReducer = useReducer(buildReducer, initialState);

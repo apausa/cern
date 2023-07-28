@@ -1,23 +1,12 @@
-// const listen = async (process: Promise<ChildProcess>) => {
-//   process.stdout?.on('data', (output: any) => { console.log('data', output.toString()); });
-//   process.stderr?.on('data', (output: any) => { console.error('data', output.toString()); });
-//   process.on('error', (output: any) => { console.error('error', output.toString()); });
-//   process.on('close', (output: any) => { console.log('close', output.toString()); });
-// };
+import { ChildProcess, spawn } from 'child_process';
 
-// createSimulation(bashScript, spawn);
-// const executionProcess = executeSimulation(bashScript, spawn);
-// listen(executionProcess);
+const executeScript = async (filePath: string) => {
+  const childProcess: ChildProcess = spawn('bash', [filePath]);
 
-// return NextResponse.json(simulation);
+  childProcess.stdout?.on('data', (output: any) => { console.log('data', output.toString()); });
+  childProcess.stderr?.on('data', (output: any) => { console.error('data', output.toString()); });
+  childProcess.on('error', (output: any) => { console.error('error', output.toString()); });
+  childProcess.on('close', (output: any) => { console.log('close', output.toString()); });
+};
 
-// const executeSimulation = async (bashScript, spawn, name) => {
-//   // const process: ChildProcess = spawn(command, serverArgs);
-
-// };
-
-// const executeScript = async (filePath: string) => {
-
-// };
-
-// export default executeScript;
+export default executeScript;

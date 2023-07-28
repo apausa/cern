@@ -1,7 +1,6 @@
 import * as fs from 'node:fs/promises';
-import path from 'node:path';
 
-import { BashScript } from '@/types/components/dashboard/build';
+import { BashScript } from '@/types/build';
 
 const createContent = async (bashScript: BashScript) => {
   const contentArray: any = [];
@@ -16,15 +15,15 @@ const createContent = async (bashScript: BashScript) => {
   return contentString;
 };
 
-const createScript = async (bashScript: BashScript, scriptName: string) => {
-  const segment: string = '/work';
-  const filePath: string = path.join(segment, `${scriptName}.sh`);
+const createScript = async (bashScript: BashScript, filePath: string) => {
   const content = await createContent(bashScript);
 
   try {
     await fs.writeFile(filePath, content);
-    console.log(`${scriptName} created`);
-  } catch (error) { console.error(error); }
+    console.log(`${filePath} created`); // @delete
+  } catch (error) {
+    console.error(error); // @delete
+  }
 
   return filePath;
 };

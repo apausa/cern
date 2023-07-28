@@ -1,4 +1,4 @@
-import { BashScript } from '@/types/components/dashboard/build';
+import { BashScript } from '@/types/build';
 
 export async function createSimulation(buildState: BashScript) {
   const response: any = await fetch('/api/dashboard', { method: 'POST', body: JSON.stringify(buildState) });
