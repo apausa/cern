@@ -7,19 +7,19 @@ export async function createSimulation(buildState: BashScript) {
   return simulation;
 }
 
-export async function readAllSimulations() { // @next
-  const { body }: any = await fetch('/api/simulation', { method: 'GET' });
-
-  return body;
-}
-
-export async function updateSimulation(simulation: any) { // @next
+export async function updateSimulation(simulation: any) { // @develop
   const { body }: any = await fetch('/api/simulation', { method: 'PUT', body: JSON.stringify(simulation) });
 
   return body;
 }
 
-export async function deleteSimulation(simulation: any) { // @next
+export async function readAllSimulations() { // @develop
+  const { body }: any = await fetch('/api/simulation', { method: 'GET' });
+
+  return body;
+}
+
+export async function deleteSimulation(simulation: any) { // @develop
   const { body }: any = await fetch('/api/simulation', { method: 'DELETE', body: JSON.stringify(simulation) });
 
   return body;

@@ -11,7 +11,7 @@ import Build from '@/components/dashboard/build/Build';
 
 import dashboardReducer from '@/lib/reducers/dashboard';
 import { createSimulation } from '@/services/dashboard';
-import DashboardAction from '@/types/dashboard';
+import { DashboardAction } from '@/types/dashboard';
 import { BashScript } from '@/types/build';
 
 export default function Dashboard() {
@@ -22,6 +22,20 @@ export default function Dashboard() {
     const action: DashboardAction = { type: 'CREATE_SIMULATION', simulation };
 
     dispatch(action);
+
+    return simulation;
+  };
+
+  const handleUpdateSimulation = async (simulation: any) => {
+    try { // @continue
+      const action: DashboardAction = { type: 'UPDATE_SIMULATION', simulation };
+
+      await simulation.promise();
+
+      dispatch(action);
+    } catch (error) {
+      console.error('page.tsx', error);
+    }
   };
 
   return (
@@ -30,7 +44,10 @@ export default function Dashboard() {
         <Header />
       </header>
       <main className="columns-1 md:columns-3">
-        <Build handleCreateSimulation={handleCreateSimulation} />
+        <Build
+          handleCreateSimulation={handleCreateSimulation}
+          handleUpdateSimulation={handleUpdateSimulation}
+        />
         <Test state={state} />
         <Deploy />
       </main>

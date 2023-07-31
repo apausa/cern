@@ -5,20 +5,29 @@ import { v4 as uuidv4 } from 'uuid';
 import path from 'node:path';
 
 import { BashScript } from '@/types/build';
-import createScript from './createScript';
 import executeScript from './executeScript';
 
 export async function POST(request: Request) {
-  const bashScript: BashScript = await request.json();
-  const scriptName: string = uuidv4();
-  const filePath: string = path.join('/work/scripts', `${scriptName}.sh`);
+  try {
+    const bashScript: BashScript = await request.json();
+    const fileName: string = `${uuidv4()}.sh`;
+    const filePath: string = path.join('/work/scripts', fileName);
+    const promise: Promise<any> = executeScript(bashScript, filePath);
 
-  const simulation: any = {
-    bashScript, title: scriptName, date: new Date(), status: 'IN_PROGRESS',
-  };
-
-  await createScript(bashScript, filePath);
-  await executeScript(filePath);
-
-  return NextResponse.json(simulation);
+    return NextResponse.json(
+      {
+        bashScript,
+        fileName,
+        date: new Date(),
+        status: 'pending',
+        promise,
+      },
+      { status: 200 },
+    );
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 },
+    );
+  }
 }

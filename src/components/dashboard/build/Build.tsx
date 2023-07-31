@@ -16,11 +16,12 @@ import {
   BuildUseReducer, EvalCmd, O2Cmd, O2CmdNumberArg, O2CmdTGeantArg,
 } from '@/types/build';
 
-export default function Build({ handleCreateSimulation }: any) {
+export default function Build({ handleCreateSimulation, handleUpdateSimulation }: any) {
   const [buildState, dispatch]: BuildUseReducer = useReducer(buildReducer, initialState);
-  const handleSubmit = (event: any) => {
+  const handleSubmit = async (event: any) => {
     event.preventDefault();
-    handleCreateSimulation(buildState);
+    const simulation = await handleCreateSimulation(buildState);
+    await handleUpdateSimulation(simulation);
   };
 
   useEffect(() => {

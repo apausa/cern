@@ -2,8 +2,7 @@
 
 import React from 'react';
 
-// Types
-import { FormOtherAction, FormRadioProps } from '@/types/components/dashboard/build';
+import { FormOtherAction, FormRadioProps } from '@/types/build';
 
 export default function FormRadio({ arg, dispatch }: FormRadioProps) {
   const handleChange = (event: any) => {
@@ -14,7 +13,7 @@ export default function FormRadio({ arg, dispatch }: FormRadioProps) {
 
   return (
     <>
-      {arg.input.options.map((option) => (
+      {arg.input.options.map((option: any) => (
         <div key={option}>
           <input
             type="radio"

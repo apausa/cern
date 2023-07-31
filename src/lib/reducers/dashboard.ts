@@ -1,4 +1,4 @@
-import DashboardAction from '@/types/components/dashboard/dashboard';
+import { DashboardAction } from '@/types/dashboard';
 
 export default function dashboardReducer(currentState: any, action: DashboardAction) {
   let nextState = currentState;
@@ -7,9 +7,12 @@ export default function dashboardReducer(currentState: any, action: DashboardAct
     case 'CREATE_SIMULATION':
       nextState = [...nextState, action.simulation];
       break;
-    case 'READ_ALL_SIMULATIONS': break; // @next
-    case 'UPDATE_SIMULATION': break; // @next
-    case 'DELETE_SIMULATION': break; // @next
+    case 'READ_ALL_SIMULATIONS': break; // @develop
+    case 'UPDATE_SIMULATION': {
+      nextState = nextState.map();
+      break;
+    }
+    case 'DELETE_SIMULATION': break; // @develop
     default: break;
   }
 

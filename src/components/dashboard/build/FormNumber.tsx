@@ -2,8 +2,7 @@
 
 import React from 'react';
 
-// Types
-import { FormOtherAction, FormNumberProps } from '@/types/components/dashboard/build';
+import { FormOtherAction, FormNumberProps } from '@/types/build';
 
 export default function FormNumber({ arg, dispatch }: FormNumberProps) {
   const handleChange = (event: any) => {
