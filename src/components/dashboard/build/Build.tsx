@@ -20,6 +20,7 @@ export default function Build({ handleCreateSimulation, handleUpdateSimulation }
   const [buildState, dispatch]: BuildUseReducer = useReducer(buildReducer, initialState);
   const handleSubmit = async (event: any) => {
     event.preventDefault();
+
     const simulation = await handleCreateSimulation(buildState);
     await handleUpdateSimulation(simulation);
   };

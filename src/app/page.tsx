@@ -9,33 +9,30 @@ import Deploy from '@/components/dashboard/Deploy';
 import Header from '@/components/Header';
 import Build from '@/components/dashboard/build/Build';
 
+import { createSimulation, updateSimulation } from '@/services/dashboard';
+
 import dashboardReducer from '@/lib/reducers/dashboard';
-import { createSimulation } from '@/services/dashboard';
 import { DashboardAction } from '@/types/dashboard';
-import { BashScript } from '@/types/build';
 
 export default function Dashboard() {
   const [state, dispatch]: any = useReducer(dashboardReducer, []);
 
-  const handleCreateSimulation = async (buildState: BashScript) => {
+  const handleCreateSimulation = async (buildState: any) => {
     const simulation = await createSimulation(buildState);
-    const action: DashboardAction = { type: 'CREATE_SIMULATION', simulation };
+    const createAction: DashboardAction = { type: 'CREATE_SIMULATION', simulation };
 
-    dispatch(action);
+    dispatch(createAction);
 
     return simulation;
   };
 
-  const handleUpdateSimulation = async (simulation: any) => {
-    try { // @continue
-      const action: DashboardAction = { type: 'UPDATE_SIMULATION', simulation };
+  const handleUpdateSimulation = async (a: any) => {
+    const simulation = await updateSimulation(a);
+    const updateAction: any = { type: 'UPDATE_SIMULATION', simulation };
 
-      await simulation.promise();
+    dispatch(updateAction);
 
-      dispatch(action);
-    } catch (error) {
-      console.error('page.tsx', error);
-    }
+    return simulation;
   };
 
   return (

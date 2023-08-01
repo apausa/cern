@@ -1,6 +1,6 @@
 import { BashScript } from '@/types/build';
 
-const parseObject = (bashScript: BashScript) => {
+const parseObject = (bashScript: BashScript): string => {
   const contentArray: any = [];
 
   bashScript.forEach((cmd) => {
