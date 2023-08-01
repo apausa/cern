@@ -9,7 +9,7 @@ export async function createSimulation(buildState: BashScript) {
 
 export async function updateSimulation(simulation: any) {
   const response: any = await fetch('/api/dashboard', { method: 'PUT', body: JSON.stringify(simulation) });
-  const { promise }: any = await response.json();
+  const promise: any = await response.json();
 
   return promise;
 }

@@ -9,7 +9,7 @@ import Deploy from '@/components/dashboard/Deploy';
 import Header from '@/components/Header';
 import Build from '@/components/dashboard/build/Build';
 
-import { createSimulation, updateSimulation } from '@/services/dashboard';
+import { createSimulation, updateSimulation } from '@/lib/services/dashboard';
 
 import dashboardReducer from '@/lib/reducers/dashboard';
 import { DashboardAction } from '@/types/dashboard';
