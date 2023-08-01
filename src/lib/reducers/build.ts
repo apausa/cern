@@ -8,9 +8,6 @@ export default function buildReducer(currentState: BashScript, action: BuildRedu
   const nextState = JSON.parse(JSON.stringify(currentState));
 
   switch (action.type) {
-    case 'READ_FORM': {
-      break;
-    }
     case 'UPDATE_FORM_CHECKBOX': {
       const { event: { target: { name } } } = action;
 

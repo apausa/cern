@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 
 import React, { useReducer } from 'react';
@@ -12,24 +10,26 @@ import Build from '@/components/dashboard/build/Build';
 import { createSimulation, updateSimulation } from '@/lib/services/dashboard';
 
 import dashboardReducer from '@/lib/reducers/dashboard';
-import { DashboardAction } from '@/types/dashboard';
+import {
+  DashboardCreateAction, DashboardUpdateAction, DashboardUseReducer, Simulation,
+} from '@/types/dashboard';
+import { BashScript } from '@/types/build';
 
 export default function Dashboard() {
-  const [state, dispatch]: any = useReducer(dashboardReducer, []);
+  const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
 
-  // @develop merge both functions in one
-  const handleCreateSimulation = async (buildState: any) => {
-    const simulation = await createSimulation(buildState);
-    const createAction: DashboardAction = { type: 'CREATE_SIMULATION', simulation };
+  const handleCreateSimulation = async (arg: BashScript): Promise<Simulation> => {
+    const simulation: Simulation = await createSimulation(arg);
+    const createAction: DashboardCreateAction = { type: 'CREATE_SIMULATION', simulation };
 
     dispatch(createAction);
 
     return simulation;
   };
 
-  const handleUpdateSimulation = async (a: any) => {
-    const simulation = await updateSimulation(a);
-    const updateAction: any = { type: 'UPDATE_SIMULATION', simulation };
+  const handleUpdateSimulation = async (arg: Simulation): Promise<Simulation> => {
+    const simulation: Simulation = await updateSimulation(arg);
+    const updateAction: DashboardUpdateAction = { type: 'UPDATE_SIMULATION', simulation };
 
     dispatch(updateAction);
 
@@ -46,7 +46,7 @@ export default function Dashboard() {
           handleCreateSimulation={handleCreateSimulation}
           handleUpdateSimulation={handleUpdateSimulation}
         />
-        <Test state={state} />
+        <Test dashboardState={dashboardState} />
         <Deploy />
       </main>
     </>

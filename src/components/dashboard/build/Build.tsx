@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer } from 'react';
 
 // Components
 import FormNumber from './FormNumber';
@@ -24,10 +24,6 @@ export default function Build({ handleCreateSimulation, handleUpdateSimulation }
     const simulation = await handleCreateSimulation(buildState);
     await handleUpdateSimulation(simulation);
   };
-
-  useEffect(() => {
-    dispatch({ type: 'READ_FORM' });
-  }, []);
 
   return (
     <div className="pt-20 pl-4 h-screen border-l-2 overflow-auto">

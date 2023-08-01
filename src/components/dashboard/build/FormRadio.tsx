@@ -22,7 +22,7 @@ export default function FormRadio({ arg, dispatch }: FormRadioProps) {
             onChange={handleChange}
             value={option}
             // Custom
-            checked={option === arg.value}
+            defaultChecked
             disabled={!arg.isChecked}
           />
           <label htmlFor={option}>{option}</label>

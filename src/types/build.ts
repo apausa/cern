@@ -33,9 +33,9 @@ export type O2Cmd = {
   description: string,
   name: 'o2-sim',
   args: [
+    O2CmdPythiaArg,
     O2CmdNumberArg?,
     O2CmdTGeantArg?,
-    O2CmdPythiaArg?,
     O2CmdConfigArg?,
   ]
 };
@@ -73,23 +73,32 @@ export type O2CmdConfigArg = {
 
 };
 
-// Form checkbox
+// Reducer
+
+export type BuildReducerAction = FormOtherAction | FormCheckboxAction;
+
+export type BuildUseReducer = [BashScript, Dispatch<any>];
+
+// Actions
 
 export type FormCheckboxAction = {
   type: 'UPDATE_FORM_CHECKBOX',
   event: any // @develop
 };
 
-export type FormCheckboxProps = {
-  arg: BashScriptArgs,
-  dispatch: Dispatch<FormCheckboxAction>
-};
-// Form radio
-
 export type FormOtherAction = {
   type: 'UPDATE_FORM_OTHER',
   event: any // @develop
 };
+
+// Form checkbox component
+
+export type FormCheckboxProps = {
+  arg: BashScriptArgs,
+  dispatch: Dispatch<FormCheckboxAction>
+};
+
+// Form radio component
 
 export type FormRadioProps = {
   arg: O2CmdTGeantArg
@@ -100,9 +109,3 @@ export type FormNumberProps = {
   arg: O2CmdNumberArg,
   dispatch: Dispatch<FormOtherAction>
 };
-
-// Reducer
-
-export type BuildReducerAction = FormOtherAction | FormCheckboxAction;
-
-export type BuildUseReducer = [BashScript, Dispatch<any>];
