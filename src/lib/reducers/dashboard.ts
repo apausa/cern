@@ -1,17 +1,17 @@
-export default function dashboardReducer(currentState: any, action: any) {
-  let nextState: any = null;
+import { DashboardState, Simulation } from '@/types/dashboard';
+
+export default function dashboardReducer(currentState: DashboardState, action: any): any {
+  let nextState: DashboardState = currentState;
 
   switch (action.type) {
     case 'CREATE_SIMULATION':
       nextState = [...currentState, action.simulation];
       break;
     case 'UPDATE_SIMULATION': {
-      nextState = currentState.map((simulation: any) => ((simulation === action.simulation)
-        ? { ...simulation, ...action.simulation } : simulation));
+      nextState = currentState.map((simulation: Simulation): Simulation => (
+        (simulation === action.simulation) ? { ...simulation, ...action.simulation } : simulation));
       break;
     }
-    case 'READ_ALL_SIMULATIONS': break; // @develop
-    case 'DELETE_SIMULATION': break; // @develop
     default: break;
   }
 
