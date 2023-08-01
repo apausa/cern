@@ -9,9 +9,9 @@ import { BashScript } from '@/types/build';
 
 // Lib
 import EXEC_CMD from '@/lib/constants/dashboard';
-import returnError from '@/lib/utils/returnError';
-import parseObject from '@/lib/utils/parseObject';
-import returnPath from '@/lib/utils/returnPath';
+import returnError from '@/utils/returnError';
+import parseObject from '@/utils/parseObject';
+import returnPath from '@/utils/returnPath';
 
 export async function POST(request: Request) {
   try {
