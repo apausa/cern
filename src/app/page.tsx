@@ -17,6 +17,7 @@ import { DashboardAction } from '@/types/dashboard';
 export default function Dashboard() {
   const [state, dispatch]: any = useReducer(dashboardReducer, []);
 
+  // @develop merge both functions in one
   const handleCreateSimulation = async (buildState: any) => {
     const simulation = await createSimulation(buildState);
     const createAction: DashboardAction = { type: 'CREATE_SIMULATION', simulation };
