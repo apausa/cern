@@ -1,4 +1,4 @@
-import { Dispatch, SyntheticEvent } from 'react';
+import { Dispatch } from 'react';
 
 // Bash script
 
@@ -10,7 +10,8 @@ export type BashScriptArgs = O2CmdNumberArg
 | O2CmdTGeantArg
 | O2CmdPythiaArg
 | O2CmdConfigArg
-| EvalCmdVersionArg;
+| EvalCmdVersionArg
+| undefined;
 
 // Eval command and arguments
 
@@ -75,22 +76,22 @@ export type O2CmdConfigArg = {
 
 // Reducer
 
-export type BuildReducerAction = FormOtherAction | FormCheckboxAction;
+export type BuildReducerAction = FormValueAction | FormCheckboxAction;
 
 export type BuildUseReducer = [BashScript, Dispatch<any>];
 
 // Actions
 
-export type BuildActions = FormCheckboxAction | FormOtherAction;
+export type BuildActions = FormCheckboxAction | FormValueAction;
 
 export type FormCheckboxAction = {
   type: 'UPDATE_FORM_CHECKBOX',
-  event: SyntheticEvent
+  event: any
 };
 
-export type FormOtherAction = {
-  type: 'UPDATE_FORM_OTHER',
-  event: SyntheticEvent
+export type FormValueAction = {
+  type: 'UPDATE_FORM_VALUE',
+  event: any
 };
 
 // Form checkbox component
@@ -104,10 +105,10 @@ export type FormCheckboxProps = {
 
 export type FormRadioProps = {
   arg: O2CmdTGeantArg
-  dispatch: Dispatch<FormOtherAction>
+  dispatch: Dispatch<FormValueAction>
 };
 
 export type FormNumberProps = {
   arg: O2CmdNumberArg,
-  dispatch: Dispatch<FormOtherAction>
+  dispatch: Dispatch<FormValueAction>
 };

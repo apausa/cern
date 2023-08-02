@@ -15,18 +15,18 @@ export default function FormCheckbox({ arg, dispatch }: FormCheckboxProps) {
     <div>
       <input
         type="checkbox"
-        id={arg.name}
-        name={arg.name}
+        id={arg!.name}
+        name={arg!.name}
         onChange={handleChange}
-        value={arg.value}
+        value={arg!.value}
         // Custom
-        checked={arg.isChecked}
+        checked={arg!.isChecked}
       />
-      <label htmlFor={arg.name}>{arg.name}</label>
+      <label htmlFor={arg!.name}>{arg!.name}</label>
       <p>
         Selected value →
         {' '}
-        {arg.value}
+        {arg!.value}
       </p>
     </div>
   );
