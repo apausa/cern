@@ -33,7 +33,7 @@ export type O2Cmd = {
   description: string,
   name: 'o2-sim',
   args: [
-    O2CmdPythiaArg,
+    O2CmdPythiaArg?,
     O2CmdNumberArg?,
     O2CmdTGeantArg?,
     O2CmdConfigArg?,
@@ -80,6 +80,8 @@ export type BuildReducerAction = FormOtherAction | FormCheckboxAction;
 export type BuildUseReducer = [BashScript, Dispatch<any>];
 
 // Actions
+
+export type BuildActions = FormCheckboxAction | FormOtherAction;
 
 export type FormCheckboxAction = {
   type: 'UPDATE_FORM_CHECKBOX',

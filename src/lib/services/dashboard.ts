@@ -8,9 +8,9 @@ export async function createSimulation(buildState: BashScript) {
   return simulation;
 }
 
-export async function updateSimulation(simulation: Simulation) {
-  const response: Response = await fetch('/api/dashboard', { method: 'PUT', body: JSON.stringify(simulation) });
-  const promise: Simulation = await response.json();
+export async function updateSimulation(createdSimulation: Simulation) {
+  const response: Response = await fetch('/api/dashboard', { method: 'PUT', body: JSON.stringify(createdSimulation) });
+  const simulation: Simulation = await response.json();
 
-  return promise;
+  return simulation;
 }

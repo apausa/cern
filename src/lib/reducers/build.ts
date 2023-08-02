@@ -1,27 +1,33 @@
 /* eslint-disable no-param-reassign */
 
 import {
-  BashScript, O2Cmd, BashScriptArgs,
+  BashScript, BashScriptArgs, BuildActions, BashScriptCmds,
 } from '@/types/build';
 
-export default function buildReducer(currentState: BashScript, action: any): any {
-  const nextState = JSON.parse(JSON.stringify(currentState));
+const buildReducer = (
+  currentState: BashScript,
+  action: BuildActions,
+): BashScript => {
+  const nextState: BashScript = currentState;
 
   switch (action.type) {
     case 'UPDATE_FORM_CHECKBOX': {
       const { event: { target: { name } } }: any = action;
 
-      nextState.forEach((cmd: O2Cmd): any => {
-        cmd.args.forEach((arg: BashScriptArgs | undefined): any => {
-          if (arg!.name === name) arg!.isChecked = !arg!.isChecked;
-        });
-      });
+      // @ develop
+      // nextState = currentState.map((cmd: BashScriptCmds): BashScriptCmds => ({
+      //   ...cmd,
+      //   args: cmd.args.map((arg: BashScriptArgs): any => (
+      //     (arg!.name === name) ? { ...arg, isChecked: !arg!.isChecked } : arg
+      //   )),
+      // }));
 
-      break; }
+      break;
+    }
     case 'UPDATE_FORM_OTHER': {
       const { event: { target: { value, name } } }: any = action;
 
-      nextState.forEach((cmd: O2Cmd): any => {
+      nextState.forEach((cmd: BashScriptCmds): any => {
         cmd.args.forEach((arg: BashScriptArgs | undefined): any => {
           if (arg!.name === name) arg!.value = value;
         });
@@ -32,4 +38,6 @@ export default function buildReducer(currentState: BashScript, action: any): any
   }
 
   return nextState;
-}
+};
+
+export default buildReducer;

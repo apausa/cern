@@ -18,8 +18,8 @@ import { BashScript } from '@/types/build';
 export default function Dashboard() {
   const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
 
-  const handleCreateSimulation = async (arg: BashScript): Promise<Simulation> => {
-    const simulation: Simulation = await createSimulation(arg);
+  const handleCreateSimulation = async (buildState: BashScript): Promise<Simulation> => {
+    const simulation: Simulation = await createSimulation(buildState);
     const createAction: DashboardCreateAction = { type: 'CREATE_SIMULATION', simulation };
 
     dispatch(createAction);
@@ -27,8 +27,8 @@ export default function Dashboard() {
     return simulation;
   };
 
-  const handleUpdateSimulation = async (arg: Simulation): Promise<Simulation> => {
-    const simulation: Simulation = await updateSimulation(arg);
+  const handleUpdateSimulation = async (createdSimulation: Simulation): Promise<Simulation> => {
+    const simulation: Simulation = await updateSimulation(createdSimulation);
     const updateAction: DashboardUpdateAction = { type: 'UPDATE_SIMULATION', simulation };
 
     dispatch(updateAction);
