@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 
 import { FormCheckboxAction, FormCheckboxProps } from '@/types/build';
 
 export default function FormCheckbox({ arg, dispatch }: FormCheckboxProps) {
-  const handleChange = (event: any) => {
+  const handleChange = (event: SyntheticEvent): void => {
     const action: FormCheckboxAction = { type: 'UPDATE_FORM_CHECKBOX', event };
 
     dispatch(action);

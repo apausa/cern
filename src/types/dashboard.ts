@@ -1,6 +1,5 @@
 import { Dispatch } from 'react';
 
-// Types
 import { NextResponse } from 'next/server';
 import { BashScript } from './build';
 
@@ -50,3 +49,8 @@ export type DashboardUpdateAction = {
 export type DashboardPost = NextResponse<Simulation | unknown>;
 
 export type DashboardPut = NextResponse<Simulation | unknown>;
+
+export type BuildProps = {
+  handleCreateSimulation: (arg: BashScript) => Promise<Simulation>,
+  handleUpdateSimulation: (arg: Simulation) => Promise<Simulation>
+};

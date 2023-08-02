@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 
 import { FormOtherAction, FormNumberProps } from '@/types/build';
 
 export default function FormNumber({ arg, dispatch }: FormNumberProps) {
-  const handleChange = (event: any) => {
+  const handleChange = (event: SyntheticEvent): void => {
     const action: FormOtherAction = { type: 'UPDATE_FORM_OTHER', event };
 
     dispatch(action);

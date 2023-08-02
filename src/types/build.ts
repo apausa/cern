@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { Dispatch, SyntheticEvent } from 'react';
 
 // Bash script
 
@@ -83,12 +83,12 @@ export type BuildUseReducer = [BashScript, Dispatch<any>];
 
 export type FormCheckboxAction = {
   type: 'UPDATE_FORM_CHECKBOX',
-  event: any // @develop
+  event: SyntheticEvent
 };
 
 export type FormOtherAction = {
   type: 'UPDATE_FORM_OTHER',
-  event: any // @develop
+  event: SyntheticEvent
 };
 
 // Form checkbox component

@@ -13,15 +13,13 @@ const executeScript = async (simulation: Simulation): Promise<Simulation> => {
   const { name, args }: ExecCmd = EXEC_CMD;
   const childProcess: ChildProcess = await spawn(name, [...args, returnPath(simulation.id)]);
 
-  return new Promise((resolve: any) => {
+  // @develop implement web sockets
+  childProcess.stdout?.on('data', (output: any) => { console.log('data', output.toString()); });
+
+  return new Promise((resolve): void => {
     childProcess.on('close', () => { resolve({ ...simulation, status: 'FULFILLED' }); });
     childProcess.on('error', () => { resolve({ ...simulation, status: 'REJECTED' }); });
   });
 };
 
 export default executeScript;
-
-// @develop implement web sockets
-// childProcess.stdout?.on('data', (output: any) => {
-//   console.log('data', output.toString());
-// });

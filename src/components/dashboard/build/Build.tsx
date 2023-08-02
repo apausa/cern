@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
-import React, { useReducer } from 'react';
+import React, { SyntheticEvent, useReducer } from 'react';
 
 // Components
 import FormNumber from './FormNumber';
@@ -15,14 +17,15 @@ import initialState from '@/lib/constants/build';
 import {
   BuildUseReducer, EvalCmd, O2Cmd, O2CmdNumberArg, O2CmdTGeantArg,
 } from '@/types/build';
+import { BuildProps, Simulation } from '@/types/dashboard';
 
-export default function Build({ handleCreateSimulation, handleUpdateSimulation }: any) {
+export default function Build({ handleCreateSimulation, handleUpdateSimulation }: BuildProps) {
   const [buildState, dispatch]: BuildUseReducer = useReducer(buildReducer, initialState);
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: SyntheticEvent): Promise<void> => {
     event.preventDefault();
 
-    const simulation = await handleCreateSimulation(buildState);
-    await handleUpdateSimulation(simulation);
+    const createdSimulation: Simulation = await handleCreateSimulation(buildState);
+    const updatedSimulation: Simulation = await handleUpdateSimulation(createdSimulation);
   };
 
   return (

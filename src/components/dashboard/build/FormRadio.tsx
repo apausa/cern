@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 
 import { FormOtherAction, FormRadioProps } from '@/types/build';
 
 export default function FormRadio({ arg, dispatch }: FormRadioProps) {
-  const handleChange = (event: any) => {
+  const handleChange = (event: SyntheticEvent): void => {
     const action: FormOtherAction = { type: 'UPDATE_FORM_OTHER', event };
 
     dispatch(action);
@@ -13,7 +13,7 @@ export default function FormRadio({ arg, dispatch }: FormRadioProps) {
 
   return (
     <>
-      {arg.input.options.map((option: any) => (
+      {arg.input.options.map((option: string) => (
         <div key={option}>
           <input
             type="radio"

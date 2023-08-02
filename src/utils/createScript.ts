@@ -8,19 +8,16 @@ import { Simulation } from '@/types/dashboard';
 // Utils
 import returnPath from './returnPath';
 
-const callback = (acc: string[], val: BashScriptCmds): any => (
-  acc.concat(val.name, ...val.args.map( // @continue, and run
-    ({ name, value }: any) => [name, value],
-  )));
-
-const parseObject = (bashScript: BashScript): string => (
-  bashScript.reduce((callback), []).join(' '));
+const parseArrayToString = (bashScript: BashScript): string => (
+  bashScript.reduce((acc: (string | number)[], val: BashScriptCmds): (string | number)[] => (
+    acc.concat(val.name, ...val.args.map(({ name, value }: any): (string | number)[] => (
+      [name, value])))), []).join(' '));
 
 const createScript = async (bashScript: BashScript): Promise<Simulation> => {
   const id: string = uuidv4();
   const filePath: string = returnPath(id);
 
-  await fs.writeFile(filePath, parseObject(bashScript));
+  await fs.writeFile(filePath, parseArrayToString(bashScript));
   await fs.chmod(filePath, '755');
 
   return {
