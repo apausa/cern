@@ -1,17 +1,19 @@
-import DashboardAction from '@/types/components/dashboard/dashboard';
+import { DashboardActions, DashboardState, Simulation } from '@/types/dashboard';
 
-export default function dashboardReducer(currentState: any, action: DashboardAction) {
-  let nextState = currentState;
+const dashboardReducer = (
+  currentState: DashboardState,
+  action: DashboardActions,
+): DashboardState => {
+  let nextState: DashboardState = currentState;
 
   switch (action.type) {
-    case 'CREATE_SIMULATION':
-      nextState = [...nextState, action.simulation];
-      break;
-    case 'READ_ALL_SIMULATIONS': break; // @next
-    case 'UPDATE_SIMULATION': break; // @next
-    case 'DELETE_SIMULATION': break; // @next
+    case 'CREATE_SIMULATION': { nextState = [...currentState, action.simulation]; break; }
+    case 'UPDATE_SIMULATION': { nextState = currentState.map((simulation: Simulation): Simulation => (
+      (simulation.id === action.simulation.id) ? action.simulation : simulation)); break; }
     default: break;
   }
 
   return nextState;
-}
+};
+
+export default dashboardReducer;

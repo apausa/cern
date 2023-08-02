@@ -1,38 +1,34 @@
+/* eslint-disable max-len */
+/* eslint-disable object-property-newline */
 /* eslint-disable no-param-reassign */
 
 import {
-  BashScript, O2Cmd, BuildReducerAction, BashScriptArgs,
+  BashScript, BashScriptArgs, BuildActions, BashScriptCmds,
 } from '@/types/build';
 
-export default function buildReducer(currentState: BashScript, action: BuildReducerAction | any) {
-  const nextState = JSON.parse(JSON.stringify(currentState));
+const buildReducer = (
+  currentState: BashScript,
+  action: BuildActions,
+): BashScript => {
+  let nextState: any = currentState;
 
   switch (action.type) {
-    case 'READ_FORM': {
-      break;
-    }
-    case 'UPDATE_FORM_CHECKBOX': {
-      const { event: { target: { name } } } = action;
-
-      nextState.forEach((cmd: O2Cmd) => {
-        cmd.args.forEach((arg: BashScriptArgs | undefined) => {
-          if (arg!.name === name) arg!.isChecked = !arg!.isChecked;
-        });
-      });
-
-      break; }
-    case 'UPDATE_FORM_OTHER': {
-      const { event: { target: { value, name } } } = action;
-
-      nextState.forEach((cmd: O2Cmd) => {
-        cmd.args.forEach((arg: BashScriptArgs | undefined) => {
-          if (arg!.name === name) arg!.value = value;
-        });
-      });
-
-      break; }
+    case 'UPDATE_FORM_CHECKBOX': nextState = currentState.map((cmd: BashScriptCmds): any => ({
+      ...cmd, args: cmd.args.map((arg: BashScriptArgs): any => (
+        (arg!.name === action.event.target.name)
+          ? { ...arg!, isChecked: !arg!.isChecked } : arg!
+      )),
+    })); break;
+    case 'UPDATE_FORM_VALUE': nextState = currentState.map((cmd: BashScriptCmds): any => ({
+      ...cmd, args: cmd.args.map((arg: BashScriptArgs): BashScriptArgs => (
+        (arg!.name === action.event.target.name)
+          ? { ...arg!, value: action.event.target.value } : arg!
+      )),
+    })); break;
     default: break;
   }
 
   return nextState;
-}
+};
+
+export default buildReducer;

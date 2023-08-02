@@ -1,3 +1,10 @@
+import { Dispatch } from 'react';
+
+import { NextResponse } from 'next/server';
+import { BashScript } from './build';
+
+// Exec command
+
 export type ExecCmd = {
   name: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
   args: [
@@ -12,7 +19,42 @@ export type ExecCmd = {
     '-c']
 };
 
-export type DashboardAction = {
-  type: 'CREATE_SIMULATION' | 'READ_ALL_SIMULATIONS' | 'UPDATE_SIMULATION' | 'DELETE_SIMULATION';
-  simulation: any, // @develop
+// Reducer
+
+export type Simulation = {
+  bashScript: BashScript,
+  id: string,
+  date: Date,
+  status: 'PENDING' | 'FULFILLED' | 'REJECTED'
+};
+
+export type DashboardState = Simulation[];
+
+export type DashboardUseReducer = [DashboardState, Dispatch<any>];
+
+// Actions
+
+export type DashboardActions = DashboardCreateAction | DashboardUpdateAction;
+
+export type DashboardCreateAction = {
+  type: 'CREATE_SIMULATION';
+  simulation: Simulation,
+};
+
+export type DashboardUpdateAction = {
+  type: 'UPDATE_SIMULATION';
+  simulation: Simulation,
+};
+
+// API
+
+export type DashboardPost = NextResponse<Simulation | unknown>;
+
+export type DashboardPut = NextResponse<Simulation | unknown>;
+
+// Build component
+
+export type BuildProps = {
+  handleCreateSimulation: (arg: BashScript) => Promise<Simulation>,
+  handleUpdateSimulation: (arg: Simulation) => Promise<Simulation>
 };

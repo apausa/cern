@@ -1,24 +1,28 @@
-/* eslint-disable import/prefer-default-export */
-
 import { NextResponse } from 'next/server';
-import { v4 as uuidv4 } from 'uuid';
-import path from 'node:path';
 
+// Types
 import { BashScript } from '@/types/build';
-import createScript from './createScript';
-import executeScript from './executeScript';
+import { DashboardPost, DashboardPut, Simulation } from '@/types/dashboard';
 
-export async function POST(request: Request) {
-  const bashScript: BashScript = await request.json();
-  const scriptName: string = uuidv4();
-  const filePath: string = path.join('/work/scripts', `${scriptName}.sh`);
+// Utils
+import returnError from '@/utils/returnError';
+import createScript from '@/utils/createScript';
+import executeScript from '@/utils/executeScript';
 
-  const simulation: any = {
-    bashScript, title: scriptName, date: new Date(), status: 'IN_PROGRESS',
-  };
+export async function POST(request: Request): Promise<DashboardPost> {
+  try {
+    const buildState: BashScript = await request.json();
+    const simulation: Simulation = await createScript(buildState);
 
-  await createScript(bashScript, filePath);
-  await executeScript(filePath);
+    return NextResponse.json(simulation, { status: 200 });
+  } catch (error: unknown) { return returnError(error); }
+}
 
-  return NextResponse.json(simulation);
+export async function PUT(request: Request): Promise<DashboardPut> {
+  try {
+    const simulation: Simulation = await request.json();
+    const promise: Simulation = await executeScript(simulation);
+
+    return NextResponse.json(promise, { status: 200 });
+  } catch (error: unknown) { return returnError(error); }
 }

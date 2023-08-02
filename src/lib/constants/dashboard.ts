@@ -1,6 +1,6 @@
 import { ExecCmd } from '@/types/dashboard';
 
-const execCmd: ExecCmd = {
+const EXEC_CMD: ExecCmd = {
   name: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
   args: [
     'exec',
@@ -14,4 +14,4 @@ const execCmd: ExecCmd = {
     '-c'],
 };
 
-export default execCmd;
+export default EXEC_CMD;

@@ -18,6 +18,12 @@ const o2Cmd: O2Cmd = {
   args: [
     {
       isChecked: true,
+      name: '-g',
+      value: 'pythia8pp',
+      input: { type: null },
+    },
+    {
+      isChecked: true,
       name: '-n',
       value: 10,
       input: { type: 'number', min: 0, max: 10 },
@@ -27,12 +33,6 @@ const o2Cmd: O2Cmd = {
       name: '-e',
       value: 'TGeant4',
       input: { type: 'radio', options: ['TGeant3', 'TGeant4'] },
-    },
-    {
-      isChecked: true,
-      name: '-g',
-      value: 'pythia8pp',
-      input: { type: null },
     },
     {
       isChecked: true,

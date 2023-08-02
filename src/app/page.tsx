@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 
 import React, { useReducer } from 'react';
@@ -9,19 +7,33 @@ import Deploy from '@/components/dashboard/Deploy';
 import Header from '@/components/Header';
 import Build from '@/components/dashboard/build/Build';
 
+import { createSimulation, updateSimulation } from '@/lib/services/dashboard';
+
 import dashboardReducer from '@/lib/reducers/dashboard';
-import { createSimulation } from '@/services/dashboard';
-import DashboardAction from '@/types/dashboard';
+import {
+  DashboardCreateAction, DashboardUpdateAction, DashboardUseReducer, Simulation,
+} from '@/types/dashboard';
 import { BashScript } from '@/types/build';
 
 export default function Dashboard() {
-  const [state, dispatch]: any = useReducer(dashboardReducer, []);
+  const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
 
-  const handleCreateSimulation = async (buildState: BashScript) => {
-    const simulation = await createSimulation(buildState);
-    const action: DashboardAction = { type: 'CREATE_SIMULATION', simulation };
+  const handleCreateSimulation = async (buildState: BashScript): Promise<Simulation> => {
+    const simulation: Simulation = await createSimulation(buildState);
+    const createAction: DashboardCreateAction = { type: 'CREATE_SIMULATION', simulation };
 
-    dispatch(action);
+    dispatch(createAction);
+
+    return simulation;
+  };
+
+  const handleUpdateSimulation = async (createdSimulation: Simulation): Promise<Simulation> => {
+    const simulation: Simulation = await updateSimulation(createdSimulation);
+    const updateAction: DashboardUpdateAction = { type: 'UPDATE_SIMULATION', simulation };
+
+    dispatch(updateAction);
+
+    return simulation;
   };
 
   return (
@@ -30,8 +42,11 @@ export default function Dashboard() {
         <Header />
       </header>
       <main className="columns-1 md:columns-3">
-        <Build handleCreateSimulation={handleCreateSimulation} />
-        <Test state={state} />
+        <Build
+          handleCreateSimulation={handleCreateSimulation}
+          handleUpdateSimulation={handleUpdateSimulation}
+        />
+        <Test dashboardState={dashboardState} />
         <Deploy />
       </main>
     </>
