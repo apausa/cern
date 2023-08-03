@@ -2,38 +2,43 @@
 
 import React, { useReducer } from 'react';
 
-import Test from '@/components/dashboard/Test';
-import Deploy from '@/components/dashboard/Deploy';
+// Components
+import Monitor from '@/components/dashboard/Monitor';
 import Header from '@/components/Header';
 import Build from '@/components/dashboard/build/Build';
+import Run from '@/components/dashboard/Run';
 
-import { createSimulation, updateSimulation } from '@/lib/services/dashboard';
-
+// Lib
+import { buildSimulation, runSimulation } from '@/lib/services/dashboard';
 import dashboardReducer from '@/lib/reducers/dashboard';
+
+// Types
 import {
-  DashboardCreateAction, DashboardUpdateAction, DashboardUseReducer, Simulation,
+  DashboardUseReducer,
+  HandleBuildSimulation,
+  HandleRunSimulation,
+  Simulation,
 } from '@/types/dashboard';
-import { BashScript } from '@/types/build';
 
 export default function Dashboard() {
   const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
 
-  const handleCreateSimulation = async (buildState: BashScript): Promise<Simulation> => {
-    const simulation: Simulation = await createSimulation(buildState);
-    const createAction: DashboardCreateAction = { type: 'CREATE_SIMULATION', simulation };
+  const handleBuildSimulation: HandleBuildSimulation = async (event, buildState) => {
+    event.preventDefault();
 
-    dispatch(createAction);
-
-    return simulation;
+    const createdSimulation: Simulation = await buildSimulation(buildState);
+    dispatch({ type: 'CREATE_SIMULATION', simulation: createdSimulation });
   };
 
-  const handleUpdateSimulation = async (createdSimulation: Simulation): Promise<Simulation> => {
-    const simulation: Simulation = await updateSimulation(createdSimulation);
-    const updateAction: DashboardUpdateAction = { type: 'UPDATE_SIMULATION', simulation };
+  const handleRunSimulation: HandleRunSimulation = async (event, simulation) => {
+    event.preventDefault();
 
-    dispatch(updateAction);
+    // @develop change prodStatus to pending following backend logic
+    const unresolvedSimulation: Simulation = { ...simulation, testStatus: 'PENDING' };
+    dispatch({ type: 'UPDATE_SIMULATION', simulation: unresolvedSimulation });
 
-    return simulation;
+    const resolvedSimulation: Simulation = await runSimulation(unresolvedSimulation);
+    dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
   };
 
   return (
@@ -43,11 +48,13 @@ export default function Dashboard() {
       </header>
       <main className="columns-1 md:columns-3">
         <Build
-          handleCreateSimulation={handleCreateSimulation}
-          handleUpdateSimulation={handleUpdateSimulation}
+          handleBuildSimulation={handleBuildSimulation}
         />
-        <Test dashboardState={dashboardState} />
-        <Deploy />
+        <Run
+          dashboardState={dashboardState}
+          handleRunSimulation={handleRunSimulation}
+        />
+        <Monitor />
       </main>
     </>
   );

@@ -7,22 +7,27 @@ import { DashboardPost, DashboardPut, Simulation } from '@/types/dashboard';
 // Utils
 import returnError from '@/utils/returnError';
 import createScript from '@/utils/createScript';
-import executeScript from '@/utils/executeScript';
+import { runScriptInProd, runScriptInTest } from '@/utils/runScript';
 
 export async function POST(request: Request): Promise<DashboardPost> {
   try {
     const buildState: BashScript = await request.json();
-    const simulation: Simulation = await createScript(buildState);
+    const createdSimulation: Simulation = await createScript(buildState);
+    // @develop Create simulation in DD. BB.
 
-    return NextResponse.json(simulation, { status: 200 });
+    return NextResponse.json(createdSimulation, { status: 200 });
   } catch (error: unknown) { return returnError(error); }
 }
 
 export async function PUT(request: Request): Promise<DashboardPut> {
   try {
-    const simulation: Simulation = await request.json();
-    const promise: Simulation = await executeScript(simulation);
+    const unresolvedSimulation: Simulation = await request.json();
+    // @develop Update unresolvedSimulation in DD. BB. ("PENDING")
+    const resolvedSimulation: Simulation = (unresolvedSimulation.testStatus === 'FULFILLED')
+      ? await runScriptInProd(unresolvedSimulation)
+      : await runScriptInTest(unresolvedSimulation);
+    // @develop Update resolvedSimulation in DD. BB. ("FULFILLED | "REJECTED")
 
-    return NextResponse.json(promise, { status: 200 });
+    return NextResponse.json(resolvedSimulation, { status: 200 });
   } catch (error: unknown) { return returnError(error); }
 }

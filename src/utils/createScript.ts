@@ -21,7 +21,11 @@ const createScript = async (bashScript: BashScript): Promise<Simulation> => {
   await fs.chmod(filePath, '755');
 
   return {
-    bashScript, id, date: new Date(), status: 'PENDING',
+    bashScript,
+    id,
+    date: new Date(),
+    testStatus: null,
+    prodStatus: null,
   };
 };
 

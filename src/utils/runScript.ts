@@ -9,7 +9,7 @@ import returnPath from '@/utils/returnPath';
 // Types
 import { ExecCmd, Simulation } from '@/types/dashboard';
 
-const executeScript = async (simulation: Simulation): Promise<Simulation> => {
+export const runScriptInTest = async (simulation: Simulation): Promise<Simulation> => {
   const { name, args }: ExecCmd = EXEC_CMD;
   const childProcess: ChildProcess = await spawn(name, [...args, returnPath(simulation.id)]);
 
@@ -17,9 +17,11 @@ const executeScript = async (simulation: Simulation): Promise<Simulation> => {
   childProcess.stdout?.on('data', (output: any) => { console.log('data', output.toString()); });
 
   return new Promise((resolve): void => {
-    childProcess.on('close', () => { resolve({ ...simulation, status: 'FULFILLED' }); });
-    childProcess.on('error', () => { resolve({ ...simulation, status: 'REJECTED' }); });
+    childProcess.on('close', () => { resolve({ ...simulation, testStatus: 'FULFILLED' }); });
+    childProcess.on('error', () => { resolve({ ...simulation, testStatus: 'REJECTED' }); });
   });
 };
 
-export default executeScript;
+export const runScriptInProd = async (simulation: Simulation): Promise<Simulation> => (
+  new Promise((resolve): void => { resolve(simulation); })
+);
