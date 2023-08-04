@@ -1,4 +1,4 @@
-import { Dispatch } from 'react';
+import { Dispatch, SyntheticEvent } from 'react';
 
 import { NextResponse } from 'next/server';
 import { BashScript } from './build';
@@ -25,7 +25,8 @@ export type Simulation = {
   bashScript: BashScript,
   id: string,
   date: Date,
-  status: 'PENDING' | 'FULFILLED' | 'REJECTED'
+  testStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
+  prodStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
 };
 
 export type DashboardState = Simulation[];
@@ -55,6 +56,15 @@ export type DashboardPut = NextResponse<Simulation | unknown>;
 // Build component
 
 export type BuildProps = {
-  handleCreateSimulation: (arg: BashScript) => Promise<Simulation>,
-  handleUpdateSimulation: (arg: Simulation) => Promise<Simulation>
+  handlePostSimulation: (event: SyntheticEvent, buildState: BashScript) => Promise<void>,
 };
+
+// Functions
+
+export type HandlePostSimulation = (
+  event: SyntheticEvent, simulation: BashScript
+) => Promise<void>;
+
+export type HandlePutSimulation = (
+  simulation: Simulation
+) => Promise<void>;
