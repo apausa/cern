@@ -39,6 +39,8 @@ export default function Dashboard() {
 
     const createdSimulation: Simulation = await postSimulation(buildState);
     dispatch({ type: 'CREATE_SIMULATION', simulation: createdSimulation });
+
+    handlePutSimulation(createdSimulation);
   };
 
   return (

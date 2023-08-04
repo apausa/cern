@@ -16,19 +16,20 @@ export default function Run({ dashboardState, handlePutSimulation }: RunProps) {
       <ul>
         {dashboardState && dashboardState.map((simulation: Simulation, index: number) => (
           <li key={`${index}`}>
+            <br />
+            <br />
             <div>{simulation.id}</div>
-            <button
-              type="button"
-              disabled={simulation.testStatus !== null}
-              onClick={() => { handlePutSimulation(simulation); }}
-            >
-              [BUTTON] Run in test environment
-
-            </button>
             <div>
               Test status  →
               {' '}
-              {simulation.testStatus}
+              {(simulation.testStatus === null) ? 'Ready' : simulation.testStatus}
+            </div>
+            <div>
+              Prod status  →
+              {' '}
+              {(simulation.testStatus !== 'FULFILLED')
+                ? 'Not ready'
+                : (simulation.prodStatus === null) ? 'Ready' : simulation.prodStatus}
             </div>
             <br />
             <button
@@ -37,15 +38,7 @@ export default function Run({ dashboardState, handlePutSimulation }: RunProps) {
               onClick={() => { handlePutSimulation(simulation); }}
             >
               [BUTTON] Run in production environment
-
             </button>
-            <div>
-              Prod status  →
-              {' '}
-              {simulation.prodStatus}
-            </div>
-            <br />
-            <br />
           </li>
         ))}
       </ul>

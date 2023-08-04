@@ -43,7 +43,7 @@ export default function Build({ handlePostSimulation }: BuildProps) {
             <br />
           </fieldset>
         ))}
-        <input type="submit" value="Create" />
+        <input type="submit" value="[BUTTON] Run in test environment" />
       </form>
     </div>
   );

@@ -8,8 +8,8 @@
     "*.config.*"
   ],
   "rules": {
+    "no-nested-ternary": "off",
     "react/no-array-index-key": "warn",
-    "import/no-extraneous-dependencies": "off",
     "import/extensions": [
        "error",
        "ignorePackages",
