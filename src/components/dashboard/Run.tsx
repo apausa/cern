@@ -4,7 +4,12 @@ import React from 'react';
 import { RunProps } from '@/types/run';
 import { Simulation } from '@/types/dashboard';
 
-export default function Run({ dashboardState, handleRunSimulation }: RunProps) {
+export default function Run({ dashboardState, handlePutSimulation }: RunProps) {
+  const isDisabled = (simulation: Simulation): boolean => (
+    (simulation.testStatus !== 'FULFILLED' && simulation.prodStatus === null)
+    || (simulation.testStatus === 'FULFILLED' && simulation.prodStatus !== null)
+  );
+
   return (
     <div className="pt-20 pl-4 h-screen border-l-2">
       <h2 className="font-bold">Run</h2>
@@ -14,8 +19,8 @@ export default function Run({ dashboardState, handleRunSimulation }: RunProps) {
             <div>{simulation.id}</div>
             <button
               type="button"
-              onClick={(event) => { handleRunSimulation(event, simulation); }}
               disabled={simulation.testStatus !== null}
+              onClick={() => { handlePutSimulation(simulation); }}
             >
               [BUTTON] Run in test environment
 
@@ -25,10 +30,11 @@ export default function Run({ dashboardState, handleRunSimulation }: RunProps) {
               {' '}
               {simulation.testStatus}
             </div>
+            <br />
             <button
               type="button"
-              disabled={simulation.testStatus !== 'FULFILLED' && simulation.prodStatus !== null}
-              onClick={(event) => { handleRunSimulation(event, simulation); }}
+              disabled={isDisabled(simulation)}
+              onClick={() => { handlePutSimulation(simulation); }}
             >
               [BUTTON] Run in production environment
 
@@ -38,6 +44,7 @@ export default function Run({ dashboardState, handleRunSimulation }: RunProps) {
               {' '}
               {simulation.prodStatus}
             </div>
+            <br />
             <br />
           </li>
         ))}

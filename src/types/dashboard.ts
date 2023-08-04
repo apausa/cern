@@ -56,15 +56,15 @@ export type DashboardPut = NextResponse<Simulation | unknown>;
 // Build component
 
 export type BuildProps = {
-  handleBuildSimulation: (event: SyntheticEvent, buildState: BashScript) => Promise<void>,
+  handlePostSimulation: (event: SyntheticEvent, buildState: BashScript) => Promise<void>,
 };
 
 // Functions
 
-export type HandleBuildSimulation = (
+export type HandlePostSimulation = (
   event: SyntheticEvent, simulation: BashScript
 ) => Promise<void>;
 
-export type HandleRunSimulation = (
-  event: SyntheticEvent, simulation: Simulation
+export type HandlePutSimulation = (
+  simulation: Simulation
 ) => Promise<void>;

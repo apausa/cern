@@ -13,7 +13,7 @@ const parseArrayToString = (bashScript: BashScript): string => (
     acc.concat(val.name, ...val.args.map(({ name, value }: any): (string | number)[] => (
       [name, value])))), []).join(' '));
 
-const createScript = async (bashScript: BashScript): Promise<Simulation> => {
+const buildScript = async (bashScript: BashScript): Promise<Simulation> => {
   const id: string = uuidv4();
   const filePath: string = returnPath(id);
 
@@ -29,4 +29,4 @@ const createScript = async (bashScript: BashScript): Promise<Simulation> => {
   };
 };
 
-export default createScript;
+export default buildScript;

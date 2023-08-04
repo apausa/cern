@@ -17,7 +17,7 @@ import {
 } from '@/types/build';
 import { BuildProps } from '@/types/dashboard';
 
-export default function Build({ handleBuildSimulation }: BuildProps) {
+export default function Build({ handlePostSimulation }: BuildProps) {
   const [buildState, dispatch]: BuildUseReducer = useReducer(buildReducer, initialState);
 
   return (
@@ -25,7 +25,7 @@ export default function Build({ handleBuildSimulation }: BuildProps) {
       <h2 className="font-bold">Build</h2>
       <br />
       <br />
-      <form onSubmit={(event) => handleBuildSimulation(event, buildState)}>
+      <form onSubmit={(event) => handlePostSimulation(event, buildState)}>
         {buildState.map((command: EvalCmd | O2Cmd) => (
           <fieldset key={command.name}>
 
@@ -43,7 +43,7 @@ export default function Build({ handleBuildSimulation }: BuildProps) {
             <br />
           </fieldset>
         ))}
-        <input type="submit" />
+        <input type="submit" value="Create" />
       </form>
     </div>
   );

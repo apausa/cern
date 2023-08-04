@@ -1,6 +1,6 @@
-import { HandleRunSimulation, Simulation } from '@/types/dashboard';
+import { HandlePutSimulation, Simulation } from '@/types/dashboard';
 
 export type RunProps = {
   dashboardState: Simulation[],
-  handleRunSimulation: HandleRunSimulation,
+  handlePutSimulation: HandlePutSimulation,
 };

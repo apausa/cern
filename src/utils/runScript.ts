@@ -23,5 +23,4 @@ export const runScriptInTest = async (simulation: Simulation): Promise<Simulatio
 };
 
 export const runScriptInProd = async (simulation: Simulation): Promise<Simulation> => (
-  new Promise((resolve): void => { resolve(simulation); })
-);
+  new Promise((resolve): void => { resolve({ ...simulation, prodStatus: 'FULFILLED' }); }));

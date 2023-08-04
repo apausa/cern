@@ -9,36 +9,36 @@ import Build from '@/components/dashboard/build/Build';
 import Run from '@/components/dashboard/Run';
 
 // Lib
-import { buildSimulation, runSimulation } from '@/lib/services/dashboard';
+import { postSimulation, putSimulation } from '@/lib/services/dashboard';
 import dashboardReducer from '@/lib/reducers/dashboard';
 
 // Types
 import {
   DashboardUseReducer,
-  HandleBuildSimulation,
-  HandleRunSimulation,
+  HandlePostSimulation,
+  HandlePutSimulation,
   Simulation,
 } from '@/types/dashboard';
+
+// Utils
+import setPending from '@/utils/setPending';
 
 export default function Dashboard() {
   const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
 
-  const handleBuildSimulation: HandleBuildSimulation = async (event, buildState) => {
-    event.preventDefault();
-
-    const createdSimulation: Simulation = await buildSimulation(buildState);
-    dispatch({ type: 'CREATE_SIMULATION', simulation: createdSimulation });
-  };
-
-  const handleRunSimulation: HandleRunSimulation = async (event, simulation) => {
-    event.preventDefault();
-
-    // @develop change prodStatus to pending following backend logic
-    const unresolvedSimulation: Simulation = { ...simulation, testStatus: 'PENDING' };
+  const handlePutSimulation: HandlePutSimulation = async (simulation) => {
+    const unresolvedSimulation: Simulation = setPending(simulation);
     dispatch({ type: 'UPDATE_SIMULATION', simulation: unresolvedSimulation });
 
-    const resolvedSimulation: Simulation = await runSimulation(unresolvedSimulation);
+    const resolvedSimulation: Simulation = await putSimulation(unresolvedSimulation);
     dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
+  };
+
+  const handlePostSimulation: HandlePostSimulation = async (event, buildState) => {
+    event.preventDefault();
+
+    const createdSimulation: Simulation = await postSimulation(buildState);
+    dispatch({ type: 'CREATE_SIMULATION', simulation: createdSimulation });
   };
 
   return (
@@ -48,11 +48,11 @@ export default function Dashboard() {
       </header>
       <main className="columns-1 md:columns-3">
         <Build
-          handleBuildSimulation={handleBuildSimulation}
+          handlePostSimulation={handlePostSimulation}
         />
         <Run
           dashboardState={dashboardState}
-          handleRunSimulation={handleRunSimulation}
+          handlePutSimulation={handlePutSimulation}
         />
         <Monitor />
       </main>
