@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Monte Carlo GUI',
-  description: 'Monte Carlo GUI',
+  title: 'Monte Carlo UI',
+  description: 'Monte Carlo UI',
 };
 
 export default function RootLayout({

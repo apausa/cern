@@ -6,7 +6,7 @@ import { BashScript, BashScriptCmds } from '@/types/build';
 import { Simulation } from '@/types/dashboard';
 
 // Utils
-import returnPath from './returnPath';
+import returnPath from '@/utils/returnPath';
 
 const parseArrayToString = (bashScript: BashScript): string => (
   bashScript.reduce((acc: (string | number)[], val: BashScriptCmds): (string | number)[] => (
