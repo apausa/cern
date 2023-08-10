@@ -33,5 +33,6 @@ export async function PUT(request: Request): Promise<DashboardPut> {
     // @develop Update resolvedSimulation in DD. BB. ("FULFILLED | "REJECTED")
 
     return NextResponse.json(resolvedSimulation, { status: 200 });
+    // @develop, when error, return error and also reject simulation promise
   } catch (error: unknown) { return returnError(error); }
 }

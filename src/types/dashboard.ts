@@ -11,9 +11,9 @@ export type ExecCmd = {
     'exec',
     '-C',
     '-B',
-    '/cvmfs:/cvmfs,/tmp:/tmp,/work:/work',
+    '/cvmfs:/cvmfs,/tmp:/tmp,/home/papausac/work:/home/papausac/work',
     '--pwd',
-    '/work',
+    '/home/papausac/work',
     '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503',
     '/bin/bash',
     '-c']

@@ -2,22 +2,18 @@ import * as fs from 'node:fs/promises';
 import { v4 as uuidv4 } from 'uuid';
 
 // Types
-import { BashScript, BashScriptCmds } from '@/types/build';
+import { BashScript } from '@/types/build';
 import { Simulation } from '@/types/dashboard';
 
 // Utils
 import returnPath from '@/utils/returnPath';
-
-const parseArrayToString = (bashScript: BashScript): string => (
-  bashScript.reduce((acc: (string | number)[], val: BashScriptCmds): (string | number)[] => (
-    acc.concat(val.name, ...val.args.map(({ name, value }: any): (string | number)[] => (
-      [name, value])))), []).join(' '));
+import { parseScript } from './parsers';
 
 const buildScript = async (bashScript: BashScript): Promise<Simulation> => {
   const id: string = uuidv4();
   const filePath: string = returnPath(id);
 
-  await fs.writeFile(filePath, parseArrayToString(bashScript));
+  await fs.writeFile(filePath, parseScript(bashScript).join(' '));
   await fs.chmod(filePath, '755');
 
   return {
