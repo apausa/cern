@@ -38,6 +38,8 @@ export default function Build({ handleCreateSimulation }: any) {
     },
   };
 
+  // @continue, parse object to string automatically... and send to backend so that it can be run
+
   return (
     <div>
       <div>Build</div>
