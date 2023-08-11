@@ -8,13 +8,19 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
+  dashboard,
+  authentication,
 }: {
-  children: React.ReactNode
+  dashboard: React.ReactNode,
+  authentication: React.ReactNode,
 }) {
+  const isAuthenticated = true;
+
   return (
     <html lang="en">
-      <body className="font-sans">{children}</body>
+      <body className="font-sans">
+        {isAuthenticated ? dashboard : authentication}
+      </body>
     </html>
   );
 }

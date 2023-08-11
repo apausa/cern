@@ -7,7 +7,7 @@ import { Simulation } from '@/types/dashboard';
 
 // Utils
 import returnPath from '@/utils/returnPath';
-import { parseScript } from './parsers';
+import { parseScript } from '@/utils/parsers';
 
 const buildScript = async (bashScript: BashScript): Promise<Simulation> => {
   const id: string = uuidv4();

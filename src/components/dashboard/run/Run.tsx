@@ -25,7 +25,7 @@ export default function Run({ dashboardState, handlePutSimulation }: RunProps) {
               {(simulation.testStatus === null) ? 'Ready' : simulation.testStatus}
             </div>
             <div>
-              Prod status  →
+              GRID status  →
               {' '}
               {(simulation.testStatus !== 'FULFILLED')
                 ? 'Not ready'
@@ -37,7 +37,7 @@ export default function Run({ dashboardState, handlePutSimulation }: RunProps) {
               disabled={isDisabled(simulation)}
               onClick={() => { handlePutSimulation(simulation); }}
             >
-              [BUTTON] Run in production environment
+              [BUTTON] Run in GRID
             </button>
           </li>
         ))}

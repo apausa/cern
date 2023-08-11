@@ -6,8 +6,8 @@ import { DashboardPost, DashboardPut, Simulation } from '@/types/dashboard';
 
 // Utils
 import returnError from '@/utils/returnError';
-import buildScript from '@/utils/buildScript';
-import { runScriptInProd, runScriptInTest } from '@/utils/runScript';
+import buildScript from './buildScript';
+import { runScriptInProd, runScriptInTest } from './runScript';
 
 export async function POST(request: Request): Promise<DashboardPost> {
   try {

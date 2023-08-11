@@ -1,21 +1,17 @@
 import { ChildProcess, spawn } from 'child_process';
 
 // Lib
-import { ALIENV_CMD, EXEC_CMD, submitCmd } from '@/lib/constants/dashboard';
+import { EXEC_CMD, submitCmd } from '@/lib/constants/dashboard';
 
 // Utils
 import returnPath from '@/utils/returnPath';
 
 // Types
 import { ExecCmd, Simulation } from '@/types/dashboard';
-import { parseCmd } from './parsers';
+import { parseCmd } from '../../../utils/parsers';
 
 const chooseVersion = async () => {
-  const { name, args }: any = ALIENV_CMD;
-  const parsedArgs: string[] = parseCmd(args);
-
-  console.log('In choose version', parsedArgs);
-  const alienvProcess: ChildProcess = spawn(name, parsedArgs);
+  const alienvProcess: ChildProcess = spawn('/cvmfs/alice.cern.ch/bin/alienv', ['enter', 'O2sim/v20230703-1']);
   console.log('4');
   return new Promise((resolve): void => {
     alienvProcess.on('close', () => { resolve(true); });
@@ -37,7 +33,6 @@ export const runScriptInTest = async (simulation: Simulation): Promise<Simulatio
 };
 
 export const runScriptInProd = async (simulation: Simulation): Promise<Simulation> => {
-  console.log('3');
   const success = await chooseVersion();
   if (!success) throw new Error('Intentional error occurred'); // @develop
 

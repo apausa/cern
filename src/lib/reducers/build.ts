@@ -1,6 +1,4 @@
-/* eslint-disable max-len */
 /* eslint-disable object-property-newline */
-/* eslint-disable no-param-reassign */
 
 import {
   BashScript, BashScriptArgs, BuildActions, BashScriptCmds,

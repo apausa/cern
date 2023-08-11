@@ -14,14 +14,7 @@ export const EXEC_CMD: ExecCmd = {
     '-c'],
 };
 
-export const ALIENV_CMD = {
-  name: '/cvmfs/alice.cern.ch/bin/alienv',
-  args: [
-    { name: 'enter', value: 'O2sim/v20230703-1' },
-  ],
-};
-
-export const submitCmd = {
+export const submitCmd = { // @develop
   name: './grid_submit.sh',
   args: [
     { name: '--script', value: null },

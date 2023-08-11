@@ -1,6 +1,6 @@
 import { BashScript, EvalCmd, O2Cmd } from '@/types/build';
 
-const evalCmd: EvalCmd = {
+const evalCmd: EvalCmd = { // @develop
   description: 'Software version',
   name: 'eval',
   args: [

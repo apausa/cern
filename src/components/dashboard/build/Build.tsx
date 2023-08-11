@@ -3,9 +3,9 @@
 import React, { useReducer } from 'react';
 
 // Components
-import FormNumber from './FormNumber';
-import FormRadio from './FormRadio';
-import FormCheckbox from './FormCheckbox';
+import FormNumber from './default/FormNumber';
+import FormRadio from './default/FormRadio';
+import FormCheckbox from './default/FormCheckbox';
 
 // Lib
 import buildReducer from '@/lib/reducers/build';
@@ -48,3 +48,22 @@ export default function Build({ handlePostSimulation }: BuildProps) {
     </div>
   );
 }
+
+// const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
+
+// const handlePutSimulation: HandlePutSimulation = async (simulation) => {
+//   const unresolvedSimulation: Simulation = setPending(simulation);
+//   dispatch({ type: 'UPDATE_SIMULATION', simulation: unresolvedSimulation });
+
+//   const resolvedSimulation: Simulation = await putSimulation(unresolvedSimulation);
+//   dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
+// };
+
+// const handlePostSimulation: HandlePostSimulation = async (event, buildState) => {
+//   event.preventDefault();
+
+//   const createdSimulation: Simulation = await postSimulation(buildState);
+//   dispatch({ type: 'CREATE_SIMULATION', simulation: createdSimulation });
+
+//   handlePutSimulation(createdSimulation);
+// };
