@@ -4,7 +4,7 @@ import React from 'react';
 import { RunProps } from '@/types/run';
 import { Simulation } from '@/types/dashboard';
 
-export default function Run({ dashboardState, handlePutSimulation }: RunProps) {
+export default function Run({ dashboardState, handleUpdateSimulation }: RunProps) {
   const isDisabled = (simulation: Simulation): boolean => (
     (simulation.testStatus !== 'FULFILLED' && simulation.prodStatus === null)
     || (simulation.testStatus === 'FULFILLED' && simulation.prodStatus !== null)
@@ -35,7 +35,7 @@ export default function Run({ dashboardState, handlePutSimulation }: RunProps) {
             <button
               type="button"
               disabled={isDisabled(simulation)}
-              onClick={() => { handlePutSimulation(simulation); }}
+              onClick={() => { handleUpdateSimulation(simulation); }}
             >
               [BUTTON] Run in GRID
             </button>

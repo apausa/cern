@@ -1,31 +1,10 @@
 import { Dispatch } from 'react';
 
-// Bash script
-
-export type BashScript = [EvalCmd, O2Cmd];
-
-export type BashScriptCmds = EvalCmd | O2Cmd;
-
-export type BashScriptArgs = O2CmdNumberArg
-| O2CmdTGeantArg
-| O2CmdPythiaArg
-| O2CmdConfigArg
-| EvalCmdVersionArg
-| undefined;
-
 // Eval command and arguments
 
-export type EvalCmd = {
-  description: string,
+export type TestVersionCmd = {
   name: 'eval',
-  args: [EvalCmdVersionArg]
-};
-
-export type EvalCmdVersionArg = {
-  isChecked: boolean,
-  name: '$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
-  value: '\n',
-  input: { type: null },
+  args: ['$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)'],
 };
 
 // O2 Command and arguments
@@ -78,7 +57,7 @@ export type O2CmdConfigArg = {
 
 export type BuildReducerAction = FormValueAction | FormCheckboxAction;
 
-export type BuildUseReducer = [BashScript, Dispatch<any>];
+export type BuildUseReducer = [O2Cmd, Dispatch<any>];
 
 // Actions
 
@@ -97,7 +76,7 @@ export type FormValueAction = {
 // Form checkbox component
 
 export type FormCheckboxProps = {
-  arg: BashScriptArgs,
+  arg: any,
   dispatch: Dispatch<FormCheckboxAction>
 };
 

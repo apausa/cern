@@ -1,28 +1,31 @@
 /* eslint-disable object-property-newline */
 
-import {
-  BashScript, BashScriptArgs, BuildActions, BashScriptCmds,
-} from '@/types/build';
-
 const buildReducer = (
-  currentState: BashScript,
-  action: BuildActions,
-): BashScript => {
+  currentState: any,
+  action: any,
+): any => {
   let nextState: any = currentState;
 
   switch (action.type) {
-    case 'UPDATE_FORM_CHECKBOX': nextState = currentState.map((cmd: BashScriptCmds): any => ({
-      ...cmd, args: cmd.args.map((arg: BashScriptArgs): any => (
+    case 'UPDATE_CHECKBOX_INPUT': nextState = {
+      ...currentState, args: currentState.args.map((arg: any): any => (
         (arg!.name === action.event.target.name)
-          ? { ...arg!, isChecked: !arg!.isChecked } : arg!
+          ? { ...arg!, isChecked: !arg!.isChecked } : arg
       )),
-    })); break;
-    case 'UPDATE_FORM_VALUE': nextState = currentState.map((cmd: BashScriptCmds): any => ({
-      ...cmd, args: cmd.args.map((arg: BashScriptArgs): BashScriptArgs => (
+    }; break;
+    case 'UPDATE_NUMBER_INPUT': nextState = {
+      ...currentState, args: currentState.args.map((arg: any): any => (
         (arg!.name === action.event.target.name)
-          ? { ...arg!, value: action.event.target.value } : arg!
+          ? { ...arg!, value: action.event.target.value } : arg
       )),
-    })); break;
+    }; break;
+    case 'UPDATE_RADIO_INPUT': nextState = {
+      ...currentState, args: currentState.args.map((arg: any): any => (
+        (arg!.name === action.event.target.name)
+          ? { ...arg!, value: action.event.target.value } : arg
+      )),
+    }; break;
+    case 'UPDATE_TEXT_AREA': break;
     default: break;
   }
 

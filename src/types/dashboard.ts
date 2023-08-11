@@ -1,7 +1,6 @@
 import { Dispatch, SyntheticEvent } from 'react';
 
 import { NextResponse } from 'next/server';
-import { BashScript } from './build';
 
 // Exec command
 
@@ -22,7 +21,7 @@ export type ExecCmd = {
 // Reducer
 
 export type Simulation = {
-  bashScript: BashScript,
+  bashScript: any,
   id: string,
   date: Date,
   testStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
@@ -53,18 +52,12 @@ export type DashboardPost = NextResponse<Simulation | unknown>;
 
 export type DashboardPut = NextResponse<Simulation | unknown>;
 
-// Build component
-
-export type BuildProps = {
-  handlePostSimulation: (event: SyntheticEvent, buildState: BashScript) => Promise<void>,
-};
-
 // Functions
 
-export type HandlePostSimulation = (
-  event: SyntheticEvent, simulation: BashScript
+export type HandleCreateSimulation = (
+  event: SyntheticEvent, simulation: any
 ) => Promise<void>;
 
-export type HandlePutSimulation = (
+export type HandleUpdateSimulation = (
   simulation: Simulation
 ) => Promise<void>;

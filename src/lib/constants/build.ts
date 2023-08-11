@@ -1,18 +1,11 @@
-import { BashScript, EvalCmd, O2Cmd } from '@/types/build';
+import { TestVersionCmd, O2Cmd } from '@/types/build';
 
-const evalCmd: EvalCmd = { // @develop
-  description: 'Software version',
+export const testVersionCmd: TestVersionCmd = {
   name: 'eval',
-  args: [
-    {
-      isChecked: true,
-      name: '$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)',
-      value: '\n',
-      input: { type: null },
-    }],
+  args: ['$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)'],
 };
 
-const o2Cmd: O2Cmd = {
+export const initialState: O2Cmd = {
   description: 'O2 Simulaton',
   name: 'o2-sim',
   args: [
@@ -42,7 +35,3 @@ const o2Cmd: O2Cmd = {
     },
   ],
 };
-
-const initialState: BashScript = [evalCmd, o2Cmd];
-
-export default initialState;
