@@ -44,9 +44,7 @@ export default function Build({ handleCreateSimulation }: BuildProps) {
 
   return (
     <div>
-      <div>Build</div>
-      <br />
-
+      <div className="font-bold">Build</div>
       <br />
       <form onSubmit={handleSubmit}>
         {buildState.args.map((arg: any) => (

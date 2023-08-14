@@ -11,7 +11,7 @@ export default function Run({ dashboardState, handleUpdateSimulation }: RunProps
   );
 
   return (
-    <div className="pt-20 pl-4 h-screen border-l-2">
+    <div>
       <h2 className="font-bold">Run</h2>
       <ul>
         {dashboardState && dashboardState.map((simulation: Simulation, index: number) => (

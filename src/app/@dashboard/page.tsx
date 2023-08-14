@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 
 // Components
 import Build from '@/components/dashboard/build/Build';
@@ -23,6 +23,11 @@ import dashboardReducer from '@/lib/reducers/dashboard';
 
 export default function Page() {
   const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
+  const [build, setBuild]: any = useState(false);
+
+  const handleClick = () => {
+    setBuild(true);
+  };
 
   const handleUpdateSimulation: HandleUpdateSimulation = async (simulation) => {
     const unresolvedSimulation: Simulation = setPending(simulation);
@@ -41,21 +46,29 @@ export default function Page() {
 
   return (
     <main className="flex flex-nowrap">
-      <div className="flex-none basis-1/6">
-        <div />
+      <div className="flex-none basis-1/4 h-screen border-r-2">
+        <div className="font-bold">Dashboard</div>
+        <br />
+        <input
+          type="button"
+          onClick={handleClick}
+          value="Build script"
+        />
       </div>
-      <div className="flex-none basis-1/2">
+      {build && (
+      <div className="flex-none basis-2/4 h-screen border-r-2">
         <Build
           handleCreateSimulation={handleCreateSimulation}
         />
       </div>
-      <div className="flex-none basis-1/3">
+      )}
+      <div className="flex-none basis-1/3 h-screen border-r-2">
         <Run
           dashboardState={dashboardState}
           handleUpdateSimulation={handleUpdateSimulation}
         />
       </div>
-      <div className="flex-none basis-1/3">
+      <div className="flex-none basis-1/3 h-screen border-r-2">
         <Monitor />
       </div>
     </main>
