@@ -2,9 +2,9 @@
 
 import React, { SyntheticEvent } from 'react';
 
-export default function FormRadio({ arg, handleUpdateRadioInput }: any) {
+export default function RadioInput({ arg, handleUpdateValueProperty }: any) {
   const handleChange = (event: SyntheticEvent): void => {
-    handleUpdateRadioInput(event);
+    handleUpdateValueProperty(event);
   };
 
   return arg.input.options.map((option: string) => (
@@ -16,10 +16,11 @@ export default function FormRadio({ arg, handleUpdateRadioInput }: any) {
         onChange={handleChange}
         value={option}
         // Custom
-        checked={arg.value === 'TGeant4'}
-        disabled={!arg.isChecked}
+        checked={arg.value === option}
+        disabled={!arg.checked}
       />
       {option}
+      <br />
     </label>
   ));
 }

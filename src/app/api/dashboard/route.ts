@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 
 // Types
-import { BashScript } from '@/types/build';
 import { DashboardPost, DashboardPut, Simulation } from '@/types/dashboard';
 
 // Utils
@@ -11,8 +10,8 @@ import { runScriptInProd, runScriptInTest } from './runScript';
 
 export async function POST(request: Request): Promise<DashboardPost> {
   try {
-    const buildState: BashScript = await request.json();
-    const createdSimulation: Simulation = await buildScript(buildState);
+    const parsedForm: any = await request.json();
+    const createdSimulation: Simulation = await buildScript(parsedForm);
 
     // @develop Create simulation in DD. BB.
 

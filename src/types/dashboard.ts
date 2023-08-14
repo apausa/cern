@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 
 // Exec command
 
-export type ExecCmd = {
+export type TestExecCmd = {
   name: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
   args: [
     'exec',
@@ -16,6 +16,11 @@ export type ExecCmd = {
     '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503',
     '/bin/bash',
     '-c']
+};
+
+export type ProdExecCmd = {
+  name: './grid_submit.sh',
+  args: ['--script', string | null, '--wait', '--fetch-output-files'],
 };
 
 // Reducer
@@ -55,7 +60,7 @@ export type DashboardPut = NextResponse<Simulation | unknown>;
 // Functions
 
 export type HandleCreateSimulation = (
-  event: SyntheticEvent, simulation: any
+  parsedO2Cmd: string
 ) => Promise<void>;
 
 export type HandleUpdateSimulation = (

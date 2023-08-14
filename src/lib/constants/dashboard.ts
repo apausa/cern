@@ -1,6 +1,6 @@
-import { ExecCmd } from '@/types/dashboard';
+import { ProdExecCmd, TestExecCmd } from '@/types/dashboard';
 
-export const EXEC_CMD: ExecCmd = {
+export const testExecCmd: TestExecCmd = {
   name: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
   args: [
     'exec',
@@ -14,11 +14,7 @@ export const EXEC_CMD: ExecCmd = {
     '-c'],
 };
 
-export const submitCmd = { // @develop
+export const prodExecCmd: ProdExecCmd = {
   name: './grid_submit.sh',
-  args: [
-    { name: '--script', value: null },
-    { name: '--ttl', value: '10' },
-    { name: 'wait', value: null },
-  ],
+  args: ['--script', null, '--wait', '--fetch-output-files'],
 };

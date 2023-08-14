@@ -2,9 +2,9 @@
 
 import React, { SyntheticEvent } from 'react';
 
-export default function FormNumber({ arg, handleUpdateNumberInput }: any) {
+export default function NumberInput({ arg, handleUpdateValueProperty }: any) {
   const handleChange = (event: SyntheticEvent): void => {
-    handleUpdateNumberInput(event);
+    handleUpdateValueProperty(event);
   };
 
   return (
@@ -16,7 +16,7 @@ export default function FormNumber({ arg, handleUpdateNumberInput }: any) {
         onChange={handleChange}
         value={arg.value}
         // Custom
-        disabled={!arg.isChecked}
+        disabled={!arg.checked}
         min={arg.input.min}
         max={arg.input.max}
       />

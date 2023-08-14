@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 'use client';
 
 import React, { useReducer } from 'react';
@@ -30,8 +32,8 @@ export default function Page() {
     dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
   };
 
-  const handleCreateSimulation: HandleCreateSimulation = async (buildState) => {
-    const createdSimulation: Simulation = await postSimulation(buildState);
+  const handleCreateSimulation: HandleCreateSimulation = async (parsedO2Cmd) => {
+    const createdSimulation: Simulation = await postSimulation(parsedO2Cmd);
     dispatch({ type: 'CREATE_SIMULATION', simulation: createdSimulation });
 
     handleUpdateSimulation(createdSimulation);
@@ -40,9 +42,9 @@ export default function Page() {
   return (
     <main className="flex flex-nowrap">
       <div className="flex-none basis-1/6">
-        <div>Dashboard</div>
+        <div />
       </div>
-      <div className="flex-none basis-1/3">
+      <div className="flex-none basis-1/2">
         <Build
           handleCreateSimulation={handleCreateSimulation}
         />

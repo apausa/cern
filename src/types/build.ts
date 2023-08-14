@@ -1,29 +1,32 @@
-import { Dispatch } from 'react';
+import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 
 // Eval command and arguments
 
-export type TestVersionCmd = {
-  name: 'eval',
-  args: ['$(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)'],
-};
+export type TestVersionCmd = 'eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)';
+
+export type ProdVersionCmd = [
+  '#JDL_PACKAGE=O2sim::v20230703-1',
+  '#JDL_OUTPUT=*.root@disk=1,*.log@disk=1',
+];
 
 // O2 Command and arguments
 
 export type O2Cmd = {
-  description: string,
   name: 'o2-sim',
   args: [
     O2CmdPythiaArg?,
     O2CmdNumberArg?,
     O2CmdTGeantArg?,
     O2CmdConfigArg?,
-  ]
+  ];
 };
+
+export type O2CmdArg = O2CmdPythiaArg | O2CmdNumberArg | O2CmdTGeantArg | O2CmdConfigArg;
 
 export type O2CmdNumberArg = {
   name: '-n',
   value: number,
-  isChecked: boolean,
+  checked: boolean,
 
   input: { type: 'number', min: number, max: number },
 };
@@ -31,7 +34,7 @@ export type O2CmdNumberArg = {
 export type O2CmdTGeantArg = {
   name: '-e',
   value: 'TGeant3' | 'TGeant4',
-  isChecked: boolean,
+  checked: boolean,
 
   input: { type: 'radio', options: ['TGeant3', 'TGeant4'] },
 };
@@ -39,7 +42,7 @@ export type O2CmdTGeantArg = {
 export type O2CmdPythiaArg = {
   name: '-g',
   value: 'pythia8pp',
-  isChecked: boolean,
+  checked: boolean,
 
   input: { type: null }
 };
@@ -47,47 +50,40 @@ export type O2CmdPythiaArg = {
 export type O2CmdConfigArg = {
   name: '--configKeyValues',
   value: 'align-geom.mDetectors=none',
-  isChecked: boolean,
+  checked: boolean,
 
   input: { type: null }
 
 };
 
-// Reducer
+// State
 
-export type BuildReducerAction = FormValueAction | FormCheckboxAction;
-
-export type BuildUseReducer = [O2Cmd, Dispatch<any>];
-
-// Actions
-
-export type BuildActions = FormCheckboxAction | FormValueAction;
-
-export type FormCheckboxAction = {
-  type: 'UPDATE_FORM_CHECKBOX',
-  event: any
+export type BuildReducerAction = {
+  type: 'UPDATE_VALUE_PROPERTY' | 'UPDATE_CHECKED_PROPERTY',
+  event: SyntheticEvent
 };
 
-export type FormValueAction = {
-  type: 'UPDATE_FORM_VALUE',
-  event: any
+export type BuildStateUseReducer = [
+  O2Cmd,
+  Dispatch<BuildReducerAction>,
+];
+
+export type O2CmdUseState = [
+  string,
+  Dispatch<SetStateAction<string>>,
+];
+
+// Props
+
+export type BuildProps = {
+  handleCreateSimulation: (o2cmd: string) => void
+};
+export type CheckboxInputProps = {
+  arg: O2CmdArg,
+  handleUpdateCheckedProperty: (event: SyntheticEvent) => void
 };
 
-// Form checkbox component
-
-export type FormCheckboxProps = {
-  arg: any,
-  dispatch: Dispatch<FormCheckboxAction>
-};
-
-// Form radio component
-
-export type FormRadioProps = {
-  arg: O2CmdTGeantArg
-  dispatch: Dispatch<FormValueAction>
-};
-
-export type FormNumberProps = {
-  arg: O2CmdNumberArg,
-  dispatch: Dispatch<FormValueAction>
+export type AdvancedModeProps = {
+  parsedO2Cmd: string,
+  setParsedO2Cmd: Dispatch<SetStateAction<string>>,
 };

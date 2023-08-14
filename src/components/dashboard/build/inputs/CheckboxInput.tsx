@@ -2,9 +2,12 @@
 
 import React, { SyntheticEvent } from 'react';
 
-export default function FormCheckbox({ arg, handleUpdateCheckboxInput }: any) {
+// Types
+import { CheckboxInputProps } from '@/types/build';
+
+export default function CheckboxInput({ arg, handleUpdateCheckedProperty }: CheckboxInputProps) {
   const handleChange = (event: SyntheticEvent): void => {
-    handleUpdateCheckboxInput(event);
+    handleUpdateCheckedProperty(event);
   };
 
   return (
@@ -16,13 +19,10 @@ export default function FormCheckbox({ arg, handleUpdateCheckboxInput }: any) {
         onChange={handleChange}
         value={arg.value}
         // Custom
-        checked={arg.isChecked}
+        checked={arg.checked}
       />
+
       {arg.name}
-      {' '}
-      →
-      {' '}
-      {arg.value}
     </label>
   );
 }

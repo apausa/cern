@@ -1,64 +1,81 @@
 'use client';
 
-import React, { useReducer, useState } from 'react';
+import React, {
+  useReducer, useState, useEffect, SyntheticEvent,
+} from 'react';
 
 // Components
-import SelectMode from './SelectMode';
-import IntermediateForm from './intermediateForm/IntermediateForm';
-import AdvancedForm from './advancedForm/AdvancedForm';
+import AdvancedMode from './advancedMode/AdvancedMode';
+import NumberInput from './inputs/NumberInput';
+import RadioInput from './inputs/RadioInput';
+import CheckboxInput from './inputs/CheckboxInput';
 
 // Lib
 import buildReducer from '@/lib/reducers/build';
-import { initialState } from '@/lib/constants/build';
+import { o2cmd } from '@/lib/constants/build';
 
 // Types
-import { BuildUseReducer } from '@/types/build';
+import { BuildProps, BuildStateUseReducer, O2CmdUseState } from '@/types/build';
 
-export default function Build({ handleCreateSimulation }: any) {
-  const [buildState, dispatch]: BuildUseReducer = useReducer(buildReducer, initialState);
-  const [isAdvanced, setIsAdvanced]: any = useState(false);
-  const handleSubmit = (event: any): any => {
+// Utils
+import parseO2Cmd from '@/utils/parseO2Cmd';
+
+export default function Build({ handleCreateSimulation }: BuildProps) {
+  const [buildState, dispatch]: BuildStateUseReducer = useReducer(buildReducer, o2cmd);
+  const [parsedO2Cmd, setParsedO2Cmd]: O2CmdUseState = useState('');
+
+  const handleSubmit = (event: SyntheticEvent): void => {
     event.preventDefault();
-    handleCreateSimulation(buildState);
+
+    handleCreateSimulation(parsedO2Cmd);
   };
 
-  const handleUpdateTextarea = () => {
-    dispatch({ type: 'UPDATE_TEXT_AREA' });
+  const handleUpdateValueProperty = (event: SyntheticEvent): void => {
+    dispatch({ type: 'UPDATE_VALUE_PROPERTY', event });
   };
 
-  const intermediateFormHandlers: any = {
-    handleUpdateRadioInput: (event: any) => {
-      dispatch({ type: 'UPDATE_RADIO_INPUT', event });
-    },
-    handleUpdateNumberInput: (event: any) => {
-      dispatch({ type: 'UPDATE_NUMBER_INPUT', event });
-    },
-    handleUpdateCheckboxInput: (event: any) => {
-      dispatch({ type: 'UPDATE_CHECKBOX_INPUT', event });
-    },
+  const handleUpdateCheckedProperty = (event: SyntheticEvent): void => {
+    dispatch({ type: 'UPDATE_CHECKED_PROPERTY', event });
   };
 
-  // @continue, parse object to string automatically... and send to backend so that it can be run
+  useEffect((): void => {
+    setParsedO2Cmd(parseO2Cmd(buildState));
+  }, [buildState]);
 
   return (
     <div>
       <div>Build</div>
       <br />
-      <SelectMode isAdvanced={isAdvanced} setIsAdvanced={setIsAdvanced} />
+
       <br />
       <form onSubmit={handleSubmit}>
-        {isAdvanced
-          ? (
-            <AdvancedForm
-              handleUpdateTextarea={handleUpdateTextarea}
+        {buildState.args.map((arg: any) => (
+          <div key={arg.name}>
+            <CheckboxInput
+              arg={arg}
+              handleUpdateCheckedProperty={handleUpdateCheckedProperty}
             />
-          )
-          : (
-            <IntermediateForm
-              buildState={buildState}
-              intermediateFormHandlers={intermediateFormHandlers}
+            <br />
+            {arg.input.type === 'number' && (
+            <NumberInput
+              arg={arg}
+              handleUpdateValueProperty={handleUpdateValueProperty}
             />
-          )}
+            )}
+            {arg.input.type === 'radio' && (
+            <RadioInput
+              arg={arg}
+              handleUpdateValueProperty={handleUpdateValueProperty}
+            />
+            )}
+            {arg.input.type !== 'radio' && arg.input.type !== 'number' && (<div>{arg.value}</div>)}
+          </div>
+        ))}
+        <br />
+        <AdvancedMode
+          parsedO2Cmd={parsedO2Cmd}
+          setParsedO2Cmd={setParsedO2Cmd}
+        />
         <br />
         <button type="submit">Run in test environment</button>
       </form>

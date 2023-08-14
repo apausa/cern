@@ -13,7 +13,9 @@ const buildScript = async (bashScript: BashScript): Promise<Simulation> => {
   const id: string = uuidv4();
   const filePath: string = returnPath(id);
 
-  await fs.writeFile(filePath, parseScript(bashScript).join(' '));
+  // @develop
+
+  await fs.writeFile(filePath, undefined);
   await fs.chmod(filePath, '755');
 
   return {
