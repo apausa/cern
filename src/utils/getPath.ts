@@ -1,6 +1,6 @@
 import path from 'node:path';
 
-const returnPath = (id: string): string => (
+const getPath = (id: string): string => (
   path.join('/home/papausac/work/scripts', `${id}.sh`));
 
-export default returnPath;
+export default getPath;

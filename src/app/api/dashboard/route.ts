@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server';
 import { DashboardPost, DashboardPut, Simulation } from '@/types/dashboard';
 
 // Utils
-import returnError from '@/utils/returnError';
+import getError from '@/utils/getError';
 import buildScript from './buildScript';
 import { runScriptInProd, runScriptInTest } from './runScript';
 
@@ -16,7 +16,7 @@ export async function POST(request: Request): Promise<DashboardPost> {
     // @develop Create simulation in DD. BB.
 
     return NextResponse.json(createdSimulation, { status: 200 });
-  } catch (error: unknown) { return returnError(error); }
+  } catch (error: unknown) { return getError(error); }
 }
 
 export async function PUT(request: Request): Promise<DashboardPut> {
@@ -33,5 +33,5 @@ export async function PUT(request: Request): Promise<DashboardPut> {
 
     return NextResponse.json(resolvedSimulation, { status: 200 });
     // @develop, when error, return error and also reject simulation promise
-  } catch (error: unknown) { return returnError(error); }
+  } catch (error: unknown) { return getError(error); }
 }

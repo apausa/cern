@@ -1,11 +1,11 @@
 /* eslint-disable object-property-newline */
 
-import { O2Cmd } from '@/types/build';
+import { O2CmdObj } from '@/types/build';
 
 const buildReducer = (
-  currentState: O2Cmd,
+  currentState: O2CmdObj,
   action: any,
-): O2Cmd => {
+): O2CmdObj => {
   let nextState: any = null;
 
   switch (action.type) {

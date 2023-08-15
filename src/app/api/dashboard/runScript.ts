@@ -4,11 +4,11 @@ import { ChildProcess, spawn } from 'child_process';
 import { EXEC_CMD, submitCmd } from '@/lib/constants/dashboard';
 
 // Utils
-import returnPath from '@/utils/returnPath';
+import getPath from '@/utils/getPath';
 
 // Types
 import { ExecCmd, Simulation } from '@/types/dashboard';
-import { parseCmd } from '../../../utils/parsers';
+import { getO2Cmd } from '../../../utils/parsers';
 
 const chooseVersion = async () => {
   const alienvProcess: ChildProcess = spawn('/cvmfs/alice.cern.ch/bin/alienv', ['enter', 'O2sim/v20230703-1']);
@@ -21,7 +21,7 @@ const chooseVersion = async () => {
 
 export const runScriptInTest = async (simulation: Simulation): Promise<Simulation> => {
   const { name, args }: ExecCmd = EXEC_CMD;
-  const childProcess: ChildProcess = await spawn(name, [...args, returnPath(simulation.id)]);
+  const childProcess: ChildProcess = await spawn(name, [...args, getPath(simulation.id)]);
 
   childProcess.stdout?.on('data', (output: any) => { console.log('data', output.toString()); });
 
@@ -37,7 +37,7 @@ export const runScriptInProd = async (simulation: Simulation): Promise<Simulatio
   if (!success) throw new Error('Intentional error occurred'); // @develop
 
   const { name, args }: any = submitCmd;
-  const parsedArgs: string[] = parseCmd(args, simulation.id);
+  const parsedArgs: string[] = getO2Cmd(args, simulation.id);
   console.log('In run script in prod', parsedArgs);
   const childProcess: ChildProcess = spawn(name, parsedArgs);
 

@@ -26,7 +26,7 @@ export default function Page() {
   const [build, setBuild]: any = useState(false);
 
   const handleClick = () => {
-    setBuild(true);
+    if (!build) setBuild(true);
   };
 
   const handleUpdateSimulation: HandleUpdateSimulation = async (simulation) => {
@@ -37,16 +37,18 @@ export default function Page() {
     dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
   };
 
-  const handleCreateSimulation: HandleCreateSimulation = async (parsedO2Cmd) => {
-    const createdSimulation: Simulation = await postSimulation(parsedO2Cmd);
-    dispatch({ type: 'CREATE_SIMULATION', simulation: createdSimulation });
+  const handleCreateSimulation: HandleCreateSimulation = async (parsedO2Cmd, version) => {
+    setBuild(false);
 
-    handleUpdateSimulation(createdSimulation);
+    // const createdSimulation: Simulation = await postSimulation(parsedO2Cmd, version);
+    // dispatch({ type: 'CREATE_SIMULATION', simulation: createdSimulation });
+
+    // handleUpdateSimulation(createdSimulation);
   };
 
   return (
-    <main className="flex flex-nowrap">
-      <div className="flex-none basis-1/4 h-screen border-r-2">
+    <div className="flex flex-nowrap">
+      <div className="flex-none basis-1/6 h-screen border-r-2">
         <div className="font-bold">Dashboard</div>
         <br />
         <input
@@ -56,9 +58,10 @@ export default function Page() {
         />
       </div>
       {build && (
-      <div className="flex-none basis-2/4 h-screen border-r-2">
+      <div className="flex-none basis-1/3 h-screen border-r-2">
         <Build
           handleCreateSimulation={handleCreateSimulation}
+          setBuild={setBuild}
         />
       </div>
       )}
@@ -71,6 +74,6 @@ export default function Page() {
       <div className="flex-none basis-1/3 h-screen border-r-2">
         <Monitor />
       </div>
-    </main>
+    </div>
   );
 }

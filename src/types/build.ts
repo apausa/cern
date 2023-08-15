@@ -1,17 +1,8 @@
 import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
 
-// Eval command and arguments
-
-export type TestVersionCmd = 'eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)';
-
-export type ProdVersionCmd = [
-  '#JDL_PACKAGE=O2sim::v20230703-1',
-  '#JDL_OUTPUT=*.root@disk=1,*.log@disk=1',
-];
-
 // O2 Command and arguments
 
-export type O2Cmd = {
+export type O2CmdObj = {
   name: 'o2-sim',
   args: [
     O2CmdPythiaArg?,
@@ -63,12 +54,12 @@ export type BuildReducerAction = {
   event: SyntheticEvent
 };
 
-export type BuildStateUseReducer = [
-  O2Cmd,
+export type O2CmdObjUseReducer = [
+  O2CmdObj,
   Dispatch<BuildReducerAction>,
 ];
 
-export type O2CmdUseState = [
+export type StrUseState = [
   string,
   Dispatch<SetStateAction<string>>,
 ];
@@ -76,14 +67,16 @@ export type O2CmdUseState = [
 // Props
 
 export type BuildProps = {
-  handleCreateSimulation: (o2cmd: string) => void
+  handleCreateSimulation: (o2cmd: string, version: string) => void,
+  setBuild: Dispatch<SetStateAction<boolean>>
 };
+
 export type CheckboxInputProps = {
   arg: O2CmdArg,
   handleUpdateCheckedProperty: (event: SyntheticEvent) => void
 };
 
 export type AdvancedModeProps = {
-  parsedO2Cmd: string,
-  setParsedO2Cmd: Dispatch<SetStateAction<string>>,
+  o2CmdStr: string,
+  setO2CmdStr: Dispatch<SetStateAction<string>>,
 };

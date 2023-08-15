@@ -1,4 +1,4 @@
-import { Dispatch, SyntheticEvent } from 'react';
+import { Dispatch } from 'react';
 
 import { NextResponse } from 'next/server';
 
@@ -60,7 +60,7 @@ export type DashboardPut = NextResponse<Simulation | unknown>;
 // Functions
 
 export type HandleCreateSimulation = (
-  parsedO2Cmd: string
+  parsedO2Cmd: string, version: string
 ) => Promise<void>;
 
 export type HandleUpdateSimulation = (

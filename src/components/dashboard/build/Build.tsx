@@ -9,26 +9,23 @@ import AdvancedMode from './advancedMode/AdvancedMode';
 import NumberInput from './inputs/NumberInput';
 import RadioInput from './inputs/RadioInput';
 import CheckboxInput from './inputs/CheckboxInput';
+import DateInput from './inputs/DateInput';
 
 // Lib
 import buildReducer from '@/lib/reducers/build';
-import { o2cmd } from '@/lib/constants/build';
+import initialO2CmdObj from '@/lib/constants/build';
 
 // Types
-import { BuildProps, BuildStateUseReducer, O2CmdUseState } from '@/types/build';
+import { BuildProps, O2CmdObjUseReducer, StrUseState } from '@/types/build';
 
 // Utils
-import parseO2Cmd from '@/utils/parseO2Cmd';
+import { getO2Cmd } from '@/utils/getCmd';
+import { getParsedCurrentDate, getParsedSelectedDate } from '@/utils/getDate';
 
-export default function Build({ handleCreateSimulation }: BuildProps) {
-  const [buildState, dispatch]: BuildStateUseReducer = useReducer(buildReducer, o2cmd);
-  const [parsedO2Cmd, setParsedO2Cmd]: O2CmdUseState = useState('');
-
-  const handleSubmit = (event: SyntheticEvent): void => {
-    event.preventDefault();
-
-    handleCreateSimulation(parsedO2Cmd);
-  };
+export default function Build({ handleCreateSimulation, setBuild }: BuildProps) {
+  const [o2CmdObj, dispatch]: O2CmdObjUseReducer = useReducer(buildReducer, initialO2CmdObj);
+  const [o2CmdStr, setO2CmdStr]: StrUseState = useState(getO2Cmd(o2CmdObj));
+  const [selectedDate, setSelectedDate]: StrUseState = useState(getParsedCurrentDate());
 
   const handleUpdateValueProperty = (event: SyntheticEvent): void => {
     dispatch({ type: 'UPDATE_VALUE_PROPERTY', event });
@@ -38,45 +35,51 @@ export default function Build({ handleCreateSimulation }: BuildProps) {
     dispatch({ type: 'UPDATE_CHECKED_PROPERTY', event });
   };
 
-  useEffect((): void => {
-    setParsedO2Cmd(parseO2Cmd(buildState));
-  }, [buildState]);
+  const handleReturn = (): void => { setBuild(false); };
+  const handleSubmit = (event: SyntheticEvent): void => {
+    const version = getParsedSelectedDate(selectedDate);
+
+    event.preventDefault();
+
+    setBuild(false);
+    handleCreateSimulation(o2CmdStr, version);
+  };
+
+  useEffect((): void => { setO2CmdStr(getO2Cmd(o2CmdObj)); }, [o2CmdObj]);
 
   return (
-    <div>
-      <div className="font-bold">Build</div>
+    <>
+      <div>
+        <button type="button" onClick={handleReturn}>Return</button>
+        <button type="submit" onClick={handleSubmit}>Submit</button>
+      </div>
       <br />
-      <form onSubmit={handleSubmit}>
-        {buildState.args.map((arg: any) => (
-          <div key={arg.name}>
-            <CheckboxInput
-              arg={arg}
-              handleUpdateCheckedProperty={handleUpdateCheckedProperty}
-            />
-            <br />
-            {arg.input.type === 'number' && (
-            <NumberInput
-              arg={arg}
-              handleUpdateValueProperty={handleUpdateValueProperty}
-            />
-            )}
-            {arg.input.type === 'radio' && (
-            <RadioInput
-              arg={arg}
-              handleUpdateValueProperty={handleUpdateValueProperty}
-            />
-            )}
-            {arg.input.type !== 'radio' && arg.input.type !== 'number' && (<div>{arg.value}</div>)}
-          </div>
-        ))}
-        <br />
-        <AdvancedMode
-          parsedO2Cmd={parsedO2Cmd}
-          setParsedO2Cmd={setParsedO2Cmd}
-        />
-        <br />
-        <button type="submit">Run in test environment</button>
-      </form>
-    </div>
+      <div>
+        <DateInput selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+        <form onSubmit={handleSubmit}>
+          <br />
+          {o2CmdObj.args.map((arg: any) => (
+            <div key={arg.name}>
+              <CheckboxInput arg={arg} handleUpdateCheckedProperty={handleUpdateCheckedProperty} />
+              <div>
+                {arg.input.type !== 'radio' && arg.input.type !== 'number' && (<div>{arg.value}</div>)}
+                {arg.input.type === 'number' && (
+                  <NumberInput arg={arg} handleUpdateValueProperty={handleUpdateValueProperty} />
+                )}
+                {arg.input.type === 'radio' && (
+                  <RadioInput arg={arg} handleUpdateValueProperty={handleUpdateValueProperty} />
+                )}
+              </div>
+              <br />
+            </div>
+          ))}
+          <AdvancedMode
+            o2CmdStr={o2CmdStr}
+            setO2CmdStr={setO2CmdStr}
+          />
+          <br />
+        </form>
+      </div>
+    </>
   );
 }

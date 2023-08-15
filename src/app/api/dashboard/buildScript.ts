@@ -2,16 +2,15 @@ import * as fs from 'node:fs/promises';
 import { v4 as uuidv4 } from 'uuid';
 
 // Types
-import { BashScript } from '@/types/build';
 import { Simulation } from '@/types/dashboard';
 
 // Utils
-import returnPath from '@/utils/returnPath';
-import { parseScript } from '@/utils/parsers';
+import getPath from '@/utils/getPath';
+import { getO2Cmd } from '@/utils/getCmd';
 
 const buildScript = async (bashScript: BashScript): Promise<Simulation> => {
   const id: string = uuidv4();
-  const filePath: string = returnPath(id);
+  const filePath: string = getPath(id);
 
   // @develop
 

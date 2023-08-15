@@ -5,9 +5,9 @@ import React from 'react';
 // Types
 import { AdvancedModeProps } from '@/types/build';
 
-export default function AdvancedMode({ parsedO2Cmd, setParsedO2Cmd }: AdvancedModeProps) {
+export default function AdvancedMode({ o2CmdStr, setO2CmdStr }: AdvancedModeProps) {
   const handleChange = ({ target: { value } }: any): void => {
-    setParsedO2Cmd(value);
+    setO2CmdStr(value);
   };
 
   return (
@@ -15,7 +15,7 @@ export default function AdvancedMode({ parsedO2Cmd, setParsedO2Cmd }: AdvancedMo
       <textarea
         id="advancedMode"
         name="advancedMode"
-        value={parsedO2Cmd}
+        value={o2CmdStr}
         onChange={handleChange}
         rows={4}
         // @develop

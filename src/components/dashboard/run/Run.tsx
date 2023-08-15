@@ -1,10 +1,9 @@
 'use client';
 
 import React from 'react';
-import { RunProps } from '@/types/run';
 import { Simulation } from '@/types/dashboard';
 
-export default function Run({ dashboardState, handleUpdateSimulation }: RunProps) {
+export default function Run({ dashboardState, handleUpdateSimulation }: any) {
   const isDisabled = (simulation: Simulation): boolean => (
     (simulation.testStatus !== 'FULFILLED' && simulation.prodStatus === null)
     || (simulation.testStatus === 'FULFILLED' && simulation.prodStatus !== null)

@@ -1,13 +1,6 @@
-import { TestVersionCmd, O2Cmd, ProdVersionCmd } from '@/types/build';
+import { O2CmdObj } from '@/types/build';
 
-export const testVersionCmd: TestVersionCmd = 'eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v20230629-1)';
-
-export const prodVersionCmd: ProdVersionCmd = [
-  '#JDL_PACKAGE=O2sim::v20230703-1',
-  '#JDL_OUTPUT=*.root@disk=1,*.log@disk=1',
-];
-
-export const o2cmd: O2Cmd = {
+const initialO2CmdObj: O2CmdObj = {
   name: 'o2-sim',
   args: [
     {
@@ -36,3 +29,5 @@ export const o2cmd: O2Cmd = {
     },
   ],
 };
+
+export default initialO2CmdObj;
