@@ -1,6 +1,29 @@
 import { Dispatch } from 'react';
 
-import { NextResponse } from 'next/server';
+// Reducer
+
+export type Metadata = {
+  id: string,
+  date: Date,
+  testScript: TestScript,
+  prodScript: ProdScript
+};
+
+export type TestScript = {
+  scriptPath: string,
+  scriptBody: string,
+  scriptStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
+};
+
+export type ProdScript = {
+  scriptPath: string,
+  scriptBody: string,
+  scriptStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
+};
+
+export type DashboardState = Metadata[];
+
+export type DashboardUseReducer = [DashboardState, Dispatch<DashboardActions>];
 
 // Exec command
 
@@ -23,46 +46,35 @@ export type ProdExecCmd = {
   args: ['--script', string | null, '--wait', '--fetch-output-files'],
 };
 
-// Reducer
-
-export type Simulation = {
-  bashScript: any,
-  id: string,
-  date: Date,
-  testStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
-  prodStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
-};
-
-export type DashboardState = Simulation[];
-
-export type DashboardUseReducer = [DashboardState, Dispatch<any>];
-
 // Actions
 
-export type DashboardActions = DashboardCreateAction | DashboardUpdateAction;
+export type DashboardActions = DashboardCreateAction
+| DashboardUpdateAction
+| DashboardGetAllAction;
 
 export type DashboardCreateAction = {
-  type: 'CREATE_SIMULATION';
-  simulation: Simulation,
+  type: 'CREATE_METADATA';
+  metadata: Metadata,
 };
 
 export type DashboardUpdateAction = {
-  type: 'UPDATE_SIMULATION';
-  simulation: Simulation,
+  type: 'UPDATE_METADATA';
+  metadata: Metadata,
 };
 
-// API
-
-export type DashboardPost = NextResponse<Simulation | unknown>;
-
-export type DashboardPut = NextResponse<Simulation | unknown>;
+export type DashboardGetAllAction = {
+  type: 'READ_ALL_METADATA',
+  allMetadata: Metadata[],
+};
 
 // Functions
 
-export type HandleCreateSimulation = (
+export type HandleCreateMetadata = (
   parsedO2Cmd: string, version: string
 ) => Promise<void>;
 
-export type HandleUpdateSimulation = (
-  simulation: Simulation
+export type HandleUpdateMetadata = (
+  metadata: Metadata
 ) => Promise<void>;
+
+export type HandleAllMetadata = () => void;

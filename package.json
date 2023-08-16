@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --no-cache",
-    "test": "jest --watch",
+    "test": "jest --watchAll --collect-coverage",
     "cypress": "cypress open"
   },
   "dependencies": {

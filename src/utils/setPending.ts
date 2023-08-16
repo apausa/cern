@@ -1,6 +1,8 @@
-import { Simulation } from '@/types/dashboard';
+/* eslint-disable max-len */
 
-const setPending = (simulation: Simulation): Simulation => (
-  { ...simulation, [simulation.testStatus === 'FULFILLED' ? 'prodStatus' : 'testStatus']: 'PENDING' });
+// import { Metadata } from '@/types/dashboard';
 
-export default setPending;
+// const setPending = (simulation: Metadata): Metadata => (
+//   { ...simulation, [simulation.testStatus === 'FULFILLED' ? 'prodStatus' : 'testStatus']: 'PENDING' });
+
+// export default setPending;

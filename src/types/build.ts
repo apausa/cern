@@ -67,7 +67,7 @@ export type StrUseState = [
 // Props
 
 export type BuildProps = {
-  handleCreateSimulation: (o2cmd: string, version: string) => void,
+  handleCreateMetadata: (o2cmd: string, version: string) => void,
   setBuild: Dispatch<SetStateAction<boolean>>
 };
 

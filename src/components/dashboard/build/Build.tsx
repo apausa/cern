@@ -19,12 +19,12 @@ import initialO2CmdObj from '@/lib/constants/build';
 import { BuildProps, O2CmdObjUseReducer, StrUseState } from '@/types/build';
 
 // Utils
-import { getO2Cmd } from '@/utils/getCmd';
+import getO2CmdStr from '@/utils/getO2CmdStr';
 import { getParsedCurrentDate, getParsedSelectedDate } from '@/utils/getDate';
 
-export default function Build({ handleCreateSimulation, setBuild }: BuildProps) {
+export default function Build({ handleCreateMetadata, setBuild }: BuildProps) {
   const [o2CmdObj, dispatch]: O2CmdObjUseReducer = useReducer(buildReducer, initialO2CmdObj);
-  const [o2CmdStr, setO2CmdStr]: StrUseState = useState(getO2Cmd(o2CmdObj));
+  const [o2CmdStr, setO2CmdStr]: StrUseState = useState(getO2CmdStr(o2CmdObj));
   const [selectedDate, setSelectedDate]: StrUseState = useState(getParsedCurrentDate());
 
   const handleUpdateValueProperty = (event: SyntheticEvent): void => {
@@ -42,10 +42,10 @@ export default function Build({ handleCreateSimulation, setBuild }: BuildProps) 
     event.preventDefault();
 
     setBuild(false);
-    handleCreateSimulation(o2CmdStr, version);
+    handleCreateMetadata(version, o2CmdStr);
   };
 
-  useEffect((): void => { setO2CmdStr(getO2Cmd(o2CmdObj)); }, [o2CmdObj]);
+  useEffect((): void => { setO2CmdStr(getO2CmdStr(o2CmdObj)); }, [o2CmdObj]);
 
   return (
     <>

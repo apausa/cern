@@ -2,7 +2,7 @@
 
 'use client';
 
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 // Components
 import Build from '@/components/dashboard/build/Build';
@@ -11,14 +11,13 @@ import Run from '@/components/dashboard/run/Run';
 
 // Types
 import {
-  DashboardUseReducer, HandleCreateSimulation, HandleUpdateSimulation, Simulation,
+  DashboardUseReducer, HandleAllMetadata, HandleCreateMetadata, HandleUpdateMetadata, Metadata,
 } from '@/types/dashboard';
 
-// Utils
-import setPending from '@/utils/setPending';
-
 // Lib
-import { postSimulation, putSimulation } from '@/lib/services/dashboard';
+import {
+  getAllMetadata, postMetadata, putMetadata,
+} from '@/lib/services/dashboard';
 import dashboardReducer from '@/lib/reducers/dashboard';
 
 export default function Page() {
@@ -29,22 +28,27 @@ export default function Page() {
     if (!build) setBuild(true);
   };
 
-  const handleUpdateSimulation: HandleUpdateSimulation = async (simulation) => {
-    const unresolvedSimulation: Simulation = setPending(simulation);
-    dispatch({ type: 'UPDATE_SIMULATION', simulation: unresolvedSimulation });
+  const handleUpdateMetadata: HandleUpdateMetadata = async (metadata) => {
+    // const unresolvedMetadata: Metadata = setPending(metadata);
+    // dispatch({ type: 'UPDATE_MEATADATA', metadata: unresolvedMetadata });
 
-    const resolvedSimulation: Simulation = await putSimulation(unresolvedSimulation);
-    dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
+    // const resolvedMetadata: Metadata = await putMetadata(unresolvedMetadata);
+    // dispatch({ type: 'UPDATE_MEATADATA', metadata: resolvedMetadata });
   };
 
-  const handleCreateSimulation: HandleCreateSimulation = async (parsedO2Cmd, version) => {
-    setBuild(false);
-
-    // const createdSimulation: Simulation = await postSimulation(parsedO2Cmd, version);
-    // dispatch({ type: 'CREATE_SIMULATION', simulation: createdSimulation });
-
-    // handleUpdateSimulation(createdSimulation);
+  const handleCreateMetadata: HandleCreateMetadata = async (version, o2CmdStr) => {
+    const metadata: Metadata | null = await postMetadata(version, o2CmdStr);
+    if (metadata) dispatch({ type: 'CREATE_METADATA', metadata });
   };
+
+  const handleReadAllMetadata: HandleAllMetadata = () => {
+    const allMetadata: Metadata[] = getAllMetadata();
+    if (allMetadata) dispatch({ type: 'READ_ALL_METADATA', allMetadata });
+  };
+
+  useEffect(() => {
+    handleReadAllMetadata();
+  }, []);
 
   return (
     <div className="flex flex-nowrap">
@@ -60,7 +64,7 @@ export default function Page() {
       {build && (
       <div className="flex-none basis-1/3 h-screen border-r-2">
         <Build
-          handleCreateSimulation={handleCreateSimulation}
+          handleCreateMetadata={handleCreateMetadata}
           setBuild={setBuild}
         />
       </div>
@@ -68,7 +72,7 @@ export default function Page() {
       <div className="flex-none basis-1/3 h-screen border-r-2">
         <Run
           dashboardState={dashboardState}
-          handleUpdateSimulation={handleUpdateSimulation}
+          handleUpdateMetadata={handleUpdateMetadata}
         />
       </div>
       <div className="flex-none basis-1/3 h-screen border-r-2">

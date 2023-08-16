@@ -1,15 +1,26 @@
-import { Simulation } from '@/types/dashboard';
+import { Metadata } from '@/types/dashboard';
 
-export async function postSimulation(o2CmdStr: string, version: string) {
-  const response: Response = await fetch('/api/dashboard', { method: 'POST', body: JSON.stringify({ o2CmdStr, version }) });
-  const simulation: Simulation = await response.json();
+// All metadata
 
-  return simulation;
+export function getAllMetadata(): Metadata[] {
+  const response: string = localStorage.getItem('allMetadata')!;
+  const parsedResponse: Metadata[] = JSON.parse(response);
+
+  return parsedResponse;
 }
 
-export async function putSimulation(unresolvedSimulation: Simulation) {
-  const response: Response = await fetch('/api/dashboard', { method: 'PUT', body: JSON.stringify(unresolvedSimulation) });
-  const resolvedSimulation: Simulation = await response.json();
+// Metadata
 
-  return resolvedSimulation;
+export async function postMetadata(version: string, o2CmdStr: string): Promise<Metadata | null> {
+  const response: Response = await fetch('/api/metadata', { method: 'POST', body: JSON.stringify({ version, o2CmdStr }) });
+  const parsedResponse: Metadata | null = await response.json();
+
+  return parsedResponse;
+}
+
+export async function putMetadata(unresolvedMetadata: Metadata): Promise<Metadata | null> {
+  const response: Response = await fetch('/api/metadata', { method: 'PUT', body: JSON.stringify(unresolvedMetadata) });
+  const parsedResponse: Metadata | null = await response.json();
+
+  return parsedResponse;
 }
