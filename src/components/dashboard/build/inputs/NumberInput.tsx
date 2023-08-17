@@ -2,27 +2,24 @@
 
 import React, { SyntheticEvent } from 'react';
 
-import { FormValueAction, FormNumberProps } from '@/types/build';
-
-export default function FormNumber({ arg, dispatch }: FormNumberProps) {
+export default function NumberInput({ arg, handleUpdateValueProperty }: any) {
   const handleChange = (event: SyntheticEvent): void => {
-    const action: FormValueAction = { type: 'UPDATE_FORM_VALUE', event };
-
-    dispatch(action);
+    handleUpdateValueProperty(event);
   };
 
   return (
-    <div>
+    <label htmlFor={arg.name}>
       <input
         type="number"
+        id={arg.name}
         name={arg.name}
         onChange={handleChange}
         value={arg.value}
         // Custom
-        disabled={!arg.isChecked}
+        disabled={!arg.checked}
         min={arg.input.min}
         max={arg.input.max}
       />
-    </div>
+    </label>
   );
 }

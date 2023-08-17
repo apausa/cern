@@ -1,70 +1,61 @@
-import { Dispatch, SyntheticEvent } from 'react';
-
-import { NextResponse } from 'next/server';
-import { BashScript } from './build';
-
-// Exec command
-
-export type ExecCmd = {
-  name: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
-  args: [
-    'exec',
-    '-C',
-    '-B',
-    '/cvmfs:/cvmfs,/tmp:/tmp,/work:/work',
-    '--pwd',
-    '/work',
-    '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503',
-    '/bin/bash',
-    '-c']
-};
+import { Dispatch } from 'react';
 
 // Reducer
 
-export type Simulation = {
-  bashScript: BashScript,
+export type Metadata = {
   id: string,
+  version: string,
+  o2Cmd: string,
   date: Date,
-  testStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
-  prodStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
+  testScript: TestScript,
+  prodScript: ProdScript
 };
 
-export type DashboardState = Simulation[];
+export type TestScript = {
+  scriptPath: string,
+  scriptBody: string,
+  scriptStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
+};
 
-export type DashboardUseReducer = [DashboardState, Dispatch<any>];
+export type ProdScript = {
+  scriptPath: string,
+  scriptBody: string,
+  scriptStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
+};
+
+export type DashboardState = Metadata[];
+
+export type DashboardUseReducer = [DashboardState, Dispatch<DashboardActions>];
 
 // Actions
 
-export type DashboardActions = DashboardCreateAction | DashboardUpdateAction;
+export type DashboardActions = DashboardCreateAction
+| DashboardUpdateAction
+| DashboardGetAllAction;
 
 export type DashboardCreateAction = {
-  type: 'CREATE_SIMULATION';
-  simulation: Simulation,
+  type: 'CREATE_METADATA';
+  metadata: Metadata,
 };
 
 export type DashboardUpdateAction = {
-  type: 'UPDATE_SIMULATION';
-  simulation: Simulation,
+  type: 'UPDATE_METADATA';
+  metadata: Metadata,
 };
 
-// API
-
-export type DashboardPost = NextResponse<Simulation | unknown>;
-
-export type DashboardPut = NextResponse<Simulation | unknown>;
-
-// Build component
-
-export type BuildProps = {
-  handlePostSimulation: (event: SyntheticEvent, buildState: BashScript) => Promise<void>,
+export type DashboardGetAllAction = {
+  type: 'READ_ALL_METADATA',
+  allMetadata: Metadata[],
 };
 
 // Functions
 
-export type HandlePostSimulation = (
-  event: SyntheticEvent, simulation: BashScript
+export type HandleCreateMetadata = (
+  parsedO2Cmd: string, version: string
 ) => Promise<void>;
 
-export type HandlePutSimulation = (
-  simulation: Simulation
+export type HandleUpdateMetadata = (
+  metadata: Metadata
 ) => Promise<void>;
+
+export type HandleAllMetadata = () => void;

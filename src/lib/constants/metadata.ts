@@ -1,17 +1,17 @@
-import { ExecCmd } from '@/types/dashboard';
+/* eslint-disable import/prefer-default-export */
 
-const EXEC_CMD: ExecCmd = {
+import { TestExecCmd } from '@/types/metadata';
+
+export const testExecCmd: TestExecCmd = {
   name: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
   args: [
     'exec',
     '-C',
     '-B',
-    '/cvmfs:/cvmfs,/tmp:/tmp,/work:/work',
+    '/cvmfs:/cvmfs,/tmp:/tmp,/home/papausac/work:/home/papausac/work',
     '--pwd',
-    '/work',
+    '/home/papausac/work',
     '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503',
     '/bin/bash',
     '-c'],
 };
-
-export default EXEC_CMD;

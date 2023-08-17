@@ -1,30 +1,28 @@
-/* eslint-disable max-len */
 /* eslint-disable object-property-newline */
-/* eslint-disable no-param-reassign */
 
-import {
-  BashScript, BashScriptArgs, BuildActions, BashScriptCmds,
-} from '@/types/build';
+import { O2CmdObj } from '@/types/build';
 
 const buildReducer = (
-  currentState: BashScript,
-  action: BuildActions,
-): BashScript => {
-  let nextState: any = currentState;
+  currentState: O2CmdObj,
+  action: any,
+): O2CmdObj => {
+  let nextState: any = null;
 
   switch (action.type) {
-    case 'UPDATE_FORM_CHECKBOX': nextState = currentState.map((cmd: BashScriptCmds): any => ({
-      ...cmd, args: cmd.args.map((arg: BashScriptArgs): any => (
+    case 'UPDATE_CHECKED_PROPERTY': nextState = {
+      ...currentState,
+      args: currentState.args.map((arg: any): any => (
         (arg!.name === action.event.target.name)
-          ? { ...arg!, isChecked: !arg!.isChecked } : arg!
+          ? { ...arg!, checked: !arg!.checked } : arg
       )),
-    })); break;
-    case 'UPDATE_FORM_VALUE': nextState = currentState.map((cmd: BashScriptCmds): any => ({
-      ...cmd, args: cmd.args.map((arg: BashScriptArgs): BashScriptArgs => (
+    }; break;
+    case 'UPDATE_VALUE_PROPERTY': nextState = {
+      ...currentState,
+      args: currentState.args.map((arg: any): any => (
         (arg!.name === action.event.target.name)
-          ? { ...arg!, value: action.event.target.value } : arg!
+          ? { ...arg, value: action.event.target.value } : arg
       )),
-    })); break;
+    }; break;
     default: break;
   }
 
