@@ -3,17 +3,17 @@ import { NextResponse } from 'next/server';
 
 // Types
 import { Metadata } from '@/types/dashboard';
-import { PostMetadata } from '@/types/metadata';
+import { PostMetadata, PutMetadata } from '@/types/metadata';
 
 // Utils
 import getError from '@/utils/getError';
-import { createMetadata, createScript } from '@/utils/buildScript';
+import { createMetadata, createScript } from './buildScript';
+import { runProdScript, runTestScript } from './runScript';
 
 export async function POST(request: Request): Promise<PostMetadata> {
   try {
     const { o2CmdStr, version }: any = await request.json();
     const createdMetadata: Metadata = await createMetadata(o2CmdStr, version);
-
     await createScript(createdMetadata.testScript);
     await createScript(createdMetadata.prodScript);
 
@@ -21,27 +21,13 @@ export async function POST(request: Request): Promise<PostMetadata> {
   } catch { return getError(); }
 }
 
-// export async function PUT(request: Request): Promise<DashboardPut> {
-//   try {
-//     const unresolvedSimulation: Simulation = await request.json();
+export async function PUT(request: Request): Promise<PutMetadata> {
+  try {
+    const unresolvedMetadata: Metadata = await request.json();
+    const resolvedMetadata: any = (unresolvedMetadata.testScript.scriptStatus === 'FULFILLED')
+      ? await runProdScript(unresolvedMetadata)
+      : await runTestScript(unresolvedMetadata);
 
-//     // @develop Update unresolvedSimulation in DD. BB. ("PENDING")
-
-//     const resolvedSimulation: Simulation = (unresolvedSimulation.testStatus === 'FULFILLED')
-//       ? await runScriptInProd(unresolvedSimulation)
-//       : await runScriptInTest(unresolvedSimulation);
-
-//     // @develop Update resolvedSimulation in DD. BB. ("FULFILLED | "REJECTED")
-
-//     return NextResponse.json(resolvedSimulation, { status: 200 });
-//     // @develop, when error, return error and also reject simulation promise
-//   } catch (error: unknown) { return getError(error); }
-// }
-
-// export async function POST(): Promise<PostAllMetadata> {
-//   try {
-//     localStorage.setItem('allMetadata', JSON.stringify([]));
-
-//     return NextResponse.json(null, { status: 200 });
-//   } catch (error: unknown) { return getError(error); }
-// }
+    return NextResponse.json(resolvedMetadata, { status: 200 });
+  } catch { return getError(); }
+}

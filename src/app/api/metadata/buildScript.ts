@@ -2,7 +2,6 @@ import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import { v4 as uuidv4 } from 'uuid';
 
-// Types
 import { Metadata, ProdScript, TestScript } from '@/types/dashboard';
 
 const getTestScriptBody = (version: string, o2CmdStr: string): string => ([
@@ -20,22 +19,22 @@ export const createMetadata = async (o2CmdStr: string, version: string): Promise
   await fs.mkdir(segment);
   await fs.chmod(segment, '755');
 
-  const metadata: Metadata = {
-    id, // @delete
+  return {
+    id,
     date: new Date(),
+    o2Cmd: o2CmdStr,
+    version,
     testScript: {
-      scriptPath: path.join(segment, 'prod.sh'),
-      scriptBody: getProdScriptBody(version, o2CmdStr),
-      scriptStatus: null,
-    },
-    prodScript: {
       scriptPath: path.join(segment, 'test.sh'),
       scriptBody: getTestScriptBody(version, o2CmdStr),
       scriptStatus: null,
     },
+    prodScript: {
+      scriptPath: path.join(segment, 'prod.sh'),
+      scriptBody: getProdScriptBody(version, o2CmdStr),
+      scriptStatus: null,
+    },
   };
-
-  return metadata;
 };
 
 export const createScript = async (

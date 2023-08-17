@@ -19,7 +19,7 @@ import initialO2CmdObj from '@/lib/constants/build';
 import { BuildProps, O2CmdObjUseReducer, StrUseState } from '@/types/build';
 
 // Utils
-import getO2CmdStr from '@/utils/getO2CmdStr';
+import { getO2CmdStr } from '@/utils/getCmd';
 import { getParsedCurrentDate, getParsedSelectedDate } from '@/utils/getDate';
 
 export default function Build({ handleCreateMetadata, setBuild }: BuildProps) {

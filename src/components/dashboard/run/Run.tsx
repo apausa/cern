@@ -11,33 +11,43 @@ export default function Run({ dashboardState, handleUpdateMetadata }: any) {
 
   return (
     <div>
-      <h2 className="font-bold">Run</h2>
+      <h2 className="font-bold">Timeline</h2>
+      <br />
       <ul>
-        {dashboardState && dashboardState.map((metadata: Metadata, index: number) => (
-          <li key={`${index}`}>
-            <br />
-            <br />
+        {dashboardState && dashboardState.map((metadata: Metadata) => (
+          <li key={metadata.id}>
             <div>{metadata.id}</div>
             <div>
-              Test status  →
-              {' '}
-              {(metadata.testScript.scriptStatus === null) ? 'Ready' : metadata.testScript.scriptStatus}
+              <div>
+                Test status  →
+                {' '}
+                {(metadata.testScript.scriptStatus === null) ? 'Ready' : metadata.testScript.scriptStatus}
+              </div>
+              <button
+                type="button"
+                disabled={metadata.testScript.scriptStatus !== null}
+                onClick={() => { handleUpdateMetadata(metadata); }}
+              >
+                [Run in test]
+              </button>
             </div>
             <div>
-              GRID status  →
-              {' '}
-              {(metadata.testScript.scriptStatus !== 'FULFILLED')
-                ? 'Not ready'
-                : (metadata.prodScript.scriptStatus === null) ? 'Ready' : metadata.prodScript.scriptStatus}
+              <div>
+                Prod status  →
+                {' '}
+                {(metadata.testScript.scriptStatus !== 'FULFILLED')
+                  ? 'Not ready'
+                  : (metadata.prodScript.scriptStatus === null) ? 'Ready' : metadata.prodScript.scriptStatus}
+              </div>
+              <button
+                type="button"
+                disabled={isDisabled(metadata)}
+                onClick={() => { handleUpdateMetadata(metadata); }}
+              >
+                [Run in prod]
+              </button>
             </div>
             <br />
-            <button
-              type="button"
-              disabled={isDisabled(metadata)}
-              onClick={() => { handleUpdateMetadata(metadata); }}
-            >
-              [BUTTON] Run in GRID
-            </button>
           </li>
         ))}
       </ul>

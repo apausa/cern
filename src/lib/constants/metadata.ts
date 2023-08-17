@@ -1,4 +1,6 @@
-import { ProdExecCmd, TestExecCmd } from '@/types/dashboard';
+/* eslint-disable import/prefer-default-export */
+
+import { TestExecCmd } from '@/types/metadata';
 
 export const testExecCmd: TestExecCmd = {
   name: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
@@ -12,9 +14,4 @@ export const testExecCmd: TestExecCmd = {
     '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503',
     '/bin/bash',
     '-c'],
-};
-
-export const prodExecCmd: ProdExecCmd = {
-  name: './grid_submit.sh',
-  args: ['--script', null, '--wait', '--fetch-output-files'],
 };

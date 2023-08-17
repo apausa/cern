@@ -4,6 +4,8 @@ import { Dispatch } from 'react';
 
 export type Metadata = {
   id: string,
+  version: string,
+  o2Cmd: string,
   date: Date,
   testScript: TestScript,
   prodScript: ProdScript
@@ -24,27 +26,6 @@ export type ProdScript = {
 export type DashboardState = Metadata[];
 
 export type DashboardUseReducer = [DashboardState, Dispatch<DashboardActions>];
-
-// Exec command
-
-export type TestExecCmd = {
-  name: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
-  args: [
-    'exec',
-    '-C',
-    '-B',
-    '/cvmfs:/cvmfs,/tmp:/tmp,/home/papausac/work:/home/papausac/work',
-    '--pwd',
-    '/home/papausac/work',
-    '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503',
-    '/bin/bash',
-    '-c']
-};
-
-export type ProdExecCmd = {
-  name: './grid_submit.sh',
-  args: ['--script', string | null, '--wait', '--fetch-output-files'],
-};
 
 // Actions
 

@@ -19,6 +19,7 @@ import {
   getAllMetadata, postMetadata, putMetadata,
 } from '@/lib/services/dashboard';
 import dashboardReducer from '@/lib/reducers/dashboard';
+import setStatus from '@/utils/setStatus';
 
 export default function Page() {
   const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
@@ -29,16 +30,23 @@ export default function Page() {
   };
 
   const handleUpdateMetadata: HandleUpdateMetadata = async (metadata) => {
-    // const unresolvedMetadata: Metadata = setPending(metadata);
-    // dispatch({ type: 'UPDATE_MEATADATA', metadata: unresolvedMetadata });
+    const unresolvedMetadata: Metadata = setStatus(metadata, 'PENDING');
+    dispatch({ type: 'UPDATE_METADATA', metadata: unresolvedMetadata });
+    localStorage.setItem('allMetadata', JSON.stringify(dashboardState)); // @delete
 
-    // const resolvedMetadata: Metadata = await putMetadata(unresolvedMetadata);
-    // dispatch({ type: 'UPDATE_MEATADATA', metadata: resolvedMetadata });
+    const resolvedMetadata: Metadata | null = await putMetadata(unresolvedMetadata);
+    if (resolvedMetadata) {
+      dispatch({ type: 'UPDATE_METADATA', metadata: resolvedMetadata });
+      localStorage.setItem('allMetadata', JSON.stringify(dashboardState)); // @delete
+    }
   };
 
   const handleCreateMetadata: HandleCreateMetadata = async (version, o2CmdStr) => {
     const metadata: Metadata | null = await postMetadata(version, o2CmdStr);
-    if (metadata) dispatch({ type: 'CREATE_METADATA', metadata });
+    if (metadata) {
+      dispatch({ type: 'CREATE_METADATA', metadata });
+      localStorage.setItem('allMetadata', JSON.stringify(dashboardState)); // @delete
+    }
   };
 
   const handleReadAllMetadata: HandleAllMetadata = () => {
