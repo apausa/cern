@@ -3,7 +3,7 @@ import { ProdAlienvCmd } from '@/types/metadata';
 
 export const getO2CmdStr = ({ name, args }: O2CmdObj): string => (
   [name, ...args.reduce((acc: (string | number)[], val: any): (string | number)[] => (
-    acc.concat(val.checked ? [val.name, val.value] : [])), [])]).join(' ');
+    acc.concat(val.selected ? [val.name, val.value] : [])), [])]).join(' ');
 
 export const getProdAlienvCmd = (version: string): ProdAlienvCmd => ({
   name: '/cvmfs/alice.cern.ch/bin/alienv',

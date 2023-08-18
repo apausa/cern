@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useEffect, useReducer, useState } from 'react';
+import { Button, Divider } from '@nextui-org/react';
 
 // Components
 import Build from '@/components/dashboard/build/Build';
@@ -23,11 +24,6 @@ import setStatus from '@/utils/setStatus';
 
 export default function Page() {
   const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
-  const [build, setBuild]: any = useState(false);
-
-  const handleClick = () => {
-    if (!build) setBuild(true);
-  };
 
   const handleUpdateMetadata: HandleUpdateMetadata = async (metadata) => {
     const unresolvedMetadata: Metadata = setStatus(metadata, 'PENDING');
@@ -60,30 +56,13 @@ export default function Page() {
 
   return (
     <div className="flex flex-nowrap">
-      <div className="flex-none basis-1/6 h-screen border-r-2">
-        <div className="font-bold">Dashboard</div>
-        <br />
-        <input
-          type="button"
-          onClick={handleClick}
-          value="Build script"
-        />
+      <div className="basis-194 flex-none h-screen border-r">
+        <Build handleCreateMetadata={handleCreateMetadata} />
       </div>
-      {build && (
-      <div className="flex-none basis-1/3 h-screen border-r-2">
-        <Build
-          handleCreateMetadata={handleCreateMetadata}
-          setBuild={setBuild}
-        />
+      <div className="basis-128 flex-none h-screen border-r">
+        <Run dashboardState={dashboardState} handleUpdateMetadata={handleUpdateMetadata} />
       </div>
-      )}
-      <div className="flex-none basis-1/3 h-screen border-r-2">
-        <Run
-          dashboardState={dashboardState}
-          handleUpdateMetadata={handleUpdateMetadata}
-        />
-      </div>
-      <div className="flex-none basis-1/3 h-screen border-r-2">
+      <div className="basis-128 flex-none h-screen border-r">
         <Monitor />
       </div>
     </div>

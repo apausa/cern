@@ -17,33 +17,33 @@ export type O2CmdArg = O2CmdPythiaArg | O2CmdNumberArg | O2CmdTGeantArg | O2CmdC
 export type O2CmdNumberArg = {
   name: '-n',
   value: number,
-  checked: boolean,
-
+  selected: boolean,
+  disabled: false,
   input: { type: 'number', min: number, max: number },
 };
 
 export type O2CmdTGeantArg = {
   name: '-e',
   value: 'TGeant3' | 'TGeant4',
-  checked: boolean,
-
+  selected: boolean,
+  disabled: false,
   input: { type: 'radio', options: ['TGeant3', 'TGeant4'] },
 };
 
 export type O2CmdPythiaArg = {
   name: '-g',
   value: 'pythia8pp',
-  checked: boolean,
-
-  input: { type: null }
+  selected: true,
+  disabled: true,
+  input: { type: null },
 };
 
 export type O2CmdConfigArg = {
   name: '--configKeyValues',
   value: 'align-geom.mDetectors=none',
-  checked: boolean,
-
-  input: { type: null }
+  selected: true,
+  disabled: true,
+  input: { type: null },
 
 };
 

@@ -1,6 +1,8 @@
 'use client';
 
 import React from 'react';
+import { Button, Divider } from '@nextui-org/react';
+
 import { Metadata } from '@/types/dashboard';
 
 export default function Run({ dashboardState, handleUpdateMetadata }: any) {
@@ -12,7 +14,7 @@ export default function Run({ dashboardState, handleUpdateMetadata }: any) {
   return (
     <div>
       <h2 className="font-bold">Timeline</h2>
-      <br />
+      <Divider />
       <ul>
         {dashboardState && dashboardState.map((metadata: Metadata) => (
           <li key={metadata.id}>
@@ -23,13 +25,13 @@ export default function Run({ dashboardState, handleUpdateMetadata }: any) {
                 {' '}
                 {(metadata.testScript.scriptStatus === null) ? 'Ready' : metadata.testScript.scriptStatus}
               </div>
-              <button
-                type="button"
-                disabled={metadata.testScript.scriptStatus !== null}
+              <Button
+                color="primary"
+                isDisabled={metadata.testScript.scriptStatus !== null}
                 onClick={() => { handleUpdateMetadata(metadata); }}
               >
-                [Run in test]
-              </button>
+                Run in test
+              </Button>
             </div>
             <div>
               <div>
@@ -39,15 +41,15 @@ export default function Run({ dashboardState, handleUpdateMetadata }: any) {
                   ? 'Not ready'
                   : (metadata.prodScript.scriptStatus === null) ? 'Ready' : metadata.prodScript.scriptStatus}
               </div>
-              <button
-                type="button"
-                disabled={isDisabled(metadata)}
+              <Button
+                color="primary"
+                isDisabled={isDisabled(metadata)}
                 onClick={() => { handleUpdateMetadata(metadata); }}
               >
-                [Run in prod]
-              </button>
+                Run in prod
+              </Button>
             </div>
-            <br />
+            <Divider />
           </li>
         ))}
       </ul>
