@@ -30,6 +30,8 @@ export default function Form() {
   const [o2CmdObj, dispatch]: O2CmdObjUseReducer = useReducer(buildReducer, initialO2CmdObj);
   const [o2CmdStr, setO2CmdStr]: StrUseState = useState(getO2CmdStr(o2CmdObj));
 
+  // @continue send to run by differentiating script in advanced or default mode
+
   useEffect((): void => { setO2CmdStr(getO2CmdStr(o2CmdObj)); }, [o2CmdObj]);
 
   return (
