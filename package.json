@@ -11,12 +11,14 @@
     "cypress": "cypress open"
   },
   "dependencies": {
+    "@nextui-org/react": "^2.0.22",
     "@types/node": "20.4.0",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
     "autoprefixer": "10.4.14",
     "d3": "^7.8.5",
     "eslint-config-next": "13.4.9",
+    "framer-motion": "^10.16.0",
     "next": "13.4.9",
     "postcss": "8.4.25",
     "react": "18.2.0",

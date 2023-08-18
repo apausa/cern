@@ -15,12 +15,12 @@ export const runTestScript = (metadata: Metadata): Promise<Metadata> => {
   const { name, args }: TestExecCmd = testExecCmd;
   const childProcess: ChildProcess = spawn(name, [...args, metadata.testScript.scriptPath]);
 
-  childProcess.stdout?.on('data', (output: any) => { console.log(output.toString()); });
-  childProcess.stderr?.on('data', (output: any) => { console.log(output.toString()); });
+  childProcess.stdout?.on('data', (output: any) => { console.log(output.toString()); }); // @delete
+  childProcess.stderr?.on('data', (output: any) => { console.log(output.toString()); }); // @delete
 
   return new Promise((resolve): void => {
     childProcess.on('close', (output: number) => {
-      resolve(setStatus(metadata, output === 0 ? 'FULFILLED' : 'REJECTED'));
+      resolve(setStatus(metadata, (output === 0) ? 'FULFILLED' : 'REJECTED'));
     });
     childProcess.on('error', () => { resolve(setStatus(metadata, 'REJECTED')); });
   });
@@ -33,12 +33,12 @@ export const runProdScript = async (metadata: Metadata): Promise<Metadata> => {
   childProcess.stdin?.write(getProdExecCmd(metadata.prodScript.scriptPath));
   childProcess.stdin?.end('exit');
 
-  childProcess.stdout?.on('data', (output: any) => { console.log(output.toString()); });
-  childProcess.stderr?.on('data', (output: any) => { console.log(output.toString()); });
+  childProcess.stdout?.on('data', (output: any) => { console.log(output.toString()); }); // @delete
+  childProcess.stderr?.on('data', (output: any) => { console.log(output.toString()); }); // @delete
 
   return new Promise((resolve): void => {
     childProcess.on('close', (output: number) => {
-      resolve(setStatus(metadata, output === 0 ? 'FULFILLED' : 'REJECTED'));
+      resolve(setStatus(metadata, (output === 0) ? 'FULFILLED' : 'REJECTED'));
     });
     childProcess.on('error', () => { resolve(setStatus(metadata, 'REJECTED')); });
   });
