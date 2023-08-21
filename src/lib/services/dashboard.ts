@@ -11,8 +11,8 @@ export function getAllMetadata(): Metadata[] {
 
 // Metadata
 
-export async function postMetadata(version: string, o2CmdStr: string): Promise<Metadata | null> {
-  const response: Response = await fetch('/api/metadata', { method: 'POST', body: JSON.stringify({ version, o2CmdStr }) });
+export async function postMetadata(version: string, cmdStr: string): Promise<Metadata | null> {
+  const response: Response = await fetch('/api/metadata', { method: 'POST', body: JSON.stringify({ version, cmdStr }) });
   const parsedResponse: Metadata | null = await response.json();
 
   return parsedResponse;

@@ -1,13 +1,15 @@
-import { O2CmdObj } from '@/types/build';
+import { Form, CmdObj } from '@/types/build';
+import { getCmdStr } from '@/utils/getCmd';
+import { getParsedCurrentDate } from '@/utils/getDate';
 
-const initialO2CmdObj: O2CmdObj = {
+const initialCmdObj: CmdObj = {
   name: 'o2-sim',
   args: [
     {
       name: '-g',
       value: 'pythia8pp',
       selected: true,
-      disabled: true,
+      disabled: false,
       input: { type: null },
     },
     {
@@ -15,23 +17,32 @@ const initialO2CmdObj: O2CmdObj = {
       value: 10,
       selected: true,
       disabled: false,
-      input: { type: 'number', min: 0, max: 10 },
+      input: {
+        type: 'number', min: 1, max: 10,
+      },
     },
     {
       name: '-e',
       value: 'TGeant4',
       selected: true,
       disabled: false,
-      input: { type: 'radio', options: ['TGeant3', 'TGeant4'] },
+      input: { type: 'select', options: ['TGeant3', 'TGeant4'] },
     },
     {
       name: '--configKeyValues',
       value: 'align-geom.mDetectors=none',
       selected: true,
-      disabled: true,
+      disabled: false,
       input: { type: null },
     },
   ],
 };
 
-export default initialO2CmdObj;
+const initialForm: Form = {
+  date: getParsedCurrentDate(),
+  cmdObj: initialCmdObj,
+  cmdStr: getCmdStr(initialCmdObj),
+  advancedMode: false,
+};
+
+export default initialForm;

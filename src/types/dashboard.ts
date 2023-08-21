@@ -1,12 +1,11 @@
 import { Dispatch } from 'react';
+import { Form } from './build';
 
 // Reducer
 
 export type Metadata = {
   id: string,
-  version: string,
-  o2Cmd: string,
-  date: Date,
+  form: Form,
   testScript: TestScript,
   prodScript: ProdScript
 };
@@ -51,7 +50,7 @@ export type DashboardGetAllAction = {
 // Functions
 
 export type HandleCreateMetadata = (
-  parsedO2Cmd: string, version: string
+  parsedCmd: string, version: string
 ) => Promise<void>;
 
 export type HandleUpdateMetadata = (

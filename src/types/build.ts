@@ -1,82 +1,55 @@
-import { Dispatch, SetStateAction, SyntheticEvent } from 'react';
+// Form component
+
+export type Form = {
+  date: string,
+  cmdObj: CmdObj,
+  cmdStr: string,
+  advancedMode: boolean
+};
 
 // O2 Command and arguments
 
-export type O2CmdObj = {
+export type CmdObj = {
   name: 'o2-sim',
   args: [
-    O2CmdPythiaArg?,
-    O2CmdNumberArg?,
-    O2CmdTGeantArg?,
-    O2CmdConfigArg?,
+    CmdPythiaArg?,
+    CmdNumberArg?,
+    CmdTGeantArg?,
+    CmdConfigArg?,
   ];
 };
 
-export type O2CmdArg = O2CmdPythiaArg | O2CmdNumberArg | O2CmdTGeantArg | O2CmdConfigArg;
+export type CmdArg = CmdPythiaArg | CmdNumberArg | CmdTGeantArg | CmdConfigArg;
 
-export type O2CmdNumberArg = {
+export type CmdNumberArg = {
   name: '-n',
   value: number,
   selected: boolean,
-  disabled: false,
+  disabled: boolean,
   input: { type: 'number', min: number, max: number },
 };
 
-export type O2CmdTGeantArg = {
+export type CmdTGeantArg = {
   name: '-e',
   value: 'TGeant3' | 'TGeant4',
   selected: boolean,
-  disabled: false,
-  input: { type: 'radio', options: ['TGeant3', 'TGeant4'] },
+  disabled: boolean,
+  input: { type: 'select', options: ['TGeant3', 'TGeant4'] },
 };
 
-export type O2CmdPythiaArg = {
+export type CmdPythiaArg = {
   name: '-g',
   value: 'pythia8pp',
-  selected: true,
-  disabled: true,
+  selected: boolean,
+  disabled: boolean,
   input: { type: null },
 };
 
-export type O2CmdConfigArg = {
+export type CmdConfigArg = {
   name: '--configKeyValues',
   value: 'align-geom.mDetectors=none',
-  selected: true,
-  disabled: true,
+  selected: boolean,
+  disabled: boolean,
   input: { type: null },
 
-};
-
-// State
-
-export type BuildReducerAction = {
-  type: 'UPDATE_VALUE_PROPERTY' | 'UPDATE_CHECKED_PROPERTY',
-  event: SyntheticEvent
-};
-
-export type O2CmdObjUseReducer = [
-  O2CmdObj,
-  Dispatch<BuildReducerAction>,
-];
-
-export type StrUseState = [
-  string,
-  Dispatch<SetStateAction<string>>,
-];
-
-// Props
-
-export type BuildProps = {
-  handleCreateMetadata: (o2cmd: string, version: string) => void,
-  setBuild: Dispatch<SetStateAction<boolean>>
-};
-
-export type CheckboxInputProps = {
-  arg: O2CmdArg,
-  handleUpdateCheckedProperty: (event: SyntheticEvent) => void
-};
-
-export type AdvancedModeProps = {
-  o2CmdStr: string,
-  setO2CmdStr: Dispatch<SetStateAction<string>>,
 };

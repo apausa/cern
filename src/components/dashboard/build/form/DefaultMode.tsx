@@ -1,4 +1,5 @@
-import React, { SyntheticEvent, useState } from 'react';
+/* eslint-disable no-alert */
+import React, { Key, useState } from 'react';
 import {
   Table,
   TableHeader,
@@ -11,49 +12,44 @@ import {
 
 // Components
 import NumberInput from './inputs/NumberInput';
-import RadioInput from './inputs/RadioInput';
+import SelectInput from './inputs/SelectInput';
 
 // Utils
 import { getDisabledKeys, getSelectedKeys } from '@/utils/getKeys';
 
-export default function DefaultMode({ o2CmdObj, dispatch }: any) {
-  const [selectedKeys, setSelectedKeys]: any = useState(getSelectedKeys(o2CmdObj));
+export default function DefaultMode({ cmdObj, setCmdObjArguments, setCmdObjValues }: any) {
+  const [selectedKeys, setSelectedKeys]: any = useState(getSelectedKeys(cmdObj));
 
   const handleOnSelectionChange = (keys: Selection): void => {
-    dispatch({ type: 'UPDATE_SELECTION', keys });
+    setCmdObjArguments(keys);
     setSelectedKeys(keys);
   };
 
-  const handleChange = (event: SyntheticEvent): void => {
-    console.log(event);
-    dispatch({ type: 'UPDATE_VALUE', event });
-  };
-
   return (
-    <fieldset>
-      <legend>Default mode</legend>
+    <fieldset className="p-4">
       <Table
+        onSelectionChange={handleOnSelectionChange}
         removeWrapper
         disallowEmptySelection
+        selectionBehavior="toggle"
         selectionMode="multiple"
         selectedKeys={selectedKeys}
-        disabledKeys={getDisabledKeys(o2CmdObj)}
-        onSelectionChange={handleOnSelectionChange}
+        disabledKeys={getDisabledKeys(cmdObj)}
       >
         <TableHeader>
-          <TableColumn>Name</TableColumn>
+          <TableColumn>Argument</TableColumn>
           <TableColumn>Value</TableColumn>
         </TableHeader>
         <TableBody>
-          {o2CmdObj.args.map((arg: any) => (
+          {cmdObj.args.map((arg: any) => (
             <TableRow key={arg.name}>
               <TableCell>
                 {arg.name}
               </TableCell>
               <TableCell>
                 {arg.input.type === null && (arg.value)}
-                {arg.input.type === 'number' && <NumberInput arg={arg} handleChange={handleChange} />}
-                {arg.input.type === 'radio' && <RadioInput arg={arg} handleChange={handleChange} />}
+                {arg.input.type === 'number' && <NumberInput arg={arg} setCmdObjValues={setCmdObjValues} />}
+                {arg.input.type === 'select' && <SelectInput arg={arg} setCmdObjValues={setCmdObjValues} />}
               </TableCell>
             </TableRow>
           ))}

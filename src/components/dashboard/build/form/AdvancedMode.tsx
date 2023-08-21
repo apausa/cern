@@ -4,18 +4,17 @@ import React from 'react';
 import { Textarea } from '@nextui-org/react';
 
 // Types
-import { AdvancedModeProps } from '@/types/build';
 
-export default function AdvancedMode({ o2CmdStr, setO2CmdStr }: AdvancedModeProps) {
+export default function AdvancedMode({ cmdStr, setCmdStr }: any) {
   const handleChange = ({ target: { value } }: any): void => {
-    setO2CmdStr(value);
+    setCmdStr(value);
   };
 
   return (
-    <fieldset>
-      <legend>Advanced Mode</legend>
+    <fieldset className="p-4">
       <Textarea
-        value={o2CmdStr}
+        label="Advanced mode"
+        value={cmdStr}
         onChange={handleChange}
       />
     </fieldset>

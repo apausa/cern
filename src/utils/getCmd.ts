@@ -1,7 +1,7 @@
-import { O2CmdObj } from '@/types/build';
+import { CmdObj } from '@/types/build';
 import { ProdAlienvCmd } from '@/types/metadata';
 
-export const getO2CmdStr = ({ name, args }: O2CmdObj): string => (
+export const getCmdStr = ({ name, args }: CmdObj): string => (
   [name, ...args.reduce((acc: (string | number)[], val: any): (string | number)[] => (
     acc.concat(val.selected ? [val.name, val.value] : [])), [])]).join(' ');
 

@@ -10,12 +10,6 @@ export default function Build({ handleCreateMetadata }: any) {
   const [build, setBuild]: any = useState(false);
 
   const handleClick = (): void => { setBuild(!build); };
-  const handleSubmit = (event: SyntheticEvent): void => {
-    event.preventDefault();
-
-    handleClick();
-    // handleCreateMetadata(version, o2CmdStr);
-  };
 
   return (
     <div className="flex flex-nowrap">
@@ -26,18 +20,7 @@ export default function Build({ handleCreateMetadata }: any) {
           <Button color="primary" onClick={handleClick} isDisabled={build}>Build</Button>
         </main>
       </div>
-      {build && (
-      <div className="basis-128 flex-none h-screen border-r">
-        <header>
-          <Button color="primary" onClick={handleClick}>Return</Button>
-          <Button color="primary" onSubmit={handleSubmit}>Submit</Button>
-        </header>
-        <Divider />
-        <main>
-          <Form />
-        </main>
-      </div>
-      )}
+      {build && (<Form handleClick={handleClick} />)}
     </div>
   );
 }

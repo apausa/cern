@@ -1,48 +1,64 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 
 import React, {
-  useReducer, useState, useEffect, SyntheticEvent,
+  useReducer, SyntheticEvent, useEffect,
 } from 'react';
 import {
-  Divider, Switch,
+  Divider, Button, Switch,
 } from '@nextui-org/react';
 
 // Utils
-import { getParsedCurrentDate } from '@/utils/getDate';
-
-import { getO2CmdStr } from '@/utils/getCmd';
-import { O2CmdObjUseReducer, StrUseState } from '@/types/build';
+import { getCmdStr } from '@/utils/getCmd';
 
 // Components
-import SelectVersion from './selectVersion/SelectVersion';
-import AdvancedMode from './advancedMode/AdvancedMode';
+import SelectVersion from './inputs/DateInput';
+import AdvancedMode from './AdvancedMode';
+import DefaultMode from './DefaultMode';
 
 // Lib
-import buildReducer from '@/lib/reducers/build';
-import initialO2CmdObj from '@/lib/constants/build';
-import DefaultMode from './defaultMode/DefaultMode';
+import initialForm from '@/lib/constants/build';
+import formReducer from '@/lib/reducers/form';
 
-export default function Form() {
-  const [advancedMode, setAdvancedMode]: any = useState(false);
-  const [selectedDate, setSelectedDate]: StrUseState = useState(getParsedCurrentDate());
-  const [o2CmdObj, dispatch]: O2CmdObjUseReducer = useReducer(buildReducer, initialO2CmdObj);
-  const [o2CmdStr, setO2CmdStr]: StrUseState = useState(getO2CmdStr(o2CmdObj));
+export default function Form({ handleClick }: any) {
+  const [form, dispatchForm]: any = useReducer(formReducer, initialForm);
 
-  // @continue send to run by differentiating script in advanced or default mode
+  const setDate = (date: string): void => { dispatchForm({ type: 'SET_DATE', date }); };
+  const setCmdStr = (cmdStr: string): void => { dispatchForm({ type: 'SET_CMD_STR', cmdStr }); };
+  const setCmdObjArguments = (keys: Selection): void => { dispatchForm({ type: 'SET_CMD_OBJ_ARGUMENT', keys }); };
+  const setCmdObjValues = (key: string, name: string): void => { dispatchForm({ type: 'SET_CMD_OBJ_VALUE', key, name }); };
+  const setAdvancedMode = (mode: boolean): void => { dispatchForm({ type: 'SET_ADVANCED_MODE', mode }); };
 
-  useEffect((): void => { setO2CmdStr(getO2CmdStr(o2CmdObj)); }, [o2CmdObj]);
+  const handleSubmit = (event: SyntheticEvent): void => {
+    event.preventDefault();
+    handleClick();
+    // @continue, if advancedMode is selected...
+  };
+
+  useEffect((): void => { setCmdStr(getCmdStr(form.cmdObj)); }, [form.cmdObj]);
 
   return (
-    <form>
-      <SelectVersion selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
+    <div className="basis-128 flex-none h-screen border-r">
+      <header className="m-4">
+        <Button color="secondary" onClick={handleClick}>Return</Button>
+        <Button color="primary" onAuxClick={handleSubmit}>Submit</Button>
+      </header>
       <Divider />
-      <Switch isSelected={advancedMode} onValueChange={setAdvancedMode}>Advanced mode</Switch>
-      <Divider />
-      {advancedMode
-        ? (<AdvancedMode o2CmdStr={o2CmdStr} setO2CmdStr={setO2CmdStr} />)
-        : (<DefaultMode o2CmdObj={o2CmdObj} dispatch={dispatch} />)}
-    </form>
+      <main>
+        <form>
+          <SelectVersion date={form.date} setDate={setDate} />
+          <Switch className="p-4" isSelected={form.advancedMode} onValueChange={setAdvancedMode}>Advanced mode</Switch>
+          {form.advancedMode
+            ? (<AdvancedMode cmdStr={form.cmdStr} setCmdStr={setCmdStr} />)
+            : (
+              <DefaultMode
+                cmdObj={form.cmdObj}
+                setCmdObjArguments={setCmdObjArguments}
+                setCmdObjValues={setCmdObjValues}
+              />
+            )}
+        </form>
+      </main>
+    </div>
+
   );
 }
