@@ -1,7 +1,7 @@
-export const getParsedSelectedDate = (date: string): string => {
+export const getVersion = (date: string): string => {
   const [YYYY, MM, DD] = date.split('-');
 
-  return `${YYYY}${MM}${DD}`;
+  return `v${YYYY}${MM}${DD}-1`;
 };
 
 export const getParsedCurrentDate = (): string => {

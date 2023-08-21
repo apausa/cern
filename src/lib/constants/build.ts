@@ -9,14 +9,14 @@ const initialCmdObj: CmdObj = {
       name: '-g',
       value: 'pythia8pp',
       selected: true,
-      disabled: false,
+      disabled: true,
       input: { type: null },
     },
     {
       name: '-n',
       value: 10,
       selected: true,
-      disabled: false,
+      disabled: true,
       input: {
         type: 'number', min: 1, max: 10,
       },
@@ -25,14 +25,14 @@ const initialCmdObj: CmdObj = {
       name: '-e',
       value: 'TGeant4',
       selected: true,
-      disabled: false,
+      disabled: true,
       input: { type: 'select', options: ['TGeant3', 'TGeant4'] },
     },
     {
       name: '--configKeyValues',
       value: 'align-geom.mDetectors=none',
       selected: true,
-      disabled: false,
+      disabled: true,
       input: { type: null },
     },
   ],
@@ -42,7 +42,7 @@ const initialForm: Form = {
   date: getParsedCurrentDate(),
   cmdObj: initialCmdObj,
   cmdStr: getCmdStr(initialCmdObj),
-  advancedMode: false,
+  advanced: false,
 };
 
 export default initialForm;

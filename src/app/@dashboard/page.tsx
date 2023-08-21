@@ -1,9 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-
 'use client';
 
 import React, { useEffect, useReducer, useState } from 'react';
-import { Button, Divider } from '@nextui-org/react';
 
 // Components
 import Build from '@/components/dashboard/build/Build';
@@ -12,55 +9,54 @@ import Run from '@/components/dashboard/run/Run';
 
 // Types
 import {
-  DashboardUseReducer, HandleAllMetadata, HandleCreateMetadata, HandleUpdateMetadata, Metadata,
+  DashboardUseReducer, HandleCreateMetadata, HandleUpdateMetadata, Metadata,
 } from '@/types/dashboard';
 
 // Lib
-import {
-  getAllMetadata, postMetadata, putMetadata,
-} from '@/lib/services/dashboard';
+import { postMetadata, putMetadata } from '@/lib/services/dashboard';
 import dashboardReducer from '@/lib/reducers/dashboard';
 import setStatus from '@/utils/setStatus';
+import Dashboard from '@/components/dashboard/Dashboard';
+import { Form } from '@/types/build';
 
 export default function Page() {
   const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
+  const [openBuild, setBuild]: any = useState(false);
 
-  const handleUpdateMetadata: HandleUpdateMetadata = async (metadata) => {
+  const handleClick = (): void => { setBuild(!openBuild); };
+
+  const updateMetadata: HandleUpdateMetadata = async (metadata) => {
     const unresolvedMetadata: Metadata = setStatus(metadata, 'PENDING');
     dispatch({ type: 'UPDATE_METADATA', metadata: unresolvedMetadata });
-    localStorage.setItem('allMetadata', JSON.stringify(dashboardState)); // @delete
 
     const resolvedMetadata: Metadata | null = await putMetadata(unresolvedMetadata);
-    if (resolvedMetadata) {
-      dispatch({ type: 'UPDATE_METADATA', metadata: resolvedMetadata });
-      localStorage.setItem('allMetadata', JSON.stringify(dashboardState)); // @delete
-    }
+    if (resolvedMetadata) dispatch({ type: 'UPDATE_METADATA', metadata: resolvedMetadata });
   };
 
-  const handleCreateMetadata: HandleCreateMetadata = async (version, o2CmdStr) => {
-    const metadata: Metadata | null = await postMetadata(version, o2CmdStr);
-    if (metadata) {
-      dispatch({ type: 'CREATE_METADATA', metadata });
-      localStorage.setItem('allMetadata', JSON.stringify(dashboardState)); // @delete
-    }
-  };
-
-  const handleReadAllMetadata: HandleAllMetadata = () => {
-    const allMetadata: Metadata[] = getAllMetadata();
-    if (allMetadata) dispatch({ type: 'READ_ALL_METADATA', allMetadata });
+  const createMetadata: HandleCreateMetadata = async (form: Form) => {
+    const metadata: Metadata | null = await postMetadata(form);
+    if (metadata) dispatch({ type: 'CREATE_METADATA', metadata });
   };
 
   useEffect(() => {
-    handleReadAllMetadata();
+    const response: string = localStorage.getItem('allMetadata')!;
+    const allMetadata: Metadata[] = JSON.parse(response);
+
+    if (allMetadata) dispatch({ type: 'READ_ALL_METADATA', allMetadata });
   }, []);
 
   return (
     <div className="flex flex-nowrap">
-      <div className="basis-194 flex-none h-screen border-r">
-        <Build handleCreateMetadata={handleCreateMetadata} />
+      <div className="basis-64 flex-none h-screen border-r">
+        <Dashboard openBuild={openBuild} handleClick={handleClick} />
       </div>
+      {openBuild && (
       <div className="basis-128 flex-none h-screen border-r">
-        <Run dashboardState={dashboardState} handleUpdateMetadata={handleUpdateMetadata} />
+        <Build createMetadata={createMetadata} handleClick={handleClick} />
+      </div>
+      )}
+      <div className="basis-128 flex-none h-screen border-r">
+        <Run dashboardState={dashboardState} updateMetadata={updateMetadata} />
       </div>
       <div className="basis-128 flex-none h-screen border-r">
         <Monitor />

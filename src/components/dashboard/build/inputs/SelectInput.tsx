@@ -11,7 +11,6 @@ export default function SelectInput({ arg, setCmdObjValues }: any) {
 
   return (
     <Select
-      label={arg.name}
       onSelectionChange={handleOnSelectionChange}
       selectedKeys={selectedKey}
     >

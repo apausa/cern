@@ -50,7 +50,7 @@ export type DashboardGetAllAction = {
 // Functions
 
 export type HandleCreateMetadata = (
-  parsedCmd: string, version: string
+  form: Form
 ) => Promise<void>;
 
 export type HandleUpdateMetadata = (

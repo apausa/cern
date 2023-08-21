@@ -24,7 +24,7 @@ const formReducer = (
       },
 
     };
-    case 'SET_ADVANCED_MODE': return { ...currentState, advancedMode: action.mode };
+    case 'SET_ADVANCED_MODE': return { ...currentState, advanced: action.mode };
     default: return currentState;
   }
 };

@@ -1,5 +1,5 @@
 /* eslint-disable no-alert */
-import React, { Key, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Table,
   TableHeader,

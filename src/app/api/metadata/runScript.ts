@@ -10,6 +10,7 @@ import setStatus from '@/utils/setStatus';
 // Types
 import { Metadata } from '@/types/dashboard';
 import { ProdAlienvCmd, TestExecCmd } from '@/types/metadata';
+import { getVersion } from '@/utils/getDate';
 
 export const runTestScript = (metadata: Metadata): Promise<Metadata> => {
   const { name, args }: TestExecCmd = testExecCmd;
@@ -27,7 +28,7 @@ export const runTestScript = (metadata: Metadata): Promise<Metadata> => {
 };
 
 export const runProdScript = async (metadata: Metadata): Promise<Metadata> => {
-  const { name, args }: ProdAlienvCmd = getProdAlienvCmd(metadata.version);
+  const { name, args }: ProdAlienvCmd = getProdAlienvCmd(getVersion(metadata.form.date));
   const childProcess: ChildProcess = spawn(name, args);
 
   childProcess.stdin?.write(getProdExecCmd(metadata.prodScript.scriptPath));

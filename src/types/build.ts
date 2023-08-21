@@ -2,9 +2,9 @@
 
 export type Form = {
   date: string,
-  cmdObj: CmdObj,
+  cmdObj: CmdObj | null,
   cmdStr: string,
-  advancedMode: boolean
+  advanced: boolean
 };
 
 // O2 Command and arguments

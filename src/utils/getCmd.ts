@@ -7,7 +7,7 @@ export const getCmdStr = ({ name, args }: CmdObj): string => (
 
 export const getProdAlienvCmd = (version: string): ProdAlienvCmd => ({
   name: '/cvmfs/alice.cern.ch/bin/alienv',
-  args: ['enter', `O2sim/v${version}-1`],
+  args: ['enter', `O2sim/${version}`],
 });
 
 export const getProdExecCmd = (scriptPath: string): string => [

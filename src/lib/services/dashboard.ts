@@ -1,18 +1,10 @@
+import { Form } from '@/types/build';
 import { Metadata } from '@/types/dashboard';
-
-// All metadata
-
-export function getAllMetadata(): Metadata[] {
-  const response: string = localStorage.getItem('allMetadata')!;
-  const parsedResponse: Metadata[] = JSON.parse(response);
-
-  return parsedResponse;
-}
 
 // Metadata
 
-export async function postMetadata(version: string, cmdStr: string): Promise<Metadata | null> {
-  const response: Response = await fetch('/api/metadata', { method: 'POST', body: JSON.stringify({ version, cmdStr }) });
+export async function postMetadata(form: Form): Promise<Metadata | null> {
+  const response: Response = await fetch('/api/metadata', { method: 'POST', body: JSON.stringify({ form }) });
   const parsedResponse: Metadata | null = await response.json();
 
   return parsedResponse;

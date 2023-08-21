@@ -9,7 +9,6 @@ export default function NumberInput({ arg, setCmdObjValues }: any) {
 
   return (
     <Input
-      label={arg.name}
       type="number"
       onValueChange={handleValueChange}
       value={arg.value}
