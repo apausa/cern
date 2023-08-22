@@ -13,19 +13,21 @@ import {
 } from '@/types/dashboard';
 
 // Lib
-import { postMetadata, putMetadata } from '@/lib/services/dashboard';
+import { getAllMetadata, postMetadata, putMetadata } from '@/lib/services/dashboard';
 import dashboardReducer from '@/lib/reducers/dashboard';
 import setStatus from '@/utils/setStatus';
+import { getSelectedKeyFromAllMetadata } from '@/utils/getKeys';
 import Dashboard from '@/components/dashboard/Dashboard';
 import { Form } from '@/types/build';
 
 export default function Page() {
-  const [dashboardState, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
+  const [allMetadata, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
   const [openBuild, setBuild]: any = useState(false);
+  const [selectedKey, setSelectedKey]: any = useState(new Set(['']));
 
   const handleClick = (): void => { setBuild(!openBuild); };
 
-  const updateMetadata: HandleUpdateMetadata = async (metadata) => {
+  const handleUpdateMetadata: HandleUpdateMetadata = async (metadata) => {
     const unresolvedMetadata: Metadata = setStatus(metadata, 'PENDING');
     dispatch({ type: 'UPDATE_METADATA', metadata: unresolvedMetadata });
 
@@ -38,13 +40,13 @@ export default function Page() {
     if (metadata) dispatch({ type: 'CREATE_METADATA', metadata });
   };
 
+  useEffect(() => { setSelectedKey(getSelectedKeyFromAllMetadata(allMetadata)); }, [allMetadata]);
   useEffect(() => {
-    const response: string = localStorage.getItem('allMetadata')!;
-    const allMetadata: Metadata[] = JSON.parse(response);
-
-    if (allMetadata) dispatch({ type: 'READ_ALL_METADATA', allMetadata });
+    const parsedResponse: Metadata[] | null = getAllMetadata();
+    if (parsedResponse) dispatch({ type: 'READ_ALL_METADATA', parsedResponse });
   }, []);
 
+  // @develop, Control error for both components when there's no metadata
   return (
     <div className="flex flex-nowrap">
       <div className="basis-64 flex-none h-screen border-r">
@@ -55,11 +57,18 @@ export default function Page() {
         <Build createMetadata={createMetadata} handleClick={handleClick} />
       </div>
       )}
-      <div className="basis-128 flex-none h-screen border-r">
-        <Run dashboardState={dashboardState} updateMetadata={updateMetadata} />
+      <div className="basis-192 flex-none h-screen border-r">
+        <Monitor
+          allMetadata={allMetadata}
+          selectedKey={selectedKey}
+          setSelectedKey={setSelectedKey}
+        />
       </div>
       <div className="basis-128 flex-none h-screen border-r">
-        <Monitor />
+        <Run
+          selectedKey={selectedKey}
+          handleUpdateMetadata={handleUpdateMetadata}
+        />
       </div>
     </div>
   );

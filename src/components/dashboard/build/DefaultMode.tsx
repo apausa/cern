@@ -31,10 +31,11 @@ export default function DefaultMode({ cmdObj, setCmdObjArguments, setCmdObjValue
         onSelectionChange={handleOnSelectionChange}
         removeWrapper
         disallowEmptySelection
-        selectionBehavior="toggle"
         selectionMode="multiple"
         selectedKeys={selectedKeys}
         disabledKeys={getDisabledKeys(cmdObj)}
+        color="default"
+        aria-label="Build table"
       >
         <TableHeader>
           <TableColumn>Argument</TableColumn>

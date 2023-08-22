@@ -22,9 +22,9 @@ export type ProdScript = {
   scriptStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
 };
 
-export type DashboardState = Metadata[];
+export type AllMetadata = Metadata[];
 
-export type DashboardUseReducer = [DashboardState, Dispatch<DashboardActions>];
+export type DashboardUseReducer = [AllMetadata, Dispatch<DashboardActions>];
 
 // Actions
 
@@ -44,7 +44,7 @@ export type DashboardUpdateAction = {
 
 export type DashboardGetAllAction = {
   type: 'READ_ALL_METADATA',
-  allMetadata: Metadata[],
+  parsedResponse: Metadata[],
 };
 
 // Functions
