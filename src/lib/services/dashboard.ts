@@ -4,7 +4,7 @@ import { Metadata } from '@/types/dashboard';
 // Metadata
 
 export async function postMetadata(form: Form): Promise<Metadata | null> {
-  const response: Response = await fetch('/api/metadata', { method: 'POST', body: JSON.stringify({ form }) });
+  const response: Response = await fetch('/api/metadata', { method: 'POST', body: JSON.stringify(form) });
   const parsedResponse: Metadata | null = await response.json();
 
   return parsedResponse;
