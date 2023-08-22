@@ -21,7 +21,7 @@ export const createMetadata = async ({
   const version = getVersion(date);
   const id = uuidv4();
   const cmd = (advanced) ? cmdStr : getCmdStr(cmdObj!);
-  const segment: string = path.join(process.env.SCRIPTS_FOLDER!, id);
+  const segment: string = path.join(process.env.SCRIPTS_PATH!, id);
 
   await fs.mkdir(segment);
   await fs.chmod(segment, '755');
