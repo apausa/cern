@@ -52,6 +52,19 @@ export default function Run({ selectedKey, handleUpdateMetadata }: any) {
             Run in prod
           </Button>
         </div>
+        <Divider />
+        <div className="m-4">
+          <Button
+            color="default"
+          >
+            Fork
+          </Button>
+          <Button
+            color="default"
+          >
+            Bookmark
+          </Button>
+        </div>
       </main>
     </>
   );
