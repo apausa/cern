@@ -22,8 +22,9 @@ export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
   );
 
   useEffect(() => {
+    if (selectedKey.has('')) return;
     const parsedResponse: Metadata[] | null = getAllMetadata();
-    if (parsedResponse && selectedKey) {
+    if (parsedResponse) {
       setSelectedMetadata(
         parsedResponse.find((metadata: Metadata): Metadata => (selectedKey.has(metadata.id))),
       );
@@ -35,7 +36,7 @@ export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
       <header className="p-4">Run</header>
       <Divider />
       <main>
-        {selectedMetadata && (
+        {selectedMetadata ? (
           <>
             <Textarea
               className="p-4"
@@ -77,7 +78,7 @@ export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
             </div>
 
           </>
-        )}
+        ) : (<div>Nothing selected</div>)}
       </main>
     </>
   );

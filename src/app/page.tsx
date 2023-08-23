@@ -15,7 +15,6 @@ import {
 import { getAllMetadata, postMetadata, putMetadata } from '@/lib/services/dashboard';
 import dashboardReducer from '@/lib/reducers/dashboard';
 import setStatus from '@/utils/setStatus';
-import Sidebar from '@/components/dashboard/sidebar/Sidebar';
 import Build from '@/components/dashboard/build/Build';
 
 export default function Page() {
@@ -42,27 +41,22 @@ export default function Page() {
 
   return (
     <div className="flex flex-nowrap">
-      <div className="basis-64 flex-none h-screen border-r">
-        <Sidebar />
-      </div>
-      <div className="basis-128 flex-none h-screen border-r">
+      <div className="basis-1/4 flex-none h-screen border-r">
         <Build createMetadata={createMetadata} />
       </div>
-      <div className="basis-192 flex-none h-screen border-r">
+      <div className="basis-1/4 flex-none h-screen border-r">
         <Monitor
           allMetadata={allMetadata}
           selectedKey={selectedKey}
           setSelectedKey={setSelectedKey}
         />
       </div>
-      {!selectedKey.has('') && (
-        <div className="basis-128 flex-none h-screen border-r">
-          <Run
-            selectedKey={selectedKey}
-            handleUpdateMetadata={handleUpdateMetadata}
-          />
-        </div>
-      )}
+      <div className="basis-1/4 flex-none h-screen border-r">
+        <Run
+          selectedKey={selectedKey}
+          handleUpdateMetadata={handleUpdateMetadata}
+        />
+      </div>
     </div>
   );
 }
