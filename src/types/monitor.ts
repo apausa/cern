@@ -1,0 +1,1 @@
+export type MonitorProps = any;

@@ -1,19 +1,20 @@
-/* eslint-disable import/prefer-default-export */
 import { NextResponse } from 'next/server';
 
 // Types
 import { Metadata } from '@/types/dashboard';
-import { PostMetadata, PutMetadata } from '@/types/metadata';
+import { PostMetadata, PutMetadata } from '@/types/api';
 
 // Utils
 import getError from '@/utils/getError';
 import { createMetadata, createScript } from './buildScript';
 import { runProdScript, runTestScript } from './runScript';
+import { Form } from '@/types/build';
 
 export async function POST(request: Request): Promise<PostMetadata> {
   try {
-    const { o2CmdStr, version }: any = await request.json();
-    const createdMetadata: Metadata = await createMetadata(o2CmdStr, version);
+    const form: Form = await request.json();
+    const createdMetadata: Metadata = await createMetadata(form);
+
     await createScript(createdMetadata.testScript);
     await createScript(createdMetadata.prodScript);
 

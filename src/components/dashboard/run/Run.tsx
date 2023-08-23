@@ -1,56 +1,84 @@
-'use client';
+import {
+  Button, Divider, Textarea,
+} from '@nextui-org/react';
+import React, { useState, useEffect } from 'react';
 
-import React from 'react';
+// Types
 import { Metadata } from '@/types/dashboard';
+import { RunProps } from '@/types/run';
 
-export default function Run({ dashboardState, handleUpdateMetadata }: any) {
-  const isDisabled = (metadata: Metadata): boolean => (
-    (metadata.testScript.scriptStatus !== 'FULFILLED' && metadata.prodScript.scriptStatus === null)
-    || (metadata.testScript.scriptStatus === 'FULFILLED' && metadata.prodScript.scriptStatus !== null)
+// Lib
+import { getAllMetadata } from '@/lib/services/dashboard';
+
+export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
+  const [selectedMetadata, setSelectedMetadata]: any = useState(null);
+
+  const checkTestStatus = ({ testScript: { scriptStatus } }: Metadata): boolean => (
+    scriptStatus === 'PENDING' || scriptStatus === 'FULFILLED');
+  const checkProdStatus = ({ testScript, prodScript }: Metadata): boolean => (
+    testScript.scriptStatus !== 'FULFILLED'
+    || prodScript.scriptStatus === 'PENDING'
+    || prodScript.scriptStatus === 'REJECTED'
   );
 
+  useEffect(() => {
+    const parsedResponse: Metadata[] | null = getAllMetadata();
+    if (parsedResponse && selectedKey) {
+      setSelectedMetadata(
+        parsedResponse.find((metadata: Metadata): Metadata => (selectedKey.has(metadata.id))),
+      );
+    }
+  }, [selectedKey]);
+
   return (
-    <div>
-      <h2 className="font-bold">Timeline</h2>
-      <br />
-      <ul>
-        {dashboardState && dashboardState.map((metadata: Metadata) => (
-          <li key={metadata.id}>
-            <div>{metadata.id}</div>
-            <div>
-              <div>
-                Test status  →
-                {' '}
-                {(metadata.testScript.scriptStatus === null) ? 'Ready' : metadata.testScript.scriptStatus}
-              </div>
-              <button
-                type="button"
-                disabled={metadata.testScript.scriptStatus !== null}
-                onClick={() => { handleUpdateMetadata(metadata); }}
+    <>
+      <header className="p-4">Run</header>
+      <Divider />
+      <main>
+        {selectedMetadata && (
+          <>
+            <Textarea
+              className="p-4"
+              isDisabled
+              label="Command"
+              labelPlacement="outside"
+              defaultValue={selectedMetadata?.form?.cmdStr}
+            />
+            <div className="flex flex-col">
+              <Button
+                className="m-4"
+                color="primary"
+                isDisabled={checkTestStatus(selectedMetadata)}
+                onClick={() => { handleUpdateMetadata(selectedMetadata); }}
               >
-                [Run in test]
-              </button>
-            </div>
-            <div>
-              <div>
-                Prod status  →
-                {' '}
-                {(metadata.testScript.scriptStatus !== 'FULFILLED')
-                  ? 'Not ready'
-                  : (metadata.prodScript.scriptStatus === null) ? 'Ready' : metadata.prodScript.scriptStatus}
-              </div>
-              <button
-                type="button"
-                disabled={isDisabled(metadata)}
-                onClick={() => { handleUpdateMetadata(metadata); }}
+                Run in test
+              </Button>
+              <Button
+                className="m-4"
+                color="primary"
+                isDisabled={checkProdStatus(selectedMetadata)}
+                onClick={() => { handleUpdateMetadata(selectedMetadata); }}
               >
-                [Run in prod]
-              </button>
+                Run in prod
+              </Button>
             </div>
-            <br />
-          </li>
-        ))}
-      </ul>
-    </div>
+            <Divider />
+            <div className="m-4">
+              <Button
+                color="default"
+              >
+                Fork
+              </Button>
+              <Button
+                color="default"
+              >
+                Bookmark
+              </Button>
+            </div>
+
+          </>
+        )}
+      </main>
+    </>
   );
 }

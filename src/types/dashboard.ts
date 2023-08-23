@@ -1,12 +1,12 @@
 import { Dispatch } from 'react';
+import { Form } from './build';
 
 // Reducer
 
 export type Metadata = {
   id: string,
-  version: string,
-  o2Cmd: string,
-  date: Date,
+  date: string,
+  form: Form,
   testScript: TestScript,
   prodScript: ProdScript
 };
@@ -23,9 +23,9 @@ export type ProdScript = {
   scriptStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
 };
 
-export type DashboardState = Metadata[];
+export type AllMetadata = Metadata[];
 
-export type DashboardUseReducer = [DashboardState, Dispatch<DashboardActions>];
+export type DashboardUseReducer = [AllMetadata, Dispatch<DashboardActions>];
 
 // Actions
 
@@ -45,13 +45,13 @@ export type DashboardUpdateAction = {
 
 export type DashboardGetAllAction = {
   type: 'READ_ALL_METADATA',
-  allMetadata: Metadata[],
+  parsedResponse: Metadata[],
 };
 
 // Functions
 
 export type HandleCreateMetadata = (
-  parsedO2Cmd: string, version: string
+  form: Form
 ) => Promise<void>;
 
 export type HandleUpdateMetadata = (

@@ -1,5 +1,3 @@
-/* eslint-disable no-param-reassign */
-
 import { Metadata } from '@/types/dashboard';
 
 const setStatus = (metadata: Metadata, status: string): Metadata => {

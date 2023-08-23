@@ -1,22 +1,26 @@
-import { DashboardActions, DashboardState, Metadata } from '@/types/dashboard';
+import { DashboardActions, AllMetadata, Metadata } from '@/types/dashboard';
 
 const dashboardReducer = (
-  currentState: DashboardState,
+  allMetadata: AllMetadata,
   action: DashboardActions,
-): DashboardState => {
-  let nextState: DashboardState = currentState;
+): AllMetadata => {
+  let nextState = null;
 
   switch (action.type) {
-    case 'READ_ALL_METADATA': { nextState = action.allMetadata; break; }
+    case 'READ_ALL_METADATA': {
+      nextState = action.parsedResponse;
+      break; }
     case 'CREATE_METADATA': {
-      nextState = [...currentState, action.metadata];
+      nextState = [...allMetadata, action.metadata];
       break; }
-    case 'UPDATE_METADATA': {
-      nextState = currentState.map((metadata: Metadata): Metadata => (
-        (metadata.id === action.metadata.id) ? action.metadata : metadata));
+    case 'UPDATE_METADATA': { nextState = allMetadata.map((metadata: Metadata): Metadata => (
+      (metadata.id === action.metadata.id) ? action.metadata : metadata)); break; }
+    default: {
+      nextState = allMetadata;
       break; }
-    default: break;
   }
+
+  localStorage.setItem('allMetadata', JSON.stringify(nextState)); // @delete
 
   return nextState;
 };

@@ -11,15 +11,15 @@ export type TestExecCmd = {
     'exec',
     '-C',
     '-B',
-    '/cvmfs:/cvmfs,/tmp:/tmp,/home/papausac/work:/home/papausac/work',
+    `/cvmfs:/cvmfs,${string}:${string}`,
     '--pwd',
-    '/home/papausac/work',
+    string,
     '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503',
     '/bin/bash',
     '-c']
 };
 
-export type ProdAlienvCmd = {
+export type ProdVersionCmd = {
   name: '/cvmfs/alice.cern.ch/bin/alienv',
   args: ['enter', string],
 };

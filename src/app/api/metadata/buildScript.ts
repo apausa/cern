@@ -3,35 +3,46 @@ import path from 'node:path';
 import { v4 as uuidv4 } from 'uuid';
 
 import { Metadata, ProdScript, TestScript } from '@/types/dashboard';
+import { Form } from '@/types/build';
+import { getCurrentDate, getSelectedVersion } from '@/utils/getDate';
+import getCmdStr from '@/utils/getCmd';
 
 const getTestScriptBody = (version: string, o2CmdStr: string): string => ([
-  `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/v${version}-1)`, o2CmdStr,
+  `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`, o2CmdStr,
 ].join('\n'));
 
 const getProdScriptBody = (version: string, o2CmdStr: string): string => ([
-  `#JDL_PACKAGE=O2sim::v${version}-1`, '#JDL_OUTPUT=*.root@disk=1,*.log@disk=1', o2CmdStr,
+  `#JDL_PACKAGE=O2sim::${version}`, '#JDL_OUTPUT=*.root@disk=1,*.log@disk=1', o2CmdStr,
 ].join('\n'));
 
-export const createMetadata = async (o2CmdStr: string, version: string): Promise<Metadata> => {
+export const createMetadata = async ({
+  selectedDate, cmdObj, cmdStr, advanced,
+}: Form): Promise<Metadata> => {
+  const version = getSelectedVersion(selectedDate);
   const id = uuidv4();
-  const segment: string = path.join('/home/papausac/work/scripts', id);
+  const cmd = (advanced) ? cmdStr : getCmdStr(cmdObj!);
+  const segment: string = path.join(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   await fs.mkdir(segment);
   await fs.chmod(segment, '755');
 
   return {
     id,
-    date: new Date(),
-    o2Cmd: o2CmdStr,
-    version,
+    date: getCurrentDate(),
+    form: {
+      selectedDate,
+      cmdObj,
+      cmdStr: cmd,
+      advanced,
+    },
     testScript: {
       scriptPath: path.join(segment, 'test.sh'),
-      scriptBody: getTestScriptBody(version, o2CmdStr),
+      scriptBody: getTestScriptBody(version, cmd),
       scriptStatus: null,
     },
     prodScript: {
       scriptPath: path.join(segment, 'prod.sh'),
-      scriptBody: getProdScriptBody(version, o2CmdStr),
+      scriptBody: getProdScriptBody(version, cmd),
       scriptStatus: null,
     },
   };
