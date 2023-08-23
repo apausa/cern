@@ -1,11 +1,10 @@
-'use client';
-
 import React from 'react';
 import { Textarea } from '@nextui-org/react';
 
 // Types
+import { AdvancedModeProps } from '@/types/build';
 
-export default function AdvancedMode({ cmdStr, setCmdStr }: any) {
+export default function AdvancedMode({ cmdStr, setCmdStr }: AdvancedModeProps) {
   const handleChange = ({ target: { value } }: any): void => {
     setCmdStr(value);
   };
@@ -13,7 +12,7 @@ export default function AdvancedMode({ cmdStr, setCmdStr }: any) {
   return (
     <fieldset className="p-4">
       <Textarea
-        label="Advanced mode"
+        aria-label="Advanced mode"
         value={cmdStr}
         onChange={handleChange}
       />

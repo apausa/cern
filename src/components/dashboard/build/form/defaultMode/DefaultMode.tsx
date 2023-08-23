@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 import React, { useState } from 'react';
 import {
   Table,
@@ -7,20 +6,31 @@ import {
   TableColumn,
   TableRow,
   TableCell,
-  Selection,
 } from '@nextui-org/react';
 
 // Components
 import NumberInput from './inputs/NumberInput';
 import SelectInput from './inputs/SelectInput';
 
-// Utils
-import { getDisabledKeys, getSelectedKeys } from '@/utils/getKeys';
+// Types
+import { DefaultModeProps, CmdArg, CmdObj } from '@/types/build';
 
-export default function DefaultMode({ cmdObj, setCmdObjArguments, setCmdObjValues }: any) {
-  const [selectedKeys, setSelectedKeys]: any = useState(getSelectedKeys(cmdObj));
+export default function DefaultMode({
+  cmdObj, setCmdObjArguments, setCmdObjValues,
+}: DefaultModeProps) {
+  const getSelectedKeys = (commandObject: CmdObj): Set<string> => (
+    new Set(commandObject.args
+      .filter(({ selected }: CmdArg) => selected)
+      .map(({ name }: CmdArg) => name)));
 
-  const handleOnSelectionChange = (keys: Selection): void => {
+  const getDisabledKeys = (commandObject: CmdObj): Set<string> => (
+    new Set(commandObject.args
+      .filter(({ disabled }: CmdArg) => disabled)
+      .map(({ name }: CmdArg) => name)));
+
+  const [selectedKeys, setSelectedKeys] = useState(getSelectedKeys(cmdObj));
+
+  const handleOnSelectionChange = (keys: any): void => {
     setCmdObjArguments(keys);
     setSelectedKeys(keys);
   };

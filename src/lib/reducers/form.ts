@@ -3,7 +3,7 @@ const formReducer = (
   action: any,
 ): any => {
   switch (action.type) {
-    case 'SET_DATE': return { ...currentState, date: action.date };
+    case 'SET_SELECTED_DATE': return { ...currentState, selectedDate: action.selectedDate };
     case 'SET_CMD_STR': return { ...currentState, cmdStr: action.cmdStr };
     case 'SET_CMD_OBJ_ARGUMENT': { return {
       ...currentState,

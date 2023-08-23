@@ -4,8 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import { Metadata, ProdScript, TestScript } from '@/types/dashboard';
 import { Form } from '@/types/build';
-import { getVersion } from '@/utils/getDate';
-import { getCmdStr } from '@/utils/getCmd';
+import { getCurrentDate, getSelectedVersion } from '@/utils/getDate';
+import getCmdStr from '@/utils/getCmd';
 
 const getTestScriptBody = (version: string, o2CmdStr: string): string => ([
   `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`, o2CmdStr,
@@ -16,21 +16,22 @@ const getProdScriptBody = (version: string, o2CmdStr: string): string => ([
 ].join('\n'));
 
 export const createMetadata = async ({
-  date, cmdObj, cmdStr, advanced,
+  selectedDate, cmdObj, cmdStr, advanced,
 }: Form): Promise<Metadata> => {
-  const version = getVersion(date);
+  const version = getSelectedVersion(selectedDate);
   const id = uuidv4();
   const cmd = (advanced) ? cmdStr : getCmdStr(cmdObj!);
-  const segment: string = path.join(process.env.SCRIPTS_PATH!, id);
+  const segment: string = path.join(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   await fs.mkdir(segment);
   await fs.chmod(segment, '755');
 
   return {
     id,
+    date: getCurrentDate(),
     form: {
-      date,
-      cmdObj: (advanced) ? null : cmdObj,
+      selectedDate,
+      cmdObj,
       cmdStr: cmd,
       advanced,
     },

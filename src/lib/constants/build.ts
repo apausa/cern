@@ -1,6 +1,6 @@
 import { Form, CmdObj } from '@/types/build';
-import { getCmdStr } from '@/utils/getCmd';
-import { getParsedCurrentDate } from '@/utils/getDate';
+import getCmdStr from '@/utils/getCmd';
+import { getCurrentDate } from '@/utils/getDate';
 
 const initialCmdObj: CmdObj = {
   name: 'o2-sim',
@@ -39,7 +39,7 @@ const initialCmdObj: CmdObj = {
 };
 
 const initialForm: Form = {
-  date: getParsedCurrentDate(),
+  selectedDate: getCurrentDate(),
   cmdObj: initialCmdObj,
   cmdStr: getCmdStr(initialCmdObj),
   advanced: false,

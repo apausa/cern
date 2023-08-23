@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 
 // Types
 import { Metadata } from '@/types/dashboard';
-import { PostMetadata, PutMetadata } from '@/types/metadata';
+import { PostMetadata, PutMetadata } from '@/types/api';
 
 // Utils
 import getError from '@/utils/getError';

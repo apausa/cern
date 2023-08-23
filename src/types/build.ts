@@ -1,8 +1,8 @@
 // Form component
 
 export type Form = {
-  date: string,
-  cmdObj: CmdObj | null,
+  selectedDate: string,
+  cmdObj: CmdObj,
   cmdStr: string,
   advanced: boolean
 };
@@ -12,10 +12,10 @@ export type Form = {
 export type CmdObj = {
   name: 'o2-sim',
   args: [
-    CmdPythiaArg?,
-    CmdNumberArg?,
-    CmdTGeantArg?,
-    CmdConfigArg?,
+    CmdPythiaArg,
+    CmdNumberArg,
+    CmdTGeantArg,
+    CmdConfigArg,
   ];
 };
 
@@ -53,3 +53,18 @@ export type CmdConfigArg = {
   input: { type: null },
 
 };
+
+// Props
+
+export type BuildProps = any;
+export type SidebarProps = any;
+export type FormProps = any;
+export type DefaultModeProps = any;
+export type AdvancedModeProps = any;
+export type SelectVersionProps = any;
+export type NumberInputProps = any;
+export type SelectInputProps = any;
+
+// Hooks
+
+export type BuildUseReducer = [Form, React.Dispatch<any>];

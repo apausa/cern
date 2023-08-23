@@ -5,6 +5,7 @@ import { Form } from './build';
 
 export type Metadata = {
   id: string,
+  date: string,
   form: Form,
   testScript: TestScript,
   prodScript: ProdScript

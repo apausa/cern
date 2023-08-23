@@ -1,13 +1,12 @@
-'use client';
-
 import React from 'react';
 import {
   Table, TableHeader, TableRow, TableCell, TableBody, Divider, TableColumn, Chip,
 } from '@nextui-org/react';
 
 import { Metadata } from '@/types/dashboard';
+import { MonitorProps } from '@/types/monitor';
 
-export default function Monitor({ allMetadata, selectedKey, setSelectedKey }: any) {
+export default function Monitor({ allMetadata, selectedKey, setSelectedKey }: MonitorProps) {
   return (
     <>
       <header className="p-4">
@@ -17,7 +16,6 @@ export default function Monitor({ allMetadata, selectedKey, setSelectedKey }: an
       <main className="p-4">
         <Table
           removeWrapper
-          disallowEmptySelection
           selectionMode="single"
           color="primary"
           aria-label="Monitor table"
@@ -48,7 +46,7 @@ export default function Monitor({ allMetadata, selectedKey, setSelectedKey }: an
                       : (metadata.prodScript.scriptStatus === null) ? 'Ready' : metadata.prodScript.scriptStatus}
                   </Chip>
                 </TableCell>
-                <TableCell>{metadata.form.date}</TableCell>
+                <TableCell>{metadata.date}</TableCell>
               </TableRow>
             ))}
           </TableBody>
