@@ -3,7 +3,6 @@
 import React, { useEffect, useReducer, useState } from 'react';
 
 // Components
-import Build from '@/components/dashboard/build/Build';
 import Monitor from '@/components/dashboard/monitor/Monitor';
 import Run from '@/components/dashboard/run/Run';
 
@@ -16,6 +15,8 @@ import {
 import { getAllMetadata, postMetadata, putMetadata } from '@/lib/services/dashboard';
 import dashboardReducer from '@/lib/reducers/dashboard';
 import setStatus from '@/utils/setStatus';
+import Sidebar from '@/components/dashboard/sidebar/Sidebar';
+import Build from '@/components/dashboard/build/Build';
 
 export default function Page() {
   const [allMetadata, dispatch]: DashboardUseReducer = useReducer(dashboardReducer, []);
@@ -41,7 +42,12 @@ export default function Page() {
 
   return (
     <div className="flex flex-nowrap">
-      <Build createMetadata={createMetadata} />
+      <div className="basis-64 flex-none h-screen border-r">
+        <Sidebar />
+      </div>
+      <div className="basis-128 flex-none h-screen border-r">
+        <Build createMetadata={createMetadata} />
+      </div>
       <div className="basis-192 flex-none h-screen border-r">
         <Monitor
           allMetadata={allMetadata}

@@ -51,7 +51,7 @@ export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
                 isDisabled={checkTestStatus(selectedMetadata)}
                 onClick={() => { handleUpdateMetadata(selectedMetadata); }}
               >
-                Run in test
+                Run locally
               </Button>
               <Button
                 className="m-4"
@@ -59,7 +59,7 @@ export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
                 isDisabled={checkProdStatus(selectedMetadata)}
                 onClick={() => { handleUpdateMetadata(selectedMetadata); }}
               >
-                Run in prod
+                Run in WLCG
               </Button>
             </div>
             <Divider />
@@ -67,12 +67,12 @@ export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
               <Button
                 color="default"
               >
-                Fork
+                Recreate
               </Button>
               <Button
                 color="default"
               >
-                Bookmark
+                Star
               </Button>
             </div>
 

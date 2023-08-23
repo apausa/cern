@@ -10,7 +10,7 @@ export default function Monitor({ allMetadata, selectedKey, setSelectedKey }: Mo
   return (
     <>
       <header className="p-4">
-        Monitor
+        Timeline
       </header>
       <Divider />
       <main className="p-4">
@@ -23,16 +23,14 @@ export default function Monitor({ allMetadata, selectedKey, setSelectedKey }: Mo
           onSelectionChange={setSelectedKey}
         >
           <TableHeader>
-            <TableColumn>Author</TableColumn>
             <TableColumn>Title</TableColumn>
-            <TableColumn>Test status</TableColumn>
-            <TableColumn>Prod status</TableColumn>
+            <TableColumn>Local status</TableColumn>
+            <TableColumn>WLCG status</TableColumn>
             <TableColumn>Date</TableColumn>
           </TableHeader>
           <TableBody emptyContent="No simulations to display">
             {allMetadata.map((metadata: Metadata) => (
               <TableRow key={metadata.id}>
-                <TableCell>Author</TableCell>
                 <TableCell>Title</TableCell>
                 <TableCell>
                   <Chip>
