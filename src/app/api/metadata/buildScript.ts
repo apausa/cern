@@ -20,7 +20,7 @@ export const createMetadata = async ({
 }: Form): Promise<Metadata> => {
   const version = getSelectedVersion(selectedDate);
   const id = uuidv4();
-  const cmd = (advanced) ? cmdStr : getCmdStr(cmdObj!);
+  const cmd = (advanced) ? cmdStr : getCmdStr(cmdObj);
   const segment: string = path.join(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   await fs.mkdir(segment);

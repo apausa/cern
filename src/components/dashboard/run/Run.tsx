@@ -42,7 +42,7 @@ export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
               isDisabled
               label="Command"
               labelPlacement="outside"
-              defaultValue={selectedMetadata?.form?.cmdStr}
+              defaultValue={selectedMetadata.form.cmdStr}
             />
             <div className="flex flex-col">
               <Button
