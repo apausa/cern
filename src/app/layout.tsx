@@ -10,20 +10,14 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  dashboard,
-  authentication,
+  children,
 }: {
-  dashboard: React.ReactNode,
-  authentication: React.ReactNode,
+  children: React.ReactNode,
 }) {
-  const isAuthenticated = true;
-
   return (
     <html lang="en" className="dark">
       <body className="font-sans">
-        <Providers>
-          {isAuthenticated ? dashboard : authentication}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
