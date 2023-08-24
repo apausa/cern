@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Table, TableHeader, TableRow, TableCell, TableBody, Divider, TableColumn, Chip,
 } from '@nextui-org/react';
@@ -6,7 +6,17 @@ import {
 import { Metadata } from '@/types/dashboard';
 import { MonitorProps } from '@/types/monitor';
 
-export default function Monitor({ allMetadata, selectedKey, setSelectedKey }: MonitorProps) {
+export default function Monitor({ allMetadata, setSelectedMetadata }: MonitorProps) {
+  const [selectedKey, setSelectedKey]: any = useState(new Set(['']));
+
+  useEffect(() => {
+    if (!selectedKey.has('') && allMetadata.length === 1) {
+      setSelectedMetadata(
+        allMetadata.find((metadata: Metadata): Metadata => (selectedKey.has(metadata.id))),
+      );
+    }
+  }, [selectedKey]);
+
   return (
     <>
       <header className="p-4">

@@ -1,15 +1,15 @@
 import { ProdVersionCmd, TestExecCmd } from '@/types/api';
 
-export const prodVersionCmd = (version: string): ProdVersionCmd => ({
+export const PROD_VERSION_CMD = (version: string): ProdVersionCmd => ({
   name: '/cvmfs/alice.cern.ch/bin/alienv',
   args: ['enter', `O2sim/${version}`],
 });
 
-export const prodExecCmd = (scriptPath: string): string => [
+export const PROD_EXEC_CMD = (scriptPath: string): string => [
   `${process.env.GRID_SUBMIT_PATH}`, '--script', scriptPath, '--wait', '--fetch-output-files',
 ].join(' ');
 
-export const testExecCmd: TestExecCmd = {
+export const TEST_EXEC_CMD: TestExecCmd = {
   name: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
   args: [
     'exec',

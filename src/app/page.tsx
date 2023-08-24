@@ -3,37 +3,30 @@
 import React, { useEffect, useReducer, useState } from 'react';
 
 // Components
-import Monitor from '@/components/dashboard/monitor/Monitor';
-import Run from '@/components/dashboard/run/Run';
+import Monitor from '@/components/monitor/Monitor';
+import Run from '@/components/run/Run';
 
 // Types
-import { DashboardUseReducer, Metadata } from '@/types/dashboard';
+import { DashboardUseReducer } from '@/types/dashboard';
+import { BuildUseReducer } from '@/types/build';
 
 // Lib
-import dashboardReducer from '@/lib/reducers/dashboard';
-import Build from '@/components/dashboard/build/Build';
+import Build from '@/components/build/Build';
 
 // Constants
-import INITIAL_FORM from '@/lib/constants/build';
+import INITIAL_FORM from '@/lib/constants/form';
 
 // Reducers
+import dashboardReducer from '@/lib/reducers/metadata';
 import buildReducer from '@/lib/reducers/form';
-import { BuildUseReducer } from '@/types/build';
+
+// Actions
 import metadataActions from '@/lib/actions/metadata';
 
-export default function Page() {
+export default function Dashboard() {
   const [allMetadata, dispatchMetadata]: DashboardUseReducer = useReducer(dashboardReducer, []);
   const [form, dispatchForm]: BuildUseReducer = useReducer(buildReducer, INITIAL_FORM);
-  const [selectedKey, setSelectedKey]: any = useState(new Set(['']));
   const [selectedMetadata, setSelectedMetadata]: any = useState(null);
-
-  useEffect(() => {
-    if (!selectedKey.has('') && allMetadata.length === 1) {
-      setSelectedMetadata(
-        allMetadata.find((metadata: Metadata): Metadata => (selectedKey.has(metadata.id))),
-      );
-    }
-  }, [selectedKey]);
 
   useEffect(() => {
     metadataActions.readAllMetadata(dispatchMetadata);
@@ -51,8 +44,7 @@ export default function Page() {
       <div className="basis-1/2 flex-none h-screen border-r">
         <Monitor
           allMetadata={allMetadata}
-          selectedKey={selectedKey}
-          setSelectedKey={setSelectedKey}
+          setSelectedMetadata={setSelectedMetadata}
         />
       </div>
       <div className="basis-1/4 flex-none h-screen border-r">

@@ -1,4 +1,4 @@
-import INITIAL_FORM from '../constants/build';
+import INITIAL_FORM from '../constants/form';
 
 const formReducer = (
   currentState: any,

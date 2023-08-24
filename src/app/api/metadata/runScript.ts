@@ -1,18 +1,18 @@
 import { ChildProcess, spawn } from 'child_process';
 
-// Lib
+// Constants
+import { PROD_VERSION_CMD, PROD_EXEC_CMD, TEST_EXEC_CMD } from '@/lib/constants/api';
 
 // Utils
-import { prodVersionCmd, prodExecCmd, testExecCmd } from '@/lib/constants/api';
 import setStatus from '@/utils/setStatus';
+import { getSelectedVersion } from '@/utils/getDate';
 
 // Types
 import { Metadata } from '@/types/dashboard';
 import { ProdVersionCmd, TestExecCmd } from '@/types/api';
-import { getSelectedVersion } from '@/utils/getDate';
 
 export const runTestScript = (metadata: Metadata): Promise<Metadata> => {
-  const { name, args }: TestExecCmd = testExecCmd;
+  const { name, args }: TestExecCmd = TEST_EXEC_CMD;
   const childProcess: ChildProcess = spawn(name, [...args, metadata.testScript.scriptPath]);
 
   childProcess.stdout?.on('data', (output: any) => { console.log(output.toString()); }); // @delete
@@ -27,12 +27,12 @@ export const runTestScript = (metadata: Metadata): Promise<Metadata> => {
 };
 
 export const runProdScript = async (metadata: Metadata): Promise<Metadata> => {
-  const { name, args }: ProdVersionCmd = prodVersionCmd(
+  const { name, args }: ProdVersionCmd = PROD_VERSION_CMD(
     getSelectedVersion(metadata.form.selectedDate),
   );
   const childProcess: ChildProcess = spawn(name, args);
 
-  childProcess.stdin?.write(prodExecCmd(metadata.prodScript.scriptPath));
+  childProcess.stdin?.write(PROD_EXEC_CMD(metadata.prodScript.scriptPath));
   childProcess.stdin?.end('exit');
 
   childProcess.stdout?.on('data', (output: any) => { console.log(output.toString()); }); // @delete

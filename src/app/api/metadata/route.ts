@@ -3,12 +3,14 @@ import { NextResponse } from 'next/server';
 // Types
 import { Metadata } from '@/types/dashboard';
 import { PostMetadata, PutMetadata } from '@/types/api';
+import { Form } from '@/types/build';
 
 // Utils
 import getError from '@/utils/getError';
+
+// Other
 import { createMetadata, createScript } from './buildScript';
 import { runProdScript, runTestScript } from './runScript';
-import { Form } from '@/types/build';
 
 export async function POST(request: Request): Promise<PostMetadata> {
   try {

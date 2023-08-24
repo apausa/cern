@@ -2,8 +2,11 @@ import * as fs from 'node:fs/promises';
 import path from 'node:path';
 import { v4 as uuidv4 } from 'uuid';
 
+// Types
 import { Metadata, ProdScript, TestScript } from '@/types/dashboard';
 import { Form } from '@/types/build';
+
+// Utils
 import { getCurrentDate, getSelectedVersion } from '@/utils/getDate';
 import getCmdStr from '@/utils/getCmd';
 
