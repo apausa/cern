@@ -1,9 +1,8 @@
 import { NextResponse } from 'next/server';
 
 // Types
-import { Metadata } from '@/types/dashboard';
-import { PostMetadata, PutMetadata } from '@/types/api';
-import { Form } from '@/types/build';
+import { Metadata, Form } from '@/types/lib';
+import { PostMetadata, PutMetadata } from '@/types/app/api';
 
 // Utils
 import getError from '@/utils/getError';

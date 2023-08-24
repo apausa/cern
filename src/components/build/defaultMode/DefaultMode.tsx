@@ -13,10 +13,11 @@ import NumberInput from './inputs/NumberInput';
 import SelectInput from './inputs/SelectInput';
 
 // Types
-import { DefaultModeProps, CmdArg, CmdObj } from '@/types/build';
+import { CmdArg, CmdObj } from '@/types/lib';
+import { DefaultModeProps } from '@/types/components/build';
 
 // Actions
-import formActions from '@/lib/actions/form';
+import formActionCreator from '@/lib/actions/form';
 
 export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) {
   const getSelectedKeys = (commandObject: CmdObj): Set<string> => (
@@ -32,7 +33,7 @@ export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) 
   const [selectedKeys, setSelectedKeys] = useState(getSelectedKeys(cmdObj));
 
   const handleOnSelectionChange = (keys: any): void => {
-    formActions.setCmdObjArguments(dispatchForm, keys);
+    formActionCreator.updateFormCmdObjArg(dispatchForm, keys);
     setSelectedKeys(keys);
   };
 

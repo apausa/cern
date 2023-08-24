@@ -2,14 +2,14 @@ import { Input } from '@nextui-org/react';
 import React from 'react';
 
 // Types
-import { NumberInputProps } from '@/types/build';
+import { NumberInputProps } from '@/types/components/build';
 
 // Actions
-import formActions from '@/lib/actions/form';
+import formActionCreator from '@/lib/actions/form';
 
 export default function NumberInput({ arg, dispatchForm }: NumberInputProps) {
   const handleValueChange = (value: string): void => {
-    formActions.setCmdObjValues(dispatchForm, value, arg.name);
+    formActionCreator.updateFormCmdObjVal(dispatchForm, value, arg.name);
   };
 
   return (

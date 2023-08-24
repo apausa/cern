@@ -5,10 +5,10 @@ import { Input } from '@nextui-org/react';
 import { getCurrentDate } from '@/utils/getDate';
 
 // Types
-import { SelectVersionProps } from '@/types/build';
+import { SelectVersionProps } from '@/types/components/build';
 
 // Actions
-import formActions from '@/lib/actions/form';
+import formActionCreator from '@/lib/actions/form';
 
 export default function SelectVersion({ selectedDate, dispatchForm }: SelectVersionProps) {
   return (
@@ -19,7 +19,9 @@ export default function SelectVersion({ selectedDate, dispatchForm }: SelectVers
       min="2021-09-22"
       max={getCurrentDate()}
       value={selectedDate}
-      onValueChange={(value: string) => { formActions.setSelectedDate(dispatchForm, value); }}
+      onValueChange={(value: string) => {
+        formActionCreator.updateFormSelectedDate(dispatchForm, value);
+      }}
     />
   );
 }

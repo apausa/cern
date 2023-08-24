@@ -1,4 +1,4 @@
-import { Form, CmdObj } from '@/types/build';
+import { Form, CmdObj } from '@/types/lib';
 import getCmdStr from '@/utils/getCmd';
 import { getCurrentDate } from '@/utils/getDate';
 

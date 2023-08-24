@@ -1,23 +1,20 @@
-/* eslint-disable max-len */
-
-import { Form } from '@/types/build';
-import { Metadata } from '@/types/dashboard';
+import { Metadata, MetadataActionCreators } from '@/types/lib';
 import setStatus from '@/utils/setStatus';
 
-const metadataActions = {
-  readAllMetadata: (dispatch: React.Dispatch<any>): void => {
+const metadataActionCreators: MetadataActionCreators = {
+  readAllMetadata: (dispatch) => {
     const response: string = localStorage.getItem('allMetadata')!;
     const allMetadata: Metadata[] | null = (response) ? JSON.parse(response) : null;
 
     if (allMetadata) dispatch({ type: 'READ_ALL_METADATA', allMetadata });
   },
-  createMetadata: async (dispatch: React.Dispatch<any>, form: Form): Promise<void> => {
+  createMetadata: async (dispatch, form) => {
     const response: Response = await fetch('/api/metadata', { method: 'POST', body: JSON.stringify(form) });
     const metadata: Metadata | null = await response.json();
 
     if (metadata) dispatch({ type: 'CREATE_METADATA', metadata });
   },
-  updateMetadata: async (dispatch: React.Dispatch<any>, metadata: Metadata): Promise<void> => {
+  updateMetadata: async (dispatch, metadata) => {
     const unresolvedMetadata: Metadata = setStatus(metadata, 'PENDING');
     dispatch({ type: 'UPDATE_METADATA', metadata: unresolvedMetadata });
 
@@ -25,12 +22,9 @@ const metadataActions = {
     const resolvedMetadata: Metadata | null = await response.json();
     if (resolvedMetadata) dispatch({ type: 'UPDATE_METADATA', metadata: resolvedMetadata });
   },
-  deleteMetadata: (dispatch: React.Dispatch<any>): void => {
-    dispatch({ type: 'DELETE_METADATA' });
-  },
-  deleteAllMetadata: (dispatch: React.Dispatch<any>): void => {
-    dispatch({ type: 'DELETE_ALL_METADATA' });
+  deleteMetadata: (dispatch, metadata) => {
+    dispatch({ type: 'DELETE_METADATA', metadata });
   },
 };
 
-export default metadataActions;
+export default metadataActionCreators;

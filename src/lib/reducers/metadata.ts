@@ -1,9 +1,9 @@
-import { AllMetadata, Metadata } from '@/types/dashboard';
+import { Metadata, MetadataAction } from '@/types/lib';
 
 const dashboardReducer = (
-  allMetadata: AllMetadata,
-  action: any,
-): AllMetadata => {
+  allMetadata: Metadata[],
+  action: MetadataAction,
+): Metadata[] => {
   let nextState = null;
 
   switch (action.type) {

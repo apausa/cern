@@ -4,12 +4,12 @@ import {
 import React from 'react';
 
 // Types
-import { Metadata } from '@/types/dashboard';
-import { RunProps } from '@/types/run';
+import { Metadata } from '@/types/lib';
+import { RunProps } from '@/types/components/run';
 
 // Lib
-import formActions from '@/lib/actions/form';
-import metadataActions from '@/lib/actions/metadata';
+import formActionCreator from '@/lib/actions/form';
+import metadataActionCreators from '@/lib/actions/metadata';
 
 export default function Run({ selectedMetadata, dispatchForm, dispatchMetadata }: RunProps) {
   const checkTestStatus = ({ testScript: { scriptStatus } }: Metadata): boolean => (
@@ -21,7 +21,7 @@ export default function Run({ selectedMetadata, dispatchForm, dispatchMetadata }
   );
 
   const handleRecreate = (): any => {
-    formActions.setForm(dispatchForm, selectedMetadata);
+    formActionCreator.createForm(dispatchForm, selectedMetadata.form);
   };
 
   return (
@@ -44,7 +44,7 @@ export default function Run({ selectedMetadata, dispatchForm, dispatchMetadata }
                 color="primary"
                 isDisabled={checkTestStatus(selectedMetadata)}
                 onClick={() => {
-                  metadataActions.updateMetadata(dispatchMetadata, selectedMetadata);
+                  metadataActionCreators.updateMetadata(dispatchMetadata, selectedMetadata);
                 }}
               >
                 Run locally
@@ -54,7 +54,7 @@ export default function Run({ selectedMetadata, dispatchForm, dispatchMetadata }
                 color="primary"
                 isDisabled={checkProdStatus(selectedMetadata)}
                 onClick={() => {
-                  metadataActions.updateMetadata(dispatchMetadata, selectedMetadata);
+                  metadataActionCreators.updateMetadata(dispatchMetadata, selectedMetadata);
                 }}
               >
                 Run in WLCG

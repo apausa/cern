@@ -2,16 +2,16 @@ import { Select, SelectItem } from '@nextui-org/react';
 import React, { useState } from 'react';
 
 // Types
-import { SelectInputProps } from '@/types/build';
+import { SelectInputProps } from '@/types/components/build';
 
 // Actions
-import formActions from '@/lib/actions/form';
+import formActionCreator from '@/lib/actions/form';
 
 export default function SelectInput({ arg, dispatchForm }: SelectInputProps) {
   const [selectedKey, setSelectedKey] = useState(new Set([arg.value]));
 
   const handleOnSelectionChange = (key: any): void => {
-    formActions.setCmdObjValues(dispatchForm, key, arg.name);
+    formActionCreator.updateFormCmdObjVal(dispatchForm, key, arg.name);
     setSelectedKey(key);
   };
 

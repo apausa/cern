@@ -9,27 +9,28 @@ import AdvancedMode from './AdvancedMode';
 import DefaultMode from './defaultMode/DefaultMode';
 
 // Types
-import { FormProps } from '@/types/build';
+import { FormProps } from '@/types/components/build';
 
 // Utils
 import getCmdStr from '@/utils/getCmd';
 
 // Actions
-import formActions from '@/lib/actions/form';
-import metadataActions from '@/lib/actions/metadata';
+import formActionCreators from '@/lib/actions/form';
+import metadataActionCreators from '@/lib/actions/metadata';
+import INITIAL_FORM from '@/lib/constants/form';
 
 export default function Build({ form, dispatchForm, dispatchMetadata }: FormProps) {
   // Handlers
   const handleStage = (): void => {
-    formActions.resetForm(dispatchForm);
-    metadataActions.createMetadata(dispatchMetadata, form);
+    formActionCreators.createForm(dispatchForm, INITIAL_FORM);
+    metadataActionCreators.createMetadata(dispatchMetadata, form);
   };
   const handleReset = (): void => {
-    formActions.resetForm(dispatchForm);
+    formActionCreators.createForm(dispatchForm, INITIAL_FORM);
   };
 
   useEffect((): void => {
-    formActions.setCmdStr(dispatchForm, getCmdStr(form.cmdObj));
+    formActionCreators.updateFormCmdStr(dispatchForm, getCmdStr(form.cmdObj));
   }, [form.cmdObj]);
 
   return (
@@ -47,13 +48,15 @@ export default function Build({ form, dispatchForm, dispatchMetadata }: FormProp
             label="Write title"
             value={form.title}
             placeholder="Sandro's job"
-            onValueChange={(value: string) => formActions.setTitle(dispatchForm, value)}
+            onValueChange={(value: string) => (
+              formActionCreators.updateFormTitle(dispatchForm, value))}
           />
           <SelectVersion selectedDate={form.selectedDate} dispatchForm={dispatchForm} />
           <Switch
             className="p-4"
             isSelected={form.advanced}
-            onValueChange={(value: boolean) => formActions.setAdvanced(dispatchForm, value)}
+            onValueChange={(value: boolean) => (
+              formActionCreators.updateFormAdvanced(dispatchForm, value))}
           >
             Advanced mode
           </Switch>

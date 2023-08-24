@@ -3,8 +3,8 @@ import {
   Table, TableHeader, TableRow, TableCell, TableBody, Divider, TableColumn, Chip,
 } from '@nextui-org/react';
 
-import { Metadata } from '@/types/dashboard';
-import { MonitorProps } from '@/types/monitor';
+import { Metadata } from '@/types/lib';
+import { MonitorProps } from '@/types/components/monitor';
 
 export default function Monitor({ allMetadata, setSelectedMetadata }: MonitorProps) {
   const [selectedKey, setSelectedKey]: any = useState(new Set(['']));

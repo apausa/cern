@@ -8,8 +8,8 @@ import setStatus from '@/utils/setStatus';
 import { getSelectedVersion } from '@/utils/getDate';
 
 // Types
-import { Metadata } from '@/types/dashboard';
-import { ProdVersionCmd, TestExecCmd } from '@/types/api';
+import { Metadata } from '@/types/lib';
+import { ProdVersionCmd, TestExecCmd } from '@/types/app/api';
 
 export const runTestScript = (metadata: Metadata): Promise<Metadata> => {
   const { name, args }: TestExecCmd = TEST_EXEC_CMD;

@@ -1,13 +1,16 @@
-import INITIAL_FORM from '../constants/form';
+import { Form, FormAction } from '@/types/lib';
 
 const formReducer = (
-  currentState: any,
-  action: any,
+  currentState: Form,
+  action: FormAction,
 ): any => {
   switch (action.type) {
-    case 'SET_SELECTED_DATE': return { ...currentState, selectedDate: action.selectedDate };
-    case 'SET_CMD_STR': return { ...currentState, cmdStr: action.cmdStr };
-    case 'SET_CMD_OBJ_ARGUMENT': { return {
+    case 'CREATE_FORM': return action.form;
+    case 'UPDATE_FORM_SELECTED_DATE': return { ...currentState, selectedDate: action.selectedDate };
+    case 'UPDATE_FORM_TITLE': return { ...currentState, title: action.title };
+    case 'UPDATE_FORM_ADVANCED': return { ...currentState, advanced: action.mode };
+    case 'UPDATE_FORM_CMD_STR': return { ...currentState, cmdStr: action.cmdStr };
+    case 'UPDATE_FORM_CMD_OBJ_ARG': { return {
       ...currentState,
       cmdObj: {
         ...currentState.cmdObj,
@@ -16,7 +19,7 @@ const formReducer = (
       },
     };
     }
-    case 'SET_CMD_OBJ_VALUE': return {
+    case 'UPDATE_FORM_CMD_OBJ_VAL': return {
       ...currentState,
       cmdObj: {
         ...currentState.cmdObj,
@@ -26,10 +29,6 @@ const formReducer = (
       },
 
     };
-    case 'SET_ADVANCED': return { ...currentState, advanced: action.mode };
-    case 'SET_TITLE': return { ...currentState, title: action.title };
-    case 'RESET_FORM': return INITIAL_FORM;
-    case 'SET_FORM': return action.metadata.form;
     default: return currentState;
   }
 };

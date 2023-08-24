@@ -1,32 +1,27 @@
-/* eslint-disable max-len */
+import { FormActionCreators } from '@/types/lib';
 
-import { Metadata } from '@/types/dashboard';
-
-const formActions = {
-  resetForm: (dispatch: React.Dispatch<any>): void => {
-    dispatch({ type: 'RESET_FORM' });
+const formActionCreators: FormActionCreators = {
+  createForm: (dispatch, form) => {
+    dispatch({ type: 'CREATE_FORM', form });
   },
-  setForm: (dispatch: React.Dispatch<any>, metadata: Metadata): void => {
-    dispatch({ type: 'SET_FORM', metadata });
+  updateFormSelectedDate: (dispatch, selectedDate) => {
+    dispatch({ type: 'UPDATE_FORM_SELECTED_DATE', selectedDate });
   },
-  setSelectedDate: (dispatch: React.Dispatch<any>, selectedDate: string): void => {
-    dispatch({ type: 'SET_SELECTED_DATE', selectedDate });
+  updateFormTitle: (dispatch, title) => {
+    dispatch({ type: 'UPDATE_FORM_TITLE', title });
   },
-  setTitle: (dispatch: React.Dispatch<any>, title: string): void => {
-    dispatch({ type: 'SET_TITLE', title });
+  updateFormAdvanced: (dispatch, mode) => {
+    dispatch({ type: 'UPDATE_FORM_ADVANCED', mode });
   },
-  setAdvanced: (dispatch: React.Dispatch<any>, mode: boolean): void => {
-    dispatch({ type: 'SET_ADVANCED', mode });
+  updateFormCmdStr: (dispatch, cmdStr) => {
+    dispatch({ type: 'UPDATE_FORM_CMD_STR', cmdStr });
   },
-  setCmdStr: (dispatch: React.Dispatch<any>, cmdStr: string): void => {
-    dispatch({ type: 'SET_CMD_STR', cmdStr });
+  updateFormCmdObjArg: (dispatch, keys) => {
+    dispatch({ type: 'UPDATE_FORM_CMD_OBJ_ARG', keys });
   },
-  setCmdObjArguments: (dispatch: React.Dispatch<any>, keys: Selection): void => {
-    dispatch({ type: 'SET_CMD_OBJ_ARGUMENT', keys });
-  },
-  setCmdObjValues: (dispatch: React.Dispatch<any>, key: string, name: string): void => {
-    dispatch({ type: 'SET_CMD_OBJ_VALUE', key, name });
+  updateFormCmdObjVal: (dispatch, key, name) => {
+    dispatch({ type: 'UPDATE_FORM_CMD_OBJ_VAL', key, name });
   },
 };
 
-export default formActions;
+export default formActionCreators;

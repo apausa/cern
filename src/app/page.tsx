@@ -7,8 +7,7 @@ import Monitor from '@/components/monitor/Monitor';
 import Run from '@/components/run/Run';
 
 // Types
-import { DashboardUseReducer } from '@/types/dashboard';
-import { BuildUseReducer } from '@/types/build';
+import { DashboardUseReducer, FormUseReducer } from '@/types/lib';
 
 // Lib
 import Build from '@/components/build/Build';
@@ -21,15 +20,15 @@ import dashboardReducer from '@/lib/reducers/metadata';
 import buildReducer from '@/lib/reducers/form';
 
 // Actions
-import metadataActions from '@/lib/actions/metadata';
+import metadataActionCreatros from '@/lib/actions/metadata';
 
 export default function Dashboard() {
   const [allMetadata, dispatchMetadata]: DashboardUseReducer = useReducer(dashboardReducer, []);
-  const [form, dispatchForm]: BuildUseReducer = useReducer(buildReducer, INITIAL_FORM);
+  const [form, dispatchForm]: FormUseReducer = useReducer(buildReducer, INITIAL_FORM);
   const [selectedMetadata, setSelectedMetadata]: any = useState(null);
 
   useEffect(() => {
-    metadataActions.readAllMetadata(dispatchMetadata);
+    metadataActionCreatros.readAllMetadata(dispatchMetadata);
   }, []);
 
   return (
