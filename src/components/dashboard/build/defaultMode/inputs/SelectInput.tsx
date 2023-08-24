@@ -4,11 +4,14 @@ import React, { useState } from 'react';
 // Types
 import { SelectInputProps } from '@/types/build';
 
-export default function SelectInput({ arg, setCmdObjValues }: SelectInputProps) {
+// Actions
+import formActions from '@/lib/actions/form';
+
+export default function SelectInput({ arg, dispatchForm }: SelectInputProps) {
   const [selectedKey, setSelectedKey] = useState(new Set([arg.value]));
 
   const handleOnSelectionChange = (key: any): void => {
-    setCmdObjValues(key, arg.name);
+    formActions.setCmdObjValues(dispatchForm, key, arg.name);
     setSelectedKey(key);
   };
 

@@ -15,12 +15,10 @@ const getProdScriptBody = (version: string, o2CmdStr: string): string => ([
   `#JDL_PACKAGE=O2sim::${version}`, '#JDL_OUTPUT=*.root@disk=1,*.log@disk=1', o2CmdStr,
 ].join('\n'));
 
-export const createMetadata = async ({
-  selectedDate, cmdObj, cmdStr, advanced,
-}: Form): Promise<Metadata> => {
-  const version = getSelectedVersion(selectedDate);
+export const createMetadata = async (form: Form): Promise<Metadata> => {
+  const version = getSelectedVersion(form.selectedDate);
   const id = uuidv4();
-  const cmd = (advanced) ? cmdStr : getCmdStr(cmdObj);
+  const cmd = (form.advanced) ? form.cmdStr : getCmdStr(form.cmdObj);
   const segment: string = path.join(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   await fs.mkdir(segment);
@@ -29,12 +27,7 @@ export const createMetadata = async ({
   return {
     id,
     date: getCurrentDate(),
-    form: {
-      selectedDate,
-      cmdObj,
-      cmdStr: cmd,
-      advanced,
-    },
+    form: { ...form, cmdStr: cmd },
     testScript: {
       scriptPath: path.join(segment, 'test.sh'),
       scriptBody: getTestScriptBody(version, cmd),

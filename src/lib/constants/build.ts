@@ -2,7 +2,7 @@ import { Form, CmdObj } from '@/types/build';
 import getCmdStr from '@/utils/getCmd';
 import { getCurrentDate } from '@/utils/getDate';
 
-const initialCmdObj: CmdObj = {
+const INITIAL_CMD_OBJ: CmdObj = {
   name: 'o2-sim',
   args: [
     {
@@ -38,11 +38,12 @@ const initialCmdObj: CmdObj = {
   ],
 };
 
-const initialForm: Form = {
+const INITIAL_FORM: Form = {
+  title: '',
   selectedDate: getCurrentDate(),
-  cmdObj: initialCmdObj,
-  cmdStr: getCmdStr(initialCmdObj),
+  cmdObj: INITIAL_CMD_OBJ,
+  cmdStr: getCmdStr(INITIAL_CMD_OBJ),
   advanced: false,
 };
 
-export default initialForm;
+export default INITIAL_FORM;

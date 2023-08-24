@@ -9,8 +9,9 @@ import { RunProps } from '@/types/run';
 
 // Lib
 import { getAllMetadata } from '@/lib/services/dashboard';
+import formActions from '@/lib/actions/form';
 
-export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
+export default function Run({ selectedKey, handleUpdateMetadata, dispatchForm }: RunProps) {
   const [selectedMetadata, setSelectedMetadata]: any = useState(null);
 
   const checkTestStatus = ({ testScript: { scriptStatus } }: Metadata): boolean => (
@@ -31,9 +32,13 @@ export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
     }
   }, [selectedKey]);
 
+  const handleRecreate = (): any => {
+    formActions.setForm(dispatchForm, selectedMetadata);
+  };
+
   return (
     <>
-      <header className="p-4">Run</header>
+      <header className="p-4">Job details</header>
       <Divider />
       <main>
         {selectedMetadata ? (
@@ -67,6 +72,7 @@ export default function Run({ selectedKey, handleUpdateMetadata }: RunProps) {
             <div className="m-4">
               <Button
                 color="default"
+                onClick={handleRecreate}
               >
                 Recreate
               </Button>

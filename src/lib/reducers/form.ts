@@ -1,3 +1,5 @@
+import INITIAL_FORM from '../constants/build';
+
 const formReducer = (
   currentState: any,
   action: any,
@@ -24,7 +26,10 @@ const formReducer = (
       },
 
     };
-    case 'SET_ADVANCED_MODE': return { ...currentState, advanced: action.mode };
+    case 'SET_ADVANCED': return { ...currentState, advanced: action.mode };
+    case 'SET_TITLE': return { ...currentState, title: action.title };
+    case 'RESET_FORM': return INITIAL_FORM;
+    case 'SET_FORM': return action.metadata.form;
     default: return currentState;
   }
 };

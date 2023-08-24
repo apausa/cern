@@ -7,7 +7,10 @@ import { getCurrentDate } from '@/utils/getDate';
 // Types
 import { SelectVersionProps } from '@/types/build';
 
-export default function SelectVersion({ selectedDate, setSelectedDate }: SelectVersionProps) {
+// Actions
+import formActions from '@/lib/actions/form';
+
+export default function SelectVersion({ selectedDate, dispatchForm }: SelectVersionProps) {
   return (
     <Input
       className="p-4"
@@ -16,7 +19,7 @@ export default function SelectVersion({ selectedDate, setSelectedDate }: SelectV
       min="2021-09-22"
       max={getCurrentDate()}
       value={selectedDate}
-      onValueChange={setSelectedDate}
+      onValueChange={(value: string) => { formActions.setSelectedDate(dispatchForm, value); }}
     />
   );
 }

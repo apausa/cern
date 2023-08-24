@@ -10,7 +10,7 @@ export default function Monitor({ allMetadata, selectedKey, setSelectedKey }: Mo
   return (
     <>
       <header className="p-4">
-        Timeline
+        Job list
       </header>
       <Divider />
       <main className="p-4">
@@ -28,10 +28,10 @@ export default function Monitor({ allMetadata, selectedKey, setSelectedKey }: Mo
             <TableColumn>WLCG status</TableColumn>
             <TableColumn>Date</TableColumn>
           </TableHeader>
-          <TableBody emptyContent="No simulations to display">
+          <TableBody emptyContent="No jobs to display">
             {allMetadata.map((metadata: Metadata) => (
               <TableRow key={metadata.id}>
-                <TableCell>Title</TableCell>
+                <TableCell>{metadata.form.title}</TableCell>
                 <TableCell>
                   <Chip>
                     {(metadata.testScript.scriptStatus === null) ? 'Ready' : metadata.testScript.scriptStatus}

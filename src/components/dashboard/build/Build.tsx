@@ -1,52 +1,64 @@
-import { Button, Divider, Switch } from '@nextui-org/react';
-import React, { useEffect, useReducer } from 'react';
+import {
+  Button, Divider, Input, Switch,
+} from '@nextui-org/react';
+import React, { useEffect } from 'react';
 
 // Components
 import SelectVersion from './SelectVersion';
 import AdvancedMode from './AdvancedMode';
 import DefaultMode from './defaultMode/DefaultMode';
-import { BuildUseReducer, FormProps } from '@/types/build';
 
-// Lib
-import initialForm from '@/lib/constants/build';
-import buildReducer from '@/lib/reducers/form';
+// Types
+import { FormProps } from '@/types/build';
+
+// Utils
 import getCmdStr from '@/utils/getCmd';
 
-export default function Build({ createMetadata }: FormProps) {
-  const [form, dispatch]: BuildUseReducer = useReducer(buildReducer, initialForm);
+// Actions
+import formActions from '@/lib/actions/form';
 
-  // Reducer actions
-  const setSelectedDate = (selectedDate: string): void => { dispatch({ type: 'SET_SELECTED_DATE', selectedDate }); };
-  const setAdvancedMode = (mode: boolean): void => { dispatch({ type: 'SET_ADVANCED_MODE', mode }); };
-  const setCmdStr = (cmdStr: string): void => { dispatch({ type: 'SET_CMD_STR', cmdStr }); };
-  const setCmdObjArguments = (keys: Selection): void => { dispatch({ type: 'SET_CMD_OBJ_ARGUMENT', keys }); };
-  const setCmdObjValues = (key: string, name: string): void => { dispatch({ type: 'SET_CMD_OBJ_VALUE', key, name }); };
-
-  const handleClick = (): void => {
+export default function Build({ form, dispatchForm, createMetadata }: FormProps) {
+  // Handlers
+  const handleStage = (): void => {
+    formActions.resetForm(dispatchForm);
     createMetadata(form);
   };
+  const handleReset = (): void => {
+    formActions.resetForm(dispatchForm);
+  };
 
-  useEffect((): void => { setCmdStr(getCmdStr(form.cmdObj)); }, [form.cmdObj]);
+  useEffect((): void => {
+    formActions.setCmdStr(dispatchForm, getCmdStr(form.cmdObj));
+  }, [form.cmdObj]);
 
   return (
     <>
       <header className="flex justify-between m-4">
-        <Button color="default">Restart</Button>
-        <Button color="primary" onClick={handleClick}>Submit</Button>
+        <Button color="default" onClick={handleReset}>Reset</Button>
+        <Button color="primary" onClick={handleStage}>Stage</Button>
       </header>
       <Divider />
       <main>
         <form>
-          <SelectVersion selectedDate={form.selectedDate} setSelectedDate={setSelectedDate} />
-          <Switch className="p-4" isSelected={form.advanced} onValueChange={setAdvancedMode}>Advanced mode</Switch>
+          <Input
+            className="p-4"
+            type="text"
+            label="Write title"
+            value={form.title}
+            placeholder="Sandro's job"
+            onValueChange={(value: string) => formActions.setTitle(dispatchForm, value)}
+          />
+          <SelectVersion selectedDate={form.selectedDate} dispatchForm={dispatchForm} />
+          <Switch
+            className="p-4"
+            isSelected={form.advanced}
+            onValueChange={(value: boolean) => formActions.setAdvanced(dispatchForm, value)}
+          >
+            Advanced mode
+          </Switch>
           {form.advanced
-            ? (<AdvancedMode cmdStr={form.cmdStr} setCmdStr={setCmdStr} />)
-            : (
-              <DefaultMode
-                cmdObj={form.cmdObj}
-                setCmdObjArguments={setCmdObjArguments}
-                setCmdObjValues={setCmdObjValues}
-              />
+            ? (<AdvancedMode cmdStr={form.cmdStr} dispatchForm={dispatchForm} />)
+            : (<DefaultMode cmdObj={form.cmdObj} dispatchForm={dispatchForm} />
             )}
         </form>
       </main>

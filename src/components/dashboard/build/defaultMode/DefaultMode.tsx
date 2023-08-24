@@ -15,9 +15,10 @@ import SelectInput from './inputs/SelectInput';
 // Types
 import { DefaultModeProps, CmdArg, CmdObj } from '@/types/build';
 
-export default function DefaultMode({
-  cmdObj, setCmdObjArguments, setCmdObjValues,
-}: DefaultModeProps) {
+// Actions
+import formActions from '@/lib/actions/form';
+
+export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) {
   const getSelectedKeys = (commandObject: CmdObj): Set<string> => (
     new Set(commandObject.args
       .filter(({ selected }: CmdArg) => selected)
@@ -31,7 +32,7 @@ export default function DefaultMode({
   const [selectedKeys, setSelectedKeys] = useState(getSelectedKeys(cmdObj));
 
   const handleOnSelectionChange = (keys: any): void => {
-    setCmdObjArguments(keys);
+    formActions.setCmdObjArguments(dispatchForm, keys);
     setSelectedKeys(keys);
   };
 
@@ -59,8 +60,8 @@ export default function DefaultMode({
               </TableCell>
               <TableCell>
                 {arg.input.type === null && (arg.value)}
-                {arg.input.type === 'number' && <NumberInput arg={arg} setCmdObjValues={setCmdObjValues} />}
-                {arg.input.type === 'select' && <SelectInput arg={arg} setCmdObjValues={setCmdObjValues} />}
+                {arg.input.type === 'number' && <NumberInput arg={arg} dispatchForm={dispatchForm} />}
+                {arg.input.type === 'select' && <SelectInput arg={arg} dispatchForm={dispatchForm} />}
               </TableCell>
             </TableRow>
           ))}

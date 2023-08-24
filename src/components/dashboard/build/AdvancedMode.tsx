@@ -4,9 +4,12 @@ import { Textarea } from '@nextui-org/react';
 // Types
 import { AdvancedModeProps } from '@/types/build';
 
-export default function AdvancedMode({ cmdStr, setCmdStr }: AdvancedModeProps) {
+// Actions
+import formActions from '@/lib/actions/form';
+
+export default function AdvancedMode({ cmdStr, dispatchForm }: AdvancedModeProps) {
   const handleChange = ({ target: { value } }: any): void => {
-    setCmdStr(value);
+    formActions.setCmdStr(dispatchForm, value);
   };
 
   return (

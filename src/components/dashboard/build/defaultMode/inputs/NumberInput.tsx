@@ -4,9 +4,12 @@ import React from 'react';
 // Types
 import { NumberInputProps } from '@/types/build';
 
-export default function NumberInput({ arg, setCmdObjValues }: NumberInputProps) {
+// Actions
+import formActions from '@/lib/actions/form';
+
+export default function NumberInput({ arg, dispatchForm }: NumberInputProps) {
   const handleValueChange = (value: string): void => {
-    setCmdObjValues(value, arg.name);
+    formActions.setCmdObjValues(dispatchForm, value, arg.name);
   };
 
   return (

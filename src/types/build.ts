@@ -1,6 +1,7 @@
 // Form component
 
 export type Form = {
+  title: string,
   selectedDate: string,
   cmdObj: CmdObj,
   cmdStr: string,
@@ -68,3 +69,5 @@ export type SelectInputProps = any;
 // Hooks
 
 export type BuildUseReducer = [Form, React.Dispatch<any>];
+
+// Form actions
