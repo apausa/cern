@@ -10,7 +10,7 @@ export default function Monitor({ allMetadata, setSelectedMetadata }: MonitorPro
   const [selectedKey, setSelectedKey]: any = useState(new Set(['']));
 
   useEffect(() => {
-    if (!selectedKey.has('') && allMetadata.length === 1) {
+    if (!selectedKey.has('') && allMetadata.length !== 0) {
       setSelectedMetadata(
         allMetadata.find((metadata: Metadata): Metadata => (selectedKey.has(metadata.id))),
       );
