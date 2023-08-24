@@ -1,19 +1,17 @@
 import {
   Button, Divider, Textarea,
 } from '@nextui-org/react';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 // Types
 import { Metadata } from '@/types/dashboard';
 import { RunProps } from '@/types/run';
 
 // Lib
-import { getAllMetadata } from '@/lib/services/dashboard';
 import formActions from '@/lib/actions/form';
+import metadataActions from '@/lib/actions/metadata';
 
-export default function Run({ selectedKey, handleUpdateMetadata, dispatchForm }: RunProps) {
-  const [selectedMetadata, setSelectedMetadata]: any = useState(null);
-
+export default function Run({ selectedMetadata, dispatchForm, dispatchMetadata }: RunProps) {
   const checkTestStatus = ({ testScript: { scriptStatus } }: Metadata): boolean => (
     scriptStatus === 'PENDING' || scriptStatus === 'FULFILLED');
   const checkProdStatus = ({ testScript, prodScript }: Metadata): boolean => (
@@ -21,16 +19,6 @@ export default function Run({ selectedKey, handleUpdateMetadata, dispatchForm }:
     || prodScript.scriptStatus === 'PENDING'
     || prodScript.scriptStatus === 'REJECTED'
   );
-
-  useEffect(() => {
-    if (selectedKey.has('')) return;
-    const parsedResponse: Metadata[] | null = getAllMetadata();
-    if (parsedResponse) {
-      setSelectedMetadata(
-        parsedResponse.find((metadata: Metadata): Metadata => (selectedKey.has(metadata.id))),
-      );
-    }
-  }, [selectedKey]);
 
   const handleRecreate = (): any => {
     formActions.setForm(dispatchForm, selectedMetadata);
@@ -55,7 +43,9 @@ export default function Run({ selectedKey, handleUpdateMetadata, dispatchForm }:
                 className="m-4"
                 color="primary"
                 isDisabled={checkTestStatus(selectedMetadata)}
-                onClick={() => { handleUpdateMetadata(selectedMetadata); }}
+                onClick={() => {
+                  metadataActions.updateMetadata(dispatchMetadata, selectedMetadata);
+                }}
               >
                 Run locally
               </Button>
@@ -63,7 +53,9 @@ export default function Run({ selectedKey, handleUpdateMetadata, dispatchForm }:
                 className="m-4"
                 color="primary"
                 isDisabled={checkProdStatus(selectedMetadata)}
-                onClick={() => { handleUpdateMetadata(selectedMetadata); }}
+                onClick={() => {
+                  metadataActions.updateMetadata(dispatchMetadata, selectedMetadata);
+                }}
               >
                 Run in WLCG
               </Button>

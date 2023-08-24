@@ -16,12 +16,13 @@ import getCmdStr from '@/utils/getCmd';
 
 // Actions
 import formActions from '@/lib/actions/form';
+import metadataActions from '@/lib/actions/metadata';
 
-export default function Build({ form, dispatchForm, createMetadata }: FormProps) {
+export default function Build({ form, dispatchForm, dispatchMetadata }: FormProps) {
   // Handlers
   const handleStage = (): void => {
     formActions.resetForm(dispatchForm);
-    createMetadata(form);
+    metadataActions.createMetadata(dispatchMetadata, form);
   };
   const handleReset = (): void => {
     formActions.resetForm(dispatchForm);
