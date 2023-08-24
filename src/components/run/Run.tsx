@@ -11,7 +11,9 @@ import { RunProps } from '@/types/components/run';
 import formActionCreator from '@/lib/actions/form';
 import metadataActionCreators from '@/lib/actions/metadata';
 
-export default function Run({ selectedMetadata, dispatchForm, dispatchMetadata }: RunProps) {
+export default function Run({
+  selectedMetadata, setSelectedMetadata, dispatchForm, dispatchMetadata,
+}: RunProps) {
   const checkTestStatus = ({ testScript: { scriptStatus } }: Metadata): boolean => (
     scriptStatus === 'PENDING' || scriptStatus === 'FULFILLED');
   const checkProdStatus = ({ testScript, prodScript }: Metadata): boolean => (
@@ -21,22 +23,24 @@ export default function Run({ selectedMetadata, dispatchForm, dispatchMetadata }
   );
 
   const handleRecreate = (): any => {
+    setSelectedMetadata(null);
     formActionCreator.createForm(dispatchForm, selectedMetadata.form);
   };
 
   return (
     <>
-      <header className="p-4">Job details</header>
+      <header className="p-6">Job details</header>
       <Divider />
       <main>
         {selectedMetadata ? (
           <>
             <Textarea
               className="p-4"
-              isDisabled
+              isReadOnly
+              variant="bordered"
               label="Command"
               labelPlacement="outside"
-              defaultValue={selectedMetadata.form.cmdStr}
+              value={selectedMetadata.form.cmdStr}
             />
             <div className="flex flex-col">
               <Button

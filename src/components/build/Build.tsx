@@ -35,7 +35,7 @@ export default function Build({ form, dispatchForm, dispatchMetadata }: FormProp
 
   return (
     <>
-      <header className="flex justify-between m-4">
+      <header className="flex justify-between p-4">
         <Button color="default" onClick={handleReset}>Reset</Button>
         <Button color="primary" onClick={handleStage}>Stage</Button>
       </header>
@@ -47,7 +47,7 @@ export default function Build({ form, dispatchForm, dispatchMetadata }: FormProp
             type="text"
             label="Write title"
             value={form.title}
-            placeholder="Sandro's job"
+            placeholder="Placeholder"
             onValueChange={(value: string) => (
               formActionCreators.updateFormTitle(dispatchForm, value))}
           />

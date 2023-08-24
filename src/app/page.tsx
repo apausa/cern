@@ -20,7 +20,7 @@ import dashboardReducer from '@/lib/reducers/metadata';
 import buildReducer from '@/lib/reducers/form';
 
 // Actions
-import metadataActionCreatros from '@/lib/actions/metadata';
+import metadataActionCreator from '@/lib/actions/metadata';
 
 export default function Dashboard() {
   const [allMetadata, dispatchMetadata]: DashboardUseReducer = useReducer(dashboardReducer, []);
@@ -28,29 +28,32 @@ export default function Dashboard() {
   const [selectedMetadata, setSelectedMetadata]: any = useState(null);
 
   useEffect(() => {
-    metadataActionCreatros.readAllMetadata(dispatchMetadata);
+    metadataActionCreator.readAllMetadata(dispatchMetadata);
   }, []);
 
   return (
-    <div className="flex flex-nowrap">
-      <div className="basis-1/4 flex-none h-screen border-r">
-        <Build
-          form={form}
-          dispatchForm={dispatchForm}
-          dispatchMetadata={dispatchMetadata}
-        />
+    <div className="flex flex-nowrap justify-center">
+      <div className="basis-1/4 h-screen border-r overflow-auto">
+        {selectedMetadata ? (
+          <Run
+            selectedMetadata={selectedMetadata}
+            setSelectedMetadata={setSelectedMetadata}
+            dispatchForm={dispatchForm}
+            dispatchMetadata={dispatchMetadata}
+          />
+        ) : (
+          <Build
+            form={form}
+            dispatchForm={dispatchForm}
+            dispatchMetadata={dispatchMetadata}
+          />
+        )}
       </div>
-      <div className="basis-1/2 flex-none h-screen border-r">
+      <div className="basis-2/4 h-screen overflow-auto">
         <Monitor
           allMetadata={allMetadata}
-          setSelectedMetadata={setSelectedMetadata}
-        />
-      </div>
-      <div className="basis-1/4 flex-none h-screen border-r">
-        <Run
           selectedMetadata={selectedMetadata}
-          dispatchForm={dispatchForm}
-          dispatchMetadata={dispatchMetadata}
+          setSelectedMetadata={setSelectedMetadata}
         />
       </div>
     </div>
