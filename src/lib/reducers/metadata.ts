@@ -11,7 +11,7 @@ const dashboardReducer = (
       nextState = action.allMetadata;
       break; }
     case 'CREATE_METADATA': {
-      nextState = [...allMetadata, action.metadata];
+      nextState = [action.metadata, ...allMetadata];
       break; }
     case 'UPDATE_METADATA': { nextState = allMetadata.map((metadata: Metadata): Metadata => (
       (metadata.id === action.metadata.id) ? action.metadata : metadata)); break; }
