@@ -1,5 +1,5 @@
 import { Metadata, MetadataActionCreators } from '@/types/lib';
-import setStatus from '@/utils/setStatus';
+import { setGridStatus, setTestStatus } from '@/utils/setStatus';
 
 const metadataActionCreators: MetadataActionCreators = {
   readAllMetadata: (dispatch) => {
@@ -14,16 +14,21 @@ const metadataActionCreators: MetadataActionCreators = {
 
     if (metadata) dispatch({ type: 'CREATE_METADATA', metadata });
   },
-  updateMetadata: async (dispatch, metadata) => {
-    const unresolvedMetadata: Metadata = setStatus(metadata, 'PENDING');
+  updateMetadataInTest: async (dispatch, metadata) => {
+    const unresolvedMetadata: Metadata = setTestStatus(metadata, 'PENDING');
     dispatch({ type: 'UPDATE_METADATA', metadata: unresolvedMetadata });
 
-    const response: Response = await fetch('/api/metadata', { method: 'PUT', body: JSON.stringify(unresolvedMetadata) });
+    const response: Response = await fetch('/api/metadata/test', { method: 'PUT', body: JSON.stringify(unresolvedMetadata) });
     const resolvedMetadata: Metadata | null = await response.json();
     if (resolvedMetadata) dispatch({ type: 'UPDATE_METADATA', metadata: resolvedMetadata });
   },
-  deleteMetadata: (dispatch, metadata) => {
-    dispatch({ type: 'DELETE_METADATA', metadata });
+  updateMetadataInGrid: async (dispatch, metadata) => {
+    const unresolvedMetadata: Metadata = setGridStatus(metadata, 'PENDING');
+    dispatch({ type: 'UPDATE_METADATA', metadata: unresolvedMetadata });
+
+    const response: Response = await fetch('/api/metadata/grid', { method: 'PUT', body: JSON.stringify(unresolvedMetadata) });
+    const resolvedMetadata: Metadata | null = await response.json();
+    if (resolvedMetadata) dispatch({ type: 'UPDATE_METADATA', metadata: resolvedMetadata });
   },
 };
 

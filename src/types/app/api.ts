@@ -19,12 +19,12 @@ export type TestExecCmd = {
     '-c']
 };
 
-export type ProdVersionCmd = {
+export type GridVersionCmd = {
   name: '/cvmfs/alice.cern.ch/bin/alienv',
   args: ['enter', string],
 };
 
-export type ProdExecCmd = {
+export type GridExecCmd = {
   name: './grid_submit.sh',
   args: ['--script', string, '--wait', '--fetch-output-files'],
 };

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 // Types
 import {
-  Metadata, ProdScript, TestScript, Form,
+  Metadata, GridScript, TestScript, Form,
 } from '@/types/lib';
 
 // Utils
@@ -15,7 +15,7 @@ const getTestScriptBody = (version: string, o2CmdStr: string): string => ([
   `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`, o2CmdStr,
 ].join('\n'));
 
-const getProdScriptBody = (version: string, o2CmdStr: string): string => ([
+const getGridScriptBody = (version: string, o2CmdStr: string): string => ([
   `#JDL_PACKAGE=O2sim::${version}`, '#JDL_OUTPUT=*.root@disk=1,*.log@disk=1', o2CmdStr,
 ].join('\n'));
 
@@ -37,16 +37,16 @@ export const createMetadata = async (form: Form): Promise<Metadata> => {
       scriptBody: getTestScriptBody(version, cmd),
       scriptStatus: null,
     },
-    prodScript: {
-      scriptPath: path.join(segment, 'prod.sh'),
-      scriptBody: getProdScriptBody(version, cmd),
+    gridScript: {
+      scriptPath: path.join(segment, 'grid.sh'),
+      scriptBody: getGridScriptBody(version, cmd),
       scriptStatus: null,
     },
   };
 };
 
 export const createScript = async (
-  { scriptPath, scriptBody }: TestScript | ProdScript,
+  { scriptPath, scriptBody }: TestScript | GridScript,
 ): Promise<void> => {
   await fs.writeFile(scriptPath, scriptBody);
   await fs.chmod(scriptPath, '755');

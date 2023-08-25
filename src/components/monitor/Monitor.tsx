@@ -44,6 +44,7 @@ export default function Monitor({
         >
           <TableHeader>
             <TableColumn>Title</TableColumn>
+            <TableColumn>Number</TableColumn>
             <TableColumn>Local status</TableColumn>
             <TableColumn>WLCG status</TableColumn>
             <TableColumn allowsSorting>Date</TableColumn>
@@ -52,14 +53,15 @@ export default function Monitor({
             {allMetadata.map((metadata: Metadata) => (
               <TableRow key={metadata.id}>
                 <TableCell>{metadata.form.title}</TableCell>
+                <TableCell>1</TableCell>
                 <TableCell>
                   <Chip variant="flat" color={getStatusColor(metadata.testScript.scriptStatus)}>
                     {getStatusName(metadata.testScript.scriptStatus)}
                   </Chip>
                 </TableCell>
                 <TableCell>
-                  <Chip variant="flat" color={getStatusColor(metadata.prodScript.scriptStatus)}>
-                    {getStatusName(metadata.prodScript.scriptStatus)}
+                  <Chip variant="flat" color={getStatusColor(metadata.gridScript.scriptStatus)}>
+                    {getStatusName(metadata.gridScript.scriptStatus)}
                   </Chip>
                 </TableCell>
                 <TableCell>{metadata.date}</TableCell>

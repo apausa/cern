@@ -26,8 +26,12 @@ export default function Run({
     formActionCreator.createForm(dispatchForm, selectedMetadata.form);
   };
 
-  const handleRun = (): any => {
-    metadataActionCreators.updateMetadata(dispatchMetadata, selectedMetadata);
+  const handleRunInGrid = (): any => {
+    metadataActionCreators.updateMetadataInGrid(dispatchMetadata, selectedMetadata);
+  };
+
+  const handleRunInTest = (): any => {
+    metadataActionCreators.updateMetadataInTest(dispatchMetadata, selectedMetadata);
   };
 
   return (
@@ -84,35 +88,35 @@ export default function Run({
               className="my-2"
               color="primary"
               isDisabled={getStatusIsDisabled(selectedMetadata.testScript.scriptStatus)}
-              onClick={handleRun}
+              onClick={handleRunInTest}
             >
               Run locally
             </Button>
           </Tab>
           <Tab key="wlcg" title="WLCG script" className="flex flex-col">
             <ReadOnlyInput
-              color={getStatusColor(selectedMetadata.prodScript.scriptStatus)}
+              color={getStatusColor(selectedMetadata.gridScript.scriptStatus)}
               label="Script status"
-              value={getStatusName(selectedMetadata.prodScript.scriptStatus)}
+              value={getStatusName(selectedMetadata.gridScript.scriptStatus)}
               variant="flat"
             />
             <ReadOnlyInput
               color="default"
               label="Script path"
-              value={selectedMetadata.prodScript.scriptPath}
+              value={selectedMetadata.gridScript.scriptPath}
               variant="flat"
             />
             <ReadOnlyTextarea
               color="default"
               label="Script content"
-              value={selectedMetadata.prodScript.scriptBody}
+              value={selectedMetadata.gridScript.scriptBody}
               variant="flat"
             />
             <Button
               className="my-2"
               color="primary"
-              isDisabled={getStatusIsDisabled(selectedMetadata.prodScript.scriptStatus)}
-              onClick={handleRun}
+              isDisabled={getStatusIsDisabled(selectedMetadata.gridScript.scriptStatus)}
+              onClick={handleRunInGrid}
             >
               Run in WLCG
             </Button>

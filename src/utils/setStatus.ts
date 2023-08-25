@@ -1,9 +1,7 @@
 import { Metadata } from '@/types/lib';
 
-const setStatus = (metadata: Metadata, status: string): Metadata => {
-  const isTestScript = metadata.testScript.scriptStatus === 'FULFILLED' ? 'prodScript' : 'testScript';
+export const setGridStatus = (metadata: Metadata, status: 'PENDING' | 'FULFILLED' | 'REJECTED' | null): Metadata => (
+  { ...metadata, gridScript: { ...metadata.gridScript, scriptStatus: status } });
 
-  return { ...metadata, [isTestScript]: { ...metadata[isTestScript], scriptStatus: status } };
-};
-
-export default setStatus;
+export const setTestStatus = (metadata: Metadata, status: 'PENDING' | 'FULFILLED' | 'REJECTED' | null): Metadata => (
+  { ...metadata, testScript: { ...metadata.testScript, scriptStatus: status } });

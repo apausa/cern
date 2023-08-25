@@ -7,7 +7,7 @@ export type Metadata = {
   date: string,
   form: Form,
   testScript: TestScript,
-  prodScript: ProdScript
+  gridScript: GridScript
 };
 
 export type TestScript = {
@@ -16,7 +16,7 @@ export type TestScript = {
   scriptStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
 };
 
-export type ProdScript = {
+export type GridScript = {
   scriptPath: string,
   scriptBody: string,
   scriptStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
@@ -41,9 +41,10 @@ export type DeleteMetadataAction = { type: 'DELETE_METADATA', metadata: Metadata
 export type MetadataActionCreators = {
   readAllMetadata: (dispatch: React.Dispatch<ReadAllMetadataAction>) => void,
   createMetadata: (dispatch: React.Dispatch<CreateMetadataAction>, form: Form) => Promise<void>,
-  updateMetadata: (
+  updateMetadataInTest: (
     dispatch: React.Dispatch<UpdateMetadataAction>, metadata: Metadata) => Promise<void>,
-  deleteMetadata: (dispatch: React.Dispatch<DeleteMetadataAction>, metadata: Metadata) => void,
+  updateMetadataInGrid: (
+    dispatch: React.Dispatch<UpdateMetadataAction>, metadata: Metadata) => Promise<void>,
 };
 
 // Form
