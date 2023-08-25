@@ -72,7 +72,6 @@ export default function Build({ form, dispatchForm, dispatchMetadata }: FormProp
           />
           <Tabs
             aria-label="Select mode"
-            color="primary"
             className="pt-2 flex flex-col"
             selectedKey={form.advanced ? 'advanced' : 'default'}
             onSelectionChange={(key: Key) => {

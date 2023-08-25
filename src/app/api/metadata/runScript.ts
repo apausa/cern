@@ -16,13 +16,13 @@ export const runTestScript = (metadata: Metadata): Promise<Metadata> => {
   const childProcess: ChildProcess = spawn(name, [...args, metadata.testScript.scriptPath]);
 
   childProcess.stdout?.on('data', (output: any) => { console.log(output.toString()); }); // @delete
-  childProcess.stderr?.on('data', (output: any) => { console.log(output.toString()); }); // @delete
 
   return new Promise((resolve): void => {
     childProcess.on('close', (output: number) => {
       resolve(setStatus(metadata, (output === 0) ? 'FULFILLED' : 'REJECTED'));
     });
     childProcess.on('error', () => { resolve(setStatus(metadata, 'REJECTED')); });
+    childProcess.stderr?.on('data', () => { resolve(setStatus(metadata, 'REJECTED')); });
   });
 };
 

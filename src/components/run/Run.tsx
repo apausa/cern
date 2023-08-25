@@ -60,7 +60,7 @@ export default function Run({
           label="Written command"
           value={selectedMetadata.form.cmdStr}
         />
-        <Tabs aria-label="Select environment" color="primary" className="pt-2 flex flex-col">
+        <Tabs aria-label="Select environment" className="pt-2 flex flex-col">
           <Tab key="local" title="Local script" className="flex flex-col">
             <ReadOnlyInput
               color={getStatusColor(selectedMetadata.testScript.scriptStatus)}
