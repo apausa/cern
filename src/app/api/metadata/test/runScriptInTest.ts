@@ -14,8 +14,6 @@ const runScriptInTest = (metadata: Metadata): Promise<Metadata> => {
   const { name, args }: TestExecCmd = TEST_EXEC_CMD;
   const childProcess: ChildProcess = spawn(name, [...args, metadata.testScript.scriptPath]);
 
-  childProcess.stdout?.on('data', (output: any) => { console.log(output.toString()); }); // @delete
-
   return new Promise((resolve): void => {
     childProcess.on('close', (output: number) => {
       resolve(setTestStatus(metadata, (output === 0) ? 'FULFILLED' : 'REJECTED'));
