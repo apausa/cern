@@ -14,7 +14,6 @@ export default function AdvancedMode({ cmdStr, dispatchForm }: AdvancedModeProps
 
   return (
     <Textarea
-      className="p-4"
       minRows={4}
       maxRows={12}
       aria-label="Advanced mode"

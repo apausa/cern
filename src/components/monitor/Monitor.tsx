@@ -58,6 +58,7 @@ export default function Monitor({
           selectedKeys={selectedKey}
           onSelectionChange={setSelectedKey}
           onSortChange={() => {}}
+          disallowEmptySelection
         >
           <TableHeader>
             <TableColumn>Title</TableColumn>

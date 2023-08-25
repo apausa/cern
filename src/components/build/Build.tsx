@@ -4,7 +4,6 @@ import {
 import React, { useEffect } from 'react';
 
 // Components
-import SelectVersion from './SelectVersion';
 import AdvancedMode from './AdvancedMode';
 import DefaultMode from './defaultMode/DefaultMode';
 
@@ -13,6 +12,7 @@ import { FormProps } from '@/types/components/build';
 
 // Utils
 import getCmdStr from '@/utils/getCmd';
+import { getCurrentDate } from '@/utils/getDate';
 
 // Actions
 import formActionCreators from '@/lib/actions/form';
@@ -36,36 +36,53 @@ export default function Build({ form, dispatchForm, dispatchMetadata }: FormProp
   return (
     <>
       <header className="flex justify-between p-4">
-        <Button color="default" onClick={handleReset}>Reset</Button>
+        <div className="pt-2">Job configuration</div>
         <Button color="primary" onClick={handleStage}>Stage</Button>
       </header>
       <Divider />
-      <main>
+      <main className="p-4">
         <form>
           <Input
-            className="p-4"
+            className="py-4"
             type="text"
             label="Write title"
+            variant="bordered"
             value={form.title}
             placeholder="Placeholder"
             onValueChange={(value: string) => (
               formActionCreators.updateFormTitle(dispatchForm, value))}
           />
-          <SelectVersion selectedDate={form.selectedDate} dispatchForm={dispatchForm} />
-          <Switch
-            className="p-4"
-            isSelected={form.advanced}
-            onValueChange={(value: boolean) => (
-              formActionCreators.updateFormAdvanced(dispatchForm, value))}
-          >
-            Advanced mode
-          </Switch>
-          {form.advanced
-            ? (<AdvancedMode cmdStr={form.cmdStr} dispatchForm={dispatchForm} />)
-            : (<DefaultMode cmdObj={form.cmdObj} dispatchForm={dispatchForm} />
-            )}
+          <Input
+            className="py-4"
+            label="Select version"
+            type="date"
+            min="2021-09-22"
+            max={getCurrentDate()}
+            value={form.selectedDate}
+            onValueChange={(value: string) => {
+              formActionCreators.updateFormSelectedDate(dispatchForm, value);
+            }}
+          />
+          <fieldset className="py-4">
+            <Switch
+              className="pb-4"
+              isSelected={form.advanced}
+              onValueChange={(value: boolean) => (
+                formActionCreators.updateFormAdvanced(dispatchForm, value))}
+            >
+              Advanced mode
+            </Switch>
+            {form.advanced
+              ? (<AdvancedMode cmdStr={form.cmdStr} dispatchForm={dispatchForm} />)
+              : (<DefaultMode cmdObj={form.cmdObj} dispatchForm={dispatchForm} />
+              )}
+          </fieldset>
         </form>
       </main>
+      <Divider />
+      <footer className="p-4">
+        <Button color="default" onClick={handleReset}>Reset</Button>
+      </footer>
     </>
   );
 }

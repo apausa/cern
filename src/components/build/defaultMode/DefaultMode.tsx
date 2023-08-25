@@ -38,36 +38,35 @@ export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) 
   };
 
   return (
-    <fieldset className="p-4">
-      <Table
-        onSelectionChange={handleOnSelectionChange}
-        removeWrapper
-        disallowEmptySelection
-        selectionMode="multiple"
-        selectedKeys={selectedKeys}
-        disabledKeys={getDisabledKeys(cmdObj)}
-        color="default"
-        aria-label="Build table"
-      >
-        <TableHeader>
-          <TableColumn>Argument</TableColumn>
-          <TableColumn>Value</TableColumn>
-        </TableHeader>
-        <TableBody>
-          {cmdObj.args.map((arg: any) => (
-            <TableRow key={arg.name}>
-              <TableCell>
-                {arg.name}
-              </TableCell>
-              <TableCell>
-                {arg.input.type === null && (arg.value)}
-                {arg.input.type === 'number' && <NumberInput arg={arg} dispatchForm={dispatchForm} />}
-                {arg.input.type === 'select' && <SelectInput arg={arg} dispatchForm={dispatchForm} />}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </fieldset>
+
+    <Table
+      onSelectionChange={handleOnSelectionChange}
+      removeWrapper
+      disallowEmptySelection
+      selectionMode="multiple"
+      selectedKeys={selectedKeys}
+      disabledKeys={getDisabledKeys(cmdObj)}
+      color="default"
+      aria-label="Build table"
+    >
+      <TableHeader>
+        <TableColumn>Argument</TableColumn>
+        <TableColumn>Value</TableColumn>
+      </TableHeader>
+      <TableBody>
+        {cmdObj.args.map((arg: any) => (
+          <TableRow key={arg.name}>
+            <TableCell>
+              {arg.name}
+            </TableCell>
+            <TableCell>
+              {arg.input.type === null && (arg.value)}
+              {arg.input.type === 'number' && <NumberInput arg={arg} dispatchForm={dispatchForm} />}
+              {arg.input.type === 'select' && <SelectInput arg={arg} dispatchForm={dispatchForm} />}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }

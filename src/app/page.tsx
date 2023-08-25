@@ -33,7 +33,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-nowrap justify-center">
-      <div className="basis-1/4 h-screen border-r overflow-auto">
+      <div className="basis-1/4 h-screen overflow-x-hidden overflow-y-auto">
         {selectedMetadata ? (
           <Run
             selectedMetadata={selectedMetadata}
@@ -49,7 +49,7 @@ export default function Dashboard() {
           />
         )}
       </div>
-      <div className="basis-2/4 h-screen overflow-auto">
+      <div className="basis-2/4 h-screen overflow-x-hidden overflow-y-auto border-l">
         <Monitor
           allMetadata={allMetadata}
           selectedMetadata={selectedMetadata}
