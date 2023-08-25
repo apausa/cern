@@ -14,9 +14,10 @@ export default function AdvancedMode({ cmdStr, dispatchForm }: AdvancedModeProps
 
   return (
     <Textarea
-      minRows={4}
-      maxRows={12}
-      aria-label="Advanced mode"
+      variant="faded"
+      color="default"
+      className="py-2"
+      label="Write command"
       value={cmdStr}
       onChange={handleChange}
     />

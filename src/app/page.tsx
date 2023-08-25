@@ -20,7 +20,7 @@ import dashboardReducer from '@/lib/reducers/metadata';
 import buildReducer from '@/lib/reducers/form';
 
 // Actions
-import metadataActionCreator from '@/lib/actions/metadata';
+import metadataActionCreators from '@/lib/actions/metadata';
 
 export default function Dashboard() {
   const [allMetadata, dispatchMetadata]: DashboardUseReducer = useReducer(dashboardReducer, []);
@@ -28,7 +28,7 @@ export default function Dashboard() {
   const [selectedMetadata, setSelectedMetadata]: any = useState(null);
 
   useEffect(() => {
-    metadataActionCreator.readAllMetadata(dispatchMetadata);
+    metadataActionCreators.readAllMetadata(dispatchMetadata);
   }, []);
 
   return (
@@ -49,7 +49,7 @@ export default function Dashboard() {
           />
         )}
       </div>
-      <div className="basis-2/4 h-screen overflow-x-hidden overflow-y-auto border-l">
+      <div className="basis-2/4 h-screen overflow-x-hidden overflow-y-auto border-l border-l-neutral-400">
         <Monitor
           allMetadata={allMetadata}
           selectedMetadata={selectedMetadata}

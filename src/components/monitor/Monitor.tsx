@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Table, TableHeader, TableRow, TableCell, TableBody, Divider, TableColumn, Chip, Button,
+  Table, TableHeader, TableRow, TableCell, TableBody, TableColumn, Chip, Button,
 } from '@nextui-org/react';
 
 import { Metadata } from '@/types/lib';
 import { MonitorProps } from '@/types/components/monitor';
+import { getStatusColor, getStatusName } from '@/utils/getStatus';
 
 export default function Monitor({
   allMetadata, selectedMetadata, setSelectedMetadata,
@@ -18,26 +19,7 @@ export default function Monitor({
       );
       setSelectedMetadata(foundMetadata || null);
     }
-  }, [selectedKey]);
-
-  const returnStatus = (status: string | null): string => {
-    switch (status) {
-      case 'PENDING': return 'Running';
-      case 'FULFILLED': return 'Completed';
-      case 'REJECTED': return 'Error';
-      case null: return 'Staged';
-      default: return '';
-    }
-  };
-
-  const returnColor = (status: string | null): 'warning' | 'success' | 'danger' | 'default' => {
-    switch (status) {
-      case 'PENDING': return 'warning';
-      case 'FULFILLED': return 'success';
-      case 'REJECTED': return 'danger';
-      default: return 'default';
-    }
-  };
+  }, [selectedKey, allMetadata]);
 
   const handleClick = (): void => {
     setSelectedMetadata(null);
@@ -45,14 +27,14 @@ export default function Monitor({
 
   return (
     <>
-      <header className="flex justify-between p-4">
-        <div>Job list</div>
+      <header className="flex justify-between p-4 border-b border-b-neutral-800">
+        <div className="pt-2">Job list</div>
         <Button color="primary" isDisabled={selectedMetadata === null} onClick={handleClick}>Add</Button>
       </header>
-      <Divider />
-      <main className="p-4">
+      <main className="px-4 border-b border-b-neutral-800">
         <Table
           removeWrapper
+          className="py-4"
           selectionMode="single"
           aria-label="Monitor table"
           selectedKeys={selectedKey}
@@ -71,13 +53,13 @@ export default function Monitor({
               <TableRow key={metadata.id}>
                 <TableCell>{metadata.form.title}</TableCell>
                 <TableCell>
-                  <Chip variant="flat" color={returnColor(metadata.testScript.scriptStatus)}>
-                    {returnStatus(metadata.testScript.scriptStatus)}
+                  <Chip variant="flat" color={getStatusColor(metadata.testScript.scriptStatus)}>
+                    {getStatusName(metadata.testScript.scriptStatus)}
                   </Chip>
                 </TableCell>
                 <TableCell>
-                  <Chip variant="flat" color={returnColor(metadata.prodScript.scriptStatus)}>
-                    {returnStatus(metadata.prodScript.scriptStatus)}
+                  <Chip variant="flat" color={getStatusColor(metadata.prodScript.scriptStatus)}>
+                    {getStatusName(metadata.prodScript.scriptStatus)}
                   </Chip>
                 </TableCell>
                 <TableCell>{metadata.date}</TableCell>

@@ -47,6 +47,7 @@ export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) 
       selectedKeys={selectedKeys}
       disabledKeys={getDisabledKeys(cmdObj)}
       color="default"
+      className="py-2"
       aria-label="Build table"
     >
       <TableHeader>

@@ -1,7 +1,7 @@
 import {
-  Button, Divider, Input, Switch,
+  Button, Divider, Input, Tab, Tabs,
 } from '@nextui-org/react';
-import React, { useEffect } from 'react';
+import React, { Key, useEffect } from 'react';
 
 // Components
 import AdvancedMode from './AdvancedMode';
@@ -35,48 +35,57 @@ export default function Build({ form, dispatchForm, dispatchMetadata }: FormProp
 
   return (
     <>
-      <header className="flex justify-between p-4">
+      <header className="flex justify-between p-4 border-b border-b-neutral-800">
         <div className="pt-2">Job configuration</div>
-        <Button color="primary" onClick={handleStage}>Stage</Button>
+        <Button
+          color="primary"
+          onClick={handleStage}
+        >
+          Stage
+        </Button>
       </header>
-      <Divider />
-      <main className="p-4">
+      <main className="px-4 pt-2 border-b border-b-neutral-800">
         <form>
           <Input
-            className="py-4"
+            className="py-2"
             type="text"
             label="Write title"
-            variant="bordered"
+            variant="faded"
+            color="default"
             value={form.title}
             placeholder="Placeholder"
             onValueChange={(value: string) => (
               formActionCreators.updateFormTitle(dispatchForm, value))}
           />
           <Input
-            className="py-4"
+            className="py-2"
             label="Select version"
             type="date"
             min="2021-09-22"
+            variant="faded"
+            color="default"
             max={getCurrentDate()}
             value={form.selectedDate}
             onValueChange={(value: string) => {
               formActionCreators.updateFormSelectedDate(dispatchForm, value);
             }}
           />
-          <fieldset className="py-4">
-            <Switch
-              className="pb-4"
-              isSelected={form.advanced}
-              onValueChange={(value: boolean) => (
-                formActionCreators.updateFormAdvanced(dispatchForm, value))}
-            >
-              Advanced mode
-            </Switch>
-            {form.advanced
-              ? (<AdvancedMode cmdStr={form.cmdStr} dispatchForm={dispatchForm} />)
-              : (<DefaultMode cmdObj={form.cmdObj} dispatchForm={dispatchForm} />
-              )}
-          </fieldset>
+          <Tabs
+            aria-label="Select mode"
+            color="primary"
+            className="pt-2 flex flex-col"
+            selectedKey={form.advanced ? 'advanced' : 'default'}
+            onSelectionChange={(key: Key) => {
+              formActionCreators.updateFormAdvanced(dispatchForm, key === 'advanced');
+            }}
+          >
+            <Tab key="default" title="Default mode" className="flex flex-col">
+              <DefaultMode cmdObj={form.cmdObj} dispatchForm={dispatchForm} />
+            </Tab>
+            <Tab key="advanced" title="Advanced mode" className="flex flex-col">
+              <AdvancedMode cmdStr={form.cmdStr} dispatchForm={dispatchForm} />
+            </Tab>
+          </Tabs>
         </form>
       </main>
       <Divider />
