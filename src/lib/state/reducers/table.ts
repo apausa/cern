@@ -16,7 +16,7 @@ const tableReducer = (
     case 'UPDATE_PAGE_ROWS':
       return { ...table, page: { ...table.page, rows: action.rows } };
     case 'UPDATE_PAGE_CURRENT':
-      return { ...table, page: { ...table.page, page: action.page } };
+      return { ...table, page: { ...table.page, current: action.page } };
     default: return table;
   }
 };

@@ -1,3 +1,4 @@
+import { Selection } from '@nextui-org/react';
 import { Dispatch } from 'react';
 
 // Status
@@ -127,7 +128,7 @@ export type UpdateFormSelectedDateAction = { type: 'UPDATE_FORM_SELECTED_DATE', 
 export type UpdateFormTitleAction = { type: 'UPDATE_FORM_TITLE', title: string };
 export type UpdateFormAdvancedAction = { type: 'UPDATE_FORM_ADVANCED', mode: boolean };
 export type UpdateFormCmdStrAction = { type: 'UPDATE_FORM_CMD_STR', cmdStr: string };
-export type UpdateFormCmdObjArgAction = { type: 'UPDATE_FORM_CMD_OBJ_ARG', keys: any };
+export type UpdateFormCmdObjArgAction = { type: 'UPDATE_FORM_CMD_OBJ_ARG', keys: Selection };
 export type UpdateFormCmdObjValAction = { type: 'UPDATE_FORM_CMD_OBJ_VAL', key: string, name: string };
 
 export type FormActionCreators = {

@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useEffect, useReducer, useState } from 'react';
+import React, {
+  useEffect, useMemo, useReducer,
+} from 'react';
 
 // Components
 import Monitor from '@/components/timeline/Timeline';
@@ -8,14 +10,18 @@ import Run from '@/components/details/Details';
 import Build from '@/components/form/Form';
 
 // Types
-import { DashboardUseReducer, FormUseReducer } from '@/types/lib';
+import {
+  DashboardUseReducer, FormUseReducer, Metadata, TableUseReducer,
+} from '@/types/lib';
 
 // Constants
 import INITIAL_FORM from '@/lib/state/constants/form';
+import { INITIAL_TABLE } from '@/lib/state/constants/table';
 
 // Reducers
 import metadataReducer from '@/lib/state/reducers/metadata';
 import formReducer from '@/lib/state/reducers/form';
+import tableReducer from '@/lib/state/reducers/table';
 
 // Actions
 import metadataActionCreators from '@/lib/state/actions/metadata';
@@ -23,8 +29,13 @@ import metadataActionCreators from '@/lib/state/actions/metadata';
 export default function Dashboard() {
   const [allMetadata, dispatchMetadata]: DashboardUseReducer = useReducer(metadataReducer, []);
   const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
+  const [table, dispatchTable]: TableUseReducer = useReducer(tableReducer, INITIAL_TABLE);
 
-  const [selectedMetadata, setSelectedMetadata]: any = useState(null);
+  const selectedMetadata: Metadata | null = useMemo(() => ((!table.selectedKey.has(''))
+    ? allMetadata.find(
+      (metadata: Metadata): boolean => (table.selectedKey.has(metadata.id)),
+    ) || null
+    : null), [table.selectedKey, allMetadata]);
 
   useEffect(() => {
     metadataActionCreators.readAllMetadata(dispatchMetadata);
@@ -36,7 +47,6 @@ export default function Dashboard() {
         {selectedMetadata ? (
           <Run
             selectedMetadata={selectedMetadata}
-            setSelectedMetadata={setSelectedMetadata}
             dispatchForm={dispatchForm}
             dispatchMetadata={dispatchMetadata}
           />
@@ -51,7 +61,8 @@ export default function Dashboard() {
       <div className="basis-2/4 h-screen overflow-x-hidden overflow-y-auto border-l border-l-neutral-400">
         <Monitor
           allMetadata={allMetadata}
-          setSelectedMetadata={setSelectedMetadata}
+          table={table}
+          dispatchTable={dispatchTable}
         />
       </div>
     </div>

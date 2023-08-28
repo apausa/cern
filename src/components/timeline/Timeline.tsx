@@ -1,19 +1,11 @@
-import React, {
-  useEffect, useMemo, useReducer,
-} from 'react';
+import React, { useMemo } from 'react';
 import {
   Table, TableHeader, TableRow, TableCell, TableBody, TableColumn,
 } from '@nextui-org/react';
 
 // Types
-import { Column, Metadata, TableUseReducer } from '@/types/lib';
+import { Column, Metadata } from '@/types/lib';
 import { MonitorProps } from '@/types/components/timeline';
-
-// Reducers
-import tableReducer from '@/lib/state/reducers/table';
-
-// Constants
-import { INITIAL_TABLE } from '@/lib/state/constants/table';
 
 // Actions
 import tableActionCreators from '@/lib/state/actions/table';
@@ -27,10 +19,8 @@ import BottomContent from './content/BottomContent';
 import { filterMetadata, getColumns, getPageMetadata } from '@/lib/hooks/timeline';
 
 export default function Monitor({
-  allMetadata, setSelectedMetadata,
+  allMetadata, table, dispatchTable,
 }: MonitorProps) {
-  const [table, dispatchTable]: TableUseReducer = useReducer(tableReducer, INITIAL_TABLE);
-
   const columns: Column[] = useMemo(
     () => getColumns(table.selectedColumns),
     [table.selectedColumns],
@@ -45,15 +35,6 @@ export default function Monitor({
     () => getPageMetadata(filteredMetadata, table.page),
     [filteredMetadata, table.page],
   );
-
-  useEffect(() => {
-    if (!table.selectedKey.has('') && allMetadata.length !== 0) {
-      const foundMetadata = allMetadata.find(
-        (metadata: Metadata): boolean => (table.selectedKey.has(metadata.id)),
-      );
-      setSelectedMetadata(foundMetadata || null);
-    }
-  }, [table.selectedKey, allMetadata]);
 
   return (
     <>
@@ -84,8 +65,6 @@ export default function Monitor({
             />
           )}
           topContentPlacement="outside"
-          // sortDescriptor={sortDescriptor}
-          // onSortChange={setSortDescriptor}
         >
 
           <TableHeader columns={columns}>
@@ -107,16 +86,3 @@ export default function Monitor({
     </>
   );
 }
-
-// const [sortDescriptor, setSortDescriptor] = useState({
-//   column: 'age',
-//   direction: 'ascending',
-// });
-
-// const sortedItems = useMemo(() => [...items].sort((a, b) => {
-//   const first = a[sortDescriptor.column];
-//   const second = b[sortDescriptor.column];
-//   const cmp = first < second ? -1 : first > second ? 1 : 0;
-
-//   return sortDescriptor.direction === 'descending' ? -cmp : cmp;
-// }), [sortDescriptor, items]);

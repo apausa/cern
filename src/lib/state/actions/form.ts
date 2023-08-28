@@ -1,14 +1,17 @@
 import { FormActionCreators } from '@/types/lib';
 
 const formActionCreators: FormActionCreators = {
+  // Create
   createForm: (dispatch, form) => {
     dispatch({ type: 'CREATE_FORM', form });
   },
-  updateFormSelectedDate: (dispatch, selectedDate) => {
-    dispatch({ type: 'UPDATE_FORM_SELECTED_DATE', selectedDate });
-  },
+
+  // Update
   updateFormTitle: (dispatch, title) => {
     dispatch({ type: 'UPDATE_FORM_TITLE', title });
+  },
+  updateFormSelectedDate: (dispatch, selectedDate) => {
+    dispatch({ type: 'UPDATE_FORM_SELECTED_DATE', selectedDate });
   },
   updateFormAdvanced: (dispatch, mode) => {
     dispatch({ type: 'UPDATE_FORM_ADVANCED', mode });

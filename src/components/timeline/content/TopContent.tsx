@@ -14,7 +14,7 @@ export default function TopContent({
   filteredMetadata,
 }: any) {
   const handleStage = (): void => {
-    tableActionCreators.updateSelectedKey(dispatchTable, '');
+    tableActionCreators.updateSelectedKey(dispatchTable, new Set(['']));
   };
 
   const onClear = (): void => {
@@ -94,7 +94,7 @@ export default function TopContent({
         </Dropdown>
         <Button color="primary" isDisabled={table.selectedKey.has('')} onClick={handleStage}>Add job</Button>
       </div>
-      <div className="flex justify-between gap-4 text-default-400 text-small">
+      <div className="flex justify-between gap-4 text-small">
         <div>
           {filteredMetadata.length}
           {' '}
@@ -117,7 +117,7 @@ export default function TopContent({
   );
 }
 
-// (<span className="w-[30%] text-small text-default-400">
+// (<span className="w-[30%] text-small">
 // {selectedKeys === 'all'
 //   ? 'All items selected'
 //   : `${selectedKeys.size} of ${filteredItems.length} selected`}
