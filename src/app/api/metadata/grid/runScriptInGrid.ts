@@ -1,7 +1,7 @@
 import { ChildProcess, spawn } from 'child_process';
 
 // Constants
-import { GRID_VERSION_CMD, GRID_EXEC_CMD } from '@/lib/constants/api';
+import { GRID_VERSION_CMD, GRID_EXEC_CMD } from '@/lib/state/constants/api';
 
 // Utils
 import { setGridStatus } from '@/utils/setStatus';

@@ -4,20 +4,22 @@ import {
 import React, { Key, useEffect } from 'react';
 
 // Components
-import AdvancedMode from './AdvancedMode';
+import AdvancedMode from './advancedMode/AdvancedMode';
 import DefaultMode from './defaultMode/DefaultMode';
 
 // Types
-import { FormProps } from '@/types/components/build';
+import { FormProps } from '@/types/components/form';
 
 // Utils
 import getCmdStr from '@/utils/getCmd';
 import { getCurrentDate } from '@/utils/getDate';
 
 // Actions
-import formActionCreators from '@/lib/actions/form';
-import metadataActionCreators from '@/lib/actions/metadata';
-import INITIAL_FORM from '@/lib/constants/form';
+import formActionCreators from '@/lib/state/actions/form';
+import metadataActionCreators from '@/lib/state/actions/metadata';
+
+// Constants
+import INITIAL_FORM from '@/lib/state/constants/form';
 
 export default function Build({ form, dispatchForm, dispatchMetadata }: FormProps) {
   // Handlers

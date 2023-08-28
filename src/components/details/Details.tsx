@@ -4,11 +4,11 @@ import {
 import React from 'react';
 
 // Types
-import { RunProps } from '@/types/components/run';
+import { RunProps } from '@/types/components/details';
 
 // Actions
-import formActionCreator from '@/lib/actions/form';
-import metadataActionCreators from '@/lib/actions/metadata';
+import formActionCreator from '@/lib/state/actions/form';
+import metadataActionCreators from '@/lib/state/actions/metadata';
 
 // Components
 import ReadOnlyTextarea from './inputs/ReadOnlyTextarea';

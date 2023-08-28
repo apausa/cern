@@ -1,7 +1,7 @@
 import { ChildProcess, spawn } from 'child_process';
 
 // Constants
-import { TEST_EXEC_CMD } from '@/lib/constants/api';
+import { TEST_EXEC_CMD } from '@/lib/state/constants/api';
 
 // Utils
 import { setTestStatus } from '@/utils/setStatus';

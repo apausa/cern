@@ -2,10 +2,10 @@ import React from 'react';
 import { Textarea } from '@nextui-org/react';
 
 // Types
-import { AdvancedModeProps } from '@/types/components/build';
+import { AdvancedModeProps } from '@/types/components/form';
 
 // Actions
-import formActionCreators from '@/lib/actions/form';
+import formActionCreators from '@/lib/state/actions/form';
 
 export default function AdvancedMode({ cmdStr, dispatchForm }: AdvancedModeProps) {
   const handleChange = ({ target: { value } }: any): void => {

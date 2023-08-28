@@ -1,10 +1,16 @@
 import { Dispatch } from 'react';
 
+// Status
+
+export type Status = 'PENDING' | 'FULFILLED' | 'REJECTED' | null;
+export type StatusName = 'running' | 'completed' | 'error' | 'staged';
+export type StatusColor = 'warning' | 'success' | 'danger' | 'default';
+
 // Metadata
 
 export type Metadata = {
   id: string,
-  date: string,
+  date: Date,
   form: Form,
   testScript: TestScript,
   gridScript: GridScript
@@ -13,13 +19,13 @@ export type Metadata = {
 export type TestScript = {
   scriptPath: string,
   scriptBody: string,
-  scriptStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
+  scriptStatus: Status,
 };
 
 export type GridScript = {
   scriptPath: string,
   scriptBody: string,
-  scriptStatus: 'PENDING' | 'FULFILLED' | 'REJECTED' | null,
+  scriptStatus: Status,
 };
 
 // Metadata reducer
@@ -139,15 +145,30 @@ export type FormActionCreators = {
 
 // Table
 
-export type Table = {
-  filterValue: string,
-  selectedColumns: Set<string[]> | 'all',
-  selectedKey: Set<string>,
-  statusFilter: Set<string[]> | 'all',
-  rowsPerPage: number,
-  sortDescriptor: {
-    column: string,
-    direction: string,
-  },
-  page: number,
+export type Column = {
+  title: string,
+  key: string,
+  selected: boolean,
+  allowSorting: boolean,
 };
+
+export type Table = {
+  selectedColumns: Set<string> | 'all',
+  selectedKey: Set<string>,
+  filter: Filter,
+  page: Page,
+};
+
+export type Filter = {
+  status: Set<StatusName> | 'all',
+  query: string,
+};
+
+export type Page = {
+  rows: number,
+  current: number,
+};
+
+// Table reducer
+
+export type TableUseReducer = [Table, Dispatch<any>];

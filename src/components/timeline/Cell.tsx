@@ -18,22 +18,22 @@ export default function Cell({ metadata, column }: any) {
         {getStatusName(metadata.gridScript.scriptStatus)}
       </Chip>
     );
+    case 'date': return (metadata.date);
     case 'actions':
       return (
-        <div className="relative flex justify-end items-center gap-2">
-          <Dropdown>
-            <DropdownTrigger>
-              <Button size="sm" variant="light">Options</Button>
-            </DropdownTrigger>
-            <DropdownMenu>
-              <DropdownItem>View</DropdownItem>
-              <DropdownItem>Edit</DropdownItem>
-              <DropdownItem>Delete</DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </div>
+        <Dropdown>
+          <DropdownTrigger>
+            <Button variant="light">Options</Button>
+          </DropdownTrigger>
+          <DropdownMenu>
+            <DropdownItem>Save</DropdownItem>
+            <DropdownItem>Recreate</DropdownItem>
+            <DropdownItem>Run in WLCG</DropdownItem>
+            <DropdownItem>Run locally</DropdownItem>
+            <DropdownItem>Delete</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
       );
-    case 'date': return (metadata.date);
     default: return null;
   }
 }

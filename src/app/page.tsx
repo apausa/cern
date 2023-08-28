@@ -3,28 +3,26 @@
 import React, { useEffect, useReducer, useState } from 'react';
 
 // Components
-import Monitor from '@/components/monitor/Monitor';
-import Run from '@/components/run/Run';
+import Monitor from '@/components/timeline/Timeline';
+import Run from '@/components/details/Details';
+import Build from '@/components/form/Form';
 
 // Types
 import { DashboardUseReducer, FormUseReducer } from '@/types/lib';
 
-// Lib
-import Build from '@/components/build/Build';
-
 // Constants
-import INITIAL_FORM from '@/lib/constants/form';
+import INITIAL_FORM from '@/lib/state/constants/form';
 
 // Reducers
-import dashboardReducer from '@/lib/reducers/metadata';
-import buildReducer from '@/lib/reducers/form';
+import metadataReducer from '@/lib/state/reducers/metadata';
+import formReducer from '@/lib/state/reducers/form';
 
 // Actions
-import metadataActionCreators from '@/lib/actions/metadata';
+import metadataActionCreators from '@/lib/state/actions/metadata';
 
 export default function Dashboard() {
-  const [allMetadata, dispatchMetadata]: DashboardUseReducer = useReducer(dashboardReducer, []);
-  const [form, dispatchForm]: FormUseReducer = useReducer(buildReducer, INITIAL_FORM);
+  const [allMetadata, dispatchMetadata]: DashboardUseReducer = useReducer(metadataReducer, []);
+  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
 
   const [selectedMetadata, setSelectedMetadata]: any = useState(null);
 
@@ -53,7 +51,6 @@ export default function Dashboard() {
       <div className="basis-2/4 h-screen overflow-x-hidden overflow-y-auto border-l border-l-neutral-400">
         <Monitor
           allMetadata={allMetadata}
-          selectedMetadata={selectedMetadata}
           setSelectedMetadata={setSelectedMetadata}
         />
       </div>

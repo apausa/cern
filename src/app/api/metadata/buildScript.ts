@@ -8,7 +8,7 @@ import {
 } from '@/types/lib';
 
 // Utils
-import { getCurrentDate, getSelectedVersion } from '@/utils/getDate';
+import { getSelectedVersion } from '@/utils/getDate';
 import getCmdStr from '@/utils/getCmd';
 
 const getTestScriptBody = (version: string, o2CmdStr: string): string => ([
@@ -30,7 +30,7 @@ export const createMetadata = async (form: Form): Promise<Metadata> => {
 
   return {
     id,
-    date: getCurrentDate(),
+    date: new Date(),
     form: { ...form, cmdStr: cmd },
     testScript: {
       scriptPath: path.join(segment, 'test.sh'),

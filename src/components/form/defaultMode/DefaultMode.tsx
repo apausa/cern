@@ -14,10 +14,10 @@ import SelectInput from './inputs/SelectInput';
 
 // Types
 import { CmdArg, CmdObj } from '@/types/lib';
-import { DefaultModeProps } from '@/types/components/build';
+import { DefaultModeProps } from '@/types/components/form';
 
 // Actions
-import formActionCreator from '@/lib/actions/form';
+import formActionCreator from '@/lib/state/actions/form';
 
 export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) {
   const getSelectedKeys = (commandObject: CmdObj): Set<string> => (

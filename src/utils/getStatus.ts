@@ -1,13 +1,15 @@
-export const getStatusName = (status: string | null): string => {
+import { Status, StatusColor, StatusName } from '@/types/lib';
+
+export const getStatusName = (status: Status): StatusName => {
   switch (status) {
-    case 'PENDING': return 'Running';
-    case 'FULFILLED': return 'Completed';
-    case 'REJECTED': return 'Error';
-    default: return 'Staged';
+    case 'PENDING': return 'running';
+    case 'FULFILLED': return 'completed';
+    case 'REJECTED': return 'error';
+    default: return 'staged';
   }
 };
 
-export const getStatusColor = (status: string | null): 'warning' | 'success' | 'danger' | 'default' => {
+export const getStatusColor = (status: Status): StatusColor => {
   switch (status) {
     case 'PENDING': return 'warning';
     case 'FULFILLED': return 'success';
@@ -16,5 +18,5 @@ export const getStatusColor = (status: string | null): 'warning' | 'success' | '
   }
 };
 
-export const getStatusIsDisabled = (status: string | null): boolean => (
+export const getStatusIsDisabled = (status: Status): boolean => (
   status === 'PENDING' || status === 'FULFILLED');

@@ -1,6 +1,6 @@
 import { Metadata, MetadataAction } from '@/types/lib';
 
-const dashboardReducer = (
+const metadataReducer = (
   allMetadata: Metadata[],
   action: MetadataAction,
 ): Metadata[] => {
@@ -25,4 +25,4 @@ const dashboardReducer = (
   return nextState;
 };
 
-export default dashboardReducer;
+export default metadataReducer;
