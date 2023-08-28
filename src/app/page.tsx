@@ -25,6 +25,7 @@ import metadataActionCreators from '@/lib/actions/metadata';
 export default function Dashboard() {
   const [allMetadata, dispatchMetadata]: DashboardUseReducer = useReducer(dashboardReducer, []);
   const [form, dispatchForm]: FormUseReducer = useReducer(buildReducer, INITIAL_FORM);
+
   const [selectedMetadata, setSelectedMetadata]: any = useState(null);
 
   useEffect(() => {

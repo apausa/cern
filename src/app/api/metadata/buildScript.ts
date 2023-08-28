@@ -20,9 +20,9 @@ const getGridScriptBody = (version: string, o2CmdStr: string): string => ([
 ].join('\n'));
 
 export const createMetadata = async (form: Form): Promise<Metadata> => {
-  const version = getSelectedVersion(form.selectedDate);
-  const id = uuidv4();
-  const cmd = (form.advanced) ? form.cmdStr : getCmdStr(form.cmdObj);
+  const version: string = getSelectedVersion(form.selectedDate);
+  const id: string = uuidv4();
+  const cmd: string = (form.advanced) ? form.cmdStr : getCmdStr(form.cmdObj);
   const segment: string = path.join(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   await fs.mkdir(segment);

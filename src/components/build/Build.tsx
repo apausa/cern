@@ -1,5 +1,5 @@
 import {
-  Button, Divider, Input, Tab, Tabs,
+  Button, Input, Tab, Tabs,
 } from '@nextui-org/react';
 import React, { Key, useEffect } from 'react';
 
@@ -87,7 +87,6 @@ export default function Build({ form, dispatchForm, dispatchMetadata }: FormProp
           </Tabs>
         </form>
       </main>
-      <Divider />
       <footer className="p-4">
         <Button color="default" onClick={handleReset}>Reset</Button>
       </footer>
