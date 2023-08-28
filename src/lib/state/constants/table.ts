@@ -34,7 +34,7 @@ export const ALL_COLUMNS: Column[] = [ // @develop, type harder
   {
     title: 'Options',
     key: 'options',
-    selected: true,
+    selected: false,
     allowSorting: false,
   },
 ];
@@ -42,7 +42,7 @@ export const ALL_COLUMNS: Column[] = [ // @develop, type harder
 export const INITIAL_TABLE: Table = {
   selectedKey: new Set(['']),
   filter: { query: '', status: 'all' },
-  page: { rows: 8, current: 1 },
+  page: { rows: 16, current: 1 },
   selectedColumns: new Set(ALL_COLUMNS
     .filter(({ selected }: Column) => selected)
     .map(({ key }: Column) => key)),

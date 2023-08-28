@@ -55,6 +55,7 @@ export default function Monitor({
           )}
           bottomContentPlacement="outside"
           selectionMode="single"
+          disallowEmptySelection
           selectedKeys={table.selectedKey}
           onSelectionChange={(key) => tableActionCreators.updateSelectedKey(dispatchTable, key)}
           topContent={(

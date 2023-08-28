@@ -49,6 +49,7 @@ export default function Dashboard() {
             selectedMetadata={selectedMetadata}
             dispatchForm={dispatchForm}
             dispatchMetadata={dispatchMetadata}
+            dispatchTable={dispatchTable}
           />
         ) : (
           <Build

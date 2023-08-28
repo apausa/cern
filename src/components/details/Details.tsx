@@ -17,12 +17,13 @@ import ReadOnlyInput from './inputs/ReadOnlyInput';
 // Utils
 import { getSelectedVersion } from '@/utils/getDate';
 import { getStatusColor, getStatusIsDisabled, getStatusName } from '@/utils/getStatus';
+import tableActionCreators from '@/lib/state/actions/table';
 
 export default function Run({
-  selectedMetadata, setSelectedMetadata, dispatchForm, dispatchMetadata,
+  selectedMetadata, dispatchForm, dispatchMetadata, dispatchTable,
 }: RunProps) {
   const handleRecreate = (): any => {
-    setSelectedMetadata(null);
+    tableActionCreators.updateSelectedKey(dispatchTable, new Set(['']));
     formActionCreator.createForm(dispatchForm, selectedMetadata.form);
   };
 

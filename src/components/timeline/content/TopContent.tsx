@@ -45,7 +45,7 @@ export default function TopContent({
       <div className="flex justify-between gap-4">
         <Input
           isClearable
-          placeholder="Search..."
+          placeholder="Search name"
           value={table.filter.query}
           onClear={onClear}
           onValueChange={onValueChange}
@@ -53,12 +53,12 @@ export default function TopContent({
         <Dropdown>
           <DropdownTrigger>
             <Button>
-              Status
+              Filter status
             </Button>
           </DropdownTrigger>
           <DropdownMenu
             disallowEmptySelection
-            aria-label="Table Columns"
+            aria-label="Table Status"
             closeOnSelect={false}
             selectedKeys={table.filter.status}
             selectionMode="multiple"
@@ -74,7 +74,7 @@ export default function TopContent({
         <Dropdown>
           <DropdownTrigger>
             <Button>
-              Columns
+              Select columns
             </Button>
           </DropdownTrigger>
           <DropdownMenu
@@ -85,6 +85,7 @@ export default function TopContent({
             selectionMode="multiple"
             onSelectionChange={handleUpdateSelectedColumns}
           >
+            {/* // @develop */}
             {ALL_COLUMNS.map((column: any) => (
               <DropdownItem key={column} className="capitalize">
                 {column}

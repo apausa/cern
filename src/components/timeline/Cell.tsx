@@ -19,11 +19,11 @@ export default function Cell({ metadata, column }: any) {
       </Chip>
     );
     case 'date': return (metadata.date);
-    case 'actions':
+    case 'options':
       return (
         <Dropdown>
           <DropdownTrigger>
-            <Button variant="light">Options</Button>
+            <Button variant="light" size="sm">...</Button>
           </DropdownTrigger>
           <DropdownMenu>
             <DropdownItem>Save</DropdownItem>

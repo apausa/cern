@@ -10,8 +10,8 @@ const tableActionCreators: any = {
   updateFilterQuery: (dispatch: any, query: string) => {
     dispatch({ type: 'UPDATE_FILTER_QUERY', query });
   },
-  updateFilterStatus: (dispatch: any, keys: Set<string[]>) => {
-    dispatch({ type: 'UPDATE_FILTER_STATUS', keys });
+  updateFilterStatus: (dispatch: any, status: Set<string[]>) => {
+    dispatch({ type: 'UPDATE_FILTER_STATUS', status });
   },
   updatePageRows: (dispatch: any, rows: number) => {
     dispatch({ type: 'UPDATE_PAGE_ROWS', rows });
