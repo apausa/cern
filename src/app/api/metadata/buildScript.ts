@@ -31,7 +31,7 @@ export const createMetadata = async (form: Form): Promise<Metadata> => {
   return {
     id,
     date: new Date(),
-    form: { ...form, cmdStr: cmd },
+    form: { ...form, cmdStr: cmd, title: form.title || id },
     testScript: {
       scriptPath: path.join(segment, 'test.sh'),
       scriptBody: getTestScriptBody(version, cmd),

@@ -55,7 +55,6 @@ export default function Form({ form, dispatchForm, dispatchMetadata }: FormProps
             variant="faded"
             color="default"
             value={form.title}
-            placeholder="Placeholder"
             onValueChange={(value: string) => (
               formActionCreators.updateFormTitle(dispatchForm, value))}
           />
