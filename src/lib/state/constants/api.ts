@@ -6,7 +6,7 @@ export const GRID_VERSION_CMD = (version: string): GridVersionCmd => ({
 });
 
 export const GRID_EXEC_CMD = (scriptPath: string): string => [
-  `${process.env.GRID_SUBMIT_PATH}`, '--script', scriptPath, '--wait', '--fetch-output-files',
+  process.env.GRID_SUBMIT_PATH, '--script', scriptPath, '--wait', '--fetch-output-files',
 ].join(' ');
 
 export const TEST_EXEC_CMD: TestExecCmd = {

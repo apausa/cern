@@ -1,5 +1,7 @@
 import {
-  Button, Tab, Tabs,
+  Accordion,
+  AccordionItem,
+  Button, Link, Tab, Tabs,
 } from '@nextui-org/react';
 import React from 'react';
 
@@ -18,11 +20,12 @@ import ReadOnlyInput from './inputs/ReadOnlyInput';
 import { getSelectedVersion } from '@/utils/getDate';
 import { getStatusColor, getStatusName } from '@/utils/getStatus';
 import tableActionCreators from '@/lib/state/actions/table';
-import { Metadata } from '@/types/lib';
 
 export default function Details({
   selectedMetadata, dispatchForm, dispatchMetadata, dispatchTable,
 }: RunProps) {
+  // @develop, refactor details component
+
   const handleCreateForm = (): void => {
     tableActionCreators.updateSelectedKey(dispatchTable, new Set(['']));
     formActionCreator.createForm(dispatchForm, selectedMetadata.form);
@@ -64,42 +67,12 @@ export default function Details({
           label="Selected version"
           value={getSelectedVersion(selectedMetadata.form.selectedDate)}
         />
-        <ReadOnlyTextarea
-          variant="bordered"
-          color="default"
-          label="Written command"
-          value={selectedMetadata.form.cmdStr}
-        />
-        <ReadOnlyInput
-          color="default"
-          variant="bordered"
-          label="WLCG ID"
-          value={selectedMetadata.gridScript.outputs?.gridId || 'Available after running in the WLCG'}
-        />
-        <ReadOnlyInput
-          color="default"
-          variant="bordered"
-          label="WLCG URL"
-          value={selectedMetadata.gridScript.outputs?.gridUrl || 'Available after running in the WLCG'}
-        />
-        <ReadOnlyInput
-          color="default"
-          variant="bordered"
-          label="WLCG directory"
-          value={selectedMetadata.gridScript.outputs?.gridDirectory || 'Available after running in the WLCG'}
-        />
-        <ReadOnlyInput
-          color="default"
-          variant="bordered"
-          label="Local directory"
-          value={selectedMetadata.gridScript.outputs?.localDirectory || 'Available after running in the WLCG'}
-        />
         <Tabs aria-label="Select environment" className="pt-2 flex flex-col">
           <Tab key="local" title="Local script" className="flex flex-col">
-            <ReadOnlyInput
-              color={getStatusColor(selectedMetadata.testScript.scriptStatus)}
-              label="Script status"
-              value={getStatusName(selectedMetadata.testScript.scriptStatus)}
+            <ReadOnlyTextarea
+              color="default"
+              label="Script content"
+              value={selectedMetadata.testScript.scriptBody}
               variant="flat"
             />
             <ReadOnlyInput
@@ -108,10 +81,10 @@ export default function Details({
               value={selectedMetadata.testScript.scriptPath}
               variant="flat"
             />
-            <ReadOnlyTextarea
-              color="default"
-              label="Script content"
-              value={selectedMetadata.testScript.scriptBody}
+            <ReadOnlyInput
+              color={getStatusColor(selectedMetadata.testScript.scriptStatus)}
+              label="Script status"
+              value={getStatusName(selectedMetadata.testScript.scriptStatus)}
               variant="flat"
             />
             <Button
@@ -131,10 +104,10 @@ export default function Details({
             </Button>
           </Tab>
           <Tab key="wlcg" title="WLCG script" className="flex flex-col">
-            <ReadOnlyInput
-              color={getStatusColor(selectedMetadata.gridScript.scriptStatus)}
-              label="Script status"
-              value={getStatusName(selectedMetadata.gridScript.scriptStatus)}
+            <ReadOnlyTextarea
+              color="default"
+              label="Script content"
+              value={selectedMetadata.gridScript.scriptBody}
               variant="flat"
             />
             <ReadOnlyInput
@@ -143,12 +116,50 @@ export default function Details({
               value={selectedMetadata.gridScript.scriptPath}
               variant="flat"
             />
-            <ReadOnlyTextarea
-              color="default"
-              label="Script content"
-              value={selectedMetadata.gridScript.scriptBody}
+            <ReadOnlyInput
+              color={getStatusColor(selectedMetadata.gridScript.scriptStatus)}
+              label="Script status"
+              value={getStatusName(selectedMetadata.gridScript.scriptStatus)}
               variant="flat"
             />
+            <Accordion isCompact fullWidth className="py-2" variant="splitted" defaultExpandedKeys={['1']}>
+              <AccordionItem key="1" aria-label="Output" title="Output">
+                {selectedMetadata.gridScript.scriptStatus === 'FULFILLED' && (
+                <>
+                  <div className="pb-2">
+                    <p className="text-bold text-tiny capitalize text-default-400">WLCG ID</p>
+                    <p className="text-bold text-small">{selectedMetadata.gridScript.outputs?.gridId}</p>
+                  </div>
+                  <div className="py-2">
+                    <p className="text-bold text-tiny capitalize text-default-400">WLCG URL</p>
+                    <p className="text-bold text-small">
+                      <Link
+                        href={selectedMetadata.gridScript.outputs?.gridUrl}
+                        isExternal
+                        showAnchorIcon
+                      >
+                        {selectedMetadata.gridScript.outputs?.gridUrl}
+                      </Link>
+                    </p>
+                  </div>
+                  <div className="py-2">
+                    <p className="text-bold text-tiny capitalize text-default-400">WLCG directory</p>
+                    <p className="text-bold text-small">{selectedMetadata.gridScript.outputs?.gridDirectory}</p>
+                  </div>
+                  <div className="py-2">
+                    <p className="text-bold text-tiny capitalize text-default-400">Local directory</p>
+                    <p className="text-bold text-small">{selectedMetadata.gridScript.outputs?.localDirectory}</p>
+                  </div>
+                </>
+                )}
+                {selectedMetadata.gridScript.scriptStatus === 'REJECTED' && (
+                <div className="py-2">
+                  <p className="text-bold text-tiny capitalize text-default-400">Error reason</p>
+                  <p className="text-bold text-small">{selectedMetadata.testScript.error}</p>
+                </div>
+                )}
+              </AccordionItem>
+            </Accordion>
             <Button
               className="my-2"
               color="primary"

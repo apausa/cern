@@ -1,4 +1,5 @@
 /* eslint-disable no-control-regex */
+
 import { ChildProcess, spawn } from 'child_process';
 
 // Constants
@@ -16,7 +17,7 @@ const LOCAL_DIRECTORY_REGEXP: RegExp = /Local working directory is (.+)/;
 const GRID_URL_REGEXP: RegExp = /OK, display progress on (.+)/;
 const GRID_ID_REGEXP: RegExp = /Preparing job "(.+)"/;
 
-const runScriptInGrid = async (metadata: Metadata): Promise<any> => {
+const runScriptInGrid = async (metadata: Metadata): Promise<Metadata> => {
   const { name, args }: GridVersionCmd = GRID_VERSION_CMD(
     getSelectedVersion(metadata.form.selectedDate),
   );
@@ -43,29 +44,21 @@ const runScriptInGrid = async (metadata: Metadata): Promise<any> => {
     if (gridIdMatch !== undefined) outputs.gridId = gridIdMatch.replace(/\x1B\[.*?m/g, '');
   });
 
-  return new Promise((resolve): void => {
+  return new Promise((resolve, reject): void => {
     childProcess.on('close', (output: number) => {
-      resolve({
-        ...metadata,
-        gridScript:
-           {
-             ...metadata.gridScript,
-             scriptStatus: (output === 0) ? 'FULFILLED' : 'REJECTED',
-             outputs,
-           },
-      });
+      if (output === 0) {
+        resolve({
+          ...metadata,
+          gridScript: {
+            ...metadata.gridScript,
+            scriptStatus: 'FULFILLED',
+            outputs,
+          },
+        });
+      }
+      if (output !== 0) reject(new Error(`grid_submit.sh returned ${output}`));
     });
-    childProcess.on('error', () => {
-      resolve({
-        ...metadata,
-        gridScript:
-           {
-             ...metadata.gridScript,
-             scriptStatus: 'REJECTED',
-             outputs,
-           },
-      });
-    });
+    childProcess.on('error', (error: Error): void => { reject(error); });
   });
 };
 

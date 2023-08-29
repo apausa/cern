@@ -21,13 +21,15 @@ export type TestScript = {
   scriptPath: string,
   scriptBody: string,
   scriptStatus: Status,
+  error: Error | null,
 };
 
 export type GridScript = {
   scriptPath: string,
   scriptBody: string,
   scriptStatus: Status,
-  outputs: Outputs
+  error: Error | null,
+  outputs: Outputs,
 };
 
 export type Outputs = {

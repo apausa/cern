@@ -7,14 +7,21 @@ import runScriptInGrid from './runScriptInGrid';
 import { PutMetadata } from '@/types/app/api';
 import { Metadata } from '@/types/lib';
 
-// Utils
-import getError from '@/utils/getError';
-
 export async function PUT(request: Request): Promise<PutMetadata> {
+  const unresolvedMetadata: Metadata = await request.json();
+
   try {
-    const unresolvedMetadata: Metadata = await request.json();
     const resolvedMetadata: any = await runScriptInGrid(unresolvedMetadata);
 
     return NextResponse.json(resolvedMetadata, { status: 200 });
-  } catch { return getError(); }
+  } catch (error: unknown) {
+    return NextResponse.json({
+      ...unresolvedMetadata,
+      gridScript: {
+        ...unresolvedMetadata.gridScript,
+        scriptStatus: 'REJECTED',
+        error: (error instanceof Error) ? error.message : null,
+      },
+    }, { status: 500 });
+  }
 }
