@@ -37,14 +37,8 @@ export default function Details({
 
   return (
     <>
-      <header className="flex justify-between p-4 border-b border-b-neutral-800">
+      <header className="px-4 py-5 border-b border-b-neutral-800">
         <div className="pt-2">Job details</div>
-        <Button
-          color="primary"
-          onClick={handleRecreate}
-        >
-          Recreate
-        </Button>
       </header>
       <main className="px-4 pt-2 border-b border-b-neutral-800">
         <ReadOnlyInput
@@ -124,6 +118,15 @@ export default function Details({
           </Tab>
         </Tabs>
       </main>
+      <footer className="p-4 flex flex-col">
+        <Button
+          color="default"
+          onClick={handleRecreate}
+
+        >
+          Recreate
+        </Button>
+      </footer>
     </>
   );
 }

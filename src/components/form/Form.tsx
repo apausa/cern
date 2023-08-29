@@ -89,7 +89,7 @@ export default function Form({ form, dispatchForm, dispatchMetadata }: FormProps
           </Tabs>
         </form>
       </main>
-      <footer className="p-4">
+      <footer className="p-4 flex flex-col">
         <Button color="default" onClick={handleReset}>Reset</Button>
       </footer>
     </>

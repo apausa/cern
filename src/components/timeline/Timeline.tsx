@@ -42,10 +42,10 @@ export default function Timeline({
 
   return (
     <>
-      <header className="flex justify-between py-5 px-4 border-b border-b-neutral-800">
+      <header className="py-5 px-4 border-b border-b-neutral-800">
         <div className="pt-2">Job list</div>
       </header>
-      <main className="px-4 border-b border-b-neutral-800">
+      <main className="px-4">
         <Table
           aria-label="Monitor table"
           removeWrapper
