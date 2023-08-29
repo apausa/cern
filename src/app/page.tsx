@@ -14,16 +14,12 @@ import {
   DashboardUseReducer, FormUseReducer, Metadata, TableUseReducer,
 } from '@/types/lib';
 
-// Constants
+// State
 import INITIAL_FORM from '@/lib/state/constants/form';
 import { INITIAL_TABLE } from '@/lib/state/constants/table';
-
-// Reducers
 import metadataReducer from '@/lib/state/reducers/metadata';
 import formReducer from '@/lib/state/reducers/form';
 import tableReducer from '@/lib/state/reducers/table';
-
-// Actions
 import metadataActionCreators from '@/lib/state/actions/metadata';
 
 export default function Dashboard() {

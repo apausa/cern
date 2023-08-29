@@ -5,8 +5,8 @@ import './globals.css';
 import Providers from './providers';
 
 export const metadata: Metadata = {
-  title: 'Monte Carlo UI',
-  description: 'Monte Carlo UI',
+  title: 'Simulations Dashboard',
+  description: 'Simulations Dashboard',
 };
 
 export default function RootLayout({

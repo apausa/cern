@@ -20,7 +20,7 @@ const metadataReducer = (
       break; }
   }
 
-  localStorage.setItem('allMetadata', JSON.stringify(nextState)); // @delete
+  localStorage.setItem('allMetadata', JSON.stringify(nextState));
 
   return nextState;
 };

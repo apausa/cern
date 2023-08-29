@@ -22,16 +22,16 @@ import tableActionCreators from '@/lib/state/actions/table';
 export default function Details({
   selectedMetadata, dispatchForm, dispatchMetadata, dispatchTable,
 }: RunProps) {
-  const handleRecreate = (): any => {
+  const handleRecreate = (): void => {
     tableActionCreators.updateSelectedKey(dispatchTable, new Set(['']));
     formActionCreator.createForm(dispatchForm, selectedMetadata.form);
   };
 
-  const handleRunInGrid = (): any => {
+  const handleRunInGrid = (): void => {
     metadataActionCreators.updateMetadataInGrid(dispatchMetadata, selectedMetadata);
   };
 
-  const handleRunInTest = (): any => {
+  const handleRunInTest = (): void => {
     metadataActionCreators.updateMetadataInTest(dispatchMetadata, selectedMetadata);
   };
 
@@ -119,13 +119,7 @@ export default function Details({
         </Tabs>
       </main>
       <footer className="p-4 flex flex-col">
-        <Button
-          color="default"
-          onClick={handleRecreate}
-
-        >
-          Recreate
-        </Button>
+        <Button onClick={handleRecreate}>Recreate</Button>
       </footer>
     </>
   );
