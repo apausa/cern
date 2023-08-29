@@ -16,31 +16,42 @@ import ReadOnlyInput from './inputs/ReadOnlyInput';
 
 // Utils
 import { getSelectedVersion } from '@/utils/getDate';
-import { getStatusColor, getStatusIsDisabled, getStatusName } from '@/utils/getStatus';
+import { getStatusColor, getStatusName } from '@/utils/getStatus';
 import tableActionCreators from '@/lib/state/actions/table';
+import { Metadata } from '@/types/lib';
 
 export default function Details({
   selectedMetadata, dispatchForm, dispatchMetadata, dispatchTable,
 }: RunProps) {
-  const handleRecreate = (): void => {
+  const handleCreateForm = (): void => {
     tableActionCreators.updateSelectedKey(dispatchTable, new Set(['']));
     formActionCreator.createForm(dispatchForm, selectedMetadata.form);
   };
 
-  const handleRunInGrid = (): void => {
-    metadataActionCreators.updateMetadataInGrid(dispatchMetadata, selectedMetadata);
+  const handleUpdateMetadataTestStatus = (): void => {
+    metadataActionCreators.updateMetadataTestStatus(dispatchMetadata, selectedMetadata, 'FULFILLED');
   };
 
-  const handleRunInTest = (): void => {
-    metadataActionCreators.updateMetadataInTest(dispatchMetadata, selectedMetadata);
+  const handleUpdateMetadataGridStatus = (): void => {
+    metadataActionCreators.updateMetadataGridStatus(dispatchMetadata, selectedMetadata, 'FULFILLED');
+  };
+
+  const handleUpdateMetadataInGrid = (): void => {
+    metadataActionCreators.updateMetadataGridStatus(dispatchMetadata, selectedMetadata, 'PENDING');
+    metadataActionCreators.executeMetadataInGrid(dispatchMetadata, selectedMetadata);
+  };
+
+  const handleUpdateMetadataInTest = (): void => {
+    metadataActionCreators.updateMetadataTestStatus(dispatchMetadata, selectedMetadata, 'PENDING');
+    metadataActionCreators.executeMetadataInTest(dispatchMetadata, selectedMetadata);
   };
 
   return (
     <>
-      <header className="px-4 py-5 border-b border-b-neutral-800">
+      <header className="pl-4 pr-8 py-5 border-b border-b-neutral-800">
         <div className="pt-2">Job details</div>
       </header>
-      <main className="px-4 pt-2 border-b border-b-neutral-800">
+      <main className="pl-4 pr-8 pt-4 border-b border-b-neutral-800">
         <ReadOnlyInput
           variant="bordered"
           color="default"
@@ -58,6 +69,30 @@ export default function Details({
           color="default"
           label="Written command"
           value={selectedMetadata.form.cmdStr}
+        />
+        <ReadOnlyInput
+          color="default"
+          variant="bordered"
+          label="WLCG ID"
+          value={selectedMetadata.gridScript.outputs?.gridId || 'Available after running in the WLCG'}
+        />
+        <ReadOnlyInput
+          color="default"
+          variant="bordered"
+          label="WLCG URL"
+          value={selectedMetadata.gridScript.outputs?.gridUrl || 'Available after running in the WLCG'}
+        />
+        <ReadOnlyInput
+          color="default"
+          variant="bordered"
+          label="WLCG directory"
+          value={selectedMetadata.gridScript.outputs?.gridDirectory || 'Available after running in the WLCG'}
+        />
+        <ReadOnlyInput
+          color="default"
+          variant="bordered"
+          label="Local directory"
+          value={selectedMetadata.gridScript.outputs?.localDirectory || 'Available after running in the WLCG'}
         />
         <Tabs aria-label="Select environment" className="pt-2 flex flex-col">
           <Tab key="local" title="Local script" className="flex flex-col">
@@ -82,10 +117,17 @@ export default function Details({
             <Button
               className="my-2"
               color="primary"
-              isDisabled={getStatusIsDisabled(selectedMetadata.testScript.scriptStatus)}
-              onClick={handleRunInTest}
+              isDisabled={selectedMetadata.testScript.scriptStatus === 'PENDING'}
+              onClick={handleUpdateMetadataInTest}
             >
               Run locally
+            </Button>
+            <Button
+              className="my-2"
+              isDisabled={selectedMetadata.testScript.scriptStatus === 'FULFILLED'}
+              onClick={handleUpdateMetadataTestStatus}
+            >
+              Set as &apos;completed&apos;
             </Button>
           </Tab>
           <Tab key="wlcg" title="WLCG script" className="flex flex-col">
@@ -110,16 +152,23 @@ export default function Details({
             <Button
               className="my-2"
               color="primary"
-              isDisabled={getStatusIsDisabled(selectedMetadata.gridScript.scriptStatus)}
-              onClick={handleRunInGrid}
+              isDisabled={selectedMetadata.gridScript.scriptStatus === 'PENDING'}
+              onClick={handleUpdateMetadataInGrid}
             >
               Run in WLCG
+            </Button>
+            <Button
+              className="my-2"
+              onClick={handleUpdateMetadataGridStatus}
+              isDisabled={selectedMetadata.gridScript.scriptStatus === 'FULFILLED'}
+            >
+              Set as &apos;completed&apos;
             </Button>
           </Tab>
         </Tabs>
       </main>
-      <footer className="p-4 flex flex-col">
-        <Button onClick={handleRecreate}>Recreate</Button>
+      <footer className="pl-4 pr-8 py-4 flex flex-col">
+        <Button onClick={handleCreateForm}>Recreate</Button>
       </footer>
     </>
   );

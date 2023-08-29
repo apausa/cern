@@ -27,6 +27,14 @@ export type GridScript = {
   scriptPath: string,
   scriptBody: string,
   scriptStatus: Status,
+  outputs: Outputs
+};
+
+export type Outputs = {
+  gridDirectory: string | null,
+  localDirectory: string | null,
+  gridUrl: string | null,
+  gridId: string | null
 };
 
 // Metadata reducer
@@ -46,12 +54,27 @@ export type UpdateMetadataAction = { type: 'UPDATE_METADATA', metadata: Metadata
 export type DeleteMetadataAction = { type: 'DELETE_METADATA', metadata: Metadata };
 
 export type MetadataActionCreators = {
-  readAllMetadata: (dispatch: React.Dispatch<ReadAllMetadataAction>) => void,
-  createMetadata: (dispatch: React.Dispatch<CreateMetadataAction>, form: Form) => Promise<void>,
-  updateMetadataInTest: (
-    dispatch: React.Dispatch<UpdateMetadataAction>, metadata: Metadata) => Promise<void>,
-  updateMetadataInGrid: (
-    dispatch: React.Dispatch<UpdateMetadataAction>, metadata: Metadata) => Promise<void>,
+  readAllMetadata: (
+    dispatch: React.Dispatch<ReadAllMetadataAction>
+  ) => void,
+  createMetadata: (
+    dispatch: React.Dispatch<CreateMetadataAction>,
+    form: Form) => Promise<void>,
+  updateMetadataTestStatus: (
+    dispatch: React.Dispatch<UpdateMetadataAction>,
+    metadata: Metadata,
+    status: Status) => void,
+  updateMetadataGridStatus: (
+    dispatch: React.Dispatch<UpdateMetadataAction>,
+    metadata: Metadata,
+    status: Status) => void,
+  executeMetadataInTest: (
+    dispatch: React.Dispatch<UpdateMetadataAction>,
+    metadata: Metadata) => Promise<void>,
+  executeMetadataInGrid: (
+    dispatch: React.Dispatch<UpdateMetadataAction>,
+    metadata: Metadata
+  ) => Promise<void>,
 };
 
 // Form

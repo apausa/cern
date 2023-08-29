@@ -17,6 +17,3 @@ export const getStatusColor = (status: Status): StatusColor => {
     default: return 'default';
   }
 };
-
-export const getStatusIsDisabled = (status: Status): boolean => (
-  status === 'PENDING' || status === 'FULFILLED');
