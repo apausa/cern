@@ -7,19 +7,21 @@ export default function BottomContent({
   dispatchTable,
   filteredMetadata,
 }: any) {
-  const onNextPage = () => {
-    if (table.page.current < Math.ceil(filteredMetadata.length / table.page.rows)) {
+  const pages: number = Math.ceil(filteredMetadata.length / table.page.rows);
+
+  const onNextPage = (): void => {
+    if (table.page.current < pages) {
       tableActionCreators.updatePageCurrent(dispatchTable, table.page.current + 1);
     }
   };
 
-  const onPreviousPage = () => {
+  const onPreviousPage = (): void => {
     if (table.page.current > 1) {
       tableActionCreators.updatePageCurrent(dispatchTable, table.page.current - 1);
     }
   };
 
-  const handleUpdatePageCurrent = (page: number) => {
+  const handleUpdatePageCurrent = (page: number): void => {
     tableActionCreators.updatePageCurrent(dispatchTable, page);
   };
 
@@ -36,11 +38,11 @@ export default function BottomContent({
         showShadow
         color="primary"
         page={table.page.current}
-        total={Math.ceil(filteredMetadata.length / table.page.rows)}
+        total={pages}
         onChange={handleUpdatePageCurrent}
       />
       <Button
-        isDisabled={table.page.current === Math.ceil(filteredMetadata.length / table.page.rows)}
+        isDisabled={table.page.current === pages}
         onPress={onNextPage}
       >
         →

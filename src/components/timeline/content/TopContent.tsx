@@ -2,7 +2,7 @@ import {
   Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Selection,
 } from '@nextui-org/react';
 import React from 'react';
-import { ALL_COLUMNS } from '@/lib/state/constants/table';
+// import { ALL_COLUMNS } from '@/lib/state/constants/table';
 import tableActionCreators from '@/lib/state/actions/table';
 import { getStatusName } from '@/utils/getStatus';
 import { Status } from '@/types/lib';
@@ -36,9 +36,9 @@ export default function TopContent({
     tableActionCreators.updateFilterStatus(dispatchTable, keys);
   };
 
-  const handleUpdateSelectedColumns = (keys: Selection) => {
-    tableActionCreators.updateSelectedColumns(dispatchTable, keys);
-  };
+  // const handleUpdateSelectedColumns = (keys: Selection) => {
+  //   tableActionCreators.updateSelectedColumns(dispatchTable, keys);
+  // };
 
   return (
     <div className="flex flex-col gap-4">
@@ -71,7 +71,7 @@ export default function TopContent({
             ))}
           </DropdownMenu>
         </Dropdown>
-        <Dropdown>
+        {/* <Dropdown>
           <DropdownTrigger>
             <Button>
               Select columns
@@ -85,14 +85,13 @@ export default function TopContent({
             selectionMode="multiple"
             onSelectionChange={handleUpdateSelectedColumns}
           >
-            {/* // @develop */}
             {ALL_COLUMNS.map((column: any) => (
               <DropdownItem key={column} className="capitalize">
                 {column}
               </DropdownItem>
             ))}
           </DropdownMenu>
-        </Dropdown>
+        </Dropdown> */}
         <Button color="primary" isDisabled={table.selectedKey.has('')} onClick={handleStage}>Add job</Button>
       </div>
       <div className="flex justify-between gap-4 text-small">

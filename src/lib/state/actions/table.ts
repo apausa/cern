@@ -1,3 +1,4 @@
+import { SortDescriptor } from '@nextui-org/react';
 import { Key } from 'react';
 
 const tableActionCreators: any = {
@@ -6,6 +7,9 @@ const tableActionCreators: any = {
   },
   updateSelectedKey: (dispatch: any, key: Key) => {
     dispatch({ type: 'UPDATE_SELECTED_KEY', key });
+  },
+  updateSortDescriptor: (dispatch: any, sortDescriptor: SortDescriptor) => {
+    dispatch({ type: 'UPDATE_SORT_DESCRIPTOR', sortDescriptor });
   },
   updateFilterQuery: (dispatch: any, query: string) => {
     dispatch({ type: 'UPDATE_FILTER_QUERY', query });

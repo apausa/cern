@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import {
-  Table, TableHeader, TableRow, TableCell, TableBody, TableColumn,
+  Table, TableHeader, TableRow, TableCell, TableBody, TableColumn, SortDescriptor,
 } from '@nextui-org/react';
 
 // Types
@@ -36,6 +36,10 @@ export default function Monitor({
     [filteredMetadata, table.page],
   );
 
+  const handleUpdateSortDescriptor = (sortDescriptor: SortDescriptor) => {
+    tableActionCreators.updateSortDescriptor(dispatchTable, sortDescriptor);
+  };
+
   return (
     <>
       <header className="flex justify-between py-5 px-4 border-b border-b-neutral-800">
@@ -46,12 +50,12 @@ export default function Monitor({
           aria-label="Monitor table"
           removeWrapper
           className="py-4"
-          bottomContent={(
-            <BottomContent
-              table={table}
-              dispatchTable={dispatchTable}
-              filteredMetadata={filteredMetadata}
-            />
+          bottomContent={Math.ceil(filteredMetadata.length / table.page.rows) > 1 && (
+          <BottomContent
+            table={table}
+            dispatchTable={dispatchTable}
+            filteredMetadata={filteredMetadata}
+          />
           )}
           bottomContentPlacement="outside"
           selectionMode="single"
@@ -66,6 +70,8 @@ export default function Monitor({
             />
           )}
           topContentPlacement="outside"
+          sortDescriptor={table.sortDescriptor}
+          onSortChange={handleUpdateSortDescriptor}
         >
 
           <TableHeader columns={columns}>

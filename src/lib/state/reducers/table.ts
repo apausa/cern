@@ -9,6 +9,8 @@ const tableReducer = (
       return { ...table, selectedColumnsKeys: action.keys };
     case 'UPDATE_SELECTED_KEY':
       return { ...table, selectedKey: action.key };
+    case 'UPDATE_SORT_DESCRIPTOR':
+      return { ...table, sortDescriptor: action.sortDescriptor };
     case 'UPDATE_FILTER_QUERY':
       return { ...table, filter: { ...table.filter, query: action.query } };
     case 'UPDATE_FILTER_STATUS':

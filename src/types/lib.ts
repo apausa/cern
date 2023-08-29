@@ -1,4 +1,4 @@
-import { Selection } from '@nextui-org/react';
+import { Selection, SortDescriptor } from '@nextui-org/react';
 import { Dispatch } from 'react';
 
 // Status
@@ -158,6 +158,7 @@ export type Table = {
   selectedKey: Set<string>,
   filter: Filter,
   page: Page,
+  sortDescriptor: SortDescriptor,
 };
 
 export type Filter = {

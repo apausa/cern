@@ -11,7 +11,10 @@ export const getColumns = (selectedColumns: Set<string> | 'all'): Column[] => (
       Array.from(selectedColumns).includes(column.key)))
 );
 
-export const filterMetadata = (allMetadata: Metadata[], { query, status }: Filter) => {
+export const filterMetadata = (
+  allMetadata: Metadata[],
+  { query, status }: Filter,
+): Metadata[] => {
   const filteredMetadataByQuery = (query)
     ? allMetadata.filter(({ form: { title } }: Metadata) => (
       title.toLowerCase().includes(query.toLowerCase())))

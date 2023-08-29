@@ -29,7 +29,7 @@ export const ALL_COLUMNS: Column[] = [ // @develop, type harder
     title: 'Date',
     key: 'date',
     selected: true,
-    allowSorting: false,
+    allowSorting: true,
   },
   {
     title: 'Options',
@@ -43,6 +43,7 @@ export const INITIAL_TABLE: Table = {
   selectedKey: new Set(['']),
   filter: { query: '', status: 'all' },
   page: { rows: 16, current: 1 },
+  sortDescriptor: { column: 'date', direction: 'descending' },
   selectedColumns: new Set(ALL_COLUMNS
     .filter(({ selected }: Column) => selected)
     .map(({ key }: Column) => key)),
