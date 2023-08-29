@@ -71,3 +71,9 @@ export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) 
     </Table>
   );
 }
+
+// (<span className="w-[30%] text-small">
+// {selectedKeys === 'all'
+//   ? 'All items selected'
+//   : `${selectedKeys.size} of ${filteredItems.length} selected`}
+// </span>)

@@ -5,9 +5,9 @@ import React, {
 } from 'react';
 
 // Components
-import Monitor from '@/components/timeline/Timeline';
-import Run from '@/components/details/Details';
-import Build from '@/components/form/Form';
+import Timeline from '@/components/timeline/Timeline';
+import Details from '@/components/details/Details';
+import Form from '@/components/form/Form';
 
 // Types
 import {
@@ -46,14 +46,14 @@ export default function Dashboard() {
     <div className="flex flex-nowrap justify-center">
       <div className="basis-1/4 h-screen overflow-x-hidden overflow-y-auto">
         {selectedMetadata ? (
-          <Run
+          <Details
             selectedMetadata={selectedMetadata}
             dispatchForm={dispatchForm}
             dispatchMetadata={dispatchMetadata}
             dispatchTable={dispatchTable}
           />
         ) : (
-          <Build
+          <Form
             form={form}
             dispatchForm={dispatchForm}
             dispatchMetadata={dispatchMetadata}
@@ -61,7 +61,7 @@ export default function Dashboard() {
         )}
       </div>
       <div className="basis-2/4 h-screen overflow-x-hidden overflow-y-auto border-l border-l-neutral-400">
-        <Monitor
+        <Timeline
           allMetadata={allMetadata}
           table={table}
           dispatchTable={dispatchTable}

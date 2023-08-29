@@ -116,9 +116,3 @@ export default function TopContent({
     </div>
   );
 }
-
-// (<span className="w-[30%] text-small">
-// {selectedKeys === 'all'
-//   ? 'All items selected'
-//   : `${selectedKeys.size} of ${filteredItems.length} selected`}
-// </span>)

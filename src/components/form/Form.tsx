@@ -21,7 +21,7 @@ import metadataActionCreators from '@/lib/state/actions/metadata';
 // Constants
 import INITIAL_FORM from '@/lib/state/constants/form';
 
-export default function Build({ form, dispatchForm, dispatchMetadata }: FormProps) {
+export default function Form({ form, dispatchForm, dispatchMetadata }: FormProps) {
   // Handlers
   const handleStage = (): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);

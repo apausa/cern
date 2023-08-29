@@ -19,7 +19,7 @@ import { getSelectedVersion } from '@/utils/getDate';
 import { getStatusColor, getStatusIsDisabled, getStatusName } from '@/utils/getStatus';
 import tableActionCreators from '@/lib/state/actions/table';
 
-export default function Run({
+export default function Details({
   selectedMetadata, dispatchForm, dispatchMetadata, dispatchTable,
 }: RunProps) {
   const handleRecreate = (): any => {

@@ -18,7 +18,7 @@ import BottomContent from './content/BottomContent';
 // Hooks
 import { filterMetadata, getColumns, getPageMetadata } from '@/lib/hooks/timeline';
 
-export default function Monitor({
+export default function Timeline({
   allMetadata, table, dispatchTable,
 }: MonitorProps) {
   const columns: Column[] = useMemo(
