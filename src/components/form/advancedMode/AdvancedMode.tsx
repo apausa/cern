@@ -16,7 +16,7 @@ export default function AdvancedMode({ cmdStr, dispatchForm }: AdvancedModeProps
     <Textarea
       variant="faded"
       color="default"
-      className="py-2"
+      className="pt-2"
       label="Write command"
       value={cmdStr}
       onChange={handleChange}
