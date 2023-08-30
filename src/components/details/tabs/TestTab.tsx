@@ -35,19 +35,19 @@ export default function TestTab({ dispatchMetadata, selectedMetadata }: TestTabP
     <>
       <ReadOnlyTextarea
         color="default"
-        label="Script content"
+        label="Content"
         value={scriptBody}
         variant="flat"
       />
       <ReadOnlyInput
         color="default"
-        label="Script path"
+        label="Path"
         value={scriptPath}
         variant="flat"
       />
       <ReadOnlyInput
         color={getStatusColor(scriptStatus)}
-        label="Script status"
+        label="Status"
         value={getStatusName(scriptStatus)}
         variant="flat"
       />

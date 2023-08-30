@@ -42,10 +42,10 @@ export default function Timeline({
 
   return (
     <>
-      <header className="py-5 pl-4 md:pl-8 pr-4 border-b border-b-neutral-800">
+      <header className="py-5 pl-4 lg:pl-8 pr-4 border-b border-b-neutral-800">
         <div className="pt-2">Job list</div>
       </header>
-      <main className="pl-4 md:pl-8 pr-4 pt-4">
+      <main className="pl-4 lg:pl-8 pr-4 pt-4">
         <Table
           aria-label="Monitor table"
           removeWrapper

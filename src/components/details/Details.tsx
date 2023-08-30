@@ -43,10 +43,10 @@ export default function Details({
           value={getSelectedVersion(selectedMetadata.form.selectedDate)}
         />
         <Tabs aria-label="Select environment" className="pt-2 flex flex-col">
-          <Tab key="local" title="Local tab" className="flex flex-col">
+          <Tab key="local" title="Local script" className="flex flex-col">
             <TestTab dispatchMetadata={dispatchMetadata} selectedMetadata={selectedMetadata} />
           </Tab>
-          <Tab key="wlcg" title="WLCG tab" className="flex flex-col">
+          <Tab key="wlcg" title="WLCG script" className="flex flex-col">
             <GridTab dispatchMetadata={dispatchMetadata} selectedMetadata={selectedMetadata} />
           </Tab>
         </Tabs>
