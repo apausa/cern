@@ -66,9 +66,9 @@ export default function TestTab({ dispatchMetadata, selectedMetadata }: TestTabP
       >
         Set as &apos;completed&apos;
       </Button>
-      <Accordion isCompact className="my-2" variant="light" isDisabled={!rejectedOutput}>
+      <Accordion isCompact className="my-2" variant="bordered" isDisabled={!rejectedOutput}>
         <AccordionItem key="1" aria-label="Test output" title="Outputs">
-          {rejectedOutput && <RejectedOutput rejectedOutput={rejectedOutput} />}
+          <RejectedOutput rejectedOutput={rejectedOutput} />
         </AccordionItem>
       </Accordion>
     </>

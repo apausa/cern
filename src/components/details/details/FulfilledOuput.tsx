@@ -8,12 +8,12 @@ export default function FulfilledOutput({ fulfilledOutput }: FulfilledOutputProp
   return (
     <>
       <div className="mb-2">
-        <p className="text-bold text-tiny">WLCG ID</p>
-        <p className="text-bold text-small">{fulfilledOutput?.gridId}</p>
+        <p className="text-bold text-sm">WLCG ID</p>
+        <p className="text-bold">{fulfilledOutput?.gridId}</p>
       </div>
       <div className="my-2">
-        <p className="text-bold text-tiny">WLCG URL</p>
-        <p className="text-bold text-small">
+        <p className="text-bold text-sm">WLCG URL</p>
+        <p className="text-bold">
           <Link
             href={fulfilledOutput?.gridUrl}
             isExternal
@@ -24,12 +24,12 @@ export default function FulfilledOutput({ fulfilledOutput }: FulfilledOutputProp
         </p>
       </div>
       <div className="my-2">
-        <p className="text-bold text-tiny">WLCG directory</p>
-        <p className="text-bold text-small">{fulfilledOutput?.gridDirectory}</p>
+        <p className="text-bold text-sm">WLCG directory</p>
+        <p className="text-bold">{fulfilledOutput?.gridDirectory}</p>
       </div>
       <div className="my-2">
-        <p className="text-bold text-tiny">Local directory</p>
-        <p className="text-bold text-small">{fulfilledOutput?.localDirectory}</p>
+        <p className="text-bold text-sm">Local directory</p>
+        <p className="text-bold">{fulfilledOutput?.localDirectory}</p>
       </div>
     </>
   );

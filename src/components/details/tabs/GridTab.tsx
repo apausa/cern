@@ -69,7 +69,7 @@ export default function GridTab({ dispatchMetadata, selectedMetadata }: GridTabP
       >
         Set as &apos;completed&apos;
       </Button>
-      <Accordion isCompact className="my-2" variant="light" isDisabled={scriptStatus !== 'FULFILLED' || !rejectedOutput}>
+      <Accordion isCompact className="my-2" variant="bordered" isDisabled={scriptStatus !== 'FULFILLED' || !rejectedOutput}>
         <AccordionItem key="1" aria-label="Grid output" title="Outputs">
           {rejectedOutput && <RejectedOutput rejectedOutput={rejectedOutput} />}
           {scriptStatus === 'FULFILLED' && <FulfilledOutput fulfilledOutput={fulfilledOutput} />}
