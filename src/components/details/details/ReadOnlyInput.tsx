@@ -1,9 +1,12 @@
 import React from 'react';
 import { Input } from '@nextui-org/react';
 
+// Types
+import { ReadOnlyInputProps } from '@/types/components/details';
+
 export default function ReadOnlyInput({
   label, value, color, variant,
-}: any) {
+}: ReadOnlyInputProps) {
   return (
     <Input
       className="py-2"

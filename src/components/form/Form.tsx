@@ -4,8 +4,8 @@ import {
 import React, { Key, useEffect } from 'react';
 
 // Components
-import AdvancedMode from './advancedMode/AdvancedMode';
-import DefaultMode from './defaultMode/DefaultMode';
+import AdvancedMode from './modes/AdvancedMode';
+import DefaultMode from './modes/DefaultMode';
 
 // Types
 import { FormProps } from '@/types/components/form';

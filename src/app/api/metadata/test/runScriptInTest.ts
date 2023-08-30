@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-
 import { ChildProcess, spawn } from 'child_process';
 
 // Constants
@@ -15,12 +13,14 @@ const runScriptInTest = (metadata: Metadata): Promise<Metadata> => {
 
   return new Promise((resolve, reject): void => {
     childProcess.on('close', (output: number) => {
-      (output === 0)
-        ? resolve({
-          ...metadata,
-          testScript: { ...metadata.testScript, scriptStatus: 'FULFILLED' },
-        })
-        : reject(new Error(`Process returned ${output}`));
+      resolve({
+        ...metadata,
+        testScript: {
+          ...metadata.testScript,
+          scriptStatus: (output === 0) ? 'FULFILLED' : 'REJECTED',
+          rejectedOutput: null,
+        },
+      });
     });
     childProcess.on('error', (error: Error): void => { reject(error); });
     childProcess.stderr?.on('data', (error: Error): void => { reject(error); });

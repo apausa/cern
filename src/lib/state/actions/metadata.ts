@@ -1,5 +1,4 @@
 import { Metadata, MetadataActionCreators } from '@/types/lib';
-import { setGridStatus, setTestStatus } from '@/utils/setStatus';
 
 const metadataActionCreators: MetadataActionCreators = {
   readAllMetadata: (dispatch) => {
@@ -17,13 +16,19 @@ const metadataActionCreators: MetadataActionCreators = {
   },
 
   updateMetadataTestStatus: (dispatch, metadata, status) => {
-    const unresolvedMetadata: Metadata = setTestStatus(metadata, status);
+    const unresolvedMetadata: Metadata = {
+      ...metadata,
+      testScript: { ...metadata.testScript, scriptStatus: status },
+    };
 
     dispatch({ type: 'UPDATE_METADATA', metadata: unresolvedMetadata });
   },
 
   updateMetadataGridStatus: (dispatch, metadata, status) => {
-    const unresolvedMetadata: Metadata = setGridStatus(metadata, status);
+    const unresolvedMetadata: Metadata = {
+      ...metadata,
+      gridScript: { ...metadata.gridScript, scriptStatus: status },
+    };
 
     dispatch({ type: 'UPDATE_METADATA', metadata: unresolvedMetadata });
   },

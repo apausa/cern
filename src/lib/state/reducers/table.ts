@@ -5,8 +5,6 @@ const tableReducer = (
   action: any,
 ): any => {
   switch (action.type) {
-    case 'UPDATE_SELECTED_COLUMNS':
-      return { ...table, selectedColumnsKeys: action.keys };
     case 'UPDATE_SELECTED_KEY':
       return { ...table, selectedKey: action.key };
     case 'UPDATE_SORT_DESCRIPTOR':

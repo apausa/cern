@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 import { NextResponse } from 'next/server';
 import runScriptInTest from './runScriptInTest';
 
@@ -20,7 +18,7 @@ export async function PUT(request: Request): Promise<PutMetadata> {
       testScript: {
         ...unresolvedMetadata.testScript,
         scriptStatus: 'REJECTED',
-        error: (error instanceof Error) ? error.message : null,
+        rejectedOutput: (error instanceof Error) ? error.message : null,
       },
     }, { status: 500 });
   }

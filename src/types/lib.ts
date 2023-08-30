@@ -4,7 +4,7 @@ import { Dispatch } from 'react';
 // Status
 
 export type Status = 'PENDING' | 'FULFILLED' | 'REJECTED' | null;
-export type StatusName = 'running' | 'completed' | 'error' | 'staged';
+export type StatusName = 'Running' | 'Completed' | 'Error' | 'Staged';
 export type StatusColor = 'warning' | 'success' | 'danger' | 'default';
 
 // Metadata
@@ -21,15 +21,16 @@ export type TestScript = {
   scriptPath: string,
   scriptBody: string,
   scriptStatus: Status,
-  error: Error | null,
+  rejectedOutput: string | null,
+  fulfilledOutput: null,
 };
 
 export type GridScript = {
   scriptPath: string,
   scriptBody: string,
   scriptStatus: Status,
-  error: Error | null,
-  outputs: Outputs,
+  rejectedOutput: string | null,
+  fulfilledOutput: Outputs,
 };
 
 export type Outputs = {
@@ -171,9 +172,10 @@ export type FormActionCreators = {
 
 // Table
 
+export type ColumnKey = 'Title' | 'Number' | 'Local status' | 'WLCG status' | 'Date' | 'Options';
+
 export type Column = {
-  title: string,
-  key: string,
+  key: ColumnKey,
   selected: boolean,
   allowSorting: boolean,
 };

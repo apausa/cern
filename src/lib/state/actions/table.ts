@@ -2,9 +2,6 @@ import { SortDescriptor } from '@nextui-org/react';
 import { Key } from 'react';
 
 const tableActionCreators: any = {
-  updateSelectedColumns: (dispatch: any, keys: Set<string[]>) => {
-    dispatch({ type: 'UPDATE_SELECTED_COLUMNS', keys });
-  },
   updateSelectedKey: (dispatch: any, key: Key) => {
     dispatch({ type: 'UPDATE_SELECTED_KEY', key });
   },

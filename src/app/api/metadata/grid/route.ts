@@ -1,5 +1,3 @@
-/* eslint-disable import/prefer-default-export */
-
 import { NextResponse } from 'next/server';
 import runScriptInGrid from './runScriptInGrid';
 
@@ -20,7 +18,7 @@ export async function PUT(request: Request): Promise<PutMetadata> {
       gridScript: {
         ...unresolvedMetadata.gridScript,
         scriptStatus: 'REJECTED',
-        error: (error instanceof Error) ? error.message : null,
+        rejectedOutput: (error instanceof Error) ? error.message : null,
       },
     }, { status: 500 });
   }

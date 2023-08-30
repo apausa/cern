@@ -1,8 +1,12 @@
 import {
   Column, Filter, Metadata, Page,
 } from '@/types/lib';
-import { ALL_COLUMNS } from '../state/constants/table';
+
+// Utils
 import { getStatusName } from '@/utils/getStatus';
+
+// Constants
+import { ALL_COLUMNS } from '../state/constants/table';
 
 export const getColumns = (selectedColumns: Set<string> | 'all'): Column[] => (
   (selectedColumns === 'all')

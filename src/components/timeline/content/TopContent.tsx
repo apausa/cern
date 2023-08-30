@@ -2,17 +2,23 @@ import {
   Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Selection,
 } from '@nextui-org/react';
 import React from 'react';
-// import { ALL_COLUMNS } from '@/lib/state/constants/table';
+
+// State
 import tableActionCreators from '@/lib/state/actions/table';
-import { getStatusName } from '@/utils/getStatus';
-import { Status } from '@/types/lib';
 import { STATUS } from '@/lib/state/constants/metadata';
+
+// Utils
+import { getStatusName } from '@/utils/getStatus';
+
+// Types
+import { Status } from '@/types/lib';
+import { TopContentProps } from '@/types/components/timeline';
 
 export default function TopContent({
   table,
   dispatchTable,
   filteredMetadata,
-}: any) {
+}: TopContentProps) {
   const handleStage = (): void => {
     tableActionCreators.updateSelectedKey(dispatchTable, new Set(['']));
   };
@@ -35,10 +41,6 @@ export default function TopContent({
   const handleUpdateFilterStatus = (keys: Selection) => {
     tableActionCreators.updateFilterStatus(dispatchTable, keys);
   };
-
-  // const handleUpdateSelectedColumns = (keys: Selection) => {
-  //   tableActionCreators.updateSelectedColumns(dispatchTable, keys);
-  // };
 
   return (
     <div className="flex flex-col gap-4">
@@ -65,33 +67,12 @@ export default function TopContent({
             onSelectionChange={handleUpdateFilterStatus}
           >
             {STATUS.map((status: Status) => (
-              <DropdownItem key={getStatusName(status)} className="capitalize">
+              <DropdownItem key={getStatusName(status)}>
                 {getStatusName(status)}
               </DropdownItem>
             ))}
           </DropdownMenu>
         </Dropdown>
-        {/* <Dropdown>
-          <DropdownTrigger>
-            <Button>
-              Select columns
-            </Button>
-          </DropdownTrigger>
-          <DropdownMenu
-            disallowEmptySelection
-            aria-label="Table Columns"
-            closeOnSelect={false}
-            selectedKeys={table.selectedColumns}
-            selectionMode="multiple"
-            onSelectionChange={handleUpdateSelectedColumns}
-          >
-            {ALL_COLUMNS.map((column: any) => (
-              <DropdownItem key={column} className="capitalize">
-                {column}
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        </Dropdown> */}
         <Button color="primary" isDisabled={table.selectedKey.has('')} onClick={handleStage}>Add job</Button>
       </div>
       <div className="flex justify-between gap-4 text-small">

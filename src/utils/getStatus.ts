@@ -2,10 +2,10 @@ import { Status, StatusColor, StatusName } from '@/types/lib';
 
 export const getStatusName = (status: Status): StatusName => {
   switch (status) {
-    case 'PENDING': return 'running';
-    case 'FULFILLED': return 'completed';
-    case 'REJECTED': return 'error';
-    default: return 'staged';
+    case 'PENDING': return 'Running';
+    case 'FULFILLED': return 'Completed';
+    case 'REJECTED': return 'Error';
+    default: return 'Staged';
   }
 };
 
