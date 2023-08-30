@@ -36,11 +36,20 @@ export const createMetadata = async (form: Form): Promise<Metadata> => {
       scriptPath: path.join(segment, 'test.sh'),
       scriptBody: getTestScriptBody(version, cmd),
       scriptStatus: null,
+      rejectedOutput: null,
+      fulfilledOutput: null,
     },
     gridScript: {
       scriptPath: path.join(segment, 'grid.sh'),
       scriptBody: getGridScriptBody(version, cmd),
       scriptStatus: null,
+      rejectedOutput: null,
+      fulfilledOutput: {
+        gridDirectory: null,
+        localDirectory: null,
+        gridUrl: null,
+        gridId: null,
+      },
     },
   };
 };

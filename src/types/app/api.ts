@@ -1,9 +1,9 @@
-import { Metadata } from 'next';
 import { NextResponse } from 'next/server';
+import { Metadata } from '../lib';
 
 export type PostMetadata = NextResponse<Metadata | unknown>;
 
-export type PutMetadata = NextResponse<Metadata | unknown>;
+export type PutMetadata = NextResponse<Metadata>;
 
 export type TestExecCmd = {
   name: '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer',
