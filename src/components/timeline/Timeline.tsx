@@ -5,13 +5,13 @@ import {
 
 // Types
 import { Column, Metadata } from '@/types/lib';
-import { MonitorProps } from '@/types/components/timeline';
+import { TimelineProps } from '@/types/components/timeline';
 
 // Actions
 import tableActionCreators from '@/lib/state/actions/table';
 
 // Components
-import Cell from './Cell';
+import CellContent from './content/CellContent';
 import TopContent from './content/TopContent';
 import BottomContent from './content/BottomContent';
 
@@ -20,7 +20,7 @@ import { filterMetadata, getColumns, getPageMetadata } from '@/lib/hooks/timelin
 
 export default function Timeline({
   allMetadata, table, dispatchTable,
-}: MonitorProps) {
+}: TimelineProps) {
   const columns: Column[] = useMemo(
     () => getColumns(table.selectedColumns),
     [table.selectedColumns],
@@ -42,10 +42,10 @@ export default function Timeline({
 
   return (
     <>
-      <header className="py-5 px-4 border-b border-b-neutral-800">
+      <header className="py-5 pl-8 pr-4 border-b border-b-neutral-800">
         <div className="pt-2">Job list</div>
       </header>
-      <main className="px-4">
+      <main className="pl-8 pr-4 pt-4">
         <Table
           aria-label="Monitor table"
           removeWrapper
@@ -75,16 +75,20 @@ export default function Timeline({
         >
 
           <TableHeader columns={columns}>
-            {({ key, title, allowSorting }: Column) => (
+            {({ key, allowSorting }: Column) => (
               <TableColumn key={key} allowsSorting={allowSorting}>
-                {title}
+                {key}
               </TableColumn>
             )}
           </TableHeader>
           <TableBody emptyContent="No jobs to display" items={pageMetadata}>
             {(metadata: Metadata) => (
               <TableRow key={metadata.id}>
-                {(column) => (<TableCell><Cell metadata={metadata} column={column} /></TableCell>)}
+                {(column) => (
+                  <TableCell>
+                    <CellContent metadata={metadata} column={column} />
+                  </TableCell>
+                )}
               </TableRow>
             )}
           </TableBody>

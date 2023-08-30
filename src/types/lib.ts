@@ -4,7 +4,7 @@ import { Dispatch } from 'react';
 // Status
 
 export type Status = 'PENDING' | 'FULFILLED' | 'REJECTED' | null;
-export type StatusName = 'running' | 'completed' | 'error' | 'staged';
+export type StatusName = 'Running' | 'Completed' | 'Error' | 'Staged';
 export type StatusColor = 'warning' | 'success' | 'danger' | 'default';
 
 // Metadata
@@ -21,12 +21,23 @@ export type TestScript = {
   scriptPath: string,
   scriptBody: string,
   scriptStatus: Status,
+  rejectedOutput: string | null,
+  fulfilledOutput: null,
 };
 
 export type GridScript = {
   scriptPath: string,
   scriptBody: string,
   scriptStatus: Status,
+  rejectedOutput: string | null,
+  fulfilledOutput: Outputs,
+};
+
+export type Outputs = {
+  gridDirectory: string | null,
+  localDirectory: string | null,
+  gridUrl: string | null,
+  gridId: string | null
 };
 
 // Metadata reducer
@@ -46,12 +57,27 @@ export type UpdateMetadataAction = { type: 'UPDATE_METADATA', metadata: Metadata
 export type DeleteMetadataAction = { type: 'DELETE_METADATA', metadata: Metadata };
 
 export type MetadataActionCreators = {
-  readAllMetadata: (dispatch: React.Dispatch<ReadAllMetadataAction>) => void,
-  createMetadata: (dispatch: React.Dispatch<CreateMetadataAction>, form: Form) => Promise<void>,
-  updateMetadataInTest: (
-    dispatch: React.Dispatch<UpdateMetadataAction>, metadata: Metadata) => Promise<void>,
-  updateMetadataInGrid: (
-    dispatch: React.Dispatch<UpdateMetadataAction>, metadata: Metadata) => Promise<void>,
+  readAllMetadata: (
+    dispatch: React.Dispatch<ReadAllMetadataAction>
+  ) => void,
+  createMetadata: (
+    dispatch: React.Dispatch<CreateMetadataAction>,
+    form: Form) => Promise<void>,
+  updateMetadataTestStatus: (
+    dispatch: React.Dispatch<UpdateMetadataAction>,
+    metadata: Metadata,
+    status: Status) => void,
+  updateMetadataGridStatus: (
+    dispatch: React.Dispatch<UpdateMetadataAction>,
+    metadata: Metadata,
+    status: Status) => void,
+  executeMetadataInTest: (
+    dispatch: React.Dispatch<UpdateMetadataAction>,
+    metadata: Metadata) => Promise<void>,
+  executeMetadataInGrid: (
+    dispatch: React.Dispatch<UpdateMetadataAction>,
+    metadata: Metadata
+  ) => Promise<void>,
 };
 
 // Form
@@ -146,9 +172,10 @@ export type FormActionCreators = {
 
 // Table
 
+export type ColumnKey = 'Title' | 'Number' | 'Local status' | 'WLCG status' | 'Date' | 'Options';
+
 export type Column = {
-  title: string,
-  key: string,
+  key: ColumnKey,
   selected: boolean,
   allowSorting: boolean,
 };

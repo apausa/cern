@@ -4,8 +4,8 @@ import {
 import React, { Key, useEffect } from 'react';
 
 // Components
-import AdvancedMode from './advancedMode/AdvancedMode';
-import DefaultMode from './defaultMode/DefaultMode';
+import AdvancedMode from './modes/AdvancedMode';
+import DefaultMode from './modes/DefaultMode';
 
 // Types
 import { FormProps } from '@/types/components/form';
@@ -37,7 +37,7 @@ export default function Form({ form, dispatchForm, dispatchMetadata }: FormProps
 
   return (
     <>
-      <header className="flex justify-between p-4 border-b border-b-neutral-800">
+      <header className="flex justify-between pl-4 pr-8 py-4 border-b border-b-neutral-800">
         <div className="pt-2">Job configuration</div>
         <Button
           color="primary"
@@ -46,7 +46,7 @@ export default function Form({ form, dispatchForm, dispatchMetadata }: FormProps
           Stage
         </Button>
       </header>
-      <main className="px-4 pt-2 border-b border-b-neutral-800">
+      <main className="pl-4 pr-8 pt-4 border-b border-b-neutral-800">
         <form>
           <Input
             className="py-2"
@@ -55,7 +55,6 @@ export default function Form({ form, dispatchForm, dispatchMetadata }: FormProps
             variant="faded"
             color="default"
             value={form.title}
-            placeholder="Placeholder"
             onValueChange={(value: string) => (
               formActionCreators.updateFormTitle(dispatchForm, value))}
           />
@@ -89,7 +88,7 @@ export default function Form({ form, dispatchForm, dispatchMetadata }: FormProps
           </Tabs>
         </form>
       </main>
-      <footer className="p-4 flex flex-col">
+      <footer className="pl-4 pr-8 py-4 flex flex-col">
         <Button color="default" onClick={handleReset}>Reset</Button>
       </footer>
     </>

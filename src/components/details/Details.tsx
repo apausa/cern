@@ -1,46 +1,35 @@
-import {
-  Button, Tab, Tabs,
-} from '@nextui-org/react';
+import { Button, Tab, Tabs } from '@nextui-org/react';
 import React from 'react';
 
 // Types
-import { RunProps } from '@/types/components/details';
+import { DetailsProps } from '@/types/components/details';
 
 // Actions
 import formActionCreator from '@/lib/state/actions/form';
-import metadataActionCreators from '@/lib/state/actions/metadata';
 
 // Components
-import ReadOnlyTextarea from './inputs/ReadOnlyTextarea';
-import ReadOnlyInput from './inputs/ReadOnlyInput';
+import ReadOnlyInput from './details/ReadOnlyInput';
 
 // Utils
 import { getSelectedVersion } from '@/utils/getDate';
-import { getStatusColor, getStatusIsDisabled, getStatusName } from '@/utils/getStatus';
 import tableActionCreators from '@/lib/state/actions/table';
+import TestTab from './tabs/TestTab';
+import GridTab from './tabs/GridTab';
 
 export default function Details({
   selectedMetadata, dispatchForm, dispatchMetadata, dispatchTable,
-}: RunProps) {
-  const handleRecreate = (): void => {
+}: DetailsProps) {
+  const handleCreateForm = (): void => {
     tableActionCreators.updateSelectedKey(dispatchTable, new Set(['']));
     formActionCreator.createForm(dispatchForm, selectedMetadata.form);
   };
 
-  const handleRunInGrid = (): void => {
-    metadataActionCreators.updateMetadataInGrid(dispatchMetadata, selectedMetadata);
-  };
-
-  const handleRunInTest = (): void => {
-    metadataActionCreators.updateMetadataInTest(dispatchMetadata, selectedMetadata);
-  };
-
   return (
     <>
-      <header className="px-4 py-5 border-b border-b-neutral-800">
+      <header className="pl-4 pr-8 py-5 border-b border-b-neutral-800">
         <div className="pt-2">Job details</div>
       </header>
-      <main className="px-4 pt-2 border-b border-b-neutral-800">
+      <main className="pl-4 pr-8 pt-4 border-b border-b-neutral-800">
         <ReadOnlyInput
           variant="bordered"
           color="default"
@@ -53,73 +42,17 @@ export default function Details({
           label="Selected version"
           value={getSelectedVersion(selectedMetadata.form.selectedDate)}
         />
-        <ReadOnlyTextarea
-          variant="bordered"
-          color="default"
-          label="Written command"
-          value={selectedMetadata.form.cmdStr}
-        />
         <Tabs aria-label="Select environment" className="pt-2 flex flex-col">
-          <Tab key="local" title="Local script" className="flex flex-col">
-            <ReadOnlyInput
-              color={getStatusColor(selectedMetadata.testScript.scriptStatus)}
-              label="Script status"
-              value={getStatusName(selectedMetadata.testScript.scriptStatus)}
-              variant="flat"
-            />
-            <ReadOnlyInput
-              color="default"
-              label="Script path"
-              value={selectedMetadata.testScript.scriptPath}
-              variant="flat"
-            />
-            <ReadOnlyTextarea
-              color="default"
-              label="Script content"
-              value={selectedMetadata.testScript.scriptBody}
-              variant="flat"
-            />
-            <Button
-              className="my-2"
-              color="primary"
-              isDisabled={getStatusIsDisabled(selectedMetadata.testScript.scriptStatus)}
-              onClick={handleRunInTest}
-            >
-              Run locally
-            </Button>
+          <Tab key="local" title="Local tab" className="flex flex-col">
+            <TestTab dispatchMetadata={dispatchMetadata} selectedMetadata={selectedMetadata} />
           </Tab>
-          <Tab key="wlcg" title="WLCG script" className="flex flex-col">
-            <ReadOnlyInput
-              color={getStatusColor(selectedMetadata.gridScript.scriptStatus)}
-              label="Script status"
-              value={getStatusName(selectedMetadata.gridScript.scriptStatus)}
-              variant="flat"
-            />
-            <ReadOnlyInput
-              color="default"
-              label="Script path"
-              value={selectedMetadata.gridScript.scriptPath}
-              variant="flat"
-            />
-            <ReadOnlyTextarea
-              color="default"
-              label="Script content"
-              value={selectedMetadata.gridScript.scriptBody}
-              variant="flat"
-            />
-            <Button
-              className="my-2"
-              color="primary"
-              isDisabled={getStatusIsDisabled(selectedMetadata.gridScript.scriptStatus)}
-              onClick={handleRunInGrid}
-            >
-              Run in WLCG
-            </Button>
+          <Tab key="wlcg" title="WLCG tab" className="flex flex-col">
+            <GridTab dispatchMetadata={dispatchMetadata} selectedMetadata={selectedMetadata} />
           </Tab>
         </Tabs>
       </main>
-      <footer className="p-4 flex flex-col">
-        <Button onClick={handleRecreate}>Recreate</Button>
+      <footer className="pl-4 pr-8 py-4 flex flex-col">
+        <Button onClick={handleCreateForm}>Recreate</Button>
       </footer>
     </>
   );

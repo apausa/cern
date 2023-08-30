@@ -1,39 +1,33 @@
 import { Column, Table } from '@/types/lib';
 
-export const ALL_COLUMNS: Column[] = [ // @develop, type harder
+export const ALL_COLUMNS: Column[] = [
   {
-    title: 'Title',
-    key: 'title',
+    key: 'Title',
     selected: true,
     allowSorting: false,
   },
   {
-    title: 'Number',
-    key: 'number',
+    key: 'Number',
     selected: true,
     allowSorting: false,
   },
   {
-    title: 'Local status',
-    key: 'local status',
+    key: 'Local status',
     selected: true,
     allowSorting: false,
   },
   {
-    title: 'WLCG status',
-    key: 'wlcg status',
+    key: 'WLCG status',
     selected: true,
     allowSorting: false,
   },
   {
-    title: 'Date',
-    key: 'date',
+    key: 'Date',
     selected: true,
     allowSorting: true,
   },
   {
-    title: 'Options',
-    key: 'options',
+    key: 'Options',
     selected: false,
     allowSorting: false,
   },

@@ -35,7 +35,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     metadataActionCreators.readAllMetadata(dispatchMetadata);
-    // @develop, when unmounting set pending simulations to rejected
   }, []);
 
   return (

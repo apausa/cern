@@ -2,24 +2,29 @@ import {
   Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger,
 } from '@nextui-org/react';
 import React from 'react';
+
+// Utils
 import { getStatusColor, getStatusName } from '@/utils/getStatus';
 
-export default function Cell({ metadata, column }: any) {
+// Types
+import { CellProps } from '@/types/components/timeline';
+
+export default function CellContent({ metadata, column }: CellProps) {
   switch (column) {
-    case 'title': return (metadata.form.title);
-    case 'number': return (1);
-    case 'local status': return (
+    case 'Title': return (metadata.form.title);
+    case 'Number': return (1);
+    case 'Local status': return (
       <Chip variant="flat" color={getStatusColor(metadata.testScript.scriptStatus)}>
         {getStatusName(metadata.testScript.scriptStatus)}
       </Chip>
     );
-    case 'wlcg status': return (
+    case 'WLCG status': return (
       <Chip variant="flat" color={getStatusColor(metadata.gridScript.scriptStatus)}>
         {getStatusName(metadata.gridScript.scriptStatus)}
       </Chip>
     );
-    case 'date': return (metadata.date);
-    case 'options':
+    case 'Date': return (metadata.date);
+    case 'Options':
       return (
         <Dropdown>
           <DropdownTrigger>

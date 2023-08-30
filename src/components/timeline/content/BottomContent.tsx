@@ -1,12 +1,17 @@
 import { Button, Pagination } from '@nextui-org/react';
 import React from 'react';
+
+// State
 import tableActionCreators from '@/lib/state/actions/table';
+
+// Types
+import { BottomContentProps } from '@/types/components/timeline';
 
 export default function BottomContent({
   table,
   dispatchTable,
   filteredMetadata,
-}: any) {
+}: BottomContentProps) {
   const pages: number = Math.ceil(filteredMetadata.length / table.page.rows);
 
   const onNextPage = (): void => {
