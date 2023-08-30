@@ -53,18 +53,18 @@ export default function TestTab({ dispatchMetadata, selectedMetadata }: TestTabP
       />
       <Button
         className="my-2"
+        isDisabled={scriptStatus === 'FULFILLED'}
+        onClick={handleUpdateMetadataTestStatus}
+      >
+        Set as &apos;completed&apos;
+      </Button>
+      <Button
+        className="my-2"
         color="primary"
         isDisabled={scriptStatus === 'PENDING'}
         onClick={handleUpdateMetadataInTest}
       >
         Run locally
-      </Button>
-      <Button
-        className="my-2"
-        isDisabled={scriptStatus === 'FULFILLED'}
-        onClick={handleUpdateMetadataTestStatus}
-      >
-        Set as &apos;completed&apos;
       </Button>
       <Accordion isCompact className="my-2" variant="bordered" isDisabled={!rejectedOutput}>
         <AccordionItem key="1" aria-label="Test output" title="Outputs">

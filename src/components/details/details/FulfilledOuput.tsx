@@ -7,29 +7,31 @@ import { FulfilledOutputProps } from '@/types/components/details';
 export default function FulfilledOutput({ fulfilledOutput }: FulfilledOutputProps) {
   return (
     <>
-      <div className="mb-2">
+      <div className="mb-4">
         <p className="text-bold text-sm">WLCG ID</p>
-        <p className="text-bold">{fulfilledOutput?.gridId}</p>
+        <p className="text-bold">{fulfilledOutput?.gridId || 'Not available'}</p>
       </div>
       <div className="my-2">
         <p className="text-bold text-sm">WLCG URL</p>
         <p className="text-bold">
-          <Link
-            href={fulfilledOutput?.gridUrl}
-            isExternal
-            showAnchorIcon
-          >
-            {fulfilledOutput?.gridUrl}
-          </Link>
+          {fulfilledOutput?.gridUrl ? (
+            <Link
+              href={fulfilledOutput?.gridUrl}
+              isExternal
+              showAnchorIcon
+            >
+              {fulfilledOutput?.gridUrl}
+            </Link>
+          ) : 'Not available'}
         </p>
       </div>
       <div className="my-2">
         <p className="text-bold text-sm">WLCG directory</p>
-        <p className="text-bold">{fulfilledOutput?.gridDirectory}</p>
+        <p className="text-bold">{fulfilledOutput?.gridDirectory || 'Not available'}</p>
       </div>
       <div className="my-2">
         <p className="text-bold text-sm">Local directory</p>
-        <p className="text-bold">{fulfilledOutput?.localDirectory}</p>
+        <p className="text-bold">{fulfilledOutput?.localDirectory || 'Not available'}</p>
       </div>
     </>
   );

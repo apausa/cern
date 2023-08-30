@@ -39,7 +39,7 @@ export default function Dashboard() {
 
   return (
     <div className="flex flex-nowrap justify-center">
-      <div className="basis-1/4 h-screen overflow-x-hidden overflow-y-auto">
+      <div className="invisible basis-0 lg:visible lg:basis-1/4 h-screen overflow-x-hidden overflow-y-auto">
         {selectedMetadata ? (
           <Details
             selectedMetadata={selectedMetadata}
@@ -55,7 +55,7 @@ export default function Dashboard() {
           />
         )}
       </div>
-      <div className="basis-2/4 h-screen overflow-x-hidden overflow-y-auto border-l border-l-neutral-400">
+      <div className="basis-full lg:basis-2/4 h-screen overflow-x-hidden overflow-y-auto lg:border-l lg:border-l-neutral-400">
         <Timeline
           allMetadata={allMetadata}
           table={table}
