@@ -35,22 +35,29 @@ export default function TestTab({ dispatchMetadata, selectedMetadata }: TestTabP
     <>
       <ReadOnlyTextarea
         color="default"
-        label="Script content"
+        label="Content"
         value={scriptBody}
         variant="flat"
       />
       <ReadOnlyInput
         color="default"
-        label="Script path"
+        label="Path"
         value={scriptPath}
         variant="flat"
       />
       <ReadOnlyInput
         color={getStatusColor(scriptStatus)}
-        label="Script status"
+        label="Status"
         value={getStatusName(scriptStatus)}
         variant="flat"
       />
+      <Button
+        className="my-2"
+        isDisabled={scriptStatus === 'FULFILLED'}
+        onClick={handleUpdateMetadataTestStatus}
+      >
+        Set as &apos;completed&apos;
+      </Button>
       <Button
         className="my-2"
         color="primary"
@@ -58,13 +65,6 @@ export default function TestTab({ dispatchMetadata, selectedMetadata }: TestTabP
         onClick={handleUpdateMetadataInTest}
       >
         Run locally
-      </Button>
-      <Button
-        className="my-2"
-        isDisabled={scriptStatus === 'FULFILLED'}
-        onClick={handleUpdateMetadataTestStatus}
-      >
-        Set as &apos;completed&apos;
       </Button>
       <Accordion isCompact className="my-2" variant="bordered" isDisabled={!rejectedOutput}>
         <AccordionItem key="1" aria-label="Test output" title="Outputs">

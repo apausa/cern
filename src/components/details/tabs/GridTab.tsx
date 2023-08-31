@@ -38,22 +38,29 @@ export default function GridTab({ dispatchMetadata, selectedMetadata }: GridTabP
     <>
       <ReadOnlyTextarea
         color="default"
-        label="Script content"
+        label="Content"
         value={scriptBody}
         variant="flat"
       />
       <ReadOnlyInput
         color="default"
-        label="Script path"
+        label="Path"
         value={scriptPath}
         variant="flat"
       />
       <ReadOnlyInput
         color={getStatusColor(scriptStatus)}
-        label="Script status"
+        label="Status"
         value={getStatusName(scriptStatus)}
         variant="flat"
       />
+      <Button
+        className="my-2"
+        onClick={handleUpdateMetadataGridStatus}
+        isDisabled={scriptStatus === 'FULFILLED'}
+      >
+        Set as &apos;completed&apos;
+      </Button>
       <Button
         className="my-2"
         color="primary"
@@ -62,14 +69,7 @@ export default function GridTab({ dispatchMetadata, selectedMetadata }: GridTabP
       >
         Run in WLCG
       </Button>
-      <Button
-        className="my-2"
-        onClick={handleUpdateMetadataGridStatus}
-        isDisabled={scriptStatus === 'FULFILLED'}
-      >
-        Set as &apos;completed&apos;
-      </Button>
-      <Accordion isCompact className="my-2" variant="bordered" isDisabled={scriptStatus !== 'FULFILLED' || !rejectedOutput}>
+      <Accordion isCompact className="my-2" variant="bordered" isDisabled={scriptStatus !== 'FULFILLED' && scriptStatus !== 'REJECTED'}>
         <AccordionItem key="1" aria-label="Grid output" title="Outputs">
           {rejectedOutput && <RejectedOutput rejectedOutput={rejectedOutput} />}
           {scriptStatus === 'FULFILLED' && <FulfilledOutput fulfilledOutput={fulfilledOutput} />}

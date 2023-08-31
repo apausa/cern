@@ -3,14 +3,11 @@
 import { ChildProcess, spawn } from 'child_process';
 
 // Constants
-import { GRID_VERSION_CMD, GRID_EXEC_CMD } from '@/lib/state/constants/api';
-
-// Utils
-import { getSelectedVersion } from '@/utils/getDate';
+import { getGridExecCmd } from '@/lib/state/constants/api';
 
 // Types
 import { Metadata, Outputs } from '@/types/lib';
-import { GridVersionCmd } from '@/types/app/api';
+import { GridExecCmd } from '@/types/app/api';
 
 const GRID_DIRECTORY_REGEXP: RegExp = /Your job's working directory will be (.+)/;
 const LOCAL_DIRECTORY_REGEXP: RegExp = /Local working directory is (.+)/;
@@ -18,9 +15,7 @@ const GRID_URL_REGEXP: RegExp = /OK, display progress on (.+)/;
 const GRID_ID_REGEXP: RegExp = /Preparing job "(.+)"/;
 
 const runScriptInGrid = async (metadata: Metadata): Promise<Metadata> => {
-  const { name, args }: GridVersionCmd = GRID_VERSION_CMD(
-    getSelectedVersion(metadata.form.selectedDate),
-  );
+  const { name, args }: GridExecCmd = getGridExecCmd(metadata.gridScript.scriptPath);
   const childProcess: ChildProcess = spawn(name, args);
   const fulfilledOutput: Outputs = {
     gridDirectory: null,
@@ -28,9 +23,6 @@ const runScriptInGrid = async (metadata: Metadata): Promise<Metadata> => {
     gridUrl: null,
     gridId: null,
   };
-
-  childProcess.stdin?.write(GRID_EXEC_CMD(metadata.gridScript.scriptPath));
-  childProcess.stdin?.end('exit');
 
   childProcess.stderr?.on('data', (output: any) => {
     const [, gridDirectoryMatch]: string[] = output.toString().match(GRID_DIRECTORY_REGEXP) || [];
