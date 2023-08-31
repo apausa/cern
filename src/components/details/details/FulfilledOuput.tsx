@@ -8,7 +8,7 @@ export default function FulfilledOutput({ fulfilledOutput }: FulfilledOutputProp
   return (
     <>
       <div className="mb-4">
-        <p className="text-bold text-sm">WLCG ID</p>
+        <p className="text-bold text-sm">Job name</p>
         <p className="text-bold">{fulfilledOutput?.gridId || 'Not available'}</p>
       </div>
       <div className="my-2">
