@@ -2,15 +2,11 @@
 
 import { ChildProcess, spawn } from 'child_process';
 
-// // Constants
-// import { GRID_VERSION_CMD, GRID_EXEC_CMD } from '@/lib/state/constants/api';
-
-// // Utils
-// import { getSelectedVersion } from '@/utils/getDate';
+// Constants
+import { getGridExecCmd } from '@/lib/state/constants/api';
 
 // Types
 import { Metadata, Outputs } from '@/types/lib';
-// import { GridVersionCmd } from '@/types/app/api';
 
 const GRID_DIRECTORY_REGEXP: RegExp = /Your job's working directory will be (.+)/;
 const LOCAL_DIRECTORY_REGEXP: RegExp = /Local working directory is (.+)/;
@@ -18,17 +14,8 @@ const GRID_URL_REGEXP: RegExp = /OK, display progress on (.+)/;
 const GRID_ID_REGEXP: RegExp = /Preparing job "(.+)"/;
 
 const runScriptInGrid = async (metadata: Metadata): Promise<Metadata> => {
-  // const { name, args }: GridVersionCmd = GRID_VERSION_CMD(
-  //   getSelectedVersion(metadata.form.selectedDate),
-  // );
-  // const childProcess: ChildProcess = spawn(name, args);
-  // childProcess.stdin?.write(GRID_EXEC_CMD(metadata.gridScript.scriptPath));
-  // childProcess.stdin?.end('exit');
-
-  const childProcess: ChildProcess = spawn(
-    process.env.GRID_SUBMIT_PATH!,
-    ['--script', metadata.gridScript.scriptPath, '--wait', '--fetch-output-files'],
-  );
+  const { name, args }: any = getGridExecCmd(metadata.gridScript.scriptPath);
+  const childProcess: ChildProcess = spawn(name, args);
   const fulfilledOutput: Outputs = {
     gridDirectory: null,
     localDirectory: null,
@@ -37,7 +24,7 @@ const runScriptInGrid = async (metadata: Metadata): Promise<Metadata> => {
   };
 
   childProcess.stderr?.on('data', (output: any) => {
-    console.log('>>>>>', output);
+    console.log('STDERR OUTPUT >>>>', output.toString()); // @delete
 
     const [, gridDirectoryMatch]: string[] = output.toString().match(GRID_DIRECTORY_REGEXP) || [];
     const [, localDirectoryMatch]: string[] = output.toString().match(LOCAL_DIRECTORY_REGEXP) || [];
