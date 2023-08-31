@@ -43,7 +43,7 @@ export default function TopContent({
   };
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="pt-2 flex flex-col gap-4">
       <div className="flex justify-between gap-4">
         <Input
           isClearable

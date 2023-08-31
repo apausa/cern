@@ -18,8 +18,6 @@ export default function NumberInput({ arg, dispatchForm }: NumberInputProps) {
       aria-label="Number input"
       onValueChange={handleValueChange}
       value={arg.value}
-      min={arg.input.min}
-      max={arg.input.max}
     />
   );
 }

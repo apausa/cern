@@ -10,7 +10,6 @@ import {
 
 // Components
 import NumberInput from './inputs/NumberInput';
-import SelectInput from './inputs/SelectInput';
 
 // Types
 import { CmdArg, CmdObj } from '@/types/lib';
@@ -49,7 +48,6 @@ export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) 
       <Table
         onSelectionChange={handleOnSelectionChange}
         removeWrapper
-        disallowEmptySelection
         selectionMode="multiple"
         selectedKeys={selectedKeys}
         disabledKeys={getDisabledKeys(cmdObj)}
@@ -68,9 +66,10 @@ export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) 
                 {arg.name}
               </TableCell>
               <TableCell>
-                {arg.input.type === null && (arg.value)}
+                {(arg.input.type === null || arg.input.type === 'boolean' || arg.input.type === 'string') && (
+                <div>{arg.value}</div>
+                )}
                 {arg.input.type === 'number' && <NumberInput arg={arg} dispatchForm={dispatchForm} />}
-                {arg.input.type === 'select' && <SelectInput arg={arg} dispatchForm={dispatchForm} />}
               </TableCell>
             </TableRow>
           ))}

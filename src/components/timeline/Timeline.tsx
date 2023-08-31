@@ -49,7 +49,6 @@ export default function Timeline({
         <Table
           aria-label="Monitor table"
           removeWrapper
-          className="py-4"
           bottomContent={Math.ceil(filteredMetadata.length / table.page.rows) > 1 && (
           <BottomContent
             table={table}

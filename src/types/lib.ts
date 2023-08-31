@@ -91,48 +91,46 @@ export type Form = {
 };
 
 export type CmdObj = {
-  name: 'o2-sim',
-  args: [
-    CmdPythiaArg,
-    CmdNumberArg,
-    CmdTGeantArg,
-    CmdConfigArg,
-  ];
+  name: string,
+  args: CmdArg[];
 };
 
-export type CmdArg = CmdPythiaArg | CmdNumberArg | CmdTGeantArg | CmdConfigArg;
+export type CmdArg = NumberArg | BooleanArg | NullArg | StringArg;
 
-export type CmdNumberArg = {
-  name: '-n',
+export type NumberArg = {
+  name: string,
+  input: { type: 'number' },
+  description: string,
   value: number,
   selected: boolean,
   disabled: boolean,
-  input: { type: 'number', min: number, max: number },
 };
 
-export type CmdTGeantArg = {
-  name: '-e',
-  value: 'TGeant3' | 'TGeant4',
+export type BooleanArg = {
+  name: string,
+  input: { type: 'boolean' },
+  description: string,
+  value: null,
   selected: boolean,
   disabled: boolean,
-  input: { type: 'select', options: ['TGeant3', 'TGeant4'] },
 };
 
-export type CmdPythiaArg = {
-  name: '-g',
-  value: 'pythia8pp',
-  selected: boolean,
-  disabled: boolean,
+export type NullArg = {
+  name: string,
   input: { type: null },
-};
-
-export type CmdConfigArg = {
-  name: '--configKeyValues',
-  value: 'align-geom.mDetectors=none',
+  description: string,
+  value: null,
   selected: boolean,
   disabled: boolean,
-  input: { type: null },
+};
 
+export type StringArg = {
+  name: string,
+  input: { type: 'string' },
+  description: string,
+  value: string,
+  selected: boolean,
+  disabled: boolean,
 };
 
 // Form reducer
