@@ -1,7 +1,7 @@
-import { TestExecCmd } from '@/types/app/api';
+import { GridExecCmd, TestExecCmd } from '@/types/app/api';
 
-export const getGridExecCmd = (scriptPath: string): any => ({
-  name: process.env.GRID_SUBMIT_PATH,
+export const getGridExecCmd = (scriptPath: string): GridExecCmd => ({
+  name: process.env.GRID_SUBMIT_PATH!,
   args: ['--script', scriptPath, '--wait', '--fetch-output-files'],
 });
 
