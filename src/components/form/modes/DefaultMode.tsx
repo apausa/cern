@@ -36,15 +36,15 @@ export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) 
         onValueChange={handleOnSelectionChange}
         value={selectedKeys}
         color="primary"
-        className="mt-2 rounded-lg"
+        className="mt-2 mb-4 rounded-lg"
         aria-label="Select arguments"
       >
         {cmdObj.args.map((arg: CmdArg) => (
-          <div key={arg.name} className="flex flex-row justify-between rounded-lg hover:bg-content1 items-center pl-2 max-h-8">
-            <Checkbox className="basis-1/2 p-0 m-0" value={arg.name} isDisabled={arg.disabled}>
+          <div key={arg.name} className="flex flex-row justify-between rounded-lg hover:bg-content1 items-center">
+            <Checkbox className="basis-1/2 truncate" value={arg.name} isDisabled={arg.disabled}>
               {arg.name}
             </Checkbox>
-            <div className="basis-1/2 p-0 m-0">
+            <div className="basis-1/2">
               {arg.input.type === 'number' && <NumberInput arg={arg as NumberArg} dispatchForm={dispatchForm} />}
               {arg.input.type === 'string' && <StringInput arg={arg as StringArg} dispatchForm={dispatchForm} />}
             </div>
