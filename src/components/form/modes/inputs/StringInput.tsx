@@ -9,6 +9,7 @@ import { StringInputProps } from '@/types/components/form';
 import formActionCreator from '@/lib/state/actions/form';
 
 export default function SelectInput({ arg, dispatchForm }: StringInputProps) {
+  // @continue
   // const [selectedKey, setSelectedKey] = useState(new Set([arg.value]));
 
   // const handleOnSelectionChange = (key: any): void => {
@@ -17,24 +18,25 @@ export default function SelectInput({ arg, dispatchForm }: StringInputProps) {
   // };
 
   return (
-    // <Select
-    //   onSelectionChange={handleOnSelectionChange}
-    //   selectedKeys={selectedKey}
-    //   aria-label="Select input"
-    // >
-    //   {arg.input.options.map((option: string) => (
-    //     <SelectItem key={option} value={option}>{option}</SelectItem>
-    //   ))}
-    // </Select>
-    <Input
-      type="text"
-      aria-label="Number input"
-      size="sm"
-      id={`${arg.name} value`}
-      isReadOnly
-      isDisabled={arg.disabled}
-      variant="bordered"
-      value={arg.value}
-    />
+    arg.input.options ? (
+      <Select
+        onSelectionChange={handleOnSelectionChange}
+        selectedKeys={selectedKey}
+      >
+        {arg.input.options.map((option: string) => (
+          <SelectItem key={option} value={option}>{option}</SelectItem>
+        ))}
+      </Select>
+    ) : (
+      <Input
+        type="text"
+        aria-label="Number input"
+        size="sm"
+        id={`${arg.name} value`}
+        isReadOnly
+        isDisabled={arg.disabled}
+        value={arg.value}
+      />
+    )
   );
 }

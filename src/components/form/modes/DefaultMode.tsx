@@ -2,6 +2,8 @@ import React, { useMemo } from 'react';
 import {
   CheckboxGroup,
   Checkbox,
+  AccordionItem,
+  Accordion,
 } from '@nextui-org/react';
 
 // Components
@@ -26,31 +28,39 @@ export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) 
   };
 
   return (
-    <>
-      <span className="py-2 text-small">
-        {selectedKeys.length === cmdObj.args.length
-          ? 'All items selected'
-          : `${selectedKeys.length} of ${cmdObj.args.length} selected`}
-      </span>
-      <CheckboxGroup
-        onValueChange={handleOnSelectionChange}
-        value={selectedKeys}
-        color="primary"
-        className="mt-2 mb-4 rounded-lg"
-        aria-label="Select arguments"
+    <Accordion isCompact className="mt-1 mb-2 p-0" fullWidth variant="splitted">
+      <AccordionItem
+        key="1"
+        aria-label="Create workflow"
+        title="Create workflow"
+        subtitle={(
+          <span>
+            {selectedKeys.length === cmdObj.args.length
+              ? 'All items selected'
+              : `${selectedKeys.length} of ${cmdObj.args.length} selected`}
+          </span>
+)}
       >
-        {cmdObj.args.map((arg: CmdArg) => (
-          <div key={arg.name} className="flex flex-row justify-between rounded-lg hover:bg-content1 items-center">
-            <Checkbox className="basis-1/2 truncate" value={arg.name} isDisabled={arg.disabled}>
-              {arg.name}
-            </Checkbox>
-            <div className="basis-1/2">
-              {arg.input.type === 'number' && <NumberInput arg={arg as NumberArg} dispatchForm={dispatchForm} />}
-              {arg.input.type === 'string' && <StringInput arg={arg as StringArg} dispatchForm={dispatchForm} />}
+        <CheckboxGroup
+          onValueChange={handleOnSelectionChange}
+          value={selectedKeys}
+          color="primary"
+          aria-label="Select arguments"
+        >
+          {cmdObj.args.map((arg: CmdArg) => (
+            <div key={arg.name} className="flex pb-2 flex-row data-[selected=true]:bg-content1 justify-between rounded-lg hover:bg-content1 items-center">
+              <Checkbox className="basis-1/2 truncate" value={arg.name} isDisabled={arg.disabled}>
+                {arg.name}
+              </Checkbox>
+              <div className="basis-1/2">
+                {arg.input.type === 'number' && <NumberInput arg={arg as NumberArg} dispatchForm={dispatchForm} />}
+                {arg.input.type === 'string' && <StringInput arg={arg as StringArg} dispatchForm={dispatchForm} />}
+              </div>
             </div>
-          </div>
-        ))}
-      </CheckboxGroup>
-    </>
+          ))}
+        </CheckboxGroup>
+      </AccordionItem>
+      <AccordionItem key="2" aria-label="Run workflow" title="Run workflow" />
+    </Accordion>
   );
 }

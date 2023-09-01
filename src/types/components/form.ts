@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
 import {
-  BooleanArg, FormAction, NumberArg, StringArg,
+  FormAction, NumberArg, StringArg,
 } from '../lib';
 
 export type BuildProps = any;
