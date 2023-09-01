@@ -16,11 +16,11 @@ const formActionCreators: FormActionCreators = {
   updateFormCmdStr: (dispatch, cmdStr) => {
     dispatch({ type: 'UPDATE_FORM_CMD_STR', cmdStr });
   },
-  updateFormCmdObjArg: (dispatch, keys) => {
-    dispatch({ type: 'UPDATE_FORM_CMD_OBJ_ARG', keys });
+  updateFormCmdObjArg: (dispatch, values) => {
+    dispatch({ type: 'UPDATE_FORM_CMD_OBJ_ARG', values });
   },
-  updateFormCmdObjVal: (dispatch, key, name) => {
-    dispatch({ type: 'UPDATE_FORM_CMD_OBJ_VAL', key, name });
+  updateFormCmdObjVal: (dispatch, value, name) => {
+    dispatch({ type: 'UPDATE_FORM_CMD_OBJ_VAL', value, name });
   },
 };
 

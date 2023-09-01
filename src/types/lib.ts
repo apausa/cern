@@ -1,4 +1,4 @@
-import { Selection, SortDescriptor } from '@nextui-org/react';
+import { SortDescriptor } from '@nextui-org/react';
 import { Dispatch } from 'react';
 
 // Status
@@ -126,7 +126,7 @@ export type NullArg = {
 
 export type StringArg = {
   name: string,
-  input: { type: 'string' },
+  input: { type: 'string', options?: string[] },
   description: string,
   value: string,
   selected: boolean,
@@ -152,20 +152,38 @@ export type UpdateFormSelectedDateAction = { type: 'UPDATE_FORM_SELECTED_DATE', 
 export type UpdateFormTitleAction = { type: 'UPDATE_FORM_TITLE', title: string };
 export type UpdateFormAdvancedAction = { type: 'UPDATE_FORM_ADVANCED', mode: boolean };
 export type UpdateFormCmdStrAction = { type: 'UPDATE_FORM_CMD_STR', cmdStr: string };
-export type UpdateFormCmdObjArgAction = { type: 'UPDATE_FORM_CMD_OBJ_ARG', keys: Selection };
-export type UpdateFormCmdObjValAction = { type: 'UPDATE_FORM_CMD_OBJ_VAL', key: string, name: string };
+export type UpdateFormCmdObjArgAction = { type: 'UPDATE_FORM_CMD_OBJ_ARG', values: string[] };
+export type UpdateFormCmdObjValAction = { type: 'UPDATE_FORM_CMD_OBJ_VAL', value: string | boolean | number, name: string };
 
 export type FormActionCreators = {
-  createForm: (dispatch: React.Dispatch<CreateFormAction>, form: Form) => void;
+  createForm: (
+    dispatch: React.Dispatch<CreateFormAction>,
+    form: Form
+  ) => void;
   updateFormSelectedDate: (
-    dispatch: React.Dispatch<UpdateFormSelectedDateAction>, selectedDate: string) => void;
-  updateFormTitle: (dispatch: React.Dispatch<UpdateFormTitleAction>, title: string) => void;
-  updateFormAdvanced: (dispatch: React.Dispatch<UpdateFormAdvancedAction>, mode: boolean) => void;
-  updateFormCmdStr: (dispatch: React.Dispatch<UpdateFormCmdStrAction>, cmdStr: string) => void;
+    dispatch: React.Dispatch<UpdateFormSelectedDateAction>,
+    selectedDate: string
+  ) => void;
+  updateFormTitle: (
+    dispatch: React.Dispatch<UpdateFormTitleAction>,
+    title: string
+  ) => void;
+  updateFormAdvanced: (
+    dispatch: React.Dispatch<UpdateFormAdvancedAction>,
+    mode: boolean
+  ) => void;
+  updateFormCmdStr: (
+    dispatch: React.Dispatch<UpdateFormCmdStrAction>,
+    cmdStr: string
+  ) => void;
   updateFormCmdObjArg: (
-    dispatch: React.Dispatch<UpdateFormCmdObjArgAction>, keys: Selection) => void;
+    dispatch: React.Dispatch<UpdateFormCmdObjArgAction>,
+    values: string[]
+  ) => void;
   updateFormCmdObjVal: (
-    dispatch: React.Dispatch<UpdateFormCmdObjValAction>, key: string, name: string) => void;
+    dispatch: React.Dispatch<UpdateFormCmdObjValAction>,
+    value: string | boolean | number, name: string
+  ) => void;
 };
 
 // Table

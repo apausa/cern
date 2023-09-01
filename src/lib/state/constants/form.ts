@@ -3,7 +3,7 @@ import getCmdStr from '@/utils/getCmd';
 import { getCurrentDate } from '@/utils/getDate';
 
 const INITIAL_CMD_OBJ: CmdObj = {
-  name: '????',
+  name: '',
   args: [
     {
       name: '-run',
@@ -19,7 +19,7 @@ const INITIAL_CMD_OBJ: CmdObj = {
       value: 'unknown',
       input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '--timestamp',
@@ -48,10 +48,10 @@ const INITIAL_CMD_OBJ: CmdObj = {
     {
       name: '--anchor-config',
       description: 'JSON file to contextualise workflow with external configs (config values etc.) for instance comping from data reco workflows.',
-      value: null,
-      input: { type: null },
+      value: 'unknown',
+      input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '--dump-config',
@@ -72,43 +72,43 @@ const INITIAL_CMD_OBJ: CmdObj = {
     {
       name: '-gen',
       description: 'generator: pythia8, extgen',
-      value: null,
-      input: { type: null },
+      value: 'pythia8',
+      input: { type: 'string' },
       selected: false,
       disabled: false,
     },
     {
       name: '-proc',
       description: 'process type: inel, dirgamma, jets, ccbar, ...',
-      value: null,
-      input: { type: null },
+      value: 'unknown',
+      input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '-trigger',
       description: 'event selection: particle, external',
-      value: null,
-      input: { type: null },
+      value: 'unknown',
+      input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '-ini',
       // eslint-disable-next-line no-template-curly-in-string
       description: 'generator init parameters file (full paths required), for example: ${O2DPG_ROOT},/MC/config/PWGHF/ini/GeneratorHF.ini',
-      value: null,
-      input: { type: null },
+      value: 'unknown',
+      input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '-confKey',
       description: 'generator or trigger configuration key values, for example: "GeneratorPythia8.config=pythia8.cfg;A.x=y"',
-      value: null,
-      input: { type: null },
+      value: 'unknown',
+      input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '-interactionRate',
@@ -121,18 +121,18 @@ const INITIAL_CMD_OBJ: CmdObj = {
     {
       name: '-bcPatternFile',
       description: 'Bunch crossing pattern file, used in digitization (a file name or "ccdb")',
-      value: null,
-      input: { type: null },
+      value: 'unknown',
+      input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '-meanVertexPerRunTxtFile',
       description: 'Txt file with mean vertex settings per run',
-      value: null,
-      input: { type: null },
+      value: 'unknown',
+      input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '-eCM',
@@ -233,8 +233,8 @@ const INITIAL_CMD_OBJ: CmdObj = {
     {
       name: '-genBkg',
       description: 'embedding background generator',
-      value: null,
-      input: { type: null },
+      value: 'pythia8',
+      input: { type: 'string' },
 
       selected: false,
       disabled: false,
@@ -259,11 +259,10 @@ const INITIAL_CMD_OBJ: CmdObj = {
     {
       name: '-confKeyBkg',
       description: 'embedding background configuration key values, for example: "GeneratorPythia8.config=pythia8bkg.cfg"',
-      value: null,
-      input: { type: null },
-
+      value: 'unknown',
+      input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '-colBkg',
@@ -324,9 +323,8 @@ const INITIAL_CMD_OBJ: CmdObj = {
     {
       name: '-seed',
       description: 'random seed number',
-      value: null,
-      input: { type: null },
-
+      value: 1,
+      input: { type: 'number' },
       selected: false,
       disabled: false,
     },
@@ -341,28 +339,26 @@ const INITIAL_CMD_OBJ: CmdObj = {
     {
       name: '--noIPC',
       description: 'disable shared memory in DPL',
-      input: { type: null },
-      value: null,
+      input: { type: 'string' },
+      value: 'unknown',
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '--upload-bkg-to',
       description: 'where to upload background event files (alien path)',
-      input: { type: null },
-      value: null,
-
+      input: { type: 'string' },
+      value: 'unknown',
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '--use-bkg-from',
       description: 'take background event from given alien path',
-      input: { type: null },
-      value: null,
-
+      input: { type: 'string' },
+      value: 'unknown',
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '--early-tf-cleanup',
@@ -454,19 +450,19 @@ const INITIAL_CMD_OBJ: CmdObj = {
     },
     {
       name: '--alternative-reco-software',
-      value: null,
+      value: 'unknown',
       description: 'argparse.SUPPRESS',
-      input: { type: null },
+      input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '--dpl-child-driver',
-      value: null,
+      value: 'unknown',
       description: 'Child driver to use in DPL processes (export mode)',
-      input: { type: null },
+      input: { type: 'string' },
       selected: false,
-      disabled: false,
+      disabled: true,
     },
     {
       name: '--include-qc --include-full-qc',

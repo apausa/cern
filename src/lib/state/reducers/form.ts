@@ -1,4 +1,4 @@
-import { Form, FormAction } from '@/types/lib';
+import { CmdArg, Form, FormAction } from '@/types/lib';
 
 const formReducer = (
   currentState: Form,
@@ -20,8 +20,8 @@ const formReducer = (
         ...currentState,
         cmdObj: {
           ...currentState.cmdObj,
-          args: currentState.cmdObj.args.map((arg: any): any => (
-            { ...arg!, selected: (action.keys === 'all' ? true : action.keys.has(arg.name)) })),
+          args: currentState.cmdObj.args.map((arg: CmdArg): any => (
+            { ...arg!, selected: (action.values.includes(arg.name)) })),
         },
       };
     }
@@ -30,8 +30,8 @@ const formReducer = (
         ...currentState,
         cmdObj: {
           ...currentState.cmdObj,
-          args: currentState.cmdObj.args.map((arg: any): any => (
-            (action.name === arg.name) ? { ...arg, value: Array.from(action.key)[0] } : arg
+          args: currentState.cmdObj.args.map((arg: CmdArg): any => (
+            (action.name === arg.name) ? { ...arg, value: action.value } : arg
           )),
         },
 

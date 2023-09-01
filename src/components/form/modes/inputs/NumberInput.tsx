@@ -16,8 +16,10 @@ export default function NumberInput({ arg, dispatchForm }: NumberInputProps) {
     <Input
       type="number"
       aria-label="Number input"
+      size="sm"
+      isDisabled={arg.disabled}
+      value={`${arg.value}`}
       onValueChange={handleValueChange}
-      value={arg.value}
     />
   );
 }

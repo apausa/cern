@@ -1,80 +1,56 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import {
-  Table,
-  TableHeader,
-  TableBody,
-  TableColumn,
-  TableRow,
-  TableCell,
+  CheckboxGroup,
+  Checkbox,
 } from '@nextui-org/react';
 
 // Components
 import NumberInput from './inputs/NumberInput';
 
 // Types
-import { CmdArg, CmdObj } from '@/types/lib';
+import {
+  CmdArg, NumberArg, StringArg,
+} from '@/types/lib';
 import { DefaultModeProps } from '@/types/components/form';
 
 // Actions
 import formActionCreator from '@/lib/state/actions/form';
+import StringInput from './inputs/StringInput';
+import { getSelectedKeys } from '@/lib/hooks/form';
 
 export default function DefaultMode({ cmdObj, dispatchForm }: DefaultModeProps) {
-  const getSelectedKeys = (commandObject: CmdObj): Set<string> | 'all' => (
-    new Set(commandObject.args
-      .filter(({ selected }: CmdArg) => selected)
-      .map(({ name }: CmdArg) => name)));
+  const selectedKeys = useMemo(() => getSelectedKeys(cmdObj.args), [cmdObj.args]);
 
-  const getDisabledKeys = (commandObject: CmdObj): Set<string> | 'all' => (
-    new Set(commandObject.args
-      .filter(({ disabled }: CmdArg) => disabled)
-      .map(({ name }: CmdArg) => name)));
-
-  const [selectedKeys, setSelectedKeys] = useState(getSelectedKeys(cmdObj));
-
-  const handleOnSelectionChange = (keys: any): void => {
-    formActionCreator.updateFormCmdObjArg(dispatchForm, keys);
-    setSelectedKeys(keys);
+  const handleOnSelectionChange = (values: string[]): void => {
+    formActionCreator.updateFormCmdObjArg(dispatchForm, values);
   };
 
   return (
     <>
-      <span
-        className="py-2 text-small"
-      >
-        {selectedKeys === 'all'
+      <span className="py-2 text-small">
+        {selectedKeys.length === cmdObj.args.length
           ? 'All items selected'
-          : `${selectedKeys.size} of ${cmdObj.args.length} selected`}
+          : `${selectedKeys.length} of ${cmdObj.args.length} selected`}
       </span>
-      <Table
-        onSelectionChange={handleOnSelectionChange}
-        removeWrapper
-        selectionMode="multiple"
-        selectedKeys={selectedKeys}
-        disabledKeys={getDisabledKeys(cmdObj)}
-        color="default"
-        className="pt-2"
-        aria-label="Build table"
+      <CheckboxGroup
+        onValueChange={handleOnSelectionChange}
+        value={selectedKeys}
+        color="primary"
+        className="mt-2 rounded-lg"
+        aria-label="Select arguments"
       >
-        <TableHeader>
-          <TableColumn>Argument</TableColumn>
-          <TableColumn>Value</TableColumn>
-        </TableHeader>
-        <TableBody>
-          {cmdObj.args.map((arg: any) => (
-            <TableRow key={arg.name}>
-              <TableCell>
-                {arg.name}
-              </TableCell>
-              <TableCell>
-                {(arg.input.type === null || arg.input.type === 'boolean' || arg.input.type === 'string') && (
-                <div>{arg.value}</div>
-                )}
-                {arg.input.type === 'number' && <NumberInput arg={arg} dispatchForm={dispatchForm} />}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+        {cmdObj.args.map((arg: CmdArg) => (
+          <div key={arg.name} className="flex flex-row justify-between rounded-lg hover:bg-content1 items-center pl-2 max-h-8">
+            <Checkbox className="basis-1/2 p-0 m-0" value={arg.name} isDisabled={arg.disabled}>
+              {arg.name}
+            </Checkbox>
+            <div className="basis-1/2 p-0 m-0">
+              {arg.input.type === 'number' && <NumberInput arg={arg as NumberArg} dispatchForm={dispatchForm} />}
+              {arg.input.type === 'string' && <StringInput arg={arg as StringArg} dispatchForm={dispatchForm} />}
+            </div>
+          </div>
+        ))}
+      </CheckboxGroup>
     </>
   );
 }
