@@ -44,24 +44,8 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="flex flex-nowrap justify-center">
-      <div className="invisible basis-0 lg:visible lg:basis-1/3 2xl:basis-1/4 h-screen overflow-x-hidden overflow-y-auto">
-        {selectedSimulation ? (
-          <Details
-            selectedSimulation={selectedSimulation}
-            dispatchForm={dispatchForm}
-            dispatchSimulation={dispatchSimulation}
-            dispatchTable={dispatchTable}
-          />
-        ) : (
-          <Form
-            form={form}
-            dispatchForm={dispatchForm}
-            dispatchSimulation={dispatchSimulation}
-          />
-        )}
-      </div>
-      <div className="basis-full lg:basis-2/3 2xl:basis-2/4 h-screen overflow-x-hidden overflow-y-auto lg:border-l lg:border-l-neutral-400">
+    <div className="flex justify-center">
+      <div className="basis-3/5 h-screen overflow-x-hidden overflow-y-auto">
         <Table
           simulations={simulations}
           table={table}
@@ -71,3 +55,22 @@ export default function Dashboard() {
     </div>
   );
 }
+
+// @develop https://nextjs.org/docs/app/building-your-application/routing/parallel-routes#examples
+
+{ /* <div className="invisible basis-0 lg:visible lg:basis-1/3 2xl:basis-1/4 h-screen overflow-x-hidden overflow-y-auto">
+{selectedSimulation ? (
+  <Details
+    selectedSimulation={selectedSimulation}
+    dispatchForm={dispatchForm}
+    dispatchSimulation={dispatchSimulation}
+    dispatchTable={dispatchTable}
+  />
+) : (
+  <Form
+    form={form}
+    dispatchForm={dispatchForm}
+    dispatchSimulation={dispatchSimulation}
+  />
+)}
+</div> */ }
