@@ -42,9 +42,10 @@ export default function DefaultMode({ buildCmd, runCmd, dispatchForm }: DefaultM
   );
 
   return (
-    <Accordion isCompact className="mt-1 mb-2 p-0" fullWidth variant="splitted">
+    <Accordion isCompact className="m-0 p-0" fullWidth variant="splitted">
       <AccordionItem
         key="1"
+        className="mt-2"
         aria-label="Create workflow"
         title="Create workflow"
         subtitle={subtitle(buildCmd.args, buildKeys.length)}
@@ -72,6 +73,7 @@ export default function DefaultMode({ buildCmd, runCmd, dispatchForm }: DefaultM
         key="2"
         aria-label="Run workflow"
         title="Run workflow"
+        className="mt-2"
         subtitle={subtitle(runCmd.args, runKeys.length)}
       >
         <CheckboxGroup

@@ -8,8 +8,8 @@
     "*.config.*"
   ],
   "rules": {
-    "no-nested-ternary": "off",
-    "import/prefer-default-export": "off",
+    "no-nested-ternary": "warn",
+    "import/prefer-default-export": "warn",
     "react/no-array-index-key": "warn",
     "max-len": "warn",
     "import/extensions": [

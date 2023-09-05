@@ -28,7 +28,10 @@ export default function Dashboard() {
   );
 }
 
-// @develop https://nextjs.org/docs/app/building-your-application/routing/parallel-routes#examples
+/* @develop
+- useCallback in functions
+- form configuration dissappears when reloading the page (changing between routes...)
+-  */
 
 // const selectedSimulation: Simulation | null = useMemo(() => ((!table.selectedKey.has(''))
 //   ? simulations.find(

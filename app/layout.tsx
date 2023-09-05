@@ -11,15 +11,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  build,
 }: {
   children: React.ReactNode,
+  build: React.ReactNode,
 }) {
   return (
     <html lang="en" className="dark">
       <body className="font-sans">
         <Providers>
           <div className="flex justify-center">
-            <div className="basis-2/3 h-screen">
+            {build}
+            <div className="basis-1/2 h-screen">
               {children}
             </div>
           </div>

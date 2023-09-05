@@ -16,7 +16,7 @@ export default function AdvancedMode({ script, dispatchForm }: AdvancedModeProps
     <Textarea
       variant="faded"
       color="default"
-      className="pt-2"
+      className="mt-2"
       label="Write command"
       value={script}
       onChange={handleChange}

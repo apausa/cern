@@ -1,5 +1,5 @@
 import {
-  Button, Input, Tab, Tabs,
+  Input, Tab, Tabs,
 } from '@nextui-org/react';
 import React, { Key, useEffect } from 'react';
 
@@ -17,14 +17,9 @@ import { getCurrentDate } from '@/_utils/getDate';
 import formActionCreators from '@/_lib/actions/formActions';
 
 // Constants
-import INITIAL_FORM from '@/_lib/constants/formConstants';
 import getScript from '@/_utils/getScript';
 
 export default function Form({ form, dispatchForm }: FormProps) {
-  const onReset = (): void => {
-    formActionCreators.createForm(dispatchForm, INITIAL_FORM);
-  };
-
   useEffect((): void => {
     formActionCreators.updateFormScript(dispatchForm, getScript(form.buildCmd, form.runCmd));
   }, [form.buildCmd.args, form.runCmd.args]);
@@ -32,7 +27,7 @@ export default function Form({ form, dispatchForm }: FormProps) {
   return (
     <form>
       <Input
-        className="py-2"
+        className="pb-2"
         type="text"
         label="Write title"
         variant="faded"
@@ -56,7 +51,7 @@ export default function Form({ form, dispatchForm }: FormProps) {
       />
       <Tabs
         aria-label="Select mode"
-        className="pt-2 flex flex-col"
+        className="pt-2 m-0 flex flex-col"
         selectedKey={form.advanced ? 'advanced' : 'default'}
         onSelectionChange={(key: Key) => {
           formActionCreators.updateFormAdvanced(dispatchForm, key === 'advanced');
@@ -73,12 +68,6 @@ export default function Form({ form, dispatchForm }: FormProps) {
           <AdvancedMode script={form.script} dispatchForm={dispatchForm} />
         </Tab>
       </Tabs>
-      <Button
-        color="default"
-        onClick={onReset}
-      >
-        Reset
-      </Button>
     </form>
   );
 }
