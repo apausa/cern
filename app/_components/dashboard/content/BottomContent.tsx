@@ -1,5 +1,5 @@
 import { Button, Pagination } from '@nextui-org/react';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 // State
 import tableActionCreators from '@/_lib/actions/tableActions';
@@ -10,9 +10,11 @@ import { BottomContentProps } from '@/_types/components/tableTypes';
 export default function BottomContent({
   table,
   dispatchTable,
-  filteredSimulation,
+  filteredSimulations,
 }: BottomContentProps) {
-  const pages: number = Math.ceil(filteredSimulation.length / table.page.rows);
+  const pages: number = useMemo(() => (
+    Math.ceil((filteredSimulations.length || 1) / table.page.rows)
+  ), [filteredSimulations.length, table.page.rows]);
 
   const onNextPage = (): void => {
     if (table.page.current < pages) {
@@ -20,14 +22,14 @@ export default function BottomContent({
     }
   };
 
+  const onChange = (page: number): void => {
+    tableActionCreators.updatePageCurrent(dispatchTable, page);
+  };
+
   const onPreviousPage = (): void => {
     if (table.page.current > 1) {
       tableActionCreators.updatePageCurrent(dispatchTable, table.page.current - 1);
     }
-  };
-
-  const handleUpdatePageCurrent = (page: number): void => {
-    tableActionCreators.updatePageCurrent(dispatchTable, page);
   };
 
   return (
@@ -44,7 +46,7 @@ export default function BottomContent({
         color="primary"
         page={table.page.current}
         total={pages}
-        onChange={handleUpdatePageCurrent}
+        onChange={onChange}
       />
       <Button
         isDisabled={table.page.current === pages}

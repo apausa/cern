@@ -118,7 +118,6 @@ export type SidebarProps = any;
 export type FormProps = {
   form: Form,
   dispatchForm: Dispatch<FormAction>
-  dispatchSimulation: Dispatch<any>
 };
 export type DefaultModeProps = {
   buildCmd: BuildCmd,

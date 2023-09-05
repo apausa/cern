@@ -1,6 +1,4 @@
-import {
-  Button, Chip, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger,
-} from '@nextui-org/react';
+import { Chip } from '@nextui-org/react';
 import React from 'react';
 
 // Utils
@@ -24,21 +22,6 @@ export default function CellContent({ simulation, column }: CellProps) {
       </Chip>
     );
     case 'Date': return (simulation.date);
-    case 'Options':
-      return (
-        <Dropdown>
-          <DropdownTrigger>
-            <Button variant="light" size="sm">...</Button>
-          </DropdownTrigger>
-          <DropdownMenu>
-            <DropdownItem>Save</DropdownItem>
-            <DropdownItem>Recreate</DropdownItem>
-            <DropdownItem>Run in WLCG</DropdownItem>
-            <DropdownItem>Run locally</DropdownItem>
-            <DropdownItem>Delete</DropdownItem>
-          </DropdownMenu>
-        </Dropdown>
-      );
     default: return null;
   }
 }

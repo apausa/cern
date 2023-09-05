@@ -26,11 +26,6 @@ export const ALL_COLUMNS: Column[] = [
     selected: true,
     allowSorting: true,
   },
-  {
-    key: 'Options',
-    selected: false,
-    allowSorting: false,
-  },
 ];
 
 export const INITIAL_TABLE: Table = {
@@ -38,7 +33,5 @@ export const INITIAL_TABLE: Table = {
   filter: { query: '', status: 'all' },
   page: { rows: 12, current: 1 },
   sortDescriptor: { column: 'date', direction: 'descending' },
-  selectedColumns: new Set(ALL_COLUMNS
-    .filter(({ selected }: Column) => selected)
-    .map(({ key }: Column) => key)),
+  selectedColumns: ALL_COLUMNS.filter(({ selected }: Column) => selected),
 };

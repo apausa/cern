@@ -13,7 +13,7 @@ export type Column = {
 };
 
 export type Table = {
-  selectedColumns: Set<string> | 'all',
+  selectedColumns: Column[],
   selectedKey: Set<string>,
   filter: Filter,
   page: Page,

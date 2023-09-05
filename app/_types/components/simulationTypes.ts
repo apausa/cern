@@ -37,7 +37,7 @@ export type Outputs = {
 
 // REDUCER
 
-export type SimulationsUseReducer = [Simulation[], Dispatch<SimulationAction>];
+export type UseReducer = [Simulation[], Dispatch<SimulationAction>];
 
 // ACTIONS
 
