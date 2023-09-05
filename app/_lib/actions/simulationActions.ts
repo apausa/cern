@@ -1,7 +1,7 @@
 import { Simulation, SimulationActionCreators } from '@/_types/components/simulationTypes';
 
 const simulationActionCreators: SimulationActionCreators = {
-  readAllSimulation: (dispatch) => {
+  readAllSimulations: (dispatch) => {
     const response: string = localStorage.getItem('simulations')!;
     const simulations: Simulation[] | null = (response) ? JSON.parse(response) : null;
 

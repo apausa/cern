@@ -1,5 +1,5 @@
 import {
-  Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Selection,
+  Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Link, Selection,
 } from '@nextui-org/react';
 import React from 'react';
 
@@ -19,10 +19,6 @@ export default function TopContent({
   dispatchTable,
   filteredSimulation,
 }: TopContentProps) {
-  const handleStage = (): void => {
-    tableActionCreators.updateSelectedKey(dispatchTable, new Set(['']));
-  };
-
   const onClear = (): void => {
     tableActionCreators.updateFilterQuery(dispatchTable, '');
     tableActionCreators.updatePageCurrent(dispatchTable, 1);
@@ -73,7 +69,13 @@ export default function TopContent({
             ))}
           </DropdownMenu>
         </Dropdown>
-        <Button color="primary" isDisabled={table.selectedKey.has('')} onClick={handleStage}>Add job</Button>
+        <Button
+          color="primary"
+          as={Link}
+          href="/build"
+        >
+          Add job
+        </Button>
       </div>
       <div className="flex justify-between gap-4 text-small">
         <div>

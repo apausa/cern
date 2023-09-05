@@ -52,7 +52,7 @@ export type UpdateSimulationAction = { type: 'UPDATE_SIMULATION', simulation: Si
 export type DeleteSimulationAction = { type: 'DELETE_SIMULATION', simulation: Simulation };
 
 export type SimulationActionCreators = {
-  readAllSimulation: (
+  readAllSimulations: (
     dispatch: React.Dispatch<ReadAllSimulationAction>
   ) => void,
   createSimulation: (
