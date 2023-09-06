@@ -2,11 +2,11 @@
 
 import {
   Button,
-  Modal, ModalBody, ModalContent, ModalFooter, ModalHeader,
+  Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Spinner, useDisclosure,
 } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter, notFound } from 'next/navigation';
 import React, {
-  useCallback, useEffect, useMemo, useReducer,
+  useCallback, useEffect, useMemo, useReducer, useState,
 } from 'react';
 import Details from '@/(private)/_components/details/Details';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
@@ -14,37 +14,46 @@ import { Simulation, UseReducer } from '@/(private)/_types/components/simulation
 import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
 
 export default function SimulationModal({ params: { id } }: any) {
+  const pathName: string = usePathname();
   const router = useRouter();
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const [loading, setLoading] = useState(true);
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
 
-  const onClose = useCallback((): void => {
+  const handleClose = useCallback((): void => {
     router.push('/');
+    onClose();
   }, [router]);
 
-  const onClick = useCallback((): void => {
-    if (selectedSimulation) {
-      router.push(`/build/${selectedSimulation.id}`);
-    }
-  }, [selectedSimulation]);
+  const onRecreate = useCallback((): void => {}, []); // @develop
+  const onDelete = useCallback((): void => {}, []); // @develop
+
+  // @develop, implement loading component
 
   useEffect(() => {
-    simulationActionCreators.readAllSimulations(dispatchSimulation);
-  }, []);
+    if (pathName.startsWith('/simulation')) {
+      onOpen();
+      simulationActionCreators.readAllSimulations(dispatchSimulation);
+    }
+  }, [pathName]);
 
-  // @develop, diferentiate between loading and not found
-  // @develop, form does not after beign closed for the first time
-  // @develop, implement recreate functionality
-  // @develop, implement delete functionality
+  useEffect(() => {
+    if (selectedSimulation) setLoading(false);
+  }, [selectedSimulation]);
+
+  if (!loading && !selectedSimulation) return notFound();
 
   return (
     <Modal
-      defaultOpen
+      isOpen={isOpen}
       size="xl"
       scrollBehavior="inside"
-      onClose={onClose}
+      onClose={handleClose}
       backdrop="opaque"
     >
       <ModalContent>
@@ -52,25 +61,33 @@ export default function SimulationModal({ params: { id } }: any) {
           <div className="pt-2">Job details</div>
         </ModalHeader>
         <ModalBody className="pt-4">
-          {(selectedSimulation)
-            ? (
+          {(loading)
+            ? (<Spinner />)
+            : (
               <Details
                 selectedSimulation={selectedSimulation}
                 dispatchSimulation={dispatchSimulation}
               />
-            )
-            : (<div>Not found</div>)}
+            )}
         </ModalBody>
-        <ModalFooter className="border-t border-t-neutral-800">
+        <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
           {(selectedSimulation === undefined)
             ? (<div />)
             : (
-              <Button
-                onClick={onClick}
-                isDisabled={!selectedSimulation}
-              >
-                Recreate
-              </Button>
+              <>
+                <Button
+                  onClick={onDelete}
+                  variant="light"
+                  color="danger"
+                >
+                  Delete
+                </Button>
+                <Button
+                  onClick={onRecreate}
+                >
+                  Recreate
+                </Button>
+              </>
             )}
 
         </ModalFooter>

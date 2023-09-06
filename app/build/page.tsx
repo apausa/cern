@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useReducer } from 'react';
+import React, { useCallback, useReducer } from 'react';
 
 // Reducers
 import { Button } from '@nextui-org/react';
@@ -30,10 +30,6 @@ export default function BuildPage() {
 
   const onReset = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
-  }, []);
-
-  useEffect(() => {
-    simulationActionCreators.readAllSimulations(dispatchSimulation);
   }, []);
 
   return (

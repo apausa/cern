@@ -1,9 +1,9 @@
 import { Simulation, SimulationActionCreators } from '@/(private)/_types/components/simulationTypes';
+import { getAllSimulations } from '@/(private)/_utils/localStorage';
 
 const simulationActionCreators: SimulationActionCreators = {
   readAllSimulations: (dispatch) => {
-    const response: string = localStorage.getItem('simulations')!;
-    const simulations: Simulation[] | null = (response) ? JSON.parse(response) : [];
+    const simulations: Simulation[] | [] = getAllSimulations();
 
     if (simulations) dispatch({ type: 'READ_ALL_SIMULATIONS', simulations });
   },
@@ -11,8 +11,9 @@ const simulationActionCreators: SimulationActionCreators = {
   createSimulation: async (dispatch, form) => {
     const response: Response = await fetch('/api/simulation', { method: 'POST', body: JSON.stringify(form) });
     const simulation: Simulation | null = await response.json();
+    const simulations: Simulation[] | [] = getAllSimulations();
 
-    if (simulation) dispatch({ type: 'CREATE_SIMULATION', simulation });
+    if (simulation) dispatch({ type: 'CREATE_SIMULATION', simulation, simulations });
   },
 
   updateSimulationTestStatus: (dispatch, simulation, status) => {

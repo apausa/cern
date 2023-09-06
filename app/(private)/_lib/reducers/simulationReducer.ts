@@ -1,4 +1,5 @@
 import { Simulation, SimulationAction } from '@/(private)/_types/components/simulationTypes';
+import { setAllSimulations } from '@/(private)/_utils/localStorage';
 
 const simulationReducer = (
   currentState: Simulation[],
@@ -11,17 +12,18 @@ const simulationReducer = (
       nextState = action.simulations;
       break; }
     case 'CREATE_SIMULATION': {
-      nextState = [action.simulation, ...currentState];
+      nextState = [action.simulation, ...action.simulations];
       break; }
-    case 'UPDATE_SIMULATION': { nextState = currentState.map((simulation: Simulation): Simulation => (
-      (simulation.id === action.simulation.id) ? action.simulation : simulation)); break; }
+    case 'UPDATE_SIMULATION': {
+      nextState = currentState.map((simulation: Simulation): Simulation => (
+        (simulation.id === action.simulation.id) ? action.simulation : simulation));
+      break; }
     default: {
       nextState = currentState;
       break; }
   }
 
-  localStorage.setItem('simulations', JSON.stringify(nextState));
-
+  setAllSimulations(nextState);
   return nextState;
 };
 

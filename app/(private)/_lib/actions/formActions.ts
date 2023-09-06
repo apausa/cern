@@ -10,7 +10,7 @@ const formActionCreators: FormActionCreators = {
   updateFormTitle: (dispatch, title) => {
     dispatch({ type: 'UPDATE_FORM_TITLE', title });
   },
-  updateFormAdvanced: (dispatch, advanced) => { // @develop, not necessary
+  updateFormAdvanced: (dispatch, advanced) => {
     dispatch({ type: 'UPDATE_FORM_ADVANCED', advanced });
   },
   updateFormBuildCmd: (dispatch, values) => {

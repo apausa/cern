@@ -1,37 +1,36 @@
 'use client';
 
-import { Button } from '@nextui-org/react';
+import { Button, Spinner } from '@nextui-org/react';
 import React, {
   useCallback,
-  useEffect, useMemo, useReducer,
+  useEffect, useMemo, useReducer, useState,
 } from 'react';
-import { useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import Details from '@/(private)/_components/details/Details';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
 import { Simulation, UseReducer } from '@/(private)/_types/components/simulationTypes';
 import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
 
 export default function SimulationPage({ params: { id } }: any) {
-  const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
 
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
 
-  const onClick = useCallback((): void => {
-    if (selectedSimulation) {
-      router.push(`/build/${selectedSimulation.id}`);
-    }
-  }, [selectedSimulation]);
+  const onRecreate = useCallback((): void => {}, []); // @develop
+  const onDelete = useCallback((): void => {}, []); // @develop
 
   useEffect(() => {
     simulationActionCreators.readAllSimulations(dispatchSimulation);
   }, []);
 
-  // @develop, diferentiate between loading and not found
-  // @develop, implement recreate functionality
-  // @develop, implemente delete functionality
+  useEffect(() => {
+    if (selectedSimulation) setLoading(false);
+  }, [selectedSimulation]);
+
+  if (!loading && !selectedSimulation) return notFound();
 
   return (
     <>
@@ -39,22 +38,34 @@ export default function SimulationPage({ params: { id } }: any) {
         <div className="pt-2">Job details</div>
       </header>
       <main className="p-4">
-        {selectedSimulation
-          ? (
+        {(loading)
+          ? (<Spinner />)
+          : (
             <Details
               selectedSimulation={selectedSimulation}
               dispatchSimulation={dispatchSimulation}
             />
-          )
-          : <div>Not found</div>}
+          )}
       </main>
-      <footer className="p-4 border-t border-t-neutral-800">
-        <Button
-          isDisabled={!selectedSimulation}
-          onClick={onClick}
-        >
-          Recreate
-        </Button>
+      <footer className="p-4 border-t border-t-neutral-800 flex justify-between">
+        {(selectedSimulation === undefined)
+          ? (<div />)
+          : (
+            <>
+              <Button
+                onClick={onRecreate}
+              >
+                Recreate
+              </Button>
+              <Button
+                onClick={onDelete}
+                variant="light"
+                color="danger"
+              >
+                Delete
+              </Button>
+            </>
+          )}
       </footer>
     </>
   );
