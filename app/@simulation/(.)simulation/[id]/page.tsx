@@ -36,6 +36,8 @@ export default function SimulationModal({ params: { id } }: any) {
 
   // @develop, diferentiate between loading and not found
   // @develop, form does not after beign closed for the first time
+  // @develop, implement recreate functionality
+  // @develop, implement delete functionality
 
   return (
     <Modal
@@ -65,7 +67,6 @@ export default function SimulationModal({ params: { id } }: any) {
             : (
               <Button
                 onClick={onClick}
-                variant="light"
                 isDisabled={!selectedSimulation}
               >
                 Recreate

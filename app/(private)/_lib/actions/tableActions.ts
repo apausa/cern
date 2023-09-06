@@ -1,23 +1,22 @@
-import { SortDescriptor } from '@nextui-org/react';
-import { Key } from 'react';
+import { TableActionCreators } from '@/(private)/_types/components/tableTypes';
 
-const tableActionCreators: any = {
-  updateSelectedKey: (dispatch: any, key: Key) => {
+const tableActionCreators: TableActionCreators = {
+  updateSelectedKey: (dispatch, key) => {
     dispatch({ type: 'UPDATE_SELECTED_KEY', key });
   },
-  updateSortDescriptor: (dispatch: any, sortDescriptor: SortDescriptor) => {
+  updateSortDescriptor: (dispatch, sortDescriptor) => {
     dispatch({ type: 'UPDATE_SORT_DESCRIPTOR', sortDescriptor });
   },
-  updateFilterQuery: (dispatch: any, query: string) => {
+  updateFilterQuery: (dispatch, query) => {
     dispatch({ type: 'UPDATE_FILTER_QUERY', query });
   },
-  updateFilterStatus: (dispatch: any, status: Selection) => {
+  updateFilterStatus: (dispatch, status) => {
     dispatch({ type: 'UPDATE_FILTER_STATUS', status });
   },
-  updatePageRows: (dispatch: any, rows: number) => {
+  updatePageRows: (dispatch, rows) => {
     dispatch({ type: 'UPDATE_PAGE_ROWS', rows });
   },
-  updatePageCurrent: (dispatch: any, page: number) => {
+  updatePageCurrent: (dispatch, page) => {
     dispatch({ type: 'UPDATE_PAGE_CURRENT', page });
   },
 };

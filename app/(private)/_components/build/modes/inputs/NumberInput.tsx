@@ -9,7 +9,6 @@ import formActionCreator from '@/(private)/_lib/actions/formActions';
 
 export default function NumberInput({ arg, dispatchForm }: NumberInputProps) {
   const handleValueChange = (value: string): void => {
-    // @develop, update values
     formActionCreator.updateFormCmdObjVal(dispatchForm, value, arg.name);
   };
 

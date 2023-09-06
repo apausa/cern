@@ -30,6 +30,8 @@ export default function SimulationPage({ params: { id } }: any) {
   }, []);
 
   // @develop, diferentiate between loading and not found
+  // @develop, implement recreate functionality
+  // @develop, implemente delete functionality
 
   return (
     <>

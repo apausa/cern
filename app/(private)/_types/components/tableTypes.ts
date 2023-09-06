@@ -1,6 +1,5 @@
-import { SortDescriptor } from '@nextui-org/react';
+import { Selection, SortDescriptor } from '@nextui-org/react';
 import { Dispatch } from 'react';
-import { StatusName } from '../utils';
 
 // CONSTANT
 
@@ -14,14 +13,14 @@ export type Column = {
 
 export type Table = {
   selectedColumns: Column[],
-  selectedKey: Set<string>,
+  selectedKey: string,
   filter: Filter,
   page: Page,
   sortDescriptor: SortDescriptor,
 };
 
 export type Filter = {
-  status: Set<StatusName> | 'all',
+  status: Selection,
   query: string,
 };
 
@@ -34,7 +33,48 @@ export type Page = {
 
 export type TableUseReducer = [Table, Dispatch<any>];
 
-// @develop ACTIONS
+// ACTIONS
+
+export type TableAction = UpdateSelectedKeyAction |
+UpdateSortDescriptorAction |
+UpdateFilterQueryAction |
+UpdateFilterStatusAction |
+UpdatePageRowsAction |
+UpdatePageCurrentAction;
+
+export type UpdateSelectedKeyAction = { type: 'UPDATE_SELECTED_KEY', key: string };
+export type UpdateSortDescriptorAction = { type: 'UPDATE_SORT_DESCRIPTOR', sortDescriptor: SortDescriptor };
+export type UpdateFilterQueryAction = { type: 'UPDATE_FILTER_QUERY', query: string };
+export type UpdateFilterStatusAction = { type: 'UPDATE_FILTER_STATUS', status: Selection };
+export type UpdatePageRowsAction = { type: 'UPDATE_PAGE_ROWS', rows: number };
+export type UpdatePageCurrentAction = { type: 'UPDATE_PAGE_CURRENT', page: number };
+
+export type TableActionCreators = {
+  updateSelectedKey: (
+    dispatch: React.Dispatch<UpdateSelectedKeyAction>,
+    key: string
+  ) => void,
+  updateSortDescriptor: (
+    dispatch: React.Dispatch<UpdateSortDescriptorAction>,
+    sortDescriptor: SortDescriptor
+  ) => void,
+  updateFilterQuery: (
+    dispatch: React.Dispatch< UpdateFilterQueryAction>,
+    query: string
+  ) => void,
+  updateFilterStatus: (
+    dispatch: React.Dispatch<UpdateFilterStatusAction>,
+    status: Selection
+  ) => void,
+  updatePageRows: (
+    dispatch: React.Dispatch<UpdatePageRowsAction>,
+    rows: number
+  ) => void,
+  updatePageCurrent: (
+    dispatch: React.Dispatch<UpdatePageCurrentAction>,
+    page: number
+  ) => void,
+};
 
 // COMPONENTS
 
