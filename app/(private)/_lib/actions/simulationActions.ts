@@ -3,7 +3,7 @@ import { Simulation, SimulationActionCreators } from '@/(private)/_types/compone
 const simulationActionCreators: SimulationActionCreators = {
   readAllSimulations: (dispatch) => {
     const response: string = localStorage.getItem('simulations')!;
-    const simulations: Simulation[] | null = (response) ? JSON.parse(response) : null;
+    const simulations: Simulation[] | null = (response) ? JSON.parse(response) : [];
 
     if (simulations) dispatch({ type: 'READ_ALL_SIMULATIONS', simulations });
   },

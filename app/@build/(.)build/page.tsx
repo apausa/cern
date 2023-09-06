@@ -2,7 +2,6 @@
 
 import {
   Button,
-  Link,
   Modal, ModalBody, ModalContent, ModalFooter, ModalHeader,
 } from '@nextui-org/react';
 import React, {
@@ -37,6 +36,7 @@ export default function BuildModal() {
 
   const onStage = useCallback(async (): Promise<void> => {
     await simulationActionCreators.createSimulation(dispatchSimulation, form);
+    router.push('/');
   }, [form]);
 
   const onReset = useCallback((): void => {
@@ -72,8 +72,6 @@ export default function BuildModal() {
             Reset
           </Button>
           <Button
-            href="/"
-            as={Link}
             color="primary"
             onClick={onStage}
           >

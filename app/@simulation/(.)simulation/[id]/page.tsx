@@ -8,21 +8,14 @@ import { useRouter } from 'next/navigation';
 import React, {
   useCallback, useEffect, useMemo, useReducer,
 } from 'react';
-import Link from 'next/link';
-import formActionCreator from '@/(private)/_lib/actions/formActions';
 import Details from '@/(private)/_components/details/Details';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
 import { Simulation, UseReducer } from '@/(private)/_types/components/simulationTypes';
 import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
-import { FormUseReducer } from '@/(private)/_types/components/formTypes';
-import formReducer from '@/(private)/_lib/reducers/formReducer';
-import INITIAL_FORM from '@/(private)/_lib/constants/formConstants';
 
 export default function SimulationModal({ params: { id } }: any) {
   const router = useRouter();
-
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  const [, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
@@ -33,9 +26,9 @@ export default function SimulationModal({ params: { id } }: any) {
 
   const onClick = useCallback((): void => {
     if (selectedSimulation) {
-      formActionCreator.createForm(dispatchForm, selectedSimulation.form);
+      router.push(`/build/${selectedSimulation.id}`);
     }
-  }, [selectedSimulation?.form]);
+  }, [selectedSimulation]);
 
   useEffect(() => {
     simulationActionCreators.readAllSimulations(dispatchSimulation);
@@ -71,10 +64,9 @@ export default function SimulationModal({ params: { id } }: any) {
             ? (<div />)
             : (
               <Button
-                href="/build"
-                as={Link}
                 onClick={onClick}
                 variant="light"
+                isDisabled={!selectedSimulation}
               >
                 Recreate
               </Button>
