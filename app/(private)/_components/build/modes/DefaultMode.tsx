@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   CheckboxGroup,
   Checkbox,
@@ -21,25 +21,32 @@ import formActionCreator from '@/(private)/_lib/actions/formActions';
 // Utils
 import { getSelectedKeys } from '@/(private)/_utils/form';
 
-export default function DefaultMode({ buildCmd, runCmd, dispatchForm }: DefaultModeProps) {
-  const buildKeys = useMemo(() => getSelectedKeys(buildCmd.args), [buildCmd.args]);
-  const runKeys = useMemo(() => getSelectedKeys(runCmd.args), [runCmd.args]);
+export default function DefaultMode(
+  { form: { buildCmd, runCmd }, dispatchForm }: DefaultModeProps,
+) {
+  const buildArgs = useMemo((): string[] => (
+    getSelectedKeys(buildCmd.args)
+  ), [buildCmd.args]);
 
-  const handleUpdateBuildCmd = (values: string[]): void => {
+  const runArgs = useMemo((): string[] => (
+    getSelectedKeys(runCmd.args)
+  ), [runCmd.args]);
+
+  const onBuildCmdChange = useCallback((values: string[]): void => {
     formActionCreator.updateFormBuildCmd(dispatchForm, values);
-  };
+  }, []);
 
-  const handleUpdateRunCmd = (values: string[]): void => {
+  const onRunCmdChange = useCallback((values: string[]): void => {
     formActionCreator.updateFormRunCmd(dispatchForm, values);
-  };
+  }, []);
 
-  const subtitle = (args: Arg[], keysLength: number) => (
+  const getSubtitle = useCallback((args: Arg[], keysLength: number) => (
     <span>
       {keysLength === args.length
         ? 'All items selected'
         : `${keysLength} of ${args.length} selected`}
     </span>
-  );
+  ), [buildCmd, runCmd, buildArgs, runArgs]);
 
   return (
     <Accordion isCompact className="m-0 p-0" fullWidth variant="splitted">
@@ -48,11 +55,11 @@ export default function DefaultMode({ buildCmd, runCmd, dispatchForm }: DefaultM
         className="mt-2"
         aria-label="Create workflow"
         title="Create workflow"
-        subtitle={subtitle(buildCmd.args, buildKeys.length)}
+        subtitle={getSubtitle(buildCmd.args, buildArgs.length)}
       >
         <CheckboxGroup
-          onValueChange={handleUpdateBuildCmd}
-          value={buildKeys}
+          onValueChange={onBuildCmdChange}
+          value={buildArgs}
           color="primary"
           aria-label="Select arguments"
         >
@@ -74,11 +81,11 @@ export default function DefaultMode({ buildCmd, runCmd, dispatchForm }: DefaultM
         aria-label="Run workflow"
         title="Run workflow"
         className="mt-2"
-        subtitle={subtitle(runCmd.args, runKeys.length)}
+        subtitle={getSubtitle(runCmd.args, runArgs.length)}
       >
         <CheckboxGroup
-          onValueChange={handleUpdateRunCmd}
-          value={runKeys}
+          onValueChange={onRunCmdChange}
+          value={runArgs}
           color="primary"
           aria-label="Select arguments"
         >

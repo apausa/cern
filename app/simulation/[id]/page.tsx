@@ -17,8 +17,7 @@ import INITIAL_FORM from '@/(private)/_lib/constants/formConstants';
 export default function SimulationPage({ params: { id } }: any) {
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
   useEffect(() => { simulationActionCreators.readAllSimulations(dispatchSimulation); }, []);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
+  const [, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);

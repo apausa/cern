@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Textarea } from '@nextui-org/react';
-
-// Types
-import { AdvancedModeProps } from '@/(private)/_types/components/formTypes';
 
 // Actions
 import formActionCreators from '@/(private)/_lib/actions/formActions';
+import getScript from '@/(private)/_utils/getScript';
 
-export default function AdvancedMode({ script, dispatchForm }: AdvancedModeProps) {
-  const handleChange = ({ target: { value } }: any): void => {
+export default function AdvancedMode(
+  { form: { buildCmd, runCmd, script }, dispatchForm }: any,
+) {
+  useEffect((): void => {
+    formActionCreators.updateFormScript(dispatchForm, getScript(buildCmd, runCmd));
+  }, [buildCmd, runCmd]);
+
+  const onChange = useCallback(({ target: { value } }: any): void => {
     formActionCreators.updateFormScript(dispatchForm, value);
-  };
+  }, []);
 
   return (
     <Textarea
@@ -19,7 +23,7 @@ export default function AdvancedMode({ script, dispatchForm }: AdvancedModeProps
       className="mt-2"
       label="Write command"
       value={script}
-      onChange={handleChange}
+      onChange={onChange}
     />
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useReducer } from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
 
 // Reducers
 import { Button } from '@nextui-org/react';
@@ -21,18 +21,21 @@ import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
 import { UseReducer } from '@/(private)/_types/components/simulationTypes';
 
 export default function BuildPage() {
-  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [simulation, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
+  const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
+  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
 
-  const onStage = (): void => {
+  const onStage = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
     simulationActionCreators.createSimulation(dispatchSimulation, form);
-  };
+    // @develop, redirect to /
+  }, [form]);
 
-  const onReset = (): void => {
+  const onReset = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
-  };
+  }, []);
+
+  useEffect(() => { simulationActionCreators.readAllSimulations(dispatchSimulation); }, []);
 
   return (
     <>
@@ -59,6 +62,5 @@ export default function BuildPage() {
         </Button>
       </footer>
     </>
-
   );
 }

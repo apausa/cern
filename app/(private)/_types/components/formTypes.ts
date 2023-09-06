@@ -120,8 +120,7 @@ export type FormProps = {
   dispatchForm: Dispatch<FormAction>
 };
 export type DefaultModeProps = {
-  buildCmd: BuildCmd,
-  runCmd: RunCmd
+  form: Form
   dispatchForm: Dispatch<FormAction>
 };
 export type AdvancedModeProps = {

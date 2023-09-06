@@ -12,7 +12,7 @@ import formActionCreator from '@/(private)/_lib/actions/formActions';
 export default function SelectInput({ arg, dispatchForm }: StringInputProps) {
   const selectedKeys = useMemo(() => new Set([arg.value]), [arg.value]);
   const handleOnSelectionChange = (keys: Selection): any => {
-    // @develop
+    // @develop, update values
     formActionCreator.updateFormCmdObjVal(dispatchForm, Array.from(keys)[0], arg.name);
   };
 

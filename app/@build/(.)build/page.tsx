@@ -4,7 +4,7 @@ import {
   Button,
   Modal, ModalBody, ModalContent, ModalFooter, ModalHeader,
 } from '@nextui-org/react';
-import React, { useCallback, useReducer } from 'react';
+import React, { useCallback, useEffect, useReducer } from 'react';
 
 // Components
 import Link from 'next/link';
@@ -25,24 +25,27 @@ import formActionCreators from '@/(private)/_lib/actions/formActions';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
 
 export default function BuildModal() {
-  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
+  const router = useRouter();
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  const router = useRouter();
+  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
 
   const onClose = useCallback(() => {
     router.back();
   }, [router]);
 
-  const onStage = (): void => {
+  const onStage = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
     simulationActionCreators.createSimulation(dispatchSimulation, form);
-    onClose();
-  };
+    router.back();
+  }, [form, router]);
 
-  const onReset = (): void => {
+  const onReset = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
-  };
+  }, []);
+
+  useEffect(() => { simulationActionCreators.readAllSimulations(dispatchSimulation); }, []);
 
   return (
     <Modal
