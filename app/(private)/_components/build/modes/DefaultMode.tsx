@@ -49,10 +49,9 @@ export default function DefaultMode(
   ), [buildCmd, runCmd, buildArgs, runArgs]);
 
   return (
-    <Accordion isCompact className="m-0 p-0" fullWidth variant="splitted">
+    <Accordion isCompact fullWidth variant="shadow">
       <AccordionItem
         key="1"
-        className="mt-2"
         aria-label="Create workflow"
         title="Create workflow"
         subtitle={getSubtitle(buildCmd.args, buildArgs.length)}
@@ -64,7 +63,7 @@ export default function DefaultMode(
           aria-label="Select arguments"
         >
           {buildCmd.args.map((arg: Arg) => (
-            <div key={arg.name} className="flex pb-2 flex-row data-[selected=true]:bg-content1 justify-between rounded-lg hover:bg-content1 items-center">
+            <div key={arg.name} className="flex pb-2 flex-row justify-between rounded-lg items-center">
               <Checkbox className="basis-1/2 truncate" value={arg.name} isDisabled={arg.disabled}>
                 {arg.name}
               </Checkbox>
@@ -80,7 +79,6 @@ export default function DefaultMode(
         key="2"
         aria-label="Run workflow"
         title="Run workflow"
-        className="mt-2"
         subtitle={getSubtitle(runCmd.args, runArgs.length)}
       >
         <CheckboxGroup
@@ -90,7 +88,7 @@ export default function DefaultMode(
           aria-label="Select arguments"
         >
           {runCmd.args.map((arg: Arg) => (
-            <div key={arg.name} className="flex pb-2 flex-row data-[selected=true]:bg-content1 justify-between rounded-lg hover:bg-content1 items-center">
+            <div key={arg.name} className="flex pb-2 flex-row justify-between rounded-lg items-center">
               <Checkbox className="basis-1/2 truncate" value={arg.name} isDisabled={arg.disabled}>
                 {arg.name}
               </Checkbox>

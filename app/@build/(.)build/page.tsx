@@ -71,7 +71,7 @@ export default function BuildModal() {
         <ModalHeader className="border-b border-b-neutral-800">
           <div className="pt-2">Job configuration</div>
         </ModalHeader>
-        <ModalBody className="pt-4">
+        <ModalBody className="mb-2">
           <Form form={form} dispatchForm={dispatchForm} />
         </ModalBody>
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">

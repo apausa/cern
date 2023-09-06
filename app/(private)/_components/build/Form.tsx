@@ -32,7 +32,7 @@ export default function Form({ form, dispatchForm }: FormProps) {
   return (
     <form>
       <Input
-        className="pb-2"
+        className="m-0 py-2"
         type="text"
         label="Write title"
         variant="faded"
@@ -41,7 +41,7 @@ export default function Form({ form, dispatchForm }: FormProps) {
         onValueChange={onTitleChange}
       />
       <Input
-        className="py-2"
+        className="m-0 py-2"
         label="Select version"
         type="date"
         min="2021-09-22"
@@ -53,14 +53,14 @@ export default function Form({ form, dispatchForm }: FormProps) {
       />
       <Tabs
         aria-label="Select mode"
-        className="pt-2 m-0 flex flex-col"
+        className="m-0 py-2 flex flex-col"
         selectedKey={form.advanced ? 'advanced' : 'default'}
         onSelectionChange={onSelectionChange}
       >
-        <Tab key="default" title="Default mode" className="flex flex-col">
+        <Tab key="default" title="Default mode" className="px-0 py-2 flex flex-col">
           <DefaultMode form={form} dispatchForm={dispatchForm} />
         </Tab>
-        <Tab key="advanced" title="Advanced mode" className="flex flex-col">
+        <Tab key="advanced" title="Advanced mode" className="px-0 py-2 flex flex-col">
           <AdvancedMode form={form} dispatchForm={dispatchForm} />
         </Tab>
       </Tabs>

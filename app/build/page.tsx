@@ -45,7 +45,7 @@ export default function BuildPage() {
           Stage
         </Button>
       </header>
-      <main className="p-4">
+      <main className="px-4 pb-4 pt-2">
         <Form form={form} dispatchForm={dispatchForm} />
       </main>
       <footer className="p-4 border-t border-t-neutral-800">

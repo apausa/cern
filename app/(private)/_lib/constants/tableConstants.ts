@@ -29,7 +29,7 @@ export const ALL_COLUMNS: Column[] = [
 ];
 
 export const INITIAL_TABLE: Table = {
-  selectedKey: new Set(['']),
+  selectedKey: '',
   filter: { query: '', status: 'all' },
   page: { rows: 12, current: 1 },
   sortDescriptor: { column: 'date', direction: 'descending' },

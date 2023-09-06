@@ -20,7 +20,6 @@ export default function AdvancedMode(
     <Textarea
       variant="faded"
       color="default"
-      className="mt-2"
       label="Write command"
       value={script}
       onChange={onChange}
