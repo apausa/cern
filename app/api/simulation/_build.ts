@@ -8,6 +8,7 @@ import { GridScript, Simulation, TestScript } from '@/(private)/_types/component
 
 // Utils
 import { getSelectedVersion } from '@/(private)/_utils/getDate';
+import getScript from '@/(private)/_utils/getScript';
 
 const getTestScriptBody = (version: string, o2CmdStr: string): string => ([
   `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`, o2CmdStr,
@@ -20,6 +21,7 @@ const getGridScriptBody = (version: string, o2CmdStr: string): string => ([
 export const createSimulation = async (form: Form): Promise<Simulation> => {
   const version: string = getSelectedVersion(form.version);
   const id: string = uuidv4();
+  const script: string = (form.advanced) ? form.script : getScript(form.buildCmd, form.runCmd);
   const segment: string = path.join(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   await fs.mkdir(segment);
@@ -28,17 +30,17 @@ export const createSimulation = async (form: Form): Promise<Simulation> => {
   return {
     id,
     date: new Date(),
-    form: { ...form, title: form.title || id },
+    form: { ...form, script, title: form.title || id },
     testScript: {
       scriptPath: path.join(segment, 'test.sh'),
-      scriptBody: getTestScriptBody(version, form.script),
+      scriptBody: getTestScriptBody(version, script),
       scriptStatus: null,
       rejectedOutput: null,
       fulfilledOutput: null,
     },
     gridScript: {
       scriptPath: path.join(segment, 'grid.sh'),
-      scriptBody: getGridScriptBody(version, form.script),
+      scriptBody: getGridScriptBody(version, script),
       scriptStatus: null,
       rejectedOutput: null,
       fulfilledOutput: {

@@ -21,13 +21,13 @@ export default function Details({
         variant="bordered"
         color="default"
         label="Written title"
-        value={selectedSimulation?.form?.title}
+        value={selectedSimulation.form.title}
       />
       <ReadOnlyInput
         variant="bordered"
         color="default"
         label="Selected version"
-        value={getSelectedVersion(selectedSimulation?.form?.version)}
+        value={getSelectedVersion(selectedSimulation.form.version)}
       />
       <Tabs aria-label="Select environment" className="pt-2 flex flex-col">
         <Tab key="local" title="Local script" className="flex flex-col">

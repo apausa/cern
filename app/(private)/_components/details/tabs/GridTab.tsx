@@ -1,7 +1,7 @@
 import {
   Accordion, AccordionItem, Button,
 } from '@nextui-org/react';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 // Components
 import ReadOnlyInput from '../details/ReadOnlyInput';
@@ -16,23 +16,23 @@ import { getStatusColor, getStatusName } from '@/(private)/_utils/getStatus';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
 
 // Types
-import { GridTabProps } from '@/(private)/_types/components/simulationTypes';
+import { GridTabProps, Simulation } from '@/(private)/_types/components/simulationTypes';
 
 export default function GridTab({ dispatchSimulation, selectedSimulation }: GridTabProps) {
   const {
     gridScript: {
       scriptBody, scriptPath, scriptStatus, rejectedOutput, fulfilledOutput,
     },
-  } = selectedSimulation;
+  }: Simulation = selectedSimulation;
 
-  const handleUpdateSimulationGridStatus = (): void => {
+  const handleUpdateSimulationGridStatus = useCallback((): void => {
     simulationActionCreators.updateSimulationGridStatus(dispatchSimulation, selectedSimulation, 'FULFILLED');
-  };
+  }, [dispatchSimulation, selectedSimulation]);
 
-  const handleUpdateSimulationInGrid = (): void => {
+  const handleUpdateSimulationInGrid = useCallback((): void => {
     simulationActionCreators.updateSimulationGridStatus(dispatchSimulation, selectedSimulation, 'PENDING');
     simulationActionCreators.executeSimulationInGrid(dispatchSimulation, selectedSimulation);
-  };
+  }, [dispatchSimulation, selectedSimulation]);
 
   return (
     <>

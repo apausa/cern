@@ -16,6 +16,8 @@ export default function SelectInput({ arg, dispatchForm }: StringInputProps) {
     formActionCreator.updateFormCmdObjVal(dispatchForm, Array.from(keys)[0], arg.name);
   };
 
+  // @develop, make it work
+
   return (
     arg.input.options ? (
       <Select

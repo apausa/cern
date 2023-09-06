@@ -1,5 +1,5 @@
 import { Accordion, AccordionItem, Button } from '@nextui-org/react';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 // Components
 import ReadOnlyInput from '../details/ReadOnlyInput';
@@ -13,23 +13,23 @@ import { getStatusColor, getStatusName } from '@/(private)/_utils/getStatus';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
 
 // Types
-import { TestTabProps } from '@/(private)/_types/components/simulationTypes';
+import { Simulation, TestTabProps } from '@/(private)/_types/components/simulationTypes';
 
 export default function TestTab({ dispatchSimulation, selectedSimulation }: TestTabProps) {
   const {
     testScript: {
       scriptBody, scriptPath, scriptStatus, rejectedOutput,
     },
-  } = selectedSimulation;
+  }: Simulation = selectedSimulation;
 
-  const handleUpdateSimulationTestStatus = (): void => {
+  const handleUpdateSimulationTestStatus = useCallback((): void => {
     simulationActionCreators.updateSimulationTestStatus(dispatchSimulation, selectedSimulation, 'FULFILLED');
-  };
+  }, [dispatchSimulation, selectedSimulation]);
 
-  const handleUpdateSimulationInTest = (): void => {
+  const handleUpdateSimulationInTest = useCallback((): void => {
     simulationActionCreators.updateSimulationTestStatus(dispatchSimulation, selectedSimulation, 'PENDING');
     simulationActionCreators.executeSimulationInTest(dispatchSimulation, selectedSimulation);
-  };
+  }, [dispatchSimulation, selectedSimulation]);
 
   return (
     <>

@@ -2,12 +2,14 @@
 
 import {
   Button,
+  Link,
   Modal, ModalBody, ModalContent, ModalFooter, ModalHeader,
 } from '@nextui-org/react';
-import React, { useCallback, useEffect, useReducer } from 'react';
+import React, {
+  useCallback, useEffect, useReducer,
+} from 'react';
 
 // Components
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Form from '@/(private)/_components/build/Form';
 
@@ -25,34 +27,35 @@ import formActionCreators from '@/(private)/_lib/actions/formActions';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
 
 export default function BuildModal() {
+  const [, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
+  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
   const router = useRouter();
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
-
-  const onClose = useCallback(() => {
-    router.back();
+  const handleClose = useCallback((): void => {
+    router.push('/');
   }, [router]);
 
-  const onStage = useCallback((): void => {
-    formActionCreators.createForm(dispatchForm, INITIAL_FORM);
-    simulationActionCreators.createSimulation(dispatchSimulation, form);
-    router.back();
-  }, [form, router]);
+  const onStage = useCallback(async (): Promise<void> => {
+    await simulationActionCreators.createSimulation(dispatchSimulation, form);
+  }, [form]);
 
   const onReset = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
   }, []);
 
-  useEffect(() => { simulationActionCreators.readAllSimulations(dispatchSimulation); }, []);
+  useEffect((): void => {
+    simulationActionCreators.readAllSimulations(dispatchSimulation);
+  }, []);
+
+  // @develop, form does not after beign closed for the first time
+  // @develop, save form in local storage
 
   return (
     <Modal
       defaultOpen
       size="xl"
       scrollBehavior="inside"
-      onClose={onClose}
+      onClose={handleClose}
       backdrop="opaque"
     >
       <ModalContent>
@@ -65,7 +68,6 @@ export default function BuildModal() {
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
           <Button
             onClick={onReset}
-            variant="light"
           >
             Reset
           </Button>

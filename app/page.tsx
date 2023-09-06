@@ -27,10 +27,3 @@ export default function Dashboard() {
     </>
   );
 }
-
-/* @develop
-- useCallback in functions
-- form configuration dissappears when reloading the page (changing between routes...)
-- fix numberINput
-- fix stringInput
--  */

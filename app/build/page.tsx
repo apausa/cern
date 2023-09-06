@@ -21,21 +21,20 @@ import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
 import { UseReducer } from '@/(private)/_types/components/simulationTypes';
 
 export default function BuildPage() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
+  const [, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
   const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
 
-  const onStage = useCallback((): void => {
-    formActionCreators.createForm(dispatchForm, INITIAL_FORM);
-    simulationActionCreators.createSimulation(dispatchSimulation, form);
-    // @develop, redirect to /
+  const onStage = useCallback(async (): Promise<void> => {
+    await simulationActionCreators.createSimulation(dispatchSimulation, form);
   }, [form]);
 
   const onReset = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
   }, []);
 
-  useEffect(() => { simulationActionCreators.readAllSimulations(dispatchSimulation); }, []);
+  useEffect(() => {
+    simulationActionCreators.readAllSimulations(dispatchSimulation);
+  }, []);
 
   return (
     <>
@@ -56,7 +55,6 @@ export default function BuildPage() {
       <footer className="p-4 border-t border-t-neutral-800">
         <Button
           onClick={onReset}
-          variant="light"
         >
           Reset
         </Button>

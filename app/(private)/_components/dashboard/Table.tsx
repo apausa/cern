@@ -7,6 +7,7 @@ import {
 
 // Components
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import CellContent from './content/CellContent';
 import TopContent from './content/TopContent';
 import BottomContent from './content/BottomContent';
@@ -26,6 +27,7 @@ import tableActionCreators from '@/(private)/_lib/actions/tableActions';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
 
 export default function TableComponent({ table, dispatchTable }: any) {
+  const pathname: string = usePathname();
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
 
   const allPagesItems = useMemo((): Simulation[] => (
@@ -44,9 +46,9 @@ export default function TableComponent({ table, dispatchTable }: any) {
     tableActionCreators.updateSelectedKey(dispatchTable, keys);
   }, []);
 
-  useEffect(() => { simulationActionCreators.readAllSimulations(dispatchSimulation); }, []);
-
-  // @develop, loader while simulations fetch
+  useEffect(() => {
+    simulationActionCreators.readAllSimulations(dispatchSimulation);
+  }, [pathname]);
 
   return (
     <Table

@@ -1,10 +1,11 @@
 'use client';
 
 import { Button } from '@nextui-org/react';
-import Link from 'next/link';
 import React, {
+  useCallback,
   useEffect, useMemo, useReducer,
 } from 'react';
+import Link from 'next/link';
 import formActionCreator from '@/(private)/_lib/actions/formActions';
 import Details from '@/(private)/_components/details/Details';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
@@ -16,34 +17,45 @@ import INITIAL_FORM from '@/(private)/_lib/constants/formConstants';
 
 export default function SimulationPage({ params: { id } }: any) {
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  useEffect(() => { simulationActionCreators.readAllSimulations(dispatchSimulation); }, []);
   const [, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
+
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
 
-  const onRecreate = (): void => {
-    formActionCreator.createForm(dispatchForm, selectedSimulation!.form);
-  };
+  const onClick = useCallback((): void => {
+    if (selectedSimulation) {
+      formActionCreator.createForm(dispatchForm, selectedSimulation.form);
+    }
+  }, [selectedSimulation?.form]);
 
-  if (selectedSimulation === undefined) return <div>Loading</div>;
+  useEffect(() => {
+    simulationActionCreators.readAllSimulations(dispatchSimulation);
+  }, []);
+
+  // @develop, diferentiate between loading and not found
+
   return (
     <>
       <header className="p-4 border-b border-b-neutral-800">
         <div className="pt-2">Job details</div>
       </header>
       <main className="p-4">
-        <Details
-          selectedSimulation={selectedSimulation}
-          dispatchSimulation={dispatchSimulation}
-        />
+        {selectedSimulation
+          ? (
+            <Details
+              selectedSimulation={selectedSimulation}
+              dispatchSimulation={dispatchSimulation}
+            />
+          )
+          : <div>Not found</div>}
       </main>
       <footer className="p-4 border-t border-t-neutral-800">
         <Button
           href="/build"
           as={Link}
-          onClick={onRecreate}
-          variant="light"
+          isDisabled={!selectedSimulation}
+          onClick={onClick}
         >
           Recreate
         </Button>

@@ -4,11 +4,11 @@ import {
   Button,
   Modal, ModalBody, ModalContent, ModalFooter, ModalHeader,
 } from '@nextui-org/react';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, {
   useCallback, useEffect, useMemo, useReducer,
 } from 'react';
+import Link from 'next/link';
 import formActionCreator from '@/(private)/_lib/actions/formActions';
 import Details from '@/(private)/_components/details/Details';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
@@ -22,19 +22,27 @@ export default function SimulationModal({ params: { id } }: any) {
   const router = useRouter();
 
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  useEffect(() => { simulationActionCreators.readAllSimulations(dispatchSimulation); }, []);
   const [, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
 
-  const onClose = useCallback(() => {
-    router.back();
+  const onClose = useCallback((): void => {
+    router.push('/');
   }, [router]);
 
-  const onRecreate = (): void => {
-    formActionCreator.createForm(dispatchForm, selectedSimulation!.form);
-  };
+  const onClick = useCallback((): void => {
+    if (selectedSimulation) {
+      formActionCreator.createForm(dispatchForm, selectedSimulation.form);
+    }
+  }, [selectedSimulation?.form]);
+
+  useEffect(() => {
+    simulationActionCreators.readAllSimulations(dispatchSimulation);
+  }, []);
+
+  // @develop, diferentiate between loading and not found
+  // @develop, form does not after beign closed for the first time
 
   return (
     <Modal
@@ -49,14 +57,14 @@ export default function SimulationModal({ params: { id } }: any) {
           <div className="pt-2">Job details</div>
         </ModalHeader>
         <ModalBody className="pt-4">
-          {(selectedSimulation === undefined)
-            ? (<div>Loading</div>)
-            : (
+          {(selectedSimulation)
+            ? (
               <Details
                 selectedSimulation={selectedSimulation}
                 dispatchSimulation={dispatchSimulation}
               />
-            )}
+            )
+            : (<div>Not found</div>)}
         </ModalBody>
         <ModalFooter className="border-t border-t-neutral-800">
           {(selectedSimulation === undefined)
@@ -65,7 +73,7 @@ export default function SimulationModal({ params: { id } }: any) {
               <Button
                 href="/build"
                 as={Link}
-                onClick={onRecreate}
+                onClick={onClick}
                 variant="light"
               >
                 Recreate

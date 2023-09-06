@@ -13,6 +13,8 @@ export default function NumberInput({ arg, dispatchForm }: NumberInputProps) {
     formActionCreator.updateFormCmdObjVal(dispatchForm, value, arg.name);
   };
 
+  // @develop, make it work
+
   return (
     <Input
       type="number"
