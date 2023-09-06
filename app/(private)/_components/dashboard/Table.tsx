@@ -1,4 +1,6 @@
-import React, { useMemo, useEffect, useReducer } from 'react';
+import React, {
+  useMemo, useEffect, useReducer, useCallback,
+} from 'react';
 import {
   Table, TableHeader, TableRow, TableCell, TableBody, TableColumn, SortDescriptor, Selection,
 } from '@nextui-org/react';
@@ -25,25 +27,26 @@ import simulationActionCreators from '@/(private)/_lib/actions/simulationActions
 
 export default function TableComponent({ table, dispatchTable }: any) {
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
+
+  const allPagesItems = useMemo((): Simulation[] => (
+    filterSimulation(simulations, table.filter)
+  ), [simulations, table.filter]);
+
+  const currentPageItems = useMemo((): Simulation[] => (
+    getPageItems(allPagesItems, table.page)
+  ), [allPagesItems, table.page]);
+
+  const onSortChange = useCallback((sortDescriptor: SortDescriptor) => {
+    tableActionCreators.updateSortDescriptor(dispatchTable, sortDescriptor);
+  }, []);
+
+  const onSelectionChange = useCallback((keys: Selection) => {
+    tableActionCreators.updateSelectedKey(dispatchTable, keys);
+  }, []);
+
   useEffect(() => { simulationActionCreators.readAllSimulations(dispatchSimulation); }, []);
 
-  const filteredSimulations: Simulation[] = useMemo(
-    () => filterSimulation(simulations, table.filter),
-    [simulations, table.filter],
-  );
-
-  const pageItems: Simulation[] = useMemo(
-    () => getPageItems(filteredSimulations, table.page),
-    [filteredSimulations, table.page],
-  );
-
-  const onSortChange = (sortDescriptor: SortDescriptor) => {
-    tableActionCreators.updateSortDescriptor(dispatchTable, sortDescriptor);
-  };
-
-  const onSelectionChange = (keys: Selection) => {
-    tableActionCreators.updateSelectedKey(dispatchTable, keys);
-  };
+  // @develop, loader while simulations fetch
 
   return (
     <Table
@@ -61,14 +64,14 @@ export default function TableComponent({ table, dispatchTable }: any) {
         <BottomContent
           table={table}
           dispatchTable={dispatchTable}
-          filteredSimulations={filteredSimulations}
+          allPagesItems={allPagesItems}
         />
         )}
       topContent={(
         <TopContent
           table={table}
           dispatchTable={dispatchTable}
-          filteredSimulations={filteredSimulations}
+          allPagesItems={allPagesItems}
         />
           )}
     >
@@ -77,7 +80,7 @@ export default function TableComponent({ table, dispatchTable }: any) {
           <TableColumn key={key} allowsSorting={allowSorting}>{key}</TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent="No jobs to display" items={pageItems}>
+      <TableBody emptyContent="No jobs to display" items={currentPageItems}>
         {(simulation: Simulation) => (
           <TableRow>
             {(column) => (

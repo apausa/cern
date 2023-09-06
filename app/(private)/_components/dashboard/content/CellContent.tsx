@@ -7,6 +7,7 @@ import { getStatusColor, getStatusName } from '@/(private)/_utils/getStatus';
 // Types
 import { CellProps } from '@/(private)/_types/components/tableTypes';
 
+// @develop, status name might not auto-update
 export default function CellContent({ simulation, column }: CellProps) {
   switch (column) {
     case 'Title': return (simulation.form.title);

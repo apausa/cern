@@ -1,5 +1,5 @@
 import { Button, Pagination } from '@nextui-org/react';
-import React, { useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 // State
 import tableActionCreators from '@/(private)/_lib/actions/tableActions';
@@ -10,27 +10,27 @@ import { BottomContentProps } from '@/(private)/_types/components/tableTypes';
 export default function BottomContent({
   table,
   dispatchTable,
-  filteredSimulations,
+  allPagesItems,
 }: BottomContentProps) {
-  const pages: number = useMemo(() => (
-    Math.ceil((filteredSimulations.length || 1) / table.page.rows)
-  ), [filteredSimulations.length, table.page.rows]);
+  const pages = useMemo((): number => (
+    Math.ceil((allPagesItems.length || 1) / table.page.rows)
+  ), [allPagesItems.length, table.page.rows]);
 
-  const onNextPage = (): void => {
+  const onNextPage = useCallback((): void => {
     if (table.page.current < pages) {
       tableActionCreators.updatePageCurrent(dispatchTable, table.page.current + 1);
     }
-  };
+  }, [pages, table.page.current]);
 
-  const onChange = (page: number): void => {
-    tableActionCreators.updatePageCurrent(dispatchTable, page);
-  };
-
-  const onPreviousPage = (): void => {
+  const onPreviousPage = useCallback((): void => {
     if (table.page.current > 1) {
       tableActionCreators.updatePageCurrent(dispatchTable, table.page.current - 1);
     }
-  };
+  }, [pages, table.page.current]);
+
+  const onChange = useCallback((page: number): void => {
+    tableActionCreators.updatePageCurrent(dispatchTable, page);
+  }, []);
 
   return (
     <div className="flex pb-2 justify-between items-center">

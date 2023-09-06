@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 // State
 import tableActionCreators from '@/(private)/_lib/actions/tableActions';
@@ -9,17 +9,17 @@ import { TopContentProps } from '@/(private)/_types/components/tableTypes';
 export default function TopContent({
   table,
   dispatchTable,
-  filteredSimulations,
+  allPagesItems,
 }: TopContentProps) {
-  const onChange = (event: any) => {
-    tableActionCreators.updatePageRows(dispatchTable, Number(event.target.value));
+  const onChange = useCallback(({ target: { value } }: any) => {
+    tableActionCreators.updatePageRows(dispatchTable, Number(value));
     tableActionCreators.updatePageCurrent(dispatchTable, 1);
-  };
+  }, []);
 
   return (
     <div className="flex justify-between text-small">
       <div>
-        {filteredSimulations.length}
+        {allPagesItems.length}
         {' '}
         total jobs
       </div>

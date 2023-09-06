@@ -1,7 +1,7 @@
 import {
   Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Selection,
 } from '@nextui-org/react';
-import React from 'react';
+import React, { useCallback } from 'react';
 
 // State
 import Link from 'next/link';
@@ -19,19 +19,19 @@ export default function Header({
   table,
   dispatchTable,
 }: TopContentProps) {
-  const onClear = (): void => {
+  const onClear = useCallback((): void => {
     tableActionCreators.updateFilterQuery(dispatchTable, '');
     tableActionCreators.updatePageCurrent(dispatchTable, 1);
-  };
+  }, []);
 
-  const onValueChange = (value: string) => {
-    tableActionCreators.updateFilterQuery(dispatchTable, value);
+  const onValueChange = useCallback((query: string) => {
+    tableActionCreators.updateFilterQuery(dispatchTable, query);
     tableActionCreators.updatePageCurrent(dispatchTable, 1);
-  };
+  }, []);
 
-  const onSelectionChange = (keys: Selection) => {
-    tableActionCreators.updateFilterStatus(dispatchTable, keys);
-  };
+  const onSelectionChange = useCallback((status: Selection) => {
+    tableActionCreators.updateFilterStatus(dispatchTable, status);
+  }, []);
 
   return (
     <div className="p-4 border-b border-b-neutral-800 flex justify-between gap-4">
