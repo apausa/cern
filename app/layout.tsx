@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import type { Metadata } from 'next';
 import './globals.css';
 
@@ -12,9 +12,11 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
   build,
+  simulation,
 }: {
-  children: React.ReactNode,
-  build: React.ReactNode,
+  children: ReactNode,
+  build: ReactNode,
+  simulation: ReactNode,
 }) {
   return (
     <html lang="en" className="dark">
@@ -22,6 +24,7 @@ export default function RootLayout({
         <Providers>
           <div className="flex justify-center">
             {build}
+            {simulation}
             <div className="basis-1/2 h-screen">
               {children}
             </div>

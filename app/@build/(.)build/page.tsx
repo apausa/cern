@@ -9,38 +9,40 @@ import React, { useCallback, useReducer } from 'react';
 // Components
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import Form from '@/_components/build/Form';
+import Form from '@/(private)/_components/build/Form';
 
 // Constants
-import INITIAL_FORM from '@/_lib/constants/formConstants';
+import INITIAL_FORM from '@/(private)/_lib/constants/formConstants';
 
 // Types
-import { FormUseReducer } from '@/_types/components/formTypes';
+import { FormUseReducer } from '@/(private)/_types/components/formTypes';
 
 // Reducer
-import formReducer from '@/_lib/reducers/formReducer';
-import { UseReducer } from '@/_types/components/simulationTypes';
-import simulationReducer from '@/_lib/reducers/simulationReducer';
-import formActionCreators from '@/_lib/actions/formActions';
-import simulationActionCreators from '@/_lib/actions/simulationActions';
+import formReducer from '@/(private)/_lib/reducers/formReducer';
+import { UseReducer } from '@/(private)/_types/components/simulationTypes';
+import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
+import formActionCreators from '@/(private)/_lib/actions/formActions';
+import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
 
 export default function BuildModal() {
   const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
-  const [, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
   const router = useRouter();
+
+  const onClose = useCallback(() => {
+    router.back();
+  }, [router]);
 
   const onStage = (): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
     simulationActionCreators.createSimulation(dispatchSimulation, form);
+    onClose();
   };
 
   const onReset = (): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
   };
-
-  const onClose = useCallback(() => {
-    router.back();
-  }, [router]);
 
   return (
     <Modal
@@ -48,10 +50,11 @@ export default function BuildModal() {
       size="xl"
       scrollBehavior="inside"
       onClose={onClose}
+      backdrop="opaque"
     >
       <ModalContent>
         <ModalHeader className="border-b border-b-neutral-800">
-          <div className="py-1">Job configuration</div>
+          <div className="pt-2">Job configuration</div>
         </ModalHeader>
         <ModalBody className="pt-4">
           <Form form={form} dispatchForm={dispatchForm} />

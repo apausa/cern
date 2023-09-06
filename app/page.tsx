@@ -3,17 +3,17 @@
 import React, { useReducer } from 'react';
 
 // Components
-import Table from '@/_components/dashboard/Table';
-import DashboardHeader from './_components/dashboard/DashboardHeader';
+import Table from '@/(private)/_components/dashboard/Table';
+import DashboardHeader from './(private)/_components/dashboard/DashboardHeader';
 
 // Constants
-import { INITIAL_TABLE } from '@/_lib/constants/tableConstants';
+import { INITIAL_TABLE } from '@/(private)/_lib/constants/tableConstants';
 
 // Types
-import { TableUseReducer } from './_types/components/tableTypes';
+import { TableUseReducer } from './(private)/_types/components/tableTypes';
 
 // Reducers
-import tableReducer from './_lib/reducers/tableReducer';
+import tableReducer from './(private)/_lib/reducers/tableReducer';
 
 export default function Dashboard() {
   const [table, dispatchTable]: TableUseReducer = useReducer(tableReducer, INITIAL_TABLE);
@@ -32,23 +32,3 @@ export default function Dashboard() {
 - useCallback in functions
 - form configuration dissappears when reloading the page (changing between routes...)
 -  */
-
-// const selectedSimulation: Simulation | null = useMemo(() => ((!table.selectedKey.has(''))
-//   ? simulations.find(
-//     (simulation: Simulation): boolean => (table.selectedKey.has(simulation.id)),
-//   ) || null
-//   : null), [table.selectedKey, simulations]);
-
-/* <div className="invisible basis-0 lg:visible lg:basis-1/3 2xl
-basis-1/4 h-screen overflow-x-hidden overflow-y-auto">
-{
-  <Details
-    selectedSimulation={selectedSimulation}
-    dispatchForm={dispatchForm}
-    dispatchSimulation={dispatchSimulation}
-    dispatchTable={dispatchTable}
-  />
-) : (
-
-)}
-</div> */

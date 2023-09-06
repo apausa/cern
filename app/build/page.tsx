@@ -5,25 +5,25 @@ import React, { useReducer } from 'react';
 // Reducers
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
-import formReducer from '@/_lib/reducers/formReducer';
+import formReducer from '@/(private)/_lib/reducers/formReducer';
 
 // Types
-import { FormUseReducer } from '@/_types/components/formTypes';
+import { FormUseReducer } from '@/(private)/_types/components/formTypes';
 
 // Constants
-import INITIAL_FORM from '@/_lib/constants/formConstants';
+import INITIAL_FORM from '@/(private)/_lib/constants/formConstants';
 
 // Components
-import Form from '@/_components/build/Form';
-import simulationActionCreators from '@/_lib/actions/simulationActions';
-import formActionCreators from '@/_lib/actions/formActions';
-import simulationReducer from '@/_lib/reducers/simulationReducer';
-import { UseReducer } from '@/_types/components/simulationTypes';
+import Form from '@/(private)/_components/build/Form';
+import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
+import formActionCreators from '@/(private)/_lib/actions/formActions';
+import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
+import { UseReducer } from '@/(private)/_types/components/simulationTypes';
 
 export default function BuildPage() {
   const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
-
-  const [, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [simulation, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
 
   const onStage = (): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
@@ -36,7 +36,7 @@ export default function BuildPage() {
 
   return (
     <>
-      <header className="p-4 border-b border-b-neutral-800 flex justify-between gap-4">
+      <header className="p-4 border-b border-b-neutral-800 flex justify-between">
         <div className="pt-2">Job configuration</div>
         <Button
           href="/"
