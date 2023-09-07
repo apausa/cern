@@ -2,12 +2,12 @@ import React, {
   useMemo, useEffect, useReducer, useCallback,
 } from 'react';
 import {
-  Table, TableHeader, TableRow, TableCell, TableBody, TableColumn, SortDescriptor, Selection,
+  Table, TableHeader, TableRow, TableCell, TableBody, TableColumn, SortDescriptor,
 } from '@nextui-org/react';
 
 // Components
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import CellContent from './content/CellContent';
 import TopContent from './content/TopContent';
 import BottomContent from './content/BottomContent';
@@ -42,7 +42,7 @@ export default function TableComponent({ table, dispatchTable }: any) {
     tableActionCreators.updateSortDescriptor(dispatchTable, sortDescriptor);
   }, []);
 
-  const onSelectionChange = useCallback((keys: Selection) => {
+  const onSelectionChange = useCallback((keys: any) => {
     tableActionCreators.updateSelectedKey(dispatchTable, keys);
   }, []);
 
@@ -87,7 +87,11 @@ export default function TableComponent({ table, dispatchTable }: any) {
           <TableRow>
             {(column) => (
               <TableCell key={`${simulation.id} ${column}`}>
-                <Link key={simulation.id} href={`/simulation/${simulation.id}`}>
+                <Link
+                  as={`/simulation/${simulation.id}`}
+                  key={simulation.id}
+                  href={`/simulation/${simulation.id}`}
+                >
                   <CellContent simulation={simulation} column={column} />
                 </Link>
               </TableCell>

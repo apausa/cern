@@ -1,7 +1,7 @@
-import { Link } from '@nextui-org/react';
 import React from 'react';
 
 // Types
+import Link from 'next/link';
 import { FulfilledOutputProps } from '@/(private)/_types/components/simulationTypes';
 
 export default function FulfilledOutput({ fulfilledOutput }: FulfilledOutputProps) {
@@ -16,9 +16,8 @@ export default function FulfilledOutput({ fulfilledOutput }: FulfilledOutputProp
         <p className="text-bold">
           {fulfilledOutput?.gridUrl ? (
             <Link
+              as={fulfilledOutput?.gridUrl}
               href={fulfilledOutput?.gridUrl}
-              isExternal
-              showAnchorIcon
             >
               {fulfilledOutput?.gridUrl}
             </Link>

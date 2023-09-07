@@ -19,7 +19,7 @@ export default function SimulationPage({ params: { id } }: any) {
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
 
-  const onRecreate = useCallback((): void => {}, []); // @develop
+  const onRecreate = useCallback((): void => {}, []);
   const onDelete = useCallback((): void => {}, []); // @develop
 
   useEffect(() => {
@@ -37,7 +37,7 @@ export default function SimulationPage({ params: { id } }: any) {
       <header className="p-4 border-b border-b-neutral-800">
         <div className="pt-2">Job details</div>
       </header>
-      <main className="p-4">
+      <main className="px-4 pb-4 pt-2">
         {(loading)
           ? (<Spinner />)
           : (
@@ -53,16 +53,16 @@ export default function SimulationPage({ params: { id } }: any) {
           : (
             <>
               <Button
-                onClick={onRecreate}
-              >
-                Recreate
-              </Button>
-              <Button
                 onClick={onDelete}
                 variant="light"
                 color="danger"
               >
                 Delete
+              </Button>
+              <Button
+                onClick={onRecreate}
+              >
+                Recreate
               </Button>
             </>
           )}

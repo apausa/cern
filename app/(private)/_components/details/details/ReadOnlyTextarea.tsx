@@ -9,7 +9,7 @@ export default function ReadOnlyTextarea({
 }: ReadOnlyTextArea) {
   return (
     <Textarea
-      className="py-2"
+      className="pb-2"
       isReadOnly
       variant={variant}
       color={color}

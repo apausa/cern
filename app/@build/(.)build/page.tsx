@@ -43,6 +43,7 @@ export default function BuildModal() {
 
   const onStage = useCallback(async (): Promise<void> => {
     await simulationActionCreators.createSimulation(dispatchSimulation, form);
+    formActionCreators.createForm(dispatchForm, INITIAL_FORM);
     handleClose();
   }, [form]);
 
@@ -71,10 +72,10 @@ export default function BuildModal() {
         <ModalHeader className="border-b border-b-neutral-800">
           <div className="pt-2">Job configuration</div>
         </ModalHeader>
-        <ModalBody className="mb-2">
+        <ModalBody>
           <Form form={form} dispatchForm={dispatchForm} />
         </ModalBody>
-        <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
+        <ModalFooter className="mt-2 border-t border-t-neutral-800 flex justify-between">
           <Button
             onClick={onReset}
           >

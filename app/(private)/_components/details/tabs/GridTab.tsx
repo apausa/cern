@@ -40,19 +40,19 @@ export default function GridTab({ dispatchSimulation, selectedSimulation }: Grid
         color="default"
         label="Content"
         value={scriptBody}
-        variant="flat"
+        variant="bordered"
       />
       <ReadOnlyInput
         color="default"
         label="Path"
         value={scriptPath}
-        variant="flat"
+        variant="bordered"
       />
       <ReadOnlyInput
         color={getStatusColor(scriptStatus)}
         label="Status"
         value={getStatusName(scriptStatus)}
-        variant="flat"
+        variant="bordered"
       />
       <Button
         className="my-2"

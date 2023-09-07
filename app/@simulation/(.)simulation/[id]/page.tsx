@@ -30,10 +30,8 @@ export default function SimulationModal({ params: { id } }: any) {
     onClose();
   }, [router]);
 
-  const onRecreate = useCallback((): void => {}, []); // @develop
+  const onRecreate = useCallback((): void => {}, []);
   const onDelete = useCallback((): void => {}, []); // @develop
-
-  // @develop, implement loading component
 
   useEffect(() => {
     if (pathName.startsWith('/simulation')) {
@@ -58,9 +56,13 @@ export default function SimulationModal({ params: { id } }: any) {
     >
       <ModalContent>
         <ModalHeader className="border-b border-b-neutral-800">
-          <div className="pt-2">Job details</div>
+          <div className="pt-2">
+            {selectedSimulation?.form.title}
+            {' '}
+            details
+          </div>
         </ModalHeader>
-        <ModalBody className="pt-4">
+        <ModalBody>
           {(loading)
             ? (<Spinner />)
             : (
