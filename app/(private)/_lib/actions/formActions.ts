@@ -1,6 +1,12 @@
-import { FormActionCreators } from '@/(private)/_types/components/formTypes';
+import { Form, FormActionCreators } from '@/(private)/_types/components/formTypes';
+import { getForm } from '@/(private)/_utils/localStorage';
 
 const formActionCreators: FormActionCreators = {
+  readForm: (dispatch) => {
+    const form: Form | null = getForm();
+
+    dispatch({ type: 'READ_FORM', form });
+  },
   createForm: (dispatch, form) => {
     dispatch({ type: 'CREATE_FORM', form });
   },

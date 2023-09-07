@@ -5,18 +5,18 @@ import {
   Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure,
 } from '@nextui-org/react';
 import React, {
-  useCallback, useReducer, useEffect,
+  useCallback, useReducer, useEffect, useState,
 } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { notFound, usePathname, useRouter } from 'next/navigation';
 
 // Components
 import Form from '@/(private)/_components/build/Form';
 
 // Constants
 import INITIAL_FORM from '@/(private)/_lib/constants/formConstants';
-import { UseReducer } from '@/(private)/_types/components/simulationTypes';
 
 // Types
+import { UseReducer } from '@/(private)/_types/components/simulationTypes';
 import { FormUseReducer } from '@/(private)/_types/components/formTypes';
 
 // Reducers
@@ -28,18 +28,21 @@ import formActionCreators from '@/(private)/_lib/actions/formActions';
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
 
 export default function BuildModal() {
+  // Next.js hooks
   const pathName: string = usePathname();
   const router = useRouter();
 
+  // Modal state hooks and functions
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const [, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
-
   const handleClose = useCallback((): void => {
-    router.push('/');
     onClose();
+    router.push('/');
   }, [router]);
+
+  // Other hooks and functions
+  const [loading, setLoading]: any = useState(true);
+  const [, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
+  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, null);
 
   const onStage = useCallback(async (): Promise<void> => {
     await simulationActionCreators.createSimulation(dispatchSimulation, form);
@@ -53,12 +56,17 @@ export default function BuildModal() {
 
   useEffect(() => {
     if (pathName === '/build') {
+      simulationActionCreators.readAllSimulations(dispatchSimulation);
+      formActionCreators.readForm(dispatchForm);
       onOpen();
     }
   }, [pathName]);
 
-  // @develop, save form in local storage
-  // @develop, implement loading component
+  useEffect(() => {
+    if (form) setLoading(false);
+  }, [form]);
+
+  if (!loading && !form) return notFound();
 
   return (
     <Modal
@@ -72,10 +80,10 @@ export default function BuildModal() {
         <ModalHeader className="border-b border-b-neutral-800">
           <div className="pt-2">Job configuration</div>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className="gap-0">
           <Form form={form} dispatchForm={dispatchForm} />
         </ModalBody>
-        <ModalFooter className="mt-2 border-t border-t-neutral-800 flex justify-between">
+        <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
           <Button
             onClick={onReset}
           >

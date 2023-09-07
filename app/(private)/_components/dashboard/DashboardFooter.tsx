@@ -33,7 +33,7 @@ export default function BottomContent({
   }, []);
 
   return (
-    <div className="flex pb-2 justify-between items-center">
+    <footer className="p-4 border-t border-t-neutral-800 flex justify-between">
       <Button
         isDisabled={table.page.current === 1}
         onPress={onPreviousPage}
@@ -54,6 +54,6 @@ export default function BottomContent({
       >
         →
       </Button>
-    </div>
+    </footer>
   );
 }

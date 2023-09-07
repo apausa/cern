@@ -5,15 +5,14 @@ const simulationActionCreators: SimulationActionCreators = {
   readAllSimulations: (dispatch) => {
     const simulations: Simulation[] | [] = getAllSimulations();
 
-    if (simulations) dispatch({ type: 'READ_ALL_SIMULATIONS', simulations });
+    dispatch({ type: 'READ_ALL_SIMULATIONS', simulations });
   },
 
   createSimulation: async (dispatch, form) => {
     const response: Response = await fetch('/api/simulation', { method: 'POST', body: JSON.stringify(form) });
     const simulation: Simulation | null = await response.json();
-    const simulations: Simulation[] | [] = getAllSimulations();
 
-    if (simulation) dispatch({ type: 'CREATE_SIMULATION', simulation, simulations });
+    if (simulation) dispatch({ type: 'CREATE_SIMULATION', simulation });
   },
 
   updateSimulationTestStatus: (dispatch, simulation, status) => {

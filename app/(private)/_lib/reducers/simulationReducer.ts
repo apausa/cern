@@ -12,7 +12,7 @@ const simulationReducer = (
       nextState = action.simulations;
       break; }
     case 'CREATE_SIMULATION': {
-      nextState = [action.simulation, ...action.simulations];
+      nextState = [action.simulation, ...currentState];
       break; }
     case 'UPDATE_SIMULATION': {
       nextState = currentState.map((simulation: Simulation): Simulation => (
@@ -24,6 +24,7 @@ const simulationReducer = (
   }
 
   setAllSimulations(nextState);
+
   return nextState;
 };
 

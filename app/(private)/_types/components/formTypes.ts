@@ -64,7 +64,8 @@ export type FormUseReducer = [Form, React.Dispatch<FormAction>];
 
 // ACTIONS
 
-export type FormAction = CreateFormAction |
+export type FormAction = ReadFormAction |
+CreateFormAction |
 UpdateFormVersionAction |
 UpdateFormTitleAction |
 UpdateFormAdvancedAction |
@@ -72,6 +73,7 @@ UpdateFormBuildCmdAction |
 UpdateFormRunCmdAction |
 UpdateFormScriptAction;
 
+export type ReadFormAction = { type: 'READ_FORM', form: Form };
 export type CreateFormAction = { type: 'CREATE_FORM', form: Form };
 export type UpdateFormVersionAction = { type: 'UPDATE_FORM_VERSION', version: string };
 export type UpdateFormTitleAction = { type: 'UPDATE_FORM_TITLE', title: string };
@@ -81,6 +83,9 @@ export type UpdateFormRunCmdAction = { type: 'UPDATE_FORM_RUN_CMD', values: stri
 export type UpdateFormScriptAction = { type: 'UPDATE_FORM_SCRIPT', script: string };
 
 export type FormActionCreators = {
+  readForm: (
+    dispatch: React.Dispatch<ReadFormAction>,
+  ) => void;
   createForm: (
     dispatch: React.Dispatch<CreateFormAction>,
     form: Form

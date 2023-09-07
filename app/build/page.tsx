@@ -1,26 +1,32 @@
 'use client';
 
-import React, { useCallback, useReducer } from 'react';
-
-// Reducers
+import React, {
+  useCallback, useEffect, useReducer, useState,
+} from 'react';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
+
+// Reducers
+import { notFound } from 'next/navigation';
 import formReducer from '@/(private)/_lib/reducers/formReducer';
+import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
 
 // Types
 import { FormUseReducer } from '@/(private)/_types/components/formTypes';
+import { UseReducer } from '@/(private)/_types/components/simulationTypes';
 
 // Constants
 import INITIAL_FORM from '@/(private)/_lib/constants/formConstants';
 
 // Components
 import Form from '@/(private)/_components/build/Form';
+
+// Actions
 import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
 import formActionCreators from '@/(private)/_lib/actions/formActions';
-import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
-import { UseReducer } from '@/(private)/_types/components/simulationTypes';
 
 export default function BuildPage() {
+  const [loading, setLoading]: any = useState(true);
   const [, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
   const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, INITIAL_FORM);
 
@@ -31,6 +37,16 @@ export default function BuildPage() {
   const onReset = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
   }, []);
+
+  useEffect(() => {
+    simulationActionCreators.readAllSimulations(dispatchSimulation);
+  }, []);
+
+  useEffect(() => {
+    if (form) setLoading(false);
+  }, [form]);
+
+  if (!loading && !form) return notFound();
 
   return (
     <>
@@ -45,7 +61,7 @@ export default function BuildPage() {
           Stage
         </Button>
       </header>
-      <main className="px-4 pb-4 pt-2">
+      <main className="px-4 py-2 mb-auto">
         <Form form={form} dispatchForm={dispatchForm} />
       </main>
       <footer className="p-4 border-t border-t-neutral-800">

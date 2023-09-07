@@ -29,20 +29,22 @@ export default function Details({
         label="Selected version"
         value={getSelectedVersion(selectedSimulation.form.version)}
       />
-      <Tabs aria-label="Select environment" className="m-0 py-2 flex flex-col">
-        <Tab key="local" title="Local script" className="px-0 py-2 flex flex-col">
-          <TestTab
-            dispatchSimulation={dispatchSimulation}
-            selectedSimulation={selectedSimulation}
-          />
-        </Tab>
-        <Tab key="wlcg" title="WLCG script" className="px-0 py-2 flex flex-col">
-          <GridTab
-            dispatchSimulation={dispatchSimulation}
-            selectedSimulation={selectedSimulation}
-          />
-        </Tab>
-      </Tabs>
+      <div className="mb-2">
+        <Tabs aria-label="Select environment" className="m-0 py-2 flex flex-col">
+          <Tab key="local" title="Local script" className="px-0 py-2 flex flex-col">
+            <TestTab
+              dispatchSimulation={dispatchSimulation}
+              selectedSimulation={selectedSimulation}
+            />
+          </Tab>
+          <Tab key="wlcg" title="WLCG script" className="px-0 py-2 flex flex-col">
+            <GridTab
+              dispatchSimulation={dispatchSimulation}
+              selectedSimulation={selectedSimulation}
+            />
+          </Tab>
+        </Tabs>
+      </div>
     </>
   );
 }

@@ -1,37 +1,55 @@
 'use client';
 
 import {
-  Button,
-  Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Spinner, useDisclosure,
+  Button, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Spinner, useDisclosure,
 } from '@nextui-org/react';
 import { usePathname, useRouter, notFound } from 'next/navigation';
 import React, {
   useCallback, useEffect, useMemo, useReducer, useState,
 } from 'react';
+
+// Components
 import Details from '@/(private)/_components/details/Details';
-import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
+
+// Types
 import { Simulation, UseReducer } from '@/(private)/_types/components/simulationTypes';
+
+// Actions
+import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
+
+// Reducers
 import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
+import { FormUseReducer } from '@/(private)/_types/components/formTypes';
+import formReducer from '@/(private)/_lib/reducers/formReducer';
+import formActionCreators from '@/(private)/_lib/actions/formActions';
 
 export default function SimulationModal({ params: { id } }: any) {
+  // Next.js hooks
   const pathName: string = usePathname();
-  const router = useRouter();
+  const router: any = useRouter();
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const [loading, setLoading] = useState(true);
-  const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
-    (simulation: Simulation): boolean => simulation.id === id,
-  ), [simulations, id]);
-
+  // Modal state hooks and functions
+  const { isOpen, onOpen, onClose }: any = useDisclosure();
   const handleClose = useCallback((): void => {
-    router.push('/');
     onClose();
+    router.push('/');
   }, [router]);
 
-  const onRecreate = useCallback((): void => {}, []);
-  const onDelete = useCallback((): void => {}, []); // @develop
+  // Other hooks and functions
+  const [loading, setLoading]: any = useState(true);
+  const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
+  const [, dispatchForm]: FormUseReducer = useReducer(formReducer, null);
+
+  const selectedSimulation = useMemo((): Simulation | undefined => (
+    simulations.find((simulation: Simulation): boolean => simulation.id === id)
+  ), [simulations, id]);
+
+  const onRecreate = useCallback((): void => {
+    formActionCreators.createForm(dispatchForm, selectedSimulation!.form);
+    onClose();
+  }, [selectedSimulation]);
+
+  const onDelete = useCallback((): void => {}, []);
 
   useEffect(() => {
     if (pathName.startsWith('/simulation')) {
@@ -57,12 +75,14 @@ export default function SimulationModal({ params: { id } }: any) {
       <ModalContent>
         <ModalHeader className="border-b border-b-neutral-800">
           <div className="pt-2">
+            &apos;
             {selectedSimulation?.form.title}
+            &apos;
             {' '}
             details
           </div>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody className="pb-0 gap-0">
           {(loading)
             ? (<Spinner />)
             : (
@@ -73,25 +93,22 @@ export default function SimulationModal({ params: { id } }: any) {
             )}
         </ModalBody>
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
-          {(selectedSimulation === undefined)
-            ? (<div />)
-            : (
-              <>
-                <Button
-                  onClick={onDelete}
-                  variant="light"
-                  color="danger"
-                >
-                  Delete
-                </Button>
-                <Button
-                  onClick={onRecreate}
-                >
-                  Recreate
-                </Button>
-              </>
-            )}
-
+          <Button
+            onClick={onDelete}
+            variant="light"
+            color="danger"
+            isDisabled={loading}
+          >
+            Delete
+          </Button>
+          <Button
+            onClick={onRecreate}
+            isDisabled={loading}
+            href="/build"
+            as={Link}
+          >
+            Recreate
+          </Button>
         </ModalFooter>
       </ModalContent>
     </Modal>

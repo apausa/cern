@@ -51,19 +51,21 @@ export default function Form({ form, dispatchForm }: FormProps) {
         value={form.version}
         onValueChange={onVersionChange}
       />
-      <Tabs
-        aria-label="Select mode"
-        className="m-0 py-2 flex flex-col"
-        selectedKey={form.advanced ? 'advanced' : 'default'}
-        onSelectionChange={onSelectionChange}
-      >
-        <Tab key="default" title="Default mode" className="px-0 py-2 flex flex-col">
-          <DefaultMode form={form} dispatchForm={dispatchForm} />
-        </Tab>
-        <Tab key="advanced" title="Advanced mode" className="px-0 py-2 flex flex-col">
-          <AdvancedMode form={form} dispatchForm={dispatchForm} />
-        </Tab>
-      </Tabs>
+      <div className="mb-2">
+        <Tabs
+          aria-label="Select mode"
+          className="m-0 py-2 flex flex-col"
+          selectedKey={form.advanced ? 'advanced' : 'default'}
+          onSelectionChange={onSelectionChange}
+        >
+          <Tab key="default" title="Default mode" className="px-0 py-2 flex flex-col">
+            <DefaultMode form={form} dispatchForm={dispatchForm} />
+          </Tab>
+          <Tab key="advanced" title="Advanced mode" className="px-0 py-2 flex flex-col">
+            <AdvancedMode form={form} dispatchForm={dispatchForm} />
+          </Tab>
+        </Tabs>
+      </div>
     </form>
   );
 }

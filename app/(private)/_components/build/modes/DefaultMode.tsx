@@ -18,19 +18,14 @@ import {
 // Actions
 import formActionCreator from '@/(private)/_lib/actions/formActions';
 
-// Utils
-import { getSelectedKeys } from '@/(private)/_utils/form';
-
 export default function DefaultMode(
   { form: { buildCmd, runCmd }, dispatchForm }: DefaultModeProps,
 ) {
-  const buildArgs = useMemo((): string[] => (
-    getSelectedKeys(buildCmd.args)
-  ), [buildCmd.args]);
+  const getSelectedKeys = (args: Arg[]): string[] => (
+    args.filter(({ selected }: Arg) => selected).map(({ name }: Arg) => name));
 
-  const runArgs = useMemo((): string[] => (
-    getSelectedKeys(runCmd.args)
-  ), [runCmd.args]);
+  const buildArgs = useMemo((): string[] => (getSelectedKeys(buildCmd.args)), [buildCmd.args]);
+  const runArgs = useMemo((): string[] => (getSelectedKeys(runCmd.args)), [runCmd.args]);
 
   const onBuildCmdChange = useCallback((values: string[]): void => {
     formActionCreator.updateFormBuildCmd(dispatchForm, values);

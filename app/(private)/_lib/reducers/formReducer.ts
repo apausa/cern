@@ -2,22 +2,32 @@ import {
   Arg,
   Form, FormAction,
 } from '@/(private)/_types/components/formTypes';
+import { setForm } from '@/(private)/_utils/localStorage';
 
 const formReducer = (
   currentState: Form,
   action: FormAction,
 ): any => {
+  let nextState = null;
+
   switch (action.type) {
+    case 'READ_FORM':
+      nextState = { ...action.form };
+      break;
     case 'CREATE_FORM':
-      return { ...action.form };
+      nextState = { ...action.form };
+      break;
     case 'UPDATE_FORM_VERSION':
-      return { ...currentState, selectedDate: action.version };
+      nextState = { ...currentState, version: action.version };
+      break;
     case 'UPDATE_FORM_TITLE':
-      return { ...currentState, title: action.title };
+      nextState = { ...currentState, title: action.title };
+      break;
     case 'UPDATE_FORM_ADVANCED':
-      return { ...currentState, advanced: action.advanced };
+      nextState = { ...currentState, advanced: action.advanced };
+      break;
     case 'UPDATE_FORM_BUILD_CMD':
-      return {
+      nextState = {
         ...currentState,
         buildCmd: {
           ...currentState.buildCmd,
@@ -26,8 +36,9 @@ const formReducer = (
           )),
         },
       };
+      break;
     case 'UPDATE_FORM_RUN_CMD':
-      return {
+      nextState = {
         ...currentState,
         runCmd: {
           ...currentState.runCmd,
@@ -36,11 +47,18 @@ const formReducer = (
           )),
         },
       };
+      break;
     case 'UPDATE_FORM_SCRIPT':
-      return { ...currentState, script: action.script };
+      nextState = { ...currentState, script: action.script };
+      break;
     default:
-      return currentState;
+      nextState = currentState;
+      break;
   }
+
+  setForm(nextState);
+
+  return nextState;
 };
 
 export default formReducer;

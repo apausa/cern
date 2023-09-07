@@ -47,7 +47,7 @@ UpdateSimulationAction |
 DeleteSimulationAction;
 
 export type ReadAllSimulationAction = { type: 'READ_ALL_SIMULATIONS', simulations: Simulation[] };
-export type CreateSimulationAction = { type: 'CREATE_SIMULATION', simulation: Simulation, simulations: Simulation[] };
+export type CreateSimulationAction = { type: 'CREATE_SIMULATION', simulation: Simulation };
 export type UpdateSimulationAction = { type: 'UPDATE_SIMULATION', simulation: Simulation };
 export type DeleteSimulationAction = { type: 'DELETE_SIMULATION', simulation: Simulation };
 
