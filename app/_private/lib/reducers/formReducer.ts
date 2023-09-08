@@ -1,7 +1,7 @@
 import {
   Arg,
   Form, FormAction,
-} from '@/_private/_types/components/formTypes';
+} from '@/_private/types/components/formTypes';
 import { setForm } from '@/_private/utils/localStorage';
 
 const formReducer = (

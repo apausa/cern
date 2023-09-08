@@ -1,4 +1,4 @@
-import { Column, Table } from '@/_private/_types/components/tableTypes';
+import { Column, Table } from '@/_private/types/components/tableTypes';
 
 export const ALL_COLUMNS: Column[] = [
   {

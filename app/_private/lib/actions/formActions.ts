@@ -1,4 +1,4 @@
-import { Form, FormActionCreators } from '@/_private/_types/components/formTypes';
+import { Form, FormActionCreators } from '@/_private/types/components/formTypes';
 import { getForm } from '@/_private/utils/localStorage';
 
 const formActionCreators: FormActionCreators = {

@@ -1,4 +1,4 @@
-import { Table, TableAction } from '@/_private/_types/components/tableTypes';
+import { Table, TableAction } from '@/_private/types/components/tableTypes';
 
 const tableReducer = (
   table: Table,
