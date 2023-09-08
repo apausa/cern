@@ -1,4 +1,4 @@
-import React, { ReactElement, useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import {
   CheckboxGroup,
   Checkbox,
@@ -35,21 +35,13 @@ export default function DefaultMode(
     formActionCreator.updateRunCmdSelected(dispatchForm, values);
   }, []);
 
-  const getSubtitle = useCallback((args: Arg[], keysLength: number): ReactElement => (
-    <span>
-      {keysLength === args.length
-        ? 'All items selected'
-        : `${keysLength} of ${args.length} selected`}
-    </span>
-  ), [buildCmd, runCmd, buildArgs, runArgs]);
-
   return (
     <Accordion isCompact fullWidth variant="shadow">
       <AccordionItem
         key="1"
         aria-label="Create workflow"
         title="Create workflow"
-        subtitle={getSubtitle(buildCmd.args, buildArgs.length)}
+        subtitle={<span>{`${buildArgs.length} of ${buildCmd.args.length} argments selected`}</span>}
       >
         <CheckboxGroup
           onValueChange={onBuildCmdChange}
@@ -86,7 +78,7 @@ export default function DefaultMode(
         key="2"
         aria-label="Run workflow"
         title="Run workflow"
-        subtitle={getSubtitle(runCmd.args, runArgs.length)}
+        subtitle={<span>{`${runArgs.length} of ${runCmd.args.length} argments selected`}</span>}
       >
         <CheckboxGroup
           onValueChange={onRunCmdChange}
