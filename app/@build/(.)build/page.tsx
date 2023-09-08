@@ -10,22 +10,22 @@ import React, {
 import { notFound, usePathname, useRouter } from 'next/navigation';
 
 // Components
-import Form from '@/(private)/_components/build/Form';
+import BuildForm from '@/_private/components/build/BuildForm';
 
 // Constants
-import INITIAL_FORM from '@/(private)/_lib/constants/formConstants';
+import INITIAL_FORM from '@/_private/lib/constants/formConstants';
 
 // Types
-import { UseReducer } from '@/(private)/_types/components/simulationTypes';
-import { FormUseReducer } from '@/(private)/_types/components/formTypes';
+import { UseReducer } from '@/_private/types/components/simulationTypes';
+import { FormUseReducer } from '@/_private/types/components/formTypes';
 
 // Reducers
-import formReducer from '@/(private)/_lib/reducers/formReducer';
-import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
+import formReducer from '@/_private/lib/reducers/formReducer';
+import simulationReducer from '@/_private/lib/reducers/simulationReducer';
 
 // Actions
-import formActionCreators from '@/(private)/_lib/actions/formActions';
-import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
+import formActionCreators from '@/_private/lib/actions/formActions';
+import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 export default function BuildModal() {
   // Next.js hooks
@@ -81,7 +81,7 @@ export default function BuildModal() {
           <div className="pt-2">Job configuration</div>
         </ModalHeader>
         <ModalBody className="gap-0">
-          <Form form={form} dispatchForm={dispatchForm} />
+          <BuildForm form={form} dispatchForm={dispatchForm} />
         </ModalBody>
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
           <Button

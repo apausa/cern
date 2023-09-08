@@ -1,11 +1,11 @@
 import { ChildProcess, spawn } from 'child_process';
 
 // Constants
-import { TEST_EXEC_CMD } from '@/(private)/_lib/constants/apiConstants';
+import { TEST_EXEC_CMD } from '@/_private/lib/constants/apiConstants';
 
 // Types
-import { TestExecCmd } from '@/(private)/_types/app/apiTypes';
-import { Simulation } from '@/(private)/_types/components/simulationTypes';
+import { TestExecCmd } from '@/_private/types/app/apiTypes';
+import { Simulation } from '@/_private/types/components/simulationTypes';
 
 const runScriptInTest = (simulation: Simulation): Promise<Simulation> => {
   const { name, args }: TestExecCmd = TEST_EXEC_CMD;

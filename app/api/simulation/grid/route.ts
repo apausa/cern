@@ -2,8 +2,8 @@ import { NextResponse } from 'next/server';
 import runScriptInGrid from './_run';
 
 // Types
-import { Simulation } from '@/(private)/_types/components/simulationTypes';
-import { PutSimulation } from '@/(private)/_types/app/apiTypes';
+import { Simulation } from '@/_private/types/components/simulationTypes';
+import { PutSimulation } from '@/_private/types/app/apiTypes';
 
 export async function PUT(request: Request): Promise<PutSimulation> {
   const unresolvedSimulation: Simulation = await request.json();

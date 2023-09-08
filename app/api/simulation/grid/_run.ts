@@ -3,11 +3,11 @@
 import { ChildProcess, spawn } from 'child_process';
 
 // Constants
-import { getGridExecCmd } from '@/(private)/_lib/constants/apiConstants';
+import { getGridExecCmd } from '@/_private/lib/constants/apiConstants';
 
 // Types
-import { GridExecCmd } from '@/(private)/_types/app/apiTypes';
-import { Outputs, Simulation } from '@/(private)/_types/components/simulationTypes';
+import { GridExecCmd } from '@/_private/types/app/apiTypes';
+import { Outputs, Simulation } from '@/_private/types/components/simulationTypes';
 
 const GRID_DIRECTORY_REGEXP: RegExp = /Your job's working directory will be (.+)/;
 const LOCAL_DIRECTORY_REGEXP: RegExp = /Local working directory is (.+)/;

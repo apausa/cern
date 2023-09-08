@@ -9,19 +9,19 @@ import React, {
 } from 'react';
 
 // Components
-import Details from '@/(private)/_components/details/Details';
+import SimulationDetails from '@/_private/components/simulation/SimulationDetails';
 
 // Types
-import { Simulation, UseReducer } from '@/(private)/_types/components/simulationTypes';
+import { Simulation, UseReducer } from '@/_private/types/components/simulationTypes';
 
 // Actions
-import simulationActionCreators from '@/(private)/_lib/actions/simulationActions';
+import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 // Reducers
-import simulationReducer from '@/(private)/_lib/reducers/simulationReducer';
-import { FormUseReducer } from '@/(private)/_types/components/formTypes';
-import formReducer from '@/(private)/_lib/reducers/formReducer';
-import formActionCreators from '@/(private)/_lib/actions/formActions';
+import simulationReducer from '@/_private/lib/reducers/simulationReducer';
+import { FormUseReducer } from '@/_private/types/components/formTypes';
+import formReducer from '@/_private/lib/reducers/formReducer';
+import formActionCreators from '@/_private/lib/actions/formActions';
 
 export default function SimulationModal({ params: { id } }: any) {
   // Next.js hooks
@@ -86,7 +86,7 @@ export default function SimulationModal({ params: { id } }: any) {
           {(loading)
             ? (<Spinner />)
             : (
-              <Details
+              <SimulationDetails
                 selectedSimulation={selectedSimulation}
                 dispatchSimulation={dispatchSimulation}
               />

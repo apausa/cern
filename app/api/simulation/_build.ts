@@ -3,12 +3,12 @@ import path from 'node:path';
 import { v4 as uuidv4 } from 'uuid';
 
 // Types
-import { Form } from '@/(private)/_types/components/formTypes';
-import { GridScript, Simulation, TestScript } from '@/(private)/_types/components/simulationTypes';
+import { Form } from '@/_private/types/components/formTypes';
+import { GridScript, Simulation, TestScript } from '@/_private/types/components/simulationTypes';
 
 // Utils
-import { getSelectedVersion } from '@/(private)/_utils/getDate';
-import getScript from '@/(private)/_utils/getScript';
+import { getSelectedVersion } from '@/_private/utils/getDate';
+import getScript from '@/_private/utils/getScript';
 
 const getTestScriptBody = (version: string, o2CmdStr: string): string => ([
   `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`, o2CmdStr,

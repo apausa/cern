@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 
 // Types
-import { Form } from '@/(private)/_types/components/formTypes';
-import { Simulation } from '@/(private)/_types/components/simulationTypes';
-import { PostSimulation } from '@/(private)/_types/app/apiTypes';
+import { Form } from '@/_private/types/components/formTypes';
+import { Simulation } from '@/_private/types/components/simulationTypes';
+import { PostSimulation } from '@/_private/types/app/apiTypes';
 
 // Other
 import { createSimulation, createScript } from './_build';

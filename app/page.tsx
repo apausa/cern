@@ -3,21 +3,21 @@
 import React, { useMemo, useReducer } from 'react';
 
 // Components
-import TableComponent from '@/(private)/_components/dashboard/Table';
-import DashboardHeader from './(private)/_components/dashboard/DashboardHeader';
+import DashboardTable from '@/_private/components/dashboard/dashboardTable/DashboardTable';
+import DashboardHeader from './_private/components/dashboard/DashboardHeader';
 
 // Constants
-import { INITIAL_TABLE } from '@/(private)/_lib/constants/tableConstants';
+import { INITIAL_TABLE } from '@/_private/lib/constants/tableConstants';
 
 // Types
-import { Table, TableUseReducer } from './(private)/_types/components/tableTypes';
+import { Table, TableUseReducer } from './_private/types/components/tableTypes';
 
 // Reducers
-import tableReducer from './(private)/_lib/reducers/tableReducer';
-import { Simulation, UseReducer } from './(private)/_types/components/simulationTypes';
-import simulationReducer from './(private)/_lib/reducers/simulationReducer';
-import DashboardFooter from './(private)/_components/dashboard/DashboardFooter';
-import { getStatusName } from './(private)/_utils/getStatus';
+import tableReducer from './_private/lib/reducers/tableReducer';
+import { Simulation, UseReducer } from './_private/types/components/simulationTypes';
+import simulationReducer from './_private/lib/reducers/simulationReducer';
+import DashboardFooter from './_private/components/dashboard/DashboardFooter';
+import { getStatusName } from './_private/utils/getStatus';
 
 export default function Dashboard() {
   const [table, dispatchTable]: TableUseReducer = useReducer(tableReducer, INITIAL_TABLE);
@@ -40,7 +40,7 @@ export default function Dashboard() {
     <>
       <DashboardHeader table={table} dispatchTable={dispatchTable} />
       <main className="p-4 mb-auto">
-        <TableComponent
+        <DashboardTable
           table={table}
           dispatchTable={dispatchTable}
           dispatchSimulation={dispatchSimulation}
