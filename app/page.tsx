@@ -32,8 +32,10 @@ export default function Dashboard() {
 
     return (status === 'all')
       ? filteredSimulationByQuery
-      : filteredSimulationByQuery.filter(({ gridScript: { scriptStatus } }: Simulation) => (
-        Array.from(status).includes(getStatusName(scriptStatus))));
+      : filteredSimulationByQuery.filter(
+        ({ scripts: { gridRunWorkflow: { scriptStatus } } }: Simulation) => (
+          Array.from(status).includes(getStatusName(scriptStatus))),
+      );
   }, [simulations, table]);
 
   return (

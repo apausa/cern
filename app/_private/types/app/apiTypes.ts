@@ -1,6 +1,15 @@
 import { NextResponse } from 'next/server';
 import { Simulation } from '@/_private/types/components/simulationTypes';
 
+// Routes
+
+export type ApiGridRunWorkflow = '/api/simulation/gridRunWorkflow';
+export type ApiLocalRunWorkflow = '/api/simulation/localRunWorkflow';
+export type ApiLocalCreateWorkflow = '/api/simulation/localCreateWorkflow';
+export type ApiSimulation = '/api/simulation/';
+
+// Other
+
 export type PostSimulation = NextResponse<Simulation | unknown>;
 
 export type PutSimulation = NextResponse<Simulation>;
@@ -19,7 +28,4 @@ export type TestExecCmd = {
     '-c']
 };
 
-export type GridExecCmd = {
-  name: string,
-  args: ['--script', string, '--wait', '--fetch-output-files'],
-};
+export type GridExecCmdArgs = ['--script', string, '--wait', '--fetch-output-files'];

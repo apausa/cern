@@ -12,7 +12,7 @@ export default function SelectInput({ arg, formAction, dispatchForm }: StringInp
     formAction(dispatchForm, Array.from(keys)[0], arg.name);
   };
 
-  // @develop, make logic better
+  // @develop, implement custom inputs
 
   return (
     arg.input.options ? (

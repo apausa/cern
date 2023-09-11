@@ -9,42 +9,35 @@ const simulationActionCreators: SimulationActionCreators = {
   },
 
   createSimulation: async (dispatch, form) => {
-    const response: Response = await fetch('/api/simulation', { method: 'POST', body: JSON.stringify(form) });
+    const response: Response = await fetch(
+      '/api/simulation',
+      { method: 'POST', body: JSON.stringify(form) },
+    );
     const simulation: Simulation | null = await response.json();
 
     if (simulation) dispatch({ type: 'CREATE_SIMULATION', simulation });
   },
 
-  updateSimulationTestStatus: (dispatch, simulation, status) => {
+  updateSimulationScriptStatus: (dispatch, simulation, script, status) => {
     const unresolvedSimulation: Simulation = {
       ...simulation,
-      testScript: { ...simulation.testScript, scriptStatus: status },
+      scripts: {
+        ...simulation.scripts,
+        [script]: { ...simulation.scripts[script], scriptStatus: status },
+      },
     };
 
     dispatch({ type: 'UPDATE_SIMULATION', simulation: unresolvedSimulation });
   },
 
-  updateSimulationGridStatus: (dispatch, simulation, status) => {
-    const unresolvedSimulation: Simulation = {
-      ...simulation,
-      gridScript: { ...simulation.gridScript, scriptStatus: status },
-    };
+  runSimulationScript: async (dispatch, simulation, route) => {
+    const unresolvedSimulation: Response = await fetch(
+      route,
+      { method: 'PUT', body: JSON.stringify(simulation) },
+    );
+    const resolvedSimulation: Simulation = await unresolvedSimulation.json();
 
-    dispatch({ type: 'UPDATE_SIMULATION', simulation: unresolvedSimulation });
-  },
-
-  executeSimulationInTest: async (dispatch, unresolvedSimulation) => {
-    const response: Response = await fetch('/api/simulation/test', { method: 'PUT', body: JSON.stringify(unresolvedSimulation) });
-    const resolvedSimulation: Simulation | null = await response.json();
-
-    if (resolvedSimulation) dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
-  },
-
-  executeSimulationInGrid: async (dispatch, unresolvedSimulation) => {
-    const response: Response = await fetch('/api/simulation/grid', { method: 'PUT', body: JSON.stringify(unresolvedSimulation) });
-    const resolvedSimulation: Simulation | null = await response.json();
-
-    if (resolvedSimulation) dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
+    dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
   },
 };
 

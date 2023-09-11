@@ -7,22 +7,22 @@ import { Dispatch } from 'react';
 export type Form = {
   title: string,
   version: string,
-  buildCmd: BuildCmd
-  runCmd: RunCmd,
-  script: string,
+  script: string | null,
   advanced: boolean
+  createWorkflow: CreateWorkflow
+  runWorkflow: RunWorkflow,
 };
 
 // Build object
 
-export type BuildCmd = {
+export type CreateWorkflow = {
   name: '${O2DPG_ROOT}/MC/bin/o2dpg_sim_workflow.py',
   args: Arg[];
 };
 
 // Run object
 
-export type RunCmd = {
+export type RunWorkflow = {
   name: '${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py',
   args: Arg[];
 };
@@ -84,10 +84,10 @@ export type UpdateFormVersionAction = { type: 'UPDATE_FORM_VERSION', version: st
 export type UpdateFormTitleAction = { type: 'UPDATE_FORM_TITLE', title: string };
 export type UpdateFormAdvancedAction = { type: 'UPDATE_FORM_ADVANCED', advanced: boolean };
 export type UpdateFormScriptAction = { type: 'UPDATE_FORM_SCRIPT', script: string };
-// Update form, buildCmd properties
+// Update form, createWorkflow properties
 export type UpdateBuildCmdSelectedAction = { type: 'UPDATE_BUILD_CMD_SELECTED', values: string[] };
 export type UpdateBuildCmdValueAction = { type: 'UPDATE_BUILD_CMD_VALUE', value: string | number, name: string };
-// Update form, runCmd properties
+// Update form, runWorkflow properties
 export type UpdateRunCmdSelectedAction = { type: 'UPDATE_RUN_CMD_SELECTED', values: string[] };
 export type UpdateRunCmdValueAction = { type: 'UPDATE_RUN_CMD_VALUE', value: string | number, name: string };
 
@@ -118,7 +118,7 @@ export type FormActionCreators = {
     dispatch: React.Dispatch<UpdateFormScriptAction>,
     script: string
   ) => void;
-  // Update form, buildCmd properties
+  // Update form, createWorkflow properties
   updateBuildCmdSelected: (
     dispatch: React.Dispatch<UpdateBuildCmdSelectedAction>,
     values: string[]
@@ -128,7 +128,7 @@ export type FormActionCreators = {
     value: string | number,
     name: string,
   ) => void;
-  // Update form, runCmd properties
+  // Update form, runWorkflow properties
   updateRunCmdSelected: (
     dispatch: React.Dispatch<UpdateRunCmdSelectedAction>,
     values: string[]

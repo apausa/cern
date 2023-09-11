@@ -35,13 +35,13 @@ const formReducer = (
       nextState = { ...currentState, script: action.script };
       break;
 
-    // Update form, buildCmd properties
+    // Update form, createWorkflow properties
     case 'UPDATE_BUILD_CMD_SELECTED':
       nextState = {
         ...currentState,
-        buildCmd: {
-          ...currentState.buildCmd,
-          args: currentState.buildCmd.args.map((arg: Arg): Arg => (
+        createWorkflow: {
+          ...currentState.createWorkflow,
+          args: currentState.createWorkflow.args.map((arg: Arg): Arg => (
             { ...arg, selected: (action.values.includes(arg.name)) }
           )),
         },
@@ -50,22 +50,22 @@ const formReducer = (
     case 'UPDATE_BUILD_CMD_VALUE':
       nextState = {
         ...currentState,
-        buildCmd: {
-          ...currentState.buildCmd,
-          args: currentState.buildCmd.args.map((arg: any): Arg => (
+        createWorkflow: {
+          ...currentState.createWorkflow,
+          args: currentState.createWorkflow.args.map((arg: any): Arg => (
             { ...arg, value: (action.name === arg.name) ? action.value : arg.value }
           )),
         },
       };
       break;
 
-    // Update form, runCmd properties
+    // Update form, runWorkflow properties
     case 'UPDATE_RUN_CMD_SELECTED':
       nextState = {
         ...currentState,
-        runCmd: {
-          ...currentState.runCmd,
-          args: currentState.runCmd.args.map((arg: Arg): Arg => (
+        runWorkflow: {
+          ...currentState.runWorkflow,
+          args: currentState.runWorkflow.args.map((arg: Arg): Arg => (
             { ...arg, selected: (action.values.includes(arg.name)) }
           )),
         },
@@ -74,9 +74,9 @@ const formReducer = (
     case 'UPDATE_RUN_CMD_VALUE':
       nextState = {
         ...currentState,
-        runCmd: {
-          ...currentState.runCmd,
-          args: currentState.runCmd.args.map((arg: any): Arg => (
+        runWorkflow: {
+          ...currentState.runWorkflow,
+          args: currentState.runWorkflow.args.map((arg: any): Arg => (
             { ...arg, value: (action.name === arg.name) ? action.value : arg.value }
           )),
         },
