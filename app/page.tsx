@@ -9,22 +9,20 @@ import DashboardHeader from './_private/components/dashboard/DashboardHeader';
 // Constants
 import { INITIAL_TABLE } from '@/_private/lib/constants/tableConstants';
 
-// Types
-import { Table, TableUseReducer } from './_private/types/components/tableTypes';
-
 // Reducers
 import tableReducer from './_private/lib/reducers/tableReducer';
 import { Simulation, UseReducer } from './_private/types/components/simulationTypes';
 import simulationReducer from './_private/lib/reducers/simulationReducer';
 import DashboardFooter from './_private/components/dashboard/DashboardFooter';
 import { getStatusName } from './_private/utils/getStatus';
+import { TableUseReducer } from './_private/types/components/tableTypes';
 
 export default function Dashboard() {
   const [table, dispatchTable]: TableUseReducer = useReducer(tableReducer, INITIAL_TABLE);
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
 
   const allPagesItems = useMemo((): Simulation[] => {
-    const { filter: { query, status } }: Table = table;
+    const { filter: { query, status } } = table;
     const filteredSimulationByQuery = (query)
       ? simulations.filter(({ form: { title } }: Simulation) => (
         title.toLowerCase().includes(query.toLowerCase())))

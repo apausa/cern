@@ -6,7 +6,7 @@ import { Form } from './formTypes';
 
 export type Simulation = {
   id: string,
-  date: Date,
+  date: string,
   form: Form,
   scripts: {
     localRunWorkflow: Script,
@@ -45,31 +45,17 @@ export type SimulationActionCreators = {
   ) => void,
   createSimulation: (
     dispatch: React.Dispatch<CreateSimulationAction>,
-    form: Form) => Promise<void>,
+    form: Form
+  ) => Promise<void>,
   updateSimulationScriptStatus: (
     dispatch: React.Dispatch<UpdateSimulationAction>,
     simulation: Simulation,
     script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow',
-    status: Status) => void,
+    status: Status
+  ) => void,
   runSimulationScript: (
     dispatch: React.Dispatch<UpdateSimulationAction>,
     simulation: Simulation,
     script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow'
   ) => void,
 };
-
-// COMPONENTS
-
-export type DetailsProps = any;
-export type GridTabProps = any;
-export type StdoutDataProps = any;
-export type StderrDataProps = any;
-export type ReadOnlyInputProps = any;
-export type ReadOnlyTextArea = any;
-
-// export type Outputs = {
-//   gridDirectory: string | null,
-//   localDirectory: string | null,
-//   gridUrl: string | null,
-//   gridId: string | null
-// };

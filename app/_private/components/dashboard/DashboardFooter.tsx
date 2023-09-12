@@ -3,15 +3,18 @@ import React, { useCallback, useMemo } from 'react';
 
 // State
 import tableActionCreators from '@/_private/lib/actions/tableActions';
-
-// Types
-import { BottomContentProps } from '@/_private/types/components/tableTypes';
+import { Simulation } from '@/_private/types/components/simulationTypes';
+import { TableAction, TableType } from '@/_private/types/components/tableTypes';
 
 export default function BottomContent({
   table,
   dispatchTable,
   allPagesItems,
-}: BottomContentProps) {
+}: {
+  table: TableType,
+  dispatchTable: React.Dispatch<TableAction>,
+  allPagesItems: Simulation[]
+}) {
   const pages = useMemo((): number => (
     Math.ceil((allPagesItems.length || 1) / table.page.rows)
   ), [allPagesItems.length, table.page.rows]);

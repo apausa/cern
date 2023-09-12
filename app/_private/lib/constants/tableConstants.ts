@@ -1,4 +1,4 @@
-import { Column, Table } from '@/_private/types/components/tableTypes';
+import { Column, TableType } from '@/_private/types/components/tableTypes';
 
 export const ALL_COLUMNS: Column[] = [
   {
@@ -28,7 +28,7 @@ export const ALL_COLUMNS: Column[] = [
   },
 ];
 
-export const INITIAL_TABLE: Table = {
+export const INITIAL_TABLE: TableType = {
   selectedKey: '',
   filter: { query: '', status: 'all' },
   page: { rows: 12, current: 1 },

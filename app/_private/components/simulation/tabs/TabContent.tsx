@@ -19,7 +19,9 @@ import StdoutData from './StdoutData';
 import StderrData from './StderrData';
 
 export default function TabContent(
-  { dispatchSimulation, selectedSimulation, script }:
+  {
+    dispatchSimulation, selectedSimulation, script,
+  }:
   {
     dispatchSimulation: React.Dispatch<UpdateSimulationAction>,
     selectedSimulation: Simulation,
@@ -99,7 +101,7 @@ export default function TabContent(
           title="Stdin output"
           isDisabled={!stdoutData}
         >
-          <StdoutData stdoutData={stdoutData} />
+          <StdoutData stdoutData={stdoutData as string} />
         </AccordionItem>
         <AccordionItem
           key="2"
@@ -107,7 +109,7 @@ export default function TabContent(
           title="Stderr output"
           isDisabled={!stderrData}
         >
-          <StderrData stderrData={stderrData} />
+          <StderrData stderrData={stderrData as string} />
         </AccordionItem>
       </Accordion>
     </>

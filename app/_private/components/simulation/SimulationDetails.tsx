@@ -1,9 +1,6 @@
 import { Tab, Tabs } from '@nextui-org/react';
 import React from 'react';
 
-// Types
-import { DetailsProps } from '@/_private/types/components/simulationTypes';
-
 // Components
 import ReadOnlyInput from './inputs/ReadOnlyInput';
 
@@ -12,10 +9,14 @@ import { getSelectedVersion } from '@/_private/utils/getDate';
 
 // Components
 import TabContent from './tabs/TabContent';
+import { Simulation, SimulationAction } from '@/_private/types/components/simulationTypes';
 
 export default function Details({
   selectedSimulation, dispatchSimulation,
-}: DetailsProps) {
+}: {
+  selectedSimulation: Simulation,
+  dispatchSimulation: React.Dispatch<SimulationAction>,
+}) {
   return (
     <>
       <ReadOnlyInput

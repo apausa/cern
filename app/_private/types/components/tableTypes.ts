@@ -11,7 +11,7 @@ export type Column = {
   allowSorting: boolean,
 };
 
-export type Table = {
+export type TableType = {
   selectedColumns: Column[],
   selectedKey: string,
   filter: Filter,
@@ -31,7 +31,7 @@ export type Page = {
 
 // REDUCER
 
-export type TableUseReducer = [Table, Dispatch<any>];
+export type TableUseReducer = [TableType, Dispatch<any>];
 
 // ACTIONS
 
@@ -75,10 +75,3 @@ export type TableActionCreators = {
     page: number
   ) => void,
 };
-
-// COMPONENTS
-
-export type TimelineProps = any;
-export type CellProps = any;
-export type BottomContentProps = any;
-export type TopContentProps = any;

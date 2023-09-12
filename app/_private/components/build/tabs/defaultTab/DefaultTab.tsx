@@ -12,14 +12,20 @@ import StringInput from './inputs/StringInput';
 
 // Types
 import {
-  Arg, DefaultModeProps, NumberArg, StringArg,
+  Arg, Form, FormAction, NumberArg, StringArg,
 } from '@/_private/types/components/formTypes';
 
 // Actions
 import formActionCreator from '@/_private/lib/actions/formActions';
 
 export default function DefaultMode(
-  { form: { createWorkflow, runWorkflow }, dispatchForm }: DefaultModeProps,
+  {
+    form: { createWorkflow, runWorkflow }, dispatchForm,
+  }:
+  {
+    form: Form,
+    dispatchForm: React.Dispatch<FormAction>,
+  },
 ) {
   const getSelectedKeys = (args: Arg[]): string[] => (
     args.filter(({ selected }: Arg) => selected).map(({ name }: Arg) => name));

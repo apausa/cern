@@ -1,9 +1,9 @@
-import { Table, TableAction } from '@/_private/types/components/tableTypes';
+import { TableAction, TableType } from '@/_private/types/components/tableTypes';
 
 const tableReducer = (
-  table: Table,
+  table: TableType,
   action: TableAction,
-): Table => {
+): TableType => {
   switch (action.type) {
     case 'UPDATE_SELECTED_KEY':
       return { ...table, selectedKey: action.key };

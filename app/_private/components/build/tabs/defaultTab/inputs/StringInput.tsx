@@ -2,17 +2,24 @@ import {
   Input, Select, SelectItem, Selection,
 } from '@nextui-org/react';
 import React, { useMemo } from 'react';
+import {
+  FormAction, StringArg, UpdateBuildCmdValue, UpdateRunCmdValue,
+} from '@/_private/types/components/formTypes';
 
-// Types
-import { StringInputProps } from '@/_private/types/components/formTypes';
-
-export default function SelectInput({ arg, formAction, dispatchForm }: StringInputProps) {
+export default function SelectInput(
+  {
+    arg, formAction, dispatchForm,
+  }:
+  {
+    arg: StringArg,
+    formAction: UpdateBuildCmdValue | UpdateRunCmdValue,
+    dispatchForm: React.Dispatch<FormAction>
+  },
+) {
   const selectedKeys = useMemo(() => new Set([arg.value]), [arg.value]);
   const handleOnSelectionChange = (keys: Selection): any => {
     formAction(dispatchForm, Array.from(keys)[0], arg.name);
   };
-
-  // @develop, implement custom inputs
 
   return (
     arg.input.options ? (

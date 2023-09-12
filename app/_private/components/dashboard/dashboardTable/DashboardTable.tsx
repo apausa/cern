@@ -12,16 +12,23 @@ import CellContent from './content/CellContent';
 import TopContent from './content/TopContent';
 
 // Types
-import { Column } from '@/_private/types/components/tableTypes';
-import { Simulation } from '@/_private/types/components/simulationTypes';
+import { Column, TableAction, TableType } from '@/_private/types/components/tableTypes';
+import { Simulation, SimulationAction } from '@/_private/types/components/simulationTypes';
 
 // Actions
 import tableActionCreators from '@/_private/lib/actions/tableActions';
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
-export default function TableComponent({
-  table, dispatchTable, allPagesItems, dispatchSimulation,
-}: any) {
+export default function TableComponent(
+  {
+    table, dispatchTable, allPagesItems, dispatchSimulation,
+  }: {
+    table: TableType,
+    dispatchTable: React.Dispatch<TableAction>,
+    allPagesItems: Simulation[],
+    dispatchSimulation: React.Dispatch<SimulationAction>,
+  },
+) {
   const pathname: string = usePathname();
 
   const currentPageItems = useMemo((): Simulation[] => {
@@ -70,14 +77,14 @@ export default function TableComponent({
       <TableBody emptyContent="No jobs to display" items={currentPageItems}>
         {(simulation: Simulation) => (
           <TableRow>
-            {(column) => (
-              <TableCell key={`${simulation.id} ${column}`}>
+            {(columnKey) => (
+              <TableCell key={`${simulation.id} ${columnKey}`}>
                 <Link
                   as={`/simulation/${simulation.id}`}
                   key={simulation.id}
                   href={`/simulation/${simulation.id}`}
                 >
-                  <CellContent simulation={simulation} column={column} />
+                  <CellContent simulation={simulation} columnKey={columnKey} />
                 </Link>
               </TableCell>
             )}

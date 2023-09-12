@@ -11,14 +11,17 @@ import { STATUS } from '@/_private/lib/constants/simulationConstants';
 // Utils
 import { getStatusName } from '@/_private/utils/getStatus';
 
-// Types
-import { TopContentProps } from '@/_private/types/components/tableTypes';
 import { Status } from '@/_private/types/utils';
+import { TableAction, TableType } from '@/_private/types/components/tableTypes';
 
-export default function Header({
-  table,
-  dispatchTable,
-}: TopContentProps) {
+export default function Header(
+  {
+    table, dispatchTable,
+  }: {
+    table: TableType,
+    dispatchTable: React.Dispatch<TableAction>
+  },
+) {
   const onClear = useCallback((): void => {
     tableActionCreators.updateFilterQuery(dispatchTable, '');
     tableActionCreators.updatePageCurrent(dispatchTable, 1);

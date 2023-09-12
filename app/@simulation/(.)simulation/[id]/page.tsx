@@ -22,7 +22,13 @@ import formActionCreators from '@/_private/lib/actions/formActions';
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
 import formReducer from '@/_private/lib/reducers/formReducer';
 
-export default function SimulationModal({ params: { id } }: any) {
+export default function SimulationModal(
+  {
+    params: { id },
+  }: {
+    params: { id: string }
+  },
+) {
   const pathName = usePathname();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
@@ -82,7 +88,7 @@ export default function SimulationModal({ params: { id } }: any) {
             ? (<Spinner />)
             : (
               <SimulationDetails
-                selectedSimulation={selectedSimulation}
+                selectedSimulation={selectedSimulation as Simulation}
                 dispatchSimulation={dispatchSimulation}
               />
             )}

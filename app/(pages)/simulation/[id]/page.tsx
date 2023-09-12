@@ -22,7 +22,10 @@ import formActionCreators from '@/_private/lib/actions/formActions';
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
 import formReducer from '@/_private/lib/reducers/formReducer';
 
-export default function SimulationPage({ params: { id } }: any) {
+export default function SimulationPage(
+  { params: { id } }:
+  { params: { id: string } },
+) {
   const [loading, setLoading] = useState(true);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
   const [, dispatchForm] = useReducer(formReducer, null);
@@ -71,7 +74,7 @@ export default function SimulationPage({ params: { id } }: any) {
           ? (<Spinner />)
           : (
             <SimulationDetails
-              selectedSimulation={selectedSimulation}
+              selectedSimulation={selectedSimulation as Simulation}
               dispatchSimulation={dispatchSimulation}
             />
           )}

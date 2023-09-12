@@ -4,9 +4,16 @@ import { Textarea } from '@nextui-org/react';
 // Actions
 import formActionCreators from '@/_private/lib/actions/formActions';
 import getScript from '@/_private/utils/getScript';
+import { Form, FormAction } from '@/_private/types/components/formTypes';
 
 export default function AdvancedMode(
-  { form: { createWorkflow, runWorkflow, script }, dispatchForm }: any,
+  {
+    form: { createWorkflow, runWorkflow, script }, dispatchForm,
+  }:
+  {
+    form: Form,
+    dispatchForm: React.Dispatch<FormAction>,
+  },
 ) {
   useEffect((): void => {
     formActionCreators.updateFormScript(dispatchForm, getScript(createWorkflow, runWorkflow));
