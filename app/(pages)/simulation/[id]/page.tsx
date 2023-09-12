@@ -50,6 +50,12 @@ export default function SimulationPage({ params: { id } }: any) {
   return (
     <>
       <header className="p-4 border-b border-b-neutral-800  flex justify-between">
+        <Button
+          href="/"
+          as={Link}
+        >
+          ←
+        </Button>
         <div className="pt-2">Job details</div>
         <Button
           onClick={onRecreate}
