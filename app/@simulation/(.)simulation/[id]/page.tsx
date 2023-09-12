@@ -12,8 +12,7 @@ import React, {
 import SimulationDetails from '@/_private/components/simulation/SimulationDetails';
 
 // Types
-import { Simulation, UseReducer } from '@/_private/types/components/simulationTypes';
-import { FormUseReducer } from '@/_private/types/components/formTypes';
+import { Simulation } from '@/_private/types/components/simulationTypes';
 
 // Actions
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
