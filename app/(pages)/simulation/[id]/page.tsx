@@ -12,8 +12,7 @@ import Link from 'next/link';
 import SimulationDetails from '@/_private/components/simulation/SimulationDetails';
 
 // Types
-import { Simulation, UseReducer } from '@/_private/types/components/simulationTypes';
-import { FormUseReducer } from '@/_private/types/components/formTypes';
+import { Simulation } from '@/_private/types/components/simulationTypes';
 
 // Actions
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
@@ -25,8 +24,9 @@ import formReducer from '@/_private/lib/reducers/formReducer';
 
 export default function SimulationPage({ params: { id } }: any) {
   const [loading, setLoading] = useState(true);
-  const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  const [, dispatchForm]: FormUseReducer = useReducer(formReducer, null);
+  const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
+  const [, dispatchForm] = useReducer(formReducer, null);
+
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);

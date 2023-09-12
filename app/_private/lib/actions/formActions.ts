@@ -4,7 +4,7 @@ import { getForm } from '@/_private/utils/localStorage';
 const formActionCreators: FormActionCreators = {
   // Read form
   readForm: (dispatch) => {
-    const form: Form | null = getForm();
+    const form: Form = getForm();
 
     dispatch({ type: 'READ_FORM', form });
   },
