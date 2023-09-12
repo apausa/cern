@@ -5,7 +5,7 @@ import React, {
   useCallback,
   useEffect, useMemo, useReducer, useState,
 } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 
 // Components
 import Link from 'next/link';
@@ -26,6 +26,7 @@ export default function SimulationPage(
   { params: { id } }:
   { params: { id: string } },
 ) {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
   const [, dispatchForm] = useReducer(formReducer, null);
@@ -36,7 +37,9 @@ export default function SimulationPage(
 
   const onRecreate = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, selectedSimulation!.form);
-  }, [selectedSimulation]);
+    router.push('/');
+    router.push('/build');
+  }, [selectedSimulation, router]);
 
   const onDelete = useCallback((): void => {}, []); // @develop
 
@@ -63,8 +66,7 @@ export default function SimulationPage(
         <Button
           onClick={onRecreate}
           isDisabled={loading}
-          href="/build"
-          as={Link}
+          color="primary"
         >
           Recreate
         </Button>
@@ -79,7 +81,7 @@ export default function SimulationPage(
             />
           )}
       </main>
-      <footer className="p-4 border-t border-t-neutral-800">
+      <footer className="p-4 border-t border-t-neutral-800  flex justify-between">
         <Button
           onClick={onDelete}
           variant="light"

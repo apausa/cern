@@ -107,6 +107,7 @@ export default function SimulationModal(
             isDisabled={loading}
             href="/build"
             as={Link}
+            color="primary"
           >
             Recreate
           </Button>
