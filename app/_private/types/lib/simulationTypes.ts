@@ -39,23 +39,28 @@ export type CreateSimulationAction = { type: 'CREATE_SIMULATION', simulation: Si
 export type UpdateSimulationAction = { type: 'UPDATE_SIMULATION', simulation: Simulation };
 export type DeleteSimulationAction = { type: 'DELETE_SIMULATION', simulation: Simulation };
 
+export type ReadAllSimulation = (
+  dispatch: React.Dispatch<ReadAllSimulationAction>
+) => void;
+export type CreateSimulation = (
+  dispatch: React.Dispatch<CreateSimulationAction>,
+  form: Form
+) => Promise<void>;
+export type UpdateSimulationScriptStatus = (
+  dispatch: React.Dispatch<UpdateSimulationAction>,
+  simulation: Simulation,
+  script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow',
+  status: Status
+) => void;
+export type RunSimulationScript = (
+  dispatch: React.Dispatch<UpdateSimulationAction>,
+  simulation: Simulation,
+  script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow'
+) => void;
+
 export type SimulationActionCreators = {
-  readAllSimulations: (
-    dispatch: React.Dispatch<ReadAllSimulationAction>
-  ) => void,
-  createSimulation: (
-    dispatch: React.Dispatch<CreateSimulationAction>,
-    form: Form
-  ) => Promise<void>,
-  updateSimulationScriptStatus: (
-    dispatch: React.Dispatch<UpdateSimulationAction>,
-    simulation: Simulation,
-    script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow',
-    status: Status
-  ) => void,
-  runSimulationScript: (
-    dispatch: React.Dispatch<UpdateSimulationAction>,
-    simulation: Simulation,
-    script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow'
-  ) => void,
+  readAllSimulations: ReadAllSimulation,
+  createSimulation: CreateSimulation,
+  updateSimulationScriptStatus: UpdateSimulationScriptStatus,
+  runSimulationScript: RunSimulationScript
 };

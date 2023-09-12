@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { Simulation } from '@/_private/types/components/simulationTypes';
+import { Simulation } from '@/_private/types/lib/simulationTypes';
 
 // Routes
 

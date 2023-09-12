@@ -12,7 +12,7 @@ import { getCurrentDate } from '@/_private/utils/getDate';
 
 // Actions
 import formActionCreators from '@/_private/lib/actions/formActions';
-import { Form, FormAction } from '@/_private/types/components/formTypes';
+import { Form, FormAction } from '@/_private/types/lib/formTypes';
 
 export default function FormComponent(
   {

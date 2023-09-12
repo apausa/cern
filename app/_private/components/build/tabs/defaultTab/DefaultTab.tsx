@@ -13,7 +13,7 @@ import StringInput from './inputs/StringInput';
 // Types
 import {
   Arg, Form, FormAction, NumberArg, StringArg,
-} from '@/_private/types/components/formTypes';
+} from '@/_private/types/lib/formTypes';
 
 // Actions
 import formActionCreator from '@/_private/lib/actions/formActions';

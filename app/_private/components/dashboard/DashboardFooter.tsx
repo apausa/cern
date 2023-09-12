@@ -3,8 +3,8 @@ import React, { useCallback, useMemo } from 'react';
 
 // State
 import tableActionCreators from '@/_private/lib/actions/tableActions';
-import { Simulation } from '@/_private/types/components/simulationTypes';
-import { TableAction, TableType } from '@/_private/types/components/tableTypes';
+import { Simulation } from '@/_private/types/lib/simulationTypes';
+import { TableAction, TableType } from '@/_private/types/lib/tableTypes';
 
 export default function BottomContent({
   table,

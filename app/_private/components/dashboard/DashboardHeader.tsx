@@ -12,7 +12,7 @@ import { STATUS } from '@/_private/lib/constants/simulationConstants';
 import { getStatusName } from '@/_private/utils/getStatus';
 
 import { Status } from '@/_private/types/utils';
-import { TableAction, TableType } from '@/_private/types/components/tableTypes';
+import { TableAction, TableType } from '@/_private/types/lib/tableTypes';
 
 export default function Header(
   {

@@ -3,7 +3,7 @@ import path from 'node:path';
 import { v4 as uuidv4 } from 'uuid';
 
 // Types
-import { Form } from '@/_private/types/components/formTypes';
+import { Form } from '@/_private/types/lib/formTypes';
 import { PostSimulation } from '@/_private/types/app/apiTypes';
 
 // Utils

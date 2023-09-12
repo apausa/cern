@@ -1,4 +1,4 @@
-import { Simulation, SimulationAction } from '@/_private/types/components/simulationTypes';
+import { Simulation, SimulationAction } from '@/_private/types/lib/simulationTypes';
 import { setAllSimulations } from '@/_private/utils/localStorage';
 
 const simulationReducer = (

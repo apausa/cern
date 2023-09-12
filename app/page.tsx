@@ -11,11 +11,11 @@ import { INITIAL_TABLE } from '@/_private/lib/constants/tableConstants';
 
 // Reducers
 import tableReducer from './_private/lib/reducers/tableReducer';
-import { Simulation, UseReducer } from './_private/types/components/simulationTypes';
+import { Simulation, UseReducer } from './_private/types/lib/simulationTypes';
 import simulationReducer from './_private/lib/reducers/simulationReducer';
 import DashboardFooter from './_private/components/dashboard/DashboardFooter';
 import { getStatusName } from './_private/utils/getStatus';
-import { TableUseReducer } from './_private/types/components/tableTypes';
+import { TableUseReducer } from './_private/types/lib/tableTypes';
 
 export default function Dashboard() {
   const [table, dispatchTable]: TableUseReducer = useReducer(tableReducer, INITIAL_TABLE);

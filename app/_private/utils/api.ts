@@ -3,7 +3,7 @@ import path from 'node:path';
 
 import {
   Script,
-} from '@/_private/types/components/simulationTypes';
+} from '@/_private/types/lib/simulationTypes';
 import { LocalRunArgs } from '../types/app/apiTypes';
 
 export const getSegment = (id: string): string => (

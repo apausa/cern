@@ -2,7 +2,7 @@ import { Input } from '@nextui-org/react';
 import React from 'react';
 import {
   FormAction, NumberArg, UpdateBuildCmdValue, UpdateRunCmdValue,
-} from '@/_private/types/components/formTypes';
+} from '@/_private/types/lib/formTypes';
 
 export default function NumberInput(
   {

@@ -4,7 +4,7 @@ import {
 import React, { useMemo } from 'react';
 import {
   FormAction, StringArg, UpdateBuildCmdValue, UpdateRunCmdValue,
-} from '@/_private/types/components/formTypes';
+} from '@/_private/types/lib/formTypes';
 
 export default function SelectInput(
   {

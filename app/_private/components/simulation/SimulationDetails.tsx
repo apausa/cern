@@ -9,9 +9,9 @@ import { getSelectedVersion } from '@/_private/utils/getDate';
 
 // Components
 import TabContent from './tabs/TabContent';
-import { Simulation, SimulationAction } from '@/_private/types/components/simulationTypes';
+import { Simulation, SimulationAction } from '@/_private/types/lib/simulationTypes';
 
-export default function Details({
+export default function SimulationDetails({
   selectedSimulation, dispatchSimulation,
 }: {
   selectedSimulation: Simulation,

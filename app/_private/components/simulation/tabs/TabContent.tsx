@@ -12,7 +12,7 @@ import { getStatusColor, getStatusName } from '@/_private/utils/getStatus';
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 // Types
-import { Simulation, UpdateSimulationAction } from '@/_private/types/components/simulationTypes';
+import { Simulation, UpdateSimulationAction } from '@/_private/types/lib/simulationTypes';
 
 // Constants
 import StdoutData from './StdoutData';

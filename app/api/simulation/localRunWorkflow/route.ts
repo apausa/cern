@@ -5,7 +5,7 @@ import { ChildProcess, spawn } from 'child_process';
 import { APPTAINER_PATH } from '@/_private/lib/constants/apiConstants';
 
 // Types
-import { Simulation } from '@/_private/types/components/simulationTypes';
+import { Simulation } from '@/_private/types/lib/simulationTypes';
 import { LocalRunArgs, PutSimulation } from '@/_private/types/app/apiTypes';
 
 // Utils

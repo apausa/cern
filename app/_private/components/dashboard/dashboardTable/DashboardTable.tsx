@@ -12,8 +12,8 @@ import CellContent from './content/CellContent';
 import TopContent from './content/TopContent';
 
 // Types
-import { Column, TableAction, TableType } from '@/_private/types/components/tableTypes';
-import { Simulation, SimulationAction } from '@/_private/types/components/simulationTypes';
+import { Column, TableAction, TableType } from '@/_private/types/lib/tableTypes';
+import { Simulation, SimulationAction } from '@/_private/types/lib/simulationTypes';
 
 // Actions
 import tableActionCreators from '@/_private/lib/actions/tableActions';

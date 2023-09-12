@@ -12,7 +12,7 @@ import Link from 'next/link';
 import SimulationDetails from '@/_private/components/simulation/SimulationDetails';
 
 // Types
-import { Simulation } from '@/_private/types/components/simulationTypes';
+import { Simulation } from '@/_private/types/lib/simulationTypes';
 
 // Actions
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';

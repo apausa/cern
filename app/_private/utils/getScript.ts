@@ -1,4 +1,4 @@
-import { Arg, CreateWorkflow, RunWorkflow } from '@/_private/types/components/formTypes';
+import { Arg, CreateWorkflow, RunWorkflow } from '@/_private/types/lib/formTypes';
 import { ArgAcc } from '@/_private/types/utils';
 
 const getScript = (...commands: (CreateWorkflow | RunWorkflow)[]): string => (

@@ -1,6 +1,6 @@
 /* eslint-disable no-template-curly-in-string */
 
-import { CreateWorkflow, Form, RunWorkflow } from '@/_private/types/components/formTypes';
+import { CreateWorkflow, Form, RunWorkflow } from '@/_private/types/lib/formTypes';
 import { getCurrentDate } from '@/_private/utils/getDate';
 
 const INITIAL_BUILD_CMD: CreateWorkflow = {
