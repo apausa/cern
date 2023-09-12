@@ -12,13 +12,13 @@ export default function CellContent({ simulation, column }: CellProps) {
     case 'Title': return (simulation.form.title);
     case 'Number': return (1);
     case 'Local status': return (
-      <Chip variant="flat" color={getStatusColor(simulation.testScript.scriptStatus)}>
-        {getStatusName(simulation.testScript.scriptStatus)}
+      <Chip variant="flat" color={getStatusColor(simulation.scripts.localRunWorkflow.scriptStatus)}>
+        {getStatusName(simulation.scripts.localRunWorkflow.scriptStatus)}
       </Chip>
     );
     case 'WLCG status': return (
-      <Chip variant="flat" color={getStatusColor(simulation.gridScript.scriptStatus)}>
-        {getStatusName(simulation.gridScript.scriptStatus)}
+      <Chip variant="flat" color={getStatusColor(simulation.scripts.gridRunWorkflow.scriptStatus)}>
+        {getStatusName(simulation.scripts.gridRunWorkflow.scriptStatus)}
       </Chip>
     );
     case 'Date': return (simulation.date);

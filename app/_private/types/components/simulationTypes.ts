@@ -8,31 +8,19 @@ export type Simulation = {
   id: string,
   date: Date,
   form: Form,
-  testScript: TestScript,
-  gridScript: GridScript
+  scripts: {
+    localRunWorkflow: Script,
+    localCreateWorkflow: Script,
+    gridRunWorkflow: Script,
+  }
 };
 
-export type TestScript = {
+export type Script = {
   scriptPath: string,
   scriptBody: string,
   scriptStatus: Status,
-  rejectedOutput: string | null,
-  fulfilledOutput: null,
-};
-
-export type GridScript = {
-  scriptPath: string,
-  scriptBody: string,
-  scriptStatus: Status,
-  rejectedOutput: string | null,
-  fulfilledOutput: Outputs,
-};
-
-export type Outputs = {
-  gridDirectory: string | null,
-  localDirectory: string | null,
-  gridUrl: string | null,
-  gridId: string | null
+  stderrData: string | null,
+  stdoutData: string | null,
 };
 
 // REDUCER
@@ -58,29 +46,30 @@ export type SimulationActionCreators = {
   createSimulation: (
     dispatch: React.Dispatch<CreateSimulationAction>,
     form: Form) => Promise<void>,
-  updateSimulationTestStatus: (
+  updateSimulationScriptStatus: (
     dispatch: React.Dispatch<UpdateSimulationAction>,
     simulation: Simulation,
+    script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow',
     status: Status) => void,
-  updateSimulationGridStatus: (
+  runSimulationScript: (
     dispatch: React.Dispatch<UpdateSimulationAction>,
     simulation: Simulation,
-    status: Status) => void,
-  executeSimulationInTest: (
-    dispatch: React.Dispatch<UpdateSimulationAction>,
-    simulation: Simulation) => Promise<void>,
-  executeSimulationInGrid: (
-    dispatch: React.Dispatch<UpdateSimulationAction>,
-    simulation: Simulation
-  ) => Promise<void>,
+    script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow'
+  ) => void,
 };
 
 // COMPONENTS
 
 export type DetailsProps = any;
 export type GridTabProps = any;
-export type TestTabProps = any;
-export type FulfilledOutputProps = any;
-export type RejectedOutputProps = any;
+export type StdoutDataProps = any;
+export type StderrDataProps = any;
 export type ReadOnlyInputProps = any;
 export type ReadOnlyTextArea = any;
+
+// export type Outputs = {
+//   gridDirectory: string | null,
+//   localDirectory: string | null,
+//   gridUrl: string | null,
+//   gridId: string | null
+// };

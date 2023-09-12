@@ -51,6 +51,12 @@ export default function BuildPage() {
   return (
     <>
       <header className="p-4 border-b border-b-neutral-800 flex justify-between">
+        <Button
+          href="/"
+          as={Link}
+        >
+          ←
+        </Button>
         <div className="pt-2">Job configuration</div>
         <Button
           href="/"

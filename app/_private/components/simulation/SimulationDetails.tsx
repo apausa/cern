@@ -6,11 +6,12 @@ import { DetailsProps } from '@/_private/types/components/simulationTypes';
 
 // Components
 import ReadOnlyInput from './inputs/ReadOnlyInput';
-import TestTab from './tabs/TestTab';
-import GridTab from './tabs/GridTab';
 
 // Utils
 import { getSelectedVersion } from '@/_private/utils/getDate';
+
+// Components
+import TabContent from './tabs/TabContent';
 
 export default function Details({
   selectedSimulation, dispatchSimulation,
@@ -31,16 +32,37 @@ export default function Details({
       />
       <div className="mb-2">
         <Tabs aria-label="Select environment" className="m-0 py-2 flex flex-col">
-          <Tab key="local" title="Local script" className="px-0 py-2 flex flex-col">
-            <TestTab
+          <Tab
+            key="Visualize workflow"
+            title="Visualize workflow"
+            className="px-0 py-2 flex flex-col"
+          >
+            <TabContent
               dispatchSimulation={dispatchSimulation}
               selectedSimulation={selectedSimulation}
+              script="localCreateWorkflow"
             />
           </Tab>
-          <Tab key="wlcg" title="WLCG script" className="px-0 py-2 flex flex-col">
-            <GridTab
+          <Tab
+            key="Local run workflow"
+            title="Local run"
+            className="px-0 py-2 flex flex-col"
+          >
+            <TabContent
               dispatchSimulation={dispatchSimulation}
               selectedSimulation={selectedSimulation}
+              script="localRunWorkflow"
+            />
+          </Tab>
+          <Tab
+            key="WLCG run workflow"
+            title="WLCG run"
+            className="px-0 py-2 flex flex-col"
+          >
+            <TabContent
+              dispatchSimulation={dispatchSimulation}
+              selectedSimulation={selectedSimulation}
+              script="gridRunWorkflow"
             />
           </Tab>
         </Tabs>

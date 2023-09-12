@@ -6,11 +6,11 @@ import formActionCreators from '@/_private/lib/actions/formActions';
 import getScript from '@/_private/utils/getScript';
 
 export default function AdvancedMode(
-  { form: { buildCmd, runCmd, script }, dispatchForm }: any,
+  { form: { createWorkflow, runWorkflow, script }, dispatchForm }: any,
 ) {
   useEffect((): void => {
-    formActionCreators.updateFormScript(dispatchForm, getScript(buildCmd, runCmd));
-  }, [buildCmd, runCmd]);
+    formActionCreators.updateFormScript(dispatchForm, getScript(createWorkflow, runWorkflow));
+  }, [createWorkflow, runWorkflow]);
 
   const onChange = useCallback(({ target: { value } }: any): void => {
     formActionCreators.updateFormScript(dispatchForm, value);
