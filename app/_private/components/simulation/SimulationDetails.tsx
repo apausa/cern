@@ -11,9 +11,7 @@ import ReadOnlyInput from './inputs/ReadOnlyInput';
 import { getSelectedVersion } from '@/_private/utils/getDate';
 
 // Components
-import LocalCreateWorkflowTab from './tabs/LocalCreateWorkflowTab';
-import LocalRunWorkflowTab from './tabs/LocalRunWorkflowTab';
-import GridRunWorkflowTab from './tabs/GridRunWorkflowTab';
+import TabContent from './tabs/TabContent';
 
 export default function Details({
   selectedSimulation, dispatchSimulation,
@@ -39,29 +37,32 @@ export default function Details({
             title="Visualize workflow"
             className="px-0 py-2 flex flex-col"
           >
-            <LocalCreateWorkflowTab
+            <TabContent
               dispatchSimulation={dispatchSimulation}
               selectedSimulation={selectedSimulation}
+              script="localCreateWorkflow"
             />
           </Tab>
           <Tab
             key="Local run workflow"
-            title="Local run workflow"
+            title="Local run"
             className="px-0 py-2 flex flex-col"
           >
-            <LocalRunWorkflowTab
+            <TabContent
               dispatchSimulation={dispatchSimulation}
               selectedSimulation={selectedSimulation}
+              script="localRunWorkflow"
             />
           </Tab>
           <Tab
             key="WLCG run workflow"
-            title="WLCG run workflow"
+            title="WLCG run"
             className="px-0 py-2 flex flex-col"
           >
-            <GridRunWorkflowTab
+            <TabContent
               dispatchSimulation={dispatchSimulation}
               selectedSimulation={selectedSimulation}
+              script="gridRunWorkflow"
             />
           </Tab>
         </Tabs>

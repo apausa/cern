@@ -34,7 +34,7 @@ export type Arg = NumberArg | BooleanArg | StringArg;
 export type NumberArg = {
   name: string,
   input: { type: 'number' },
-  description: string,
+  description: string | null,
   value: number,
   selected: boolean,
   disabled: boolean,
@@ -43,7 +43,7 @@ export type NumberArg = {
 export type BooleanArg = {
   name: string,
   input: { type: 'boolean' },
-  description: string,
+  description: string | null,
   value: null,
   selected: boolean,
   disabled: boolean,
@@ -52,7 +52,7 @@ export type BooleanArg = {
 export type StringArg = {
   name: string,
   input: { type: 'string', options: string[] },
-  description: string,
+  description: string | null,
   value: string,
   selected: boolean,
   disabled: boolean,

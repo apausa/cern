@@ -1,5 +1,6 @@
 import { Simulation, SimulationActionCreators } from '@/_private/types/components/simulationTypes';
 import { getAllSimulations } from '@/_private/utils/localStorage';
+import { API_GRID_RUN_WORKFLOW, API_LOCAL_CREATE_WORKFLOW, API_LOCAL_RUN_WORKFLOW } from '../constants/apiConstants';
 
 const simulationActionCreators: SimulationActionCreators = {
   readAllSimulations: (dispatch) => {
@@ -30,13 +31,21 @@ const simulationActionCreators: SimulationActionCreators = {
     dispatch({ type: 'UPDATE_SIMULATION', simulation: unresolvedSimulation });
   },
 
-  runSimulationScript: async (dispatch, simulation, route) => {
+  runSimulationScript: async (dispatch, simulation, script) => {
+    const getRoute = () => {
+      switch (script) {
+        case 'localRunWorkflow': return API_LOCAL_RUN_WORKFLOW;
+        case 'localCreateWorkflow': return API_LOCAL_CREATE_WORKFLOW;
+        case 'gridRunWorkflow': return API_GRID_RUN_WORKFLOW;
+        default: return '';
+      }
+    };
+
     const unresolvedSimulation: Response = await fetch(
-      route,
+      getRoute(),
       { method: 'PUT', body: JSON.stringify(simulation) },
     );
     const resolvedSimulation: Simulation = await unresolvedSimulation.json();
-
     dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
   },
 };

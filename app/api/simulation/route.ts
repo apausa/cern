@@ -14,13 +14,22 @@ import { getSegment } from '@/_private/utils/api';
 export async function POST(request: Request): Promise<PostSimulation> {
   const form: Form = await request.json();
 
-  const getLocalScriptBody = (version: string, script: string): string => ([
-    `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`, script,
-  ].join('\n'));
+  const getLocalCreateWorkflowBody = (version: string, script: string): string => ([
+    `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`,
+    'pip install graphviz',
+    script,
+  ].join('\n\n'));
 
-  const getGridScriptBody = (version: string, script: string): string => ([
-    `#JDL_PACKAGE=O2sim::${version}`, '#JDL_OUTPUT=*.root@disk=1,*.log@disk=1', script,
-  ].join('\n'));
+  const getLocalRunWorkflowBody = (version: string, script: string): string => ([
+    `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`,
+    script,
+  ].join('\n\n'));
+
+  const getGridRunWorkflowBody = (version: string, script: string): string => ([
+    `#JDL_PACKAGE=O2sim::${version}`,
+    '#JDL_OUTPUT=*.root@disk=1,*.log@disk=1',
+    script,
+  ].join('\n\n'));
 
   try {
     const version: string = getSelectedVersion(form.version);
@@ -37,24 +46,24 @@ export async function POST(request: Request): Promise<PostSimulation> {
       scripts: {
         localCreateWorkflow: {
           scriptPath: path.join(segment, 'localCreateWorkflow.sh'),
-          scriptBody: getLocalScriptBody(version, getScript(form.createWorkflow)),
+          scriptBody: getLocalCreateWorkflowBody(version, script),
           scriptStatus: null,
-          rejectedOutput: null,
-          fulfilledOutput: null,
+          stderrData: null,
+          stdoutData: null,
         },
         localRunWorkflow: {
           scriptPath: path.join(segment, 'localRunWorkflow.sh'),
-          scriptBody: getLocalScriptBody(version, script),
+          scriptBody: getLocalRunWorkflowBody(version, script),
           scriptStatus: null,
-          rejectedOutput: null,
-          fulfilledOutput: null,
+          stderrData: null,
+          stdoutData: null,
         },
         gridRunWorkflow: {
           scriptPath: path.join(segment, 'gridRunWorkflow.sh'),
-          scriptBody: getGridScriptBody(version, script),
+          scriptBody: getGridRunWorkflowBody(version, script),
           scriptStatus: null,
-          rejectedOutput: null,
-          fulfilledOutput: null,
+          stderrData: null,
+          stdoutData: null,
         },
       },
     }, { status: 200 });

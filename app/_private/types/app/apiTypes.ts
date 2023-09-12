@@ -10,6 +10,8 @@ export type ApiSimulation = '/api/simulation/';
 
 // Other
 
+export type ApptainerPath = '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer';
+
 export type PostSimulation = NextResponse<Simulation | unknown>;
 
 export type PutSimulation = NextResponse<Simulation>;
@@ -28,4 +30,16 @@ export type TestExecCmd = {
     '-c']
 };
 
-export type GridExecCmdArgs = ['--script', string, '--wait', '--fetch-output-files'];
+export type GridRunArgs = ['--script', string, '--wait', '--fetch-output-files'];
+export type LocalRunArgs = [
+  'exec',
+  '-C',
+  '-B',
+  string,
+  '--pwd',
+  string,
+  '/cvmfs/alice.cern.ch/containers/fs/singularity/rel8-alice-20220503',
+  '/bin/bash',
+  '-c',
+  string,
+];

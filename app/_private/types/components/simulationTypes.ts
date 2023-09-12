@@ -1,7 +1,6 @@
 import { Dispatch } from 'react';
 import { Status } from '@/_private/types/utils';
 import { Form } from './formTypes';
-import { ApiGridRunWorkflow, ApiLocalCreateWorkflow, ApiLocalRunWorkflow } from '../app/apiTypes';
 
 // CONSTANT
 
@@ -20,8 +19,8 @@ export type Script = {
   scriptPath: string,
   scriptBody: string,
   scriptStatus: Status,
-  rejectedOutput: string | null,
-  fulfilledOutput: string[] | null,
+  stderrData: string | null,
+  stdoutData: string | null,
 };
 
 // REDUCER
@@ -55,16 +54,16 @@ export type SimulationActionCreators = {
   runSimulationScript: (
     dispatch: React.Dispatch<UpdateSimulationAction>,
     simulation: Simulation,
-    route: ApiGridRunWorkflow | ApiLocalRunWorkflow | ApiLocalCreateWorkflow) => void,
+    script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow'
+  ) => void,
 };
 
 // COMPONENTS
 
 export type DetailsProps = any;
 export type GridTabProps = any;
-export type TestTabProps = any;
-export type FulfilledOutputProps = any;
-export type RejectedOutputProps = any;
+export type StdoutDataProps = any;
+export type StderrDataProps = any;
 export type ReadOnlyInputProps = any;
 export type ReadOnlyTextArea = any;
 

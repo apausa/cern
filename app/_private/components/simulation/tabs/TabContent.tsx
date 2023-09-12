@@ -1,57 +1,59 @@
-import {
-  Accordion, AccordionItem, Button,
-} from '@nextui-org/react';
+import { Accordion, AccordionItem, Button } from '@nextui-org/react';
 import React, { useCallback } from 'react';
 
 // Components
 import ReadOnlyInput from '../inputs/ReadOnlyInput';
 import ReadOnlyTextarea from '../inputs/ReadOnlyTextarea';
-import FulfilledOutput from '../outputs/FulfilledOuput';
-import RejectedOutput from '../outputs/RejectedOutput';
 
 // Utils
 import { getStatusColor, getStatusName } from '@/_private/utils/getStatus';
 
-// Actions
+// State
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 // Types
-import { GridTabProps, Simulation } from '@/_private/types/components/simulationTypes';
+import { Simulation, UpdateSimulationAction } from '@/_private/types/components/simulationTypes';
 
-// COnstants
-import { API_GRID_RUN_WORKFLOW } from '@/_private/lib/constants/apiConstants';
+// Constants
+import StdoutData from './StdoutData';
+import StderrData from './StderrData';
 
-export default function createGridRunScriptTab(
-  { dispatchSimulation, selectedSimulation }: GridTabProps,
+export default function TabContent(
+  { dispatchSimulation, selectedSimulation, script }:
+  {
+    dispatchSimulation: React.Dispatch<UpdateSimulationAction>,
+    selectedSimulation: Simulation,
+    script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow',
+  },
 ) {
   const {
     scripts: {
-      gridRunWorkflow: {
-        scriptBody, scriptPath, scriptStatus, rejectedOutput, fulfilledOutput,
+      [script]: {
+        scriptBody, scriptPath, scriptStatus, stderrData, stdoutData,
       },
     },
-  }: Simulation = selectedSimulation;
+  } = selectedSimulation;
 
-  const handleupdateGridRunScript = useCallback((): void => {
+  const handleUpdateSimulationScriptStatus = useCallback((): void => {
     simulationActionCreators.updateSimulationScriptStatus(
       dispatchSimulation,
       selectedSimulation,
-      'gridRunWorkflow',
+      script,
       'FULFILLED',
     );
   }, [dispatchSimulation, selectedSimulation]);
 
-  const handleRunGridSimulation = useCallback((): void => {
+  const handleRunSimulationScript = useCallback((): void => {
     simulationActionCreators.updateSimulationScriptStatus(
       dispatchSimulation,
       selectedSimulation,
-      'gridRunWorkflow',
+      script,
       'PENDING',
     );
     simulationActionCreators.runSimulationScript(
       dispatchSimulation,
       selectedSimulation,
-      API_GRID_RUN_WORKFLOW,
+      script,
     );
   }, [dispatchSimulation, selectedSimulation]);
 
@@ -61,9 +63,9 @@ export default function createGridRunScriptTab(
         className="mb-4"
         color="primary"
         isDisabled={scriptStatus === 'PENDING'}
-        onClick={handleRunGridSimulation}
+        onClick={handleRunSimulationScript}
       >
-        Run in WLCG
+        Run
       </Button>
       <ReadOnlyTextarea
         color="default"
@@ -85,26 +87,27 @@ export default function createGridRunScriptTab(
       />
       <Button
         className="my-2"
-        onClick={handleupdateGridRunScript}
         isDisabled={scriptStatus === 'FULFILLED'}
+        onClick={handleUpdateSimulationScriptStatus}
       >
         Set as &apos;completed&apos;
       </Button>
-      <Accordion
-        isCompact
-        className="my-2"
-        variant="bordered"
-        isDisabled={!rejectedOutput || !fulfilledOutput}
-      >
+      <Accordion isCompact className="my-2" variant="bordered">
         <AccordionItem
           key="1"
-          aria-label="Grid run output"
-          title="Output"
-          isDisabled={!rejectedOutput || !fulfilledOutput}
+          aria-label="Stdin output"
+          title="Stdin output"
+          isDisabled={!stdoutData}
         >
-          {rejectedOutput
-            ? (<RejectedOutput rejectedOutput={rejectedOutput} />)
-            : (<FulfilledOutput fulfilledOutput={fulfilledOutput} />)}
+          <StdoutData stdoutData={stdoutData} />
+        </AccordionItem>
+        <AccordionItem
+          key="2"
+          aria-label="Stderr output"
+          title="Stderr output"
+          isDisabled={!stderrData}
+        >
+          <StderrData stderrData={stderrData} />
         </AccordionItem>
       </Accordion>
     </>
