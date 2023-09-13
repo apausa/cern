@@ -16,7 +16,7 @@ export default function NumberInput(
     dispatchForm: React.Dispatch<FormAction>
   },
 ) {
-  const handleValueChange = (value: string): void => {
+  const onValueChange = (value: string): void => {
     formAction(dispatchForm, value, arg.name);
   };
 
@@ -26,7 +26,7 @@ export default function NumberInput(
       aria-label="Number input"
       isDisabled={arg.disabled}
       value={`${arg.value}`}
-      onValueChange={handleValueChange}
+      onValueChange={onValueChange}
     />
   );
 }

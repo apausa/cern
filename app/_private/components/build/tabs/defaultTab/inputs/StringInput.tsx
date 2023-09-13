@@ -1,7 +1,7 @@
 import {
-  Input, Select, SelectItem, Selection,
+  Input,
 } from '@nextui-org/react';
-import React, { useMemo } from 'react';
+import React from 'react';
 
 // Types
 import {
@@ -18,34 +18,17 @@ export default function StringInput(
     dispatchForm: React.Dispatch<FormAction>
   },
 ) {
-  const selectedKeys = useMemo(() => new Set([arg.value]), [arg.value]);
-  const handleOnSelectionChange = (keys: Selection): any => {
-    formAction(dispatchForm, Array.from(keys)[0], arg.name);
+  const onValueChange = (value: string): void => {
+    formAction(dispatchForm, value, arg.name);
   };
 
   return (
-    arg.input.options ? (
-      <Select
-        onSelectionChange={handleOnSelectionChange}
-        selectedKeys={selectedKeys}
-        aria-label="Select value"
-        labelPlacement="outside"
-      >
-        {arg.input.options.map((option: string) => (
-          <SelectItem key={option} value={option}>
-            {option}
-          </SelectItem>
-        ))}
-      </Select>
-    ) : (
-      <Input
-        type="text"
-        aria-label="Number input"
-        id={`${arg.name} value`}
-        isReadOnly
-        isDisabled={arg.disabled}
-        value={arg.value}
-      />
-    )
+    <Input
+      type="text"
+      aria-label="Text input"
+      isDisabled={arg.disabled}
+      value={arg.value}
+      onValueChange={onValueChange}
+    />
   );
 }

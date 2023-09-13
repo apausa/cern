@@ -43,7 +43,7 @@ export type BooleanArg = {
 
 export type StringArg = {
   name: string,
-  input: { type: 'string', options: string[] },
+  input: { type: 'string' },
   description: string | null,
   value: string,
   selected: boolean,

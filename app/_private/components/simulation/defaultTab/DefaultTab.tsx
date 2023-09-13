@@ -34,15 +34,6 @@ export default function DefaultTab(
     },
   } = selectedSimulation;
 
-  const handleUpdateSimulationScriptStatus = useCallback((): void => {
-    simulationActionCreators.updateSimulationScriptStatus(
-      dispatchSimulation,
-      selectedSimulation,
-      script,
-      'Completed',
-    );
-  }, [dispatchSimulation, selectedSimulation]);
-
   const handleRunSimulationScript = useCallback((): void => {
     simulationActionCreators.updateSimulationScriptStatus(
       dispatchSimulation,
@@ -63,6 +54,7 @@ export default function DefaultTab(
         className="mb-2"
         color="primary"
         isDisabled={scriptStatus === 'Running'}
+        isLoading={scriptStatus === 'Running'}
         onClick={handleRunSimulationScript}
       >
         Run
@@ -103,13 +95,6 @@ export default function DefaultTab(
           <StderrData stderrData={stderrData as string} />
         </AccordionItem>
       </Accordion>
-      <Button
-        className="my-2"
-        isDisabled={scriptStatus === 'Completed'}
-        onClick={handleUpdateSimulationScriptStatus}
-      >
-        Set as &apos;completed&apos;
-      </Button>
     </>
   );
 }
