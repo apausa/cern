@@ -9,6 +9,12 @@ SCRIPTS_DIRECTORY_PATH=/Users/User/Work/Scripts
 GRID_SUBMIT_PATH=/Users/User/Work/grid_submit.sh
 ```
 
+Then, run alienv:
+
+```bash
+/cvmfs/alice.cern.ch/bin/alienv enter O2sim
+```
+
 Then, run the development server:
 
 ```bash
