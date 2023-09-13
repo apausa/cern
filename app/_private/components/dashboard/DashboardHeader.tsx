@@ -17,7 +17,7 @@ import { getStatusName } from '@/_private/utils/getStatus';
 import { Status } from '@/_private/types/utils';
 import { TableAction, TableType } from '@/_private/types/lib/tableTypes';
 
-export default function Header(
+export default function DashboardHeader(
   {
     table, dispatchTable,
   }: {

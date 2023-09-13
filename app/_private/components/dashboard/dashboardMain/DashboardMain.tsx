@@ -19,7 +19,7 @@ import { Simulation, SimulationAction } from '@/_private/types/lib/simulationTyp
 import tableActionCreators from '@/_private/lib/actions/tableActions';
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
-export default function TableComponent(
+export default function DashboardMain(
   {
     table, dispatchTable, allPagesItems, dispatchSimulation,
   }: {

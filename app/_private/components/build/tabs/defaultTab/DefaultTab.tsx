@@ -18,7 +18,7 @@ import {
 // Actions
 import formActionCreator from '@/_private/lib/actions/formActions';
 
-export default function DefaultMode(
+export default function DefaultTab(
   {
     form: { createWorkflow, runWorkflow }, dispatchForm,
   }:
@@ -30,8 +30,11 @@ export default function DefaultMode(
   const getSelectedKeys = (args: Arg[]): string[] => (
     args.filter(({ selected }: Arg) => selected).map(({ name }: Arg) => name));
 
-  const buildArgs = useMemo((): string[] => (getSelectedKeys(createWorkflow.args)), [createWorkflow.args]);
-  const runArgs = useMemo((): string[] => (getSelectedKeys(runWorkflow.args)), [runWorkflow.args]);
+  const buildArgs = useMemo((): string[] => (
+    getSelectedKeys(createWorkflow.args)), [createWorkflow.args]);
+
+  const runArgs = useMemo((): string[] => (
+    getSelectedKeys(runWorkflow.args)), [runWorkflow.args]);
 
   const onBuildCmdChange = useCallback((values: string[]): void => {
     formActionCreator.updateBuildCmdSelected(dispatchForm, values);

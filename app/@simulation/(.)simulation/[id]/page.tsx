@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 
 // Components
-import SimulationDetails from '@/_private/components/simulation/SimulationDetails';
+import SimulationMain from '@/_private/components/simulation/SimulationMain';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
@@ -87,7 +87,7 @@ export default function SimulationModal(
           {(loading)
             ? (<Spinner />)
             : (
-              <SimulationDetails
+              <SimulationMain
                 selectedSimulation={selectedSimulation as Simulation}
                 dispatchSimulation={dispatchSimulation}
               />

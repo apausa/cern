@@ -10,7 +10,7 @@ import React, {
 import { notFound, usePathname, useRouter } from 'next/navigation';
 
 // Components
-import BuildForm from '@/_private/components/build/BuildForm';
+import BuildMain from '@/_private/components/build/BuildMain';
 
 // Constants
 import INITIAL_FORM from '@/_private/lib/constants/formConstants';
@@ -73,7 +73,7 @@ export default function BuildModal() {
           <div className="pt-2">Job configuration</div>
         </ModalHeader>
         <ModalBody className="gap-0">
-          {loading ? <Spinner /> : <BuildForm form={form} dispatchForm={dispatchForm} />}
+          {loading ? <Spinner /> : <BuildMain form={form} dispatchForm={dispatchForm} />}
         </ModalBody>
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
           <Button

@@ -8,7 +8,7 @@ import {
   FormAction, StringArg, UpdateBuildCmdValue, UpdateRunCmdValue,
 } from '@/_private/types/lib/formTypes';
 
-export default function SelectInput(
+export default function StringInput(
   {
     arg, formAction, dispatchForm,
   }:

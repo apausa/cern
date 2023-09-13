@@ -3,7 +3,7 @@
 import React, { useMemo, useReducer } from 'react';
 
 // Components
-import DashboardTable from '@/_private/components/dashboard/dashboardTable/DashboardTable';
+import DashboardMain from '@/_private/components/dashboard/dashboardMain/DashboardMain';
 import DashboardHeader from './_private/components/dashboard/DashboardHeader';
 import DashboardFooter from './_private/components/dashboard/DashboardFooter';
 
@@ -44,7 +44,7 @@ export default function Dashboard() {
     <>
       <DashboardHeader table={table} dispatchTable={dispatchTable} />
       <main className="p-4 mb-auto">
-        <DashboardTable
+        <DashboardMain
           table={table}
           dispatchTable={dispatchTable}
           dispatchSimulation={dispatchSimulation}

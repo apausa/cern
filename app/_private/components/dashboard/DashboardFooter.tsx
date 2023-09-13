@@ -8,7 +8,7 @@ import { Simulation } from '@/_private/types/lib/simulationTypes';
 // Types
 import { TableAction, TableType } from '@/_private/types/lib/tableTypes';
 
-export default function BottomContent({
+export default function DashboardFooter({
   table,
   dispatchTable,
   allPagesItems,

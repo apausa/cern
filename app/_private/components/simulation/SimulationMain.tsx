@@ -2,12 +2,12 @@ import { Tab, Tabs } from '@nextui-org/react';
 import React from 'react';
 
 // Components
-import TabContent from './tabs/TabContent';
+import DefaultTab from './defaultTab/DefaultTab';
 
 // Types
 import { Simulation, SimulationAction } from '@/_private/types/lib/simulationTypes';
 
-export default function SimulationDetails({
+export default function SimulationMain({
   selectedSimulation, dispatchSimulation,
 }: {
   selectedSimulation: Simulation,
@@ -21,7 +21,7 @@ export default function SimulationDetails({
           title="Visualize workflow"
           className="px-0 py-2 flex flex-col"
         >
-          <TabContent
+          <DefaultTab
             dispatchSimulation={dispatchSimulation}
             selectedSimulation={selectedSimulation}
             script="localCreateWorkflow"
@@ -32,7 +32,7 @@ export default function SimulationDetails({
           title="Local run"
           className="px-0 py-2 flex flex-col"
         >
-          <TabContent
+          <DefaultTab
             dispatchSimulation={dispatchSimulation}
             selectedSimulation={selectedSimulation}
             script="localRunWorkflow"
@@ -43,7 +43,7 @@ export default function SimulationDetails({
           title="WLCG run"
           className="px-0 py-2 flex flex-col"
         >
-          <TabContent
+          <DefaultTab
             dispatchSimulation={dispatchSimulation}
             selectedSimulation={selectedSimulation}
             script="gridRunWorkflow"

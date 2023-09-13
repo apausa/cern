@@ -8,7 +8,7 @@ import getScript from '@/_private/utils/getScript';
 // Types
 import { Form, FormAction } from '@/_private/types/lib/formTypes';
 
-export default function AdvancedMode(
+export default function AdvancedTab(
   {
     form: { createWorkflow, runWorkflow, script }, dispatchForm,
   }:
