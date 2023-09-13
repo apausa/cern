@@ -62,17 +62,17 @@ export default function TabContent(
   return (
     <>
       <Button
-        className="mb-4"
+        className="mb-2"
         color="primary"
         isDisabled={scriptStatus === 'PENDING'}
         onClick={handleRunSimulationScript}
       >
         Run
       </Button>
-      <ReadOnlyTextarea
-        color="default"
-        label="Content"
-        value={scriptBody}
+      <ReadOnlyInput
+        color={getStatusColor(scriptStatus)}
+        label="Status"
+        value={getStatusName(scriptStatus)}
         variant="bordered"
       />
       <ReadOnlyInput
@@ -81,19 +81,12 @@ export default function TabContent(
         value={scriptPath}
         variant="bordered"
       />
-      <ReadOnlyInput
-        color={getStatusColor(scriptStatus)}
-        label="Status"
-        value={getStatusName(scriptStatus)}
+      <ReadOnlyTextarea
+        color="default"
+        label="Content"
+        value={scriptBody}
         variant="bordered"
       />
-      <Button
-        className="my-2"
-        isDisabled={scriptStatus === 'FULFILLED'}
-        onClick={handleUpdateSimulationScriptStatus}
-      >
-        Set as &apos;completed&apos;
-      </Button>
       <Accordion isCompact className="my-2" variant="bordered">
         <AccordionItem
           key="1"
@@ -112,6 +105,13 @@ export default function TabContent(
           <StderrData stderrData={stderrData as string} />
         </AccordionItem>
       </Accordion>
+      <Button
+        className="my-2"
+        isDisabled={scriptStatus === 'FULFILLED'}
+        onClick={handleUpdateSimulationScriptStatus}
+      >
+        Set as &apos;completed&apos;
+      </Button>
     </>
   );
 }

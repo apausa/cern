@@ -11,7 +11,7 @@ export default function ReadOnlyTextarea({
 }) {
   return (
     <Textarea
-      className="pb-2"
+      className="py-2"
       isReadOnly
       variant={variant}
       color={color}

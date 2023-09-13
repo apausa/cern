@@ -14,6 +14,6 @@ export const getStatusColor = (status: Status): StatusColor => {
     case 'PENDING': return 'warning';
     case 'FULFILLED': return 'success';
     case 'REJECTED': return 'danger';
-    default: return 'default';
+    default: return 'primary';
   }
 };
