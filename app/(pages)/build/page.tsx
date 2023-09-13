@@ -51,6 +51,7 @@ export default function BuildPage() {
         <Button
           href="/"
           as={Link}
+          variant="light"
         >
           ←
         </Button>
@@ -71,6 +72,7 @@ export default function BuildPage() {
       <footer className="p-4 border-t border-t-neutral-800">
         <Button
           onClick={onReset}
+          variant="light"
           isDisabled={loading}
         >
           Reset

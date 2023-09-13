@@ -78,6 +78,7 @@ export default function BuildModal() {
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
           <Button
             onClick={onReset}
+            variant="light"
             isDisabled={loading}
           >
             Reset

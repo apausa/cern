@@ -58,6 +58,7 @@ export default function SimulationPage(
       <header className="p-4 border-b border-b-neutral-800  flex justify-between">
         <Button
           href="/"
+          variant="light"
           as={Link}
         >
           ←
@@ -66,7 +67,6 @@ export default function SimulationPage(
         <Button
           onClick={onRecreate}
           isDisabled={loading}
-          color="primary"
         >
           Recreate
         </Button>
@@ -85,11 +85,16 @@ export default function SimulationPage(
         <Button
           onClick={onDelete}
           variant="light"
-          color="danger"
           isDisabled={loading}
         >
           Delete
         </Button>
+        <Button
+          variant="light"
+        >
+          Copy link
+        </Button>
+        <div />
       </footer>
     </>
   );

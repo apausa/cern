@@ -96,18 +96,21 @@ export default function SimulationModal(
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
           <Button
             onClick={onDelete}
-            variant="light"
-            color="danger"
             isDisabled={loading}
+            variant="light"
           >
             Delete
+          </Button>
+          <Button
+            variant="light"
+          >
+            Copy link
           </Button>
           <Button
             onClick={onRecreate}
             isDisabled={loading}
             href="/build"
             as={Link}
-            color="primary"
           >
             Recreate
           </Button>
