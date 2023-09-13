@@ -9,20 +9,31 @@ SCRIPTS_DIRECTORY_PATH=/Users/User/Work/Scripts
 GRID_SUBMIT_PATH=/Users/User/Work/grid_submit.sh
 ```
 
+Then, generate build:
+
+```bash
+npm run build
+# or
+yarn build
+# or
+pnpm build
+```
+
 Then, run alienv:
 
 ```bash
 /cvmfs/alice.cern.ch/bin/alienv enter O2sim
 ```
 
-Then, run the development server:
+
+Finally, run the production server:
 
 ```bash
-npm run dev
+npm run start
 # or
-yarn dev
+yarn start
 # or
-pnpm dev
+pnpm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

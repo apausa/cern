@@ -586,7 +586,7 @@ const INITIAL_RUN_CMD: RunWorkflow = {
 const INITIAL_FORM: Form = {
   title: '',
   version: getCurrentDate(),
-  script: null,
+  script: '',
   createWorkflow: INITIAL_BUILD_CMD,
   runWorkflow: INITIAL_RUN_CMD,
   advanced: false,
