@@ -37,9 +37,9 @@ export default function TopContent(
           onChange={onChange}
           defaultValue={table.page.rows}
         >
-          <option value="4">4</option>
-          <option value="8">8</option>
-          <option value="12">12</option>
+          <option label="4" value="4">4</option>
+          <option label="8" value="8">8</option>
+          <option label="12" value="12">12</option>
         </select>
       </div>
     </div>
