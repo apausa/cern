@@ -14,9 +14,6 @@ import { INITIAL_TABLE } from '@/_private/lib/constants/tableConstants';
 import tableReducer from './_private/lib/reducers/tableReducer';
 import simulationReducer from './_private/lib/reducers/simulationReducer';
 
-// Utils
-import { getStatusName } from './_private/utils/getStatus';
-
 // Types
 import { Simulation, UseReducer } from './_private/types/lib/simulationTypes';
 import { TableUseReducer } from './_private/types/lib/tableTypes';
@@ -36,7 +33,7 @@ export default function Dashboard() {
       ? filteredSimulationByQuery
       : filteredSimulationByQuery.filter(
         ({ scripts: { gridRunWorkflow: { scriptStatus } } }: Simulation) => (
-          Array.from(status).includes(getStatusName(scriptStatus))),
+          Array.from(status).includes(scriptStatus)),
       );
   }, [simulations, table]);
 

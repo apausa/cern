@@ -10,9 +10,6 @@ import tableActionCreators from '@/_private/lib/actions/tableActions';
 // Constants
 import { STATUS } from '@/_private/lib/constants/simulationConstants';
 
-// Utils
-import { getStatusName } from '@/_private/utils/getStatus';
-
 // Types
 import { Status } from '@/_private/types/utils';
 import { TableAction, TableType } from '@/_private/types/lib/tableTypes';
@@ -63,8 +60,8 @@ export default function DashboardHeader(
           onSelectionChange={onSelectionChange}
         >
           {STATUS.map((status: Status) => (
-            <DropdownItem key={getStatusName(status)}>
-              {getStatusName(status)}
+            <DropdownItem key={status}>
+              {status}
             </DropdownItem>
           ))}
         </DropdownMenu>

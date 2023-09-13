@@ -8,7 +8,7 @@ import StdoutData from './outputData/StdoutData';
 import StderrData from './outputData/StderrData';
 
 // Utils
-import { getStatusColor, getStatusName } from '@/_private/utils/getStatus';
+import { getStatusColor } from '@/_private/utils/getStatus';
 
 // Actions
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
@@ -39,7 +39,7 @@ export default function DefaultTab(
       dispatchSimulation,
       selectedSimulation,
       script,
-      'FULFILLED',
+      'Completed',
     );
   }, [dispatchSimulation, selectedSimulation]);
 
@@ -48,7 +48,7 @@ export default function DefaultTab(
       dispatchSimulation,
       selectedSimulation,
       script,
-      'PENDING',
+      'Running',
     );
     simulationActionCreators.runSimulationScript(
       dispatchSimulation,
@@ -62,7 +62,7 @@ export default function DefaultTab(
       <Button
         className="mb-2"
         color="primary"
-        isDisabled={scriptStatus === 'PENDING'}
+        isDisabled={scriptStatus === 'Running'}
         onClick={handleRunSimulationScript}
       >
         Run
@@ -70,7 +70,7 @@ export default function DefaultTab(
       <ReadOnlyInput
         color={getStatusColor(scriptStatus)}
         label="Status"
-        value={getStatusName(scriptStatus)}
+        value={scriptStatus}
         variant="bordered"
       />
       <ReadOnlyInput
@@ -105,7 +105,7 @@ export default function DefaultTab(
       </Accordion>
       <Button
         className="my-2"
-        isDisabled={scriptStatus === 'FULFILLED'}
+        isDisabled={scriptStatus === 'Completed'}
         onClick={handleUpdateSimulationScriptStatus}
       >
         Set as &apos;completed&apos;

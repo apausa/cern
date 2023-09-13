@@ -31,7 +31,7 @@ export async function PUT(request: Request): Promise<PutSimulation> {
             ...unresolvedSimulation.scripts,
             gridRunWorkflow: {
               ...unresolvedSimulation.scripts.gridRunWorkflow,
-              scriptStatus: (code === 0) ? 'FULFILLED' : 'REJECTED',
+              scriptStatus: (code === 0) ? 'Completed' : 'Error',
               stdoutData: stdoutData.join(''),
               stderrData: stderrData.join(''),
             },
@@ -49,7 +49,7 @@ export async function PUT(request: Request): Promise<PutSimulation> {
           ...unresolvedSimulation.scripts,
           gridRunWorkflow: {
             ...unresolvedSimulation.scripts.gridRunWorkflow,
-            scriptStatus: 'REJECTED',
+            scriptStatus: 'Error',
             stderrData: (error instanceof Error) ? error.message : null,
           },
         },

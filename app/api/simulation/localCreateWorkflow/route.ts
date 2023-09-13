@@ -35,7 +35,7 @@ export async function PUT(request: Request): Promise<PutSimulation> {
             ...unresolvedSimulation.scripts,
             localCreateWorkflow: {
               ...unresolvedSimulation.scripts.localCreateWorkflow,
-              scriptStatus: (output === 0) ? 'FULFILLED' : 'REJECTED',
+              scriptStatus: (output === 0) ? 'Completed' : 'Error',
               stdoutData: stdoutData.join(''),
               stderrData: stderrData.join(''),
             },
@@ -53,7 +53,7 @@ export async function PUT(request: Request): Promise<PutSimulation> {
           ...unresolvedSimulation.scripts,
           localCreateWorkflow: {
             ...unresolvedSimulation.scripts.localCreateWorkflow,
-            scriptStatus: 'REJECTED',
+            scriptStatus: 'Error',
             stderrData: (error instanceof Error) ? error.message : null,
           },
         },
