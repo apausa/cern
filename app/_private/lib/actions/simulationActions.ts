@@ -45,6 +45,7 @@ const simulationActionCreators: SimulationActionCreators = {
       getRoute(),
       { method: 'PUT', body: JSON.stringify(simulation) },
     );
+
     const resolvedSimulation: Simulation = await unresolvedSimulation.json();
     dispatch({ type: 'UPDATE_SIMULATION', simulation: resolvedSimulation });
   },

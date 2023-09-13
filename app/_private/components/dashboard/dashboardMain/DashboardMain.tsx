@@ -1,36 +1,31 @@
 import React, {
-  useMemo, useEffect, useCallback,
+  useMemo, useCallback,
 } from 'react';
 import {
   Table, TableHeader, TableRow, TableCell, TableBody, TableColumn, SortDescriptor,
 } from '@nextui-org/react';
 
 // Components
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import CellContent from './content/CellContent';
 import TopContent from './content/TopContent';
 
 // Types
 import { Column, TableAction, TableType } from '@/_private/types/lib/tableTypes';
-import { Simulation, SimulationAction } from '@/_private/types/lib/simulationTypes';
+import { Simulation } from '@/_private/types/lib/simulationTypes';
 
 // Actions
 import tableActionCreators from '@/_private/lib/actions/tableActions';
-import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 export default function DashboardMain(
   {
-    table, dispatchTable, allPagesItems, dispatchSimulation,
+    table, dispatchTable, allPagesItems,
   }: {
     table: TableType,
     dispatchTable: React.Dispatch<TableAction>,
     allPagesItems: Simulation[],
-    dispatchSimulation: React.Dispatch<SimulationAction>,
   },
 ) {
-  const pathname: string = usePathname();
-
   const currentPageItems = useMemo((): Simulation[] => {
     const { page: { rows, current } } = table;
     const start = (current - 1) * rows;
@@ -45,10 +40,6 @@ export default function DashboardMain(
   const onSelectionChange = useCallback((keys: any) => {
     tableActionCreators.updateSelectedKey(dispatchTable, keys);
   }, []);
-
-  useEffect(() => {
-    simulationActionCreators.readAllSimulations(dispatchSimulation);
-  }, [pathname]);
 
   return (
     <Table

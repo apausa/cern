@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useMemo, useReducer } from 'react';
+import React, { useEffect, useMemo, useReducer } from 'react';
 
 // Components
+import { usePathname } from 'next/navigation';
 import DashboardMain from '@/_private/components/dashboard/dashboardMain/DashboardMain';
 import DashboardHeader from './_private/components/dashboard/DashboardHeader';
 import DashboardFooter from './_private/components/dashboard/DashboardFooter';
@@ -18,7 +19,11 @@ import simulationReducer from './_private/lib/reducers/simulationReducer';
 import { Simulation, UseReducer } from './_private/types/lib/simulationTypes';
 import { TableUseReducer } from './_private/types/lib/tableTypes';
 
+// Actions
+import simulationActionCreators from './_private/lib/actions/simulationActions';
+
 export default function Dashboard() {
+  const pathname: string = usePathname();
   const [table, dispatchTable]: TableUseReducer = useReducer(tableReducer, INITIAL_TABLE);
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
 
@@ -37,6 +42,10 @@ export default function Dashboard() {
       );
   }, [simulations, table]);
 
+  useEffect(() => {
+    simulationActionCreators.readAllSimulations(dispatchSimulation);
+  }, [pathname]);
+
   return (
     <>
       <DashboardHeader table={table} dispatchTable={dispatchTable} />
@@ -44,7 +53,6 @@ export default function Dashboard() {
         <DashboardMain
           table={table}
           dispatchTable={dispatchTable}
-          dispatchSimulation={dispatchSimulation}
           allPagesItems={allPagesItems}
         />
       </main>
