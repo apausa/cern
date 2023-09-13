@@ -7,16 +7,24 @@ import React, { Key, useCallback } from 'react';
 import AdvancedMode from './tabs/AdvancedTab';
 import DefaultMode from './tabs/defaultTab/DefaultTab';
 
-// Types
-import { FormProps } from '@/_private/types/components/formTypes';
-
 // Utils
 import { getCurrentDate } from '@/_private/utils/getDate';
 
 // Actions
 import formActionCreators from '@/_private/lib/actions/formActions';
 
-export default function Form({ form, dispatchForm }: FormProps) {
+// Types
+import { Form, FormAction } from '@/_private/types/lib/formTypes';
+
+export default function BuildMain(
+  {
+    form, dispatchForm,
+  }:
+  {
+    form: Form,
+    dispatchForm: React.Dispatch<FormAction>,
+  },
+) {
   const onTitleChange = useCallback((value: string) => {
     formActionCreators.updateFormTitle(dispatchForm, value);
   }, []);

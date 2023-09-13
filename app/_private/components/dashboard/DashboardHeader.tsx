@@ -2,23 +2,26 @@ import {
   Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Selection,
 } from '@nextui-org/react';
 import React, { useCallback } from 'react';
-
-// State
 import Link from 'next/link';
+
+// Actions
 import tableActionCreators from '@/_private/lib/actions/tableActions';
+
+// Constants
 import { STATUS } from '@/_private/lib/constants/simulationConstants';
 
-// Utils
-import { getStatusName } from '@/_private/utils/getStatus';
-
 // Types
-import { TopContentProps } from '@/_private/types/components/tableTypes';
 import { Status } from '@/_private/types/utils';
+import { TableAction, TableType } from '@/_private/types/lib/tableTypes';
 
-export default function Header({
-  table,
-  dispatchTable,
-}: TopContentProps) {
+export default function DashboardHeader(
+  {
+    table, dispatchTable,
+  }: {
+    table: TableType,
+    dispatchTable: React.Dispatch<TableAction>
+  },
+) {
   const onClear = useCallback((): void => {
     tableActionCreators.updateFilterQuery(dispatchTable, '');
     tableActionCreators.updatePageCurrent(dispatchTable, 1);
@@ -57,8 +60,8 @@ export default function Header({
           onSelectionChange={onSelectionChange}
         >
           {STATUS.map((status: Status) => (
-            <DropdownItem key={getStatusName(status)}>
-              {getStatusName(status)}
+            <DropdownItem key={status}>
+              {status}
             </DropdownItem>
           ))}
         </DropdownMenu>

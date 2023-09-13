@@ -12,20 +12,29 @@ import StringInput from './inputs/StringInput';
 
 // Types
 import {
-  Arg, DefaultModeProps, NumberArg, StringArg,
-} from '@/_private/types/components/formTypes';
+  Arg, Form, FormAction, NumberArg, StringArg,
+} from '@/_private/types/lib/formTypes';
 
 // Actions
 import formActionCreator from '@/_private/lib/actions/formActions';
 
-export default function DefaultMode(
-  { form: { buildCmd, runCmd }, dispatchForm }: DefaultModeProps,
+export default function DefaultTab(
+  {
+    form: { createWorkflow, runWorkflow }, dispatchForm,
+  }:
+  {
+    form: Form,
+    dispatchForm: React.Dispatch<FormAction>,
+  },
 ) {
   const getSelectedKeys = (args: Arg[]): string[] => (
     args.filter(({ selected }: Arg) => selected).map(({ name }: Arg) => name));
 
-  const buildArgs = useMemo((): string[] => (getSelectedKeys(buildCmd.args)), [buildCmd.args]);
-  const runArgs = useMemo((): string[] => (getSelectedKeys(runCmd.args)), [runCmd.args]);
+  const buildArgs = useMemo((): string[] => (
+    getSelectedKeys(createWorkflow.args)), [createWorkflow.args]);
+
+  const runArgs = useMemo((): string[] => (
+    getSelectedKeys(runWorkflow.args)), [runWorkflow.args]);
 
   const onBuildCmdChange = useCallback((values: string[]): void => {
     formActionCreator.updateBuildCmdSelected(dispatchForm, values);
@@ -41,7 +50,7 @@ export default function DefaultMode(
         key="1"
         aria-label="Create workflow"
         title="Create workflow"
-        subtitle={<span>{`${buildArgs.length} of ${buildCmd.args.length} argments selected`}</span>}
+        subtitle={<span>{`${buildArgs.length} of ${createWorkflow.args.length} argments selected`}</span>}
       >
         <CheckboxGroup
           onValueChange={onBuildCmdChange}
@@ -49,7 +58,7 @@ export default function DefaultMode(
           color="primary"
           aria-label="Select arguments"
         >
-          {buildCmd.args.map((arg: Arg) => (
+          {createWorkflow.args.map((arg: Arg) => (
             <div key={arg.name} className="flex pb-2 flex-row justify-between rounded-lg items-center">
               <Checkbox className="basis-1/2 truncate" value={arg.name} isDisabled={arg.disabled}>
                 {arg.name}
@@ -78,7 +87,7 @@ export default function DefaultMode(
         key="2"
         aria-label="Run workflow"
         title="Run workflow"
-        subtitle={<span>{`${runArgs.length} of ${runCmd.args.length} argments selected`}</span>}
+        subtitle={<span>{`${runArgs.length} of ${runWorkflow.args.length} argments selected`}</span>}
       >
         <CheckboxGroup
           onValueChange={onRunCmdChange}
@@ -86,7 +95,7 @@ export default function DefaultMode(
           color="primary"
           aria-label="Select arguments"
         >
-          {runCmd.args.map((arg: Arg) => (
+          {runWorkflow.args.map((arg: Arg) => (
             <div key={arg.name} className="flex pb-2 flex-row justify-between rounded-lg items-center">
               <Checkbox className="basis-1/2 truncate" value={arg.name} isDisabled={arg.disabled}>
                 {arg.name}

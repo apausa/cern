@@ -9,36 +9,37 @@ import React, {
 } from 'react';
 
 // Components
-import SimulationDetails from '@/_private/components/simulation/SimulationDetails';
+import SimulationMain from '@/_private/components/simulation/SimulationMain';
 
 // Types
-import { Simulation, UseReducer } from '@/_private/types/components/simulationTypes';
+import { Simulation } from '@/_private/types/lib/simulationTypes';
 
 // Actions
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
+import formActionCreators from '@/_private/lib/actions/formActions';
 
 // Reducers
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
-import { FormUseReducer } from '@/_private/types/components/formTypes';
 import formReducer from '@/_private/lib/reducers/formReducer';
-import formActionCreators from '@/_private/lib/actions/formActions';
 
-export default function SimulationModal({ params: { id } }: any) {
-  // Next.js hooks
-  const pathName: string = usePathname();
-  const router: any = useRouter();
-
-  // Modal state hooks and functions
+export default function SimulationModal(
+  {
+    params: { id },
+  }: {
+    params: { id: string }
+  },
+) {
+  const pathName = usePathname();
+  const router = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
+  const [, dispatchForm] = useReducer(formReducer, null);
   const { isOpen, onOpen, onClose }: any = useDisclosure();
+
   const handleClose = useCallback((): void => {
     onClose();
     router.push('/');
   }, [router]);
-
-  // Other hooks and functions
-  const [loading, setLoading]: any = useState(true);
-  const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  const [, dispatchForm]: FormUseReducer = useReducer(formReducer, null);
 
   const selectedSimulation = useMemo((): Simulation | undefined => (
     simulations.find((simulation: Simulation): boolean => simulation.id === id)
@@ -86,8 +87,8 @@ export default function SimulationModal({ params: { id } }: any) {
           {(loading)
             ? (<Spinner />)
             : (
-              <SimulationDetails
-                selectedSimulation={selectedSimulation}
+              <SimulationMain
+                selectedSimulation={selectedSimulation as Simulation}
                 dispatchSimulation={dispatchSimulation}
               />
             )}
@@ -106,6 +107,7 @@ export default function SimulationModal({ params: { id } }: any) {
             isDisabled={loading}
             href="/build"
             as={Link}
+            color="primary"
           >
             Recreate
           </Button>

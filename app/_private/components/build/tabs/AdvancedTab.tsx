@@ -5,12 +5,21 @@ import { Textarea } from '@nextui-org/react';
 import formActionCreators from '@/_private/lib/actions/formActions';
 import getScript from '@/_private/utils/getScript';
 
-export default function AdvancedMode(
-  { form: { buildCmd, runCmd, script }, dispatchForm }: any,
+// Types
+import { Form, FormAction } from '@/_private/types/lib/formTypes';
+
+export default function AdvancedTab(
+  {
+    form: { createWorkflow, runWorkflow, script }, dispatchForm,
+  }:
+  {
+    form: Form,
+    dispatchForm: React.Dispatch<FormAction>,
+  },
 ) {
   useEffect((): void => {
-    formActionCreators.updateFormScript(dispatchForm, getScript(buildCmd, runCmd));
-  }, [buildCmd, runCmd]);
+    formActionCreators.updateFormScript(dispatchForm, getScript(createWorkflow, runWorkflow));
+  }, [createWorkflow, runWorkflow]);
 
   const onChange = useCallback(({ target: { value } }: any): void => {
     formActionCreators.updateFormScript(dispatchForm, value);

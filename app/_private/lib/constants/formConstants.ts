@@ -1,10 +1,9 @@
 /* eslint-disable no-template-curly-in-string */
 
-import { BuildCmd, Form, RunCmd } from '@/_private/types/components/formTypes';
+import { CreateWorkflow, Form, RunWorkflow } from '@/_private/types/lib/formTypes';
 import { getCurrentDate } from '@/_private/utils/getDate';
-import getScript from '@/_private/utils/getScript';
 
-const INITIAL_BUILD_CMD: BuildCmd = {
+const INITIAL_BUILD_CMD: CreateWorkflow = {
   name: '${O2DPG_ROOT}/MC/bin/o2dpg_sim_workflow.py',
   args: [
     {
@@ -546,37 +545,37 @@ const INITIAL_BUILD_CMD: BuildCmd = {
   ],
 };
 
-const INITIAL_RUN_CMD: RunCmd = {
+const INITIAL_RUN_CMD: RunWorkflow = {
   name: '${O2DPG_ROOT}/MC/bin/o2_dpg_workflow_runner.py',
   args: [
     {
-      name: '-f',
-      input: { type: 'string', options: ['workflow.json'] },
-      description: 'unknown',
-      value: 'workflow.json',
-      selected: true,
-      disabled: false,
-    },
-    {
       name: '-tt',
       input: { type: 'string', options: ['aod'] },
-      description: 'unknown',
+      description: null,
       value: 'aod',
-      selected: true,
-      disabled: false,
-    },
-    {
-      name: '--visualize-workflow',
-      input: { type: 'boolean' },
-      description: 'unknown',
-      value: null,
       selected: true,
       disabled: false,
     },
     {
       name: '--list-tasks',
       input: { type: 'boolean' },
-      description: 'unknown',
+      description: null,
+      value: null,
+      selected: true,
+      disabled: false,
+    },
+    {
+      name: '-f',
+      input: { type: 'string', options: ['workflow.json'] },
+      description: null,
+      value: 'workflow.json',
+      selected: true,
+      disabled: false,
+    },
+    {
+      name: '--visualize-workflow',
+      input: { type: 'boolean' },
+      description: null,
       value: null,
       selected: true,
       disabled: false,
@@ -587,9 +586,9 @@ const INITIAL_RUN_CMD: RunCmd = {
 const INITIAL_FORM: Form = {
   title: '',
   version: getCurrentDate(),
-  script: getScript(INITIAL_BUILD_CMD, INITIAL_RUN_CMD),
-  buildCmd: INITIAL_BUILD_CMD,
-  runCmd: INITIAL_RUN_CMD,
+  script: null,
+  createWorkflow: INITIAL_BUILD_CMD,
+  runWorkflow: INITIAL_RUN_CMD,
   advanced: false,
 };
 

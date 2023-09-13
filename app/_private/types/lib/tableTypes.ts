@@ -11,7 +11,7 @@ export type Column = {
   allowSorting: boolean,
 };
 
-export type Table = {
+export type TableType = {
   selectedColumns: Column[],
   selectedKey: string,
   filter: Filter,
@@ -31,7 +31,7 @@ export type Page = {
 
 // REDUCER
 
-export type TableUseReducer = [Table, Dispatch<any>];
+export type TableUseReducer = [TableType, Dispatch<any>];
 
 // ACTIONS
 
@@ -49,36 +49,36 @@ export type UpdateFilterStatusAction = { type: 'UPDATE_FILTER_STATUS', status: S
 export type UpdatePageRowsAction = { type: 'UPDATE_PAGE_ROWS', rows: number };
 export type UpdatePageCurrentAction = { type: 'UPDATE_PAGE_CURRENT', page: number };
 
+export type UpdateSelectedKey = (
+  dispatch: React.Dispatch<UpdateSelectedKeyAction>,
+  key: string
+) => void;
+export type UpdateSortDescriptor = (
+  dispatch: React.Dispatch<UpdateSortDescriptorAction>,
+  sortDescriptor: SortDescriptor
+) => void;
+export type UpdateFilterQuery = (
+  dispatch: React.Dispatch< UpdateFilterQueryAction>,
+  query: string
+) => void;
+export type UpdateFilterStatus = (
+  dispatch: React.Dispatch<UpdateFilterStatusAction>,
+  status: Selection
+) => void;
+export type UpdatePageRows = (
+  dispatch: React.Dispatch<UpdatePageRowsAction>,
+  rows: number
+) => void;
+export type UpdatePageCurrent = (
+  dispatch: React.Dispatch<UpdatePageCurrentAction>,
+  page: number
+) => void;
+
 export type TableActionCreators = {
-  updateSelectedKey: (
-    dispatch: React.Dispatch<UpdateSelectedKeyAction>,
-    key: string
-  ) => void,
-  updateSortDescriptor: (
-    dispatch: React.Dispatch<UpdateSortDescriptorAction>,
-    sortDescriptor: SortDescriptor
-  ) => void,
-  updateFilterQuery: (
-    dispatch: React.Dispatch< UpdateFilterQueryAction>,
-    query: string
-  ) => void,
-  updateFilterStatus: (
-    dispatch: React.Dispatch<UpdateFilterStatusAction>,
-    status: Selection
-  ) => void,
-  updatePageRows: (
-    dispatch: React.Dispatch<UpdatePageRowsAction>,
-    rows: number
-  ) => void,
-  updatePageCurrent: (
-    dispatch: React.Dispatch<UpdatePageCurrentAction>,
-    page: number
-  ) => void,
+  updateSelectedKey: UpdateSelectedKey,
+  updateSortDescriptor: UpdateSortDescriptor,
+  updateFilterQuery: UpdateFilterQuery,
+  updateFilterStatus: UpdateFilterStatus,
+  updatePageRows: UpdatePageRows,
+  updatePageCurrent: UpdatePageCurrent
 };
-
-// COMPONENTS
-
-export type TimelineProps = any;
-export type CellProps = any;
-export type BottomContentProps = any;
-export type TopContentProps = any;

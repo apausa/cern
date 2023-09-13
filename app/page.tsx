@@ -1,30 +1,34 @@
 'use client';
 
-import React, { useMemo, useReducer } from 'react';
+import React, { useEffect, useMemo, useReducer } from 'react';
 
 // Components
-import DashboardTable from '@/_private/components/dashboard/dashboardTable/DashboardTable';
+import { usePathname } from 'next/navigation';
+import DashboardMain from '@/_private/components/dashboard/dashboardMain/DashboardMain';
 import DashboardHeader from './_private/components/dashboard/DashboardHeader';
+import DashboardFooter from './_private/components/dashboard/DashboardFooter';
 
 // Constants
 import { INITIAL_TABLE } from '@/_private/lib/constants/tableConstants';
 
-// Types
-import { Table, TableUseReducer } from './_private/types/components/tableTypes';
-
 // Reducers
 import tableReducer from './_private/lib/reducers/tableReducer';
-import { Simulation, UseReducer } from './_private/types/components/simulationTypes';
 import simulationReducer from './_private/lib/reducers/simulationReducer';
-import DashboardFooter from './_private/components/dashboard/DashboardFooter';
-import { getStatusName } from './_private/utils/getStatus';
+
+// Types
+import { Simulation, UseReducer } from './_private/types/lib/simulationTypes';
+import { TableUseReducer } from './_private/types/lib/tableTypes';
+
+// Actions
+import simulationActionCreators from './_private/lib/actions/simulationActions';
 
 export default function Dashboard() {
+  const pathname: string = usePathname();
   const [table, dispatchTable]: TableUseReducer = useReducer(tableReducer, INITIAL_TABLE);
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
 
   const allPagesItems = useMemo((): Simulation[] => {
-    const { filter: { query, status } }: Table = table;
+    const { filter: { query, status } } = table;
     const filteredSimulationByQuery = (query)
       ? simulations.filter(({ form: { title } }: Simulation) => (
         title.toLowerCase().includes(query.toLowerCase())))
@@ -32,18 +36,23 @@ export default function Dashboard() {
 
     return (status === 'all')
       ? filteredSimulationByQuery
-      : filteredSimulationByQuery.filter(({ gridScript: { scriptStatus } }: Simulation) => (
-        Array.from(status).includes(getStatusName(scriptStatus))));
+      : filteredSimulationByQuery.filter(
+        ({ scripts: { gridRunWorkflow: { scriptStatus } } }: Simulation) => (
+          Array.from(status).includes(scriptStatus)),
+      );
   }, [simulations, table]);
+
+  useEffect(() => {
+    simulationActionCreators.readAllSimulations(dispatchSimulation);
+  }, [pathname]);
 
   return (
     <>
       <DashboardHeader table={table} dispatchTable={dispatchTable} />
       <main className="p-4 mb-auto">
-        <DashboardTable
+        <DashboardMain
           table={table}
           dispatchTable={dispatchTable}
-          dispatchSimulation={dispatchSimulation}
           allPagesItems={allPagesItems}
         />
       </main>

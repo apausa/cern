@@ -2,15 +2,22 @@ import React, { useCallback } from 'react';
 
 // State
 import tableActionCreators from '@/_private/lib/actions/tableActions';
+import { Simulation } from '@/_private/types/lib/simulationTypes';
 
 // Types
-import { TopContentProps } from '@/_private/types/components/tableTypes';
+import { TableAction, TableType } from '@/_private/types/lib/tableTypes';
 
-export default function TopContent({
-  table,
-  dispatchTable,
-  allPagesItems,
-}: TopContentProps) {
+export default function TopContent(
+  {
+    table,
+    dispatchTable,
+    allPagesItems,
+  }: {
+    table: TableType,
+    dispatchTable: React.Dispatch<TableAction>,
+    allPagesItems: Simulation[]
+  },
+) {
   const onChange = useCallback(({ target: { value } }: any) => {
     tableActionCreators.updatePageRows(dispatchTable, Number(value));
     tableActionCreators.updatePageCurrent(dispatchTable, 1);

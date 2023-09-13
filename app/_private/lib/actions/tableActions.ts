@@ -1,4 +1,4 @@
-import { TableActionCreators } from '@/_private/types/components/tableTypes';
+import { TableActionCreators } from '@/_private/types/lib/tableTypes';
 
 const tableActionCreators: TableActionCreators = {
   updateSelectedKey: (dispatch, key) => {

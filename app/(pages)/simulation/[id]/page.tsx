@@ -5,15 +5,14 @@ import React, {
   useCallback,
   useEffect, useMemo, useReducer, useState,
 } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 
 // Components
 import Link from 'next/link';
-import SimulationDetails from '@/_private/components/simulation/SimulationDetails';
+import SimulationMain from '@/_private/components/simulation/SimulationMain';
 
 // Types
-import { Simulation, UseReducer } from '@/_private/types/components/simulationTypes';
-import { FormUseReducer } from '@/_private/types/components/formTypes';
+import { Simulation } from '@/_private/types/lib/simulationTypes';
 
 // Actions
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
@@ -23,17 +22,24 @@ import formActionCreators from '@/_private/lib/actions/formActions';
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
 import formReducer from '@/_private/lib/reducers/formReducer';
 
-export default function SimulationPage({ params: { id } }: any) {
+export default function SimulationPage(
+  { params: { id } }:
+  { params: { id: string } },
+) {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  const [, dispatchForm]: FormUseReducer = useReducer(formReducer, null);
+  const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
+  const [, dispatchForm] = useReducer(formReducer, null);
+
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
 
   const onRecreate = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, selectedSimulation!.form);
-  }, [selectedSimulation]);
+    router.push('/');
+    router.push('/build');
+  }, [selectedSimulation, router]);
 
   const onDelete = useCallback((): void => {}, []); // @develop
 
@@ -50,12 +56,17 @@ export default function SimulationPage({ params: { id } }: any) {
   return (
     <>
       <header className="p-4 border-b border-b-neutral-800  flex justify-between">
+        <Button
+          href="/"
+          as={Link}
+        >
+          ←
+        </Button>
         <div className="pt-2">Job details</div>
         <Button
           onClick={onRecreate}
           isDisabled={loading}
-          href="/build"
-          as={Link}
+          color="primary"
         >
           Recreate
         </Button>
@@ -64,13 +75,13 @@ export default function SimulationPage({ params: { id } }: any) {
         {(loading)
           ? (<Spinner />)
           : (
-            <SimulationDetails
-              selectedSimulation={selectedSimulation}
+            <SimulationMain
+              selectedSimulation={selectedSimulation as Simulation}
               dispatchSimulation={dispatchSimulation}
             />
           )}
       </main>
-      <footer className="p-4 border-t border-t-neutral-800">
+      <footer className="p-4 border-t border-t-neutral-800  flex justify-between">
         <Button
           onClick={onDelete}
           variant="light"

@@ -1,6 +1,6 @@
 import INITIAL_FORM from '../lib/constants/formConstants';
-import { Form } from '../types/components/formTypes';
-import { Simulation } from '../types/components/simulationTypes';
+import { Form } from '../types/lib/formTypes';
+import { Simulation } from '../types/lib/simulationTypes';
 
 export const getAllSimulations = (): Simulation[] | [] => {
   const response: string | null = localStorage.getItem('simulations');

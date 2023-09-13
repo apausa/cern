@@ -1,12 +1,14 @@
 import React from 'react';
 import { Input } from '@nextui-org/react';
 
-// Types
-import { ReadOnlyInputProps } from '@/_private/types/components/simulationTypes';
-
 export default function ReadOnlyInput({
   label, value, color, variant,
-}: ReadOnlyInputProps) {
+}: {
+  label: string,
+  value: string,
+  color: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger',
+  variant: 'flat' | 'faded' | 'bordered' | 'underlined',
+}) {
   return (
     <Input
       className="py-2"

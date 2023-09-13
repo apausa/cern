@@ -4,15 +4,24 @@ import {
 import React, { useMemo } from 'react';
 
 // Types
-import { StringInputProps } from '@/_private/types/components/formTypes';
+import {
+  FormAction, StringArg, UpdateBuildCmdValue, UpdateRunCmdValue,
+} from '@/_private/types/lib/formTypes';
 
-export default function SelectInput({ arg, formAction, dispatchForm }: StringInputProps) {
+export default function StringInput(
+  {
+    arg, formAction, dispatchForm,
+  }:
+  {
+    arg: StringArg,
+    formAction: UpdateBuildCmdValue | UpdateRunCmdValue,
+    dispatchForm: React.Dispatch<FormAction>
+  },
+) {
   const selectedKeys = useMemo(() => new Set([arg.value]), [arg.value]);
   const handleOnSelectionChange = (keys: Selection): any => {
     formAction(dispatchForm, Array.from(keys)[0], arg.name);
   };
-
-  // @develop, make logic better
 
   return (
     arg.input.options ? (

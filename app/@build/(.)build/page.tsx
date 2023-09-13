@@ -2,7 +2,7 @@
 
 import {
   Button,
-  Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure,
+  Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Spinner, useDisclosure,
 } from '@nextui-org/react';
 import React, {
   useCallback, useReducer, useEffect, useState,
@@ -10,14 +10,10 @@ import React, {
 import { notFound, usePathname, useRouter } from 'next/navigation';
 
 // Components
-import BuildForm from '@/_private/components/build/BuildForm';
+import BuildMain from '@/_private/components/build/BuildMain';
 
 // Constants
 import INITIAL_FORM from '@/_private/lib/constants/formConstants';
-
-// Types
-import { UseReducer } from '@/_private/types/components/simulationTypes';
-import { FormUseReducer } from '@/_private/types/components/formTypes';
 
 // Reducers
 import formReducer from '@/_private/lib/reducers/formReducer';
@@ -28,21 +24,17 @@ import formActionCreators from '@/_private/lib/actions/formActions';
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 export default function BuildModal() {
-  // Next.js hooks
-  const pathName: string = usePathname();
+  const pathName = usePathname();
   const router = useRouter();
-
-  // Modal state hooks and functions
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [loading, setLoading] = useState(true);
+  const [, dispatchSimulation] = useReducer(simulationReducer, []);
+  const [form, dispatchForm] = useReducer(formReducer, null);
+
   const handleClose = useCallback((): void => {
     onClose();
     router.push('/');
   }, [router]);
-
-  // Other hooks and functions
-  const [loading, setLoading]: any = useState(true);
-  const [, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-  const [form, dispatchForm]: FormUseReducer = useReducer(formReducer, null);
 
   const onStage = useCallback(async (): Promise<void> => {
     await simulationActionCreators.createSimulation(dispatchSimulation, form);
@@ -81,17 +73,19 @@ export default function BuildModal() {
           <div className="pt-2">Job configuration</div>
         </ModalHeader>
         <ModalBody className="gap-0">
-          <BuildForm form={form} dispatchForm={dispatchForm} />
+          {loading ? <Spinner /> : <BuildMain form={form} dispatchForm={dispatchForm} />}
         </ModalBody>
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
           <Button
             onClick={onReset}
+            isDisabled={loading}
           >
             Reset
           </Button>
           <Button
             color="primary"
             onClick={onStage}
+            isDisabled={loading}
           >
             Stage
           </Button>

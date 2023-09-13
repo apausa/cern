@@ -1,10 +1,10 @@
-import { Form, FormActionCreators } from '@/_private/types/components/formTypes';
+import { Form, FormActionCreators } from '@/_private/types/lib/formTypes';
 import { getForm } from '@/_private/utils/localStorage';
 
 const formActionCreators: FormActionCreators = {
   // Read form
   readForm: (dispatch) => {
-    const form: Form | null = getForm();
+    const form: Form = getForm();
 
     dispatch({ type: 'READ_FORM', form });
   },
@@ -28,7 +28,7 @@ const formActionCreators: FormActionCreators = {
     dispatch({ type: 'UPDATE_FORM_SCRIPT', script });
   },
 
-  // Update form, buildCmd properties
+  // Update form, createWorkflow properties
   updateBuildCmdSelected: (dispatch, values) => {
     dispatch({ type: 'UPDATE_BUILD_CMD_SELECTED', values });
   },
@@ -36,7 +36,7 @@ const formActionCreators: FormActionCreators = {
     dispatch({ type: 'UPDATE_BUILD_CMD_VALUE', value, name });
   },
 
-  // Update form, runCmd properties
+  // Update form, runWorkflow properties
   updateRunCmdSelected: (dispatch, values) => {
     dispatch({ type: 'UPDATE_RUN_CMD_SELECTED', values });
   },
