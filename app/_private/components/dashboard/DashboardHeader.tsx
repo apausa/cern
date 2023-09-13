@@ -2,15 +2,18 @@ import {
   Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Selection,
 } from '@nextui-org/react';
 import React, { useCallback } from 'react';
-
-// State
 import Link from 'next/link';
+
+// Actions
 import tableActionCreators from '@/_private/lib/actions/tableActions';
+
+// Constants
 import { STATUS } from '@/_private/lib/constants/simulationConstants';
 
 // Utils
 import { getStatusName } from '@/_private/utils/getStatus';
 
+// Types
 import { Status } from '@/_private/types/utils';
 import { TableAction, TableType } from '@/_private/types/lib/tableTypes';
 

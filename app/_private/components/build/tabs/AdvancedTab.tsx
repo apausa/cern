@@ -4,6 +4,8 @@ import { Textarea } from '@nextui-org/react';
 // Actions
 import formActionCreators from '@/_private/lib/actions/formActions';
 import getScript from '@/_private/utils/getScript';
+
+// Types
 import { Form, FormAction } from '@/_private/types/lib/formTypes';
 
 export default function AdvancedMode(

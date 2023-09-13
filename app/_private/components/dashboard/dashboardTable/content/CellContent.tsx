@@ -3,6 +3,8 @@ import React, { Key } from 'react';
 
 // Utils
 import { getStatusColor, getStatusName } from '@/_private/utils/getStatus';
+
+// Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
 
 export default function CellContent(

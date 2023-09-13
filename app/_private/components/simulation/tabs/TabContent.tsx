@@ -4,19 +4,17 @@ import React, { useCallback } from 'react';
 // Components
 import ReadOnlyInput from '../inputs/ReadOnlyInput';
 import ReadOnlyTextarea from '../inputs/ReadOnlyTextarea';
+import StdoutData from './StdoutData';
+import StderrData from './StderrData';
 
 // Utils
 import { getStatusColor, getStatusName } from '@/_private/utils/getStatus';
 
-// State
+// Actions
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 // Types
 import { Simulation, UpdateSimulationAction } from '@/_private/types/lib/simulationTypes';
-
-// Constants
-import StdoutData from './StdoutData';
-import StderrData from './StderrData';
 
 export default function TabContent(
   {

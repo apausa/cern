@@ -5,16 +5,20 @@ import React, { useMemo, useReducer } from 'react';
 // Components
 import DashboardTable from '@/_private/components/dashboard/dashboardTable/DashboardTable';
 import DashboardHeader from './_private/components/dashboard/DashboardHeader';
+import DashboardFooter from './_private/components/dashboard/DashboardFooter';
 
 // Constants
 import { INITIAL_TABLE } from '@/_private/lib/constants/tableConstants';
 
 // Reducers
 import tableReducer from './_private/lib/reducers/tableReducer';
-import { Simulation, UseReducer } from './_private/types/lib/simulationTypes';
 import simulationReducer from './_private/lib/reducers/simulationReducer';
-import DashboardFooter from './_private/components/dashboard/DashboardFooter';
+
+// Utils
 import { getStatusName } from './_private/utils/getStatus';
+
+// Types
+import { Simulation, UseReducer } from './_private/types/lib/simulationTypes';
 import { TableUseReducer } from './_private/types/lib/tableTypes';
 
 export default function Dashboard() {

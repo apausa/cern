@@ -4,6 +4,8 @@ import React, { useCallback, useMemo } from 'react';
 // State
 import tableActionCreators from '@/_private/lib/actions/tableActions';
 import { Simulation } from '@/_private/types/lib/simulationTypes';
+
+// Types
 import { TableAction, TableType } from '@/_private/types/lib/tableTypes';
 
 export default function BottomContent({

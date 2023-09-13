@@ -3,6 +3,8 @@ import React from 'react';
 
 // Components
 import TabContent from './tabs/TabContent';
+
+// Types
 import { Simulation, SimulationAction } from '@/_private/types/lib/simulationTypes';
 
 export default function SimulationDetails({
