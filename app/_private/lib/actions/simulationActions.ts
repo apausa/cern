@@ -19,12 +19,12 @@ const simulationActionCreators: SimulationActionCreators = {
     if (simulation) dispatch({ type: 'CREATE_SIMULATION', simulation });
   },
 
-  updateSimulationScriptStatus: (dispatch, simulation, script, status) => {
+  updateSimulationScriptStatus: (dispatch, simulation, script) => {
     const unresolvedSimulation: Simulation = {
       ...simulation,
       scripts: {
         ...simulation.scripts,
-        [script]: { ...simulation.scripts[script], scriptStatus: status },
+        [script]: { ...simulation.scripts[script], scriptStatus: 'Running' },
       },
     };
 

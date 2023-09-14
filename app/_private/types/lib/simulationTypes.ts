@@ -49,8 +49,7 @@ export type CreateSimulation = (
 export type UpdateSimulationScriptStatus = (
   dispatch: React.Dispatch<UpdateSimulationAction>,
   simulation: Simulation,
-  script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow',
-  status: Status
+  script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow'
 ) => void;
 export type RunSimulationScript = (
   dispatch: React.Dispatch<UpdateSimulationAction>,

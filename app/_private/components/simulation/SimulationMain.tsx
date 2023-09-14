@@ -17,17 +17,6 @@ export default function SimulationMain({
     <div className="mb-2">
       <Tabs aria-label="Select environment" className="m-0 py-2 flex flex-col">
         <Tab
-          key="Visualize workflow"
-          title="Visualize workflow"
-          className="px-0 py-2 flex flex-col"
-        >
-          <SimulationTab
-            dispatchSimulation={dispatchSimulation}
-            selectedSimulation={selectedSimulation}
-            script="localCreateWorkflow"
-          />
-        </Tab>
-        <Tab
           key="Local run workflow"
           title="Local run"
           className="px-0 py-2 flex flex-col"

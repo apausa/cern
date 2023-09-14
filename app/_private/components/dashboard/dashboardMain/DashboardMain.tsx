@@ -4,9 +4,9 @@ import React, {
 import {
   Table, TableHeader, TableRow, TableCell, TableBody, TableColumn, SortDescriptor,
 } from '@nextui-org/react';
+import Link from 'next/link';
 
 // Components
-import Link from 'next/link';
 import CellContent from './content/CellContent';
 import TopContent from './content/TopContent';
 
@@ -48,7 +48,7 @@ export default function DashboardMain(
       aria-label="Monitor table"
       selectionMode="single"
       topContentPlacement="outside"
-      selectedKeys={table.selectedKey}
+      defaultSelectedKeys={table.selectedKey}
       sortDescriptor={table.sortDescriptor}
       onSelectionChange={onSelectionChange}
       onSortChange={onSortChange}
@@ -71,7 +71,6 @@ export default function DashboardMain(
             {(columnKey) => (
               <TableCell key={`${simulation.id} ${columnKey}`}>
                 <Link
-                  as={`/simulation/${simulation.id}`}
                   key={simulation.id}
                   href={`/simulation/${simulation.id}`}
                 >

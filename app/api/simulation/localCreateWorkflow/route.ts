@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { NextResponse } from 'next/server';
 import { ChildProcess, spawn } from 'child_process';
 

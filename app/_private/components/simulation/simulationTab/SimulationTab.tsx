@@ -2,6 +2,7 @@ import { Accordion, AccordionItem, Button } from '@nextui-org/react';
 import React, { useCallback } from 'react';
 
 // Components
+import Link from 'next/link';
 import ReadOnlyInput from './inputs/ReadOnlyInput';
 import StdoutData from './outputs/StdoutData';
 import StderrData from './outputs/StderrData';
@@ -23,10 +24,11 @@ export default function SimulationTab(
   {
     dispatchSimulation: React.Dispatch<UpdateSimulationAction>,
     selectedSimulation: Simulation,
-    script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow',
+    script: 'localRunWorkflow' | 'gridRunWorkflow',
   },
 ) {
   const {
+    id,
     scripts: {
       [script]: {
         scriptBody, scriptPath, scriptStatus, stderrData, stdoutData,
@@ -39,8 +41,8 @@ export default function SimulationTab(
       dispatchSimulation,
       selectedSimulation,
       script,
-      'Running',
     );
+
     simulationActionCreators.runSimulationScript(
       dispatchSimulation,
       selectedSimulation,
@@ -57,8 +59,18 @@ export default function SimulationTab(
         isLoading={scriptStatus === 'Running'}
         onClick={handleRunSimulationScript}
       >
-        Run
+        Run script
       </Button>
+      {script === 'localRunWorkflow' && (
+      <Button
+        className="my-2"
+        as={Link}
+        href={`/simulation/${id}/graphviz`}
+        target="_blank"
+      >
+        Open visualization
+      </Button>
+      )}
       <ReadOnlyInput
         color={getStatusColor(scriptStatus)}
         label="Status"

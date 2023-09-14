@@ -54,7 +54,7 @@ export default function SimulationPage(
         <div className="pt-2">Job details</div>
         <div />
       </header>
-      <main className="px-4 pt-2 mb-auto">
+      <main className="px-4 pt-2 mb-auto overflow-auto">
         {(loading)
           ? (<Spinner />)
           : (

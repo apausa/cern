@@ -48,7 +48,7 @@ export default function SimulationFooter(
       </Button>
       <Button
         onClick={onRecreate}
-        isDisabled={loading}
+        isDisabled={loading || selectedSimulation.form.advanced}
         href="/build"
         as={Link}
         variant="light"
