@@ -6,15 +6,18 @@ import { Simulation } from '@/_private/types/lib/simulationTypes';
 import { GridRunArgs, PutSimulation } from '@/_private/types/app/apiTypes';
 
 // Utils
-import { createFile } from '@/_private/utils/api';
+import { createFile, getSegment } from '@/_private/utils/api';
 
 export async function PUT(request: Request): Promise<PutSimulation> {
   const unresolvedSimulation: Simulation = await request.json();
-  const { scripts: { gridRunWorkflow } }: Simulation = unresolvedSimulation;
+  const { scripts: { gridRunWorkflow }, id }: Simulation = unresolvedSimulation;
+  const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   try {
-    await createFile(unresolvedSimulation.id, gridRunWorkflow);
+    // Creates script
+    await createFile(segment, gridRunWorkflow);
 
+    // Runs script
     const args: GridRunArgs = ['--script', gridRunWorkflow.scriptPath, '--wait', '--fetch-output-files'];
     const childProcess: ChildProcess = spawn(process.env.GRID_SUBMIT_PATH!, args);
     const stderrData: string[] = [];
@@ -40,6 +43,7 @@ export async function PUT(request: Request): Promise<PutSimulation> {
       });
     });
 
+    // Returns script
     return NextResponse.json(resolvedSimulation, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(

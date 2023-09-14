@@ -9,16 +9,19 @@ import { Simulation } from '@/_private/types/lib/simulationTypes';
 import { LocalRunArgs, PutSimulation } from '@/_private/types/app/apiTypes';
 
 // Utils
-import { createFile, getLocalArgs } from '@/_private/utils/api';
+import { createFile, getLocalArgs, getSegment } from '@/_private/utils/api';
 
 export async function PUT(request: Request): Promise<PutSimulation> {
   const unresolvedSimulation: Simulation = await request.json();
-  const { scripts: { localRunWorkflow } }: Simulation = unresolvedSimulation;
+  const { scripts: { localRunWorkflow }, id }: Simulation = unresolvedSimulation;
+  const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   try {
-    await createFile(unresolvedSimulation.id, localRunWorkflow);
+    // Creates script
+    await createFile(segment, localRunWorkflow);
 
-    const args: LocalRunArgs = getLocalArgs(unresolvedSimulation.id, localRunWorkflow.scriptPath);
+    // Runs script
+    const args: LocalRunArgs = getLocalArgs(segment, localRunWorkflow.scriptPath);
     const childProcess: ChildProcess = spawn(APPTAINER_PATH, args);
     const stderrData: string[] = [];
     const stdoutData: string[] = [];
@@ -43,6 +46,7 @@ export async function PUT(request: Request): Promise<PutSimulation> {
       });
     });
 
+    // Returns script
     return NextResponse.json(resolvedSimulation, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(

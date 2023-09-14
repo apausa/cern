@@ -34,7 +34,7 @@ export async function POST(request: Request): Promise<PostSimulation> {
   try {
     const version: string = getSelectedVersion(form.version);
     const id: string = uuidv4();
-    const segment: string = getSegment(id);
+    const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
     const script: string = (form.advanced && form.script !== null)
       ? form.script
       : getScript(form.createWorkflow, form.runWorkflow);

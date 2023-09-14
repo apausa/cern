@@ -1,7 +1,7 @@
 'use client';
 
 import {
-  Button, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Spinner, useDisclosure,
+  Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Spinner, useDisclosure,
 } from '@nextui-org/react';
 import { usePathname, useRouter, notFound } from 'next/navigation';
 import React, {
@@ -16,11 +16,10 @@ import { Simulation } from '@/_private/types/lib/simulationTypes';
 
 // Actions
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
-import formActionCreators from '@/_private/lib/actions/formActions';
 
 // Reducers
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
-import formReducer from '@/_private/lib/reducers/formReducer';
+import SimulationFooter from '@/_private/components/simulation/SimulationFooter';
 
 export default function SimulationModal(
   {
@@ -33,8 +32,7 @@ export default function SimulationModal(
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
-  const [, dispatchForm] = useReducer(formReducer, null);
-  const { isOpen, onOpen, onClose }: any = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleClose = useCallback((): void => {
     onClose();
@@ -45,13 +43,6 @@ export default function SimulationModal(
     simulations.find((simulation: Simulation): boolean => simulation.id === id)
   ), [simulations, id]);
 
-  const onRecreate = useCallback((): void => {
-    formActionCreators.createForm(dispatchForm, selectedSimulation!.form);
-    onClose();
-  }, [selectedSimulation]);
-
-  const onDelete = useCallback((): void => {}, []);
-
   useEffect(() => {
     if (pathName.startsWith('/simulation')) {
       onOpen();
@@ -60,11 +51,12 @@ export default function SimulationModal(
   }, [pathName]);
 
   useEffect(() => {
-    if (selectedSimulation) setLoading(false);
+    setLoading(false);
   }, [selectedSimulation]);
 
   if (!loading && !selectedSimulation) return notFound();
 
+  //  Functionalities
   return (
     <Modal
       isOpen={isOpen}
@@ -94,26 +86,12 @@ export default function SimulationModal(
             )}
         </ModalBody>
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
-          <Button
-            onClick={onDelete}
-            isDisabled={loading}
-            variant="light"
-          >
-            Delete
-          </Button>
-          <Button
-            variant="light"
-          >
-            Copy link
-          </Button>
-          <Button
-            onClick={onRecreate}
-            isDisabled={loading}
-            href="/build"
-            as={Link}
-          >
-            Recreate
-          </Button>
+          <SimulationFooter
+            loading={loading}
+            selectedSimulation={selectedSimulation as Simulation}
+            isOpen={isOpen}
+            onClose={onClose}
+          />
         </ModalFooter>
       </ModalContent>
     </Modal>

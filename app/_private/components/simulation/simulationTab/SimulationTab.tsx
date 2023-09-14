@@ -2,10 +2,10 @@ import { Accordion, AccordionItem, Button } from '@nextui-org/react';
 import React, { useCallback } from 'react';
 
 // Components
-import ReadOnlyInput from '../inputs/ReadOnlyInput';
-import ReadOnlyTextarea from '../inputs/ReadOnlyTextarea';
-import StdoutData from './outputData/StdoutData';
-import StderrData from './outputData/StderrData';
+import ReadOnlyInput from './inputs/ReadOnlyInput';
+import StdoutData from './outputs/StdoutData';
+import StderrData from './outputs/StderrData';
+import ReadOnlyTextarea from './inputs/ReadOnlyTextarea';
 
 // Utils
 import { getStatusColor } from '@/_private/utils/getStatus';
@@ -16,7 +16,7 @@ import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 // Types
 import { Simulation, UpdateSimulationAction } from '@/_private/types/lib/simulationTypes';
 
-export default function DefaultTab(
+export default function SimulationTab(
   {
     dispatchSimulation, selectedSimulation, script,
   }:
@@ -32,7 +32,7 @@ export default function DefaultTab(
         scriptBody, scriptPath, scriptStatus, stderrData, stdoutData,
       },
     },
-  } = selectedSimulation;
+  }: Simulation = selectedSimulation;
 
   const handleRunSimulationScript = useCallback((): void => {
     simulationActionCreators.updateSimulationScriptStatus(

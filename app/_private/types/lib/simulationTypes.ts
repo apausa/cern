@@ -10,7 +10,7 @@ export type Simulation = {
   form: Form,
   scripts: {
     localRunWorkflow: Script,
-    localCreateWorkflow: Script,
+    localCreateWorkflow: Script & { graphvizData: string | null },
     gridRunWorkflow: Script,
   }
 };
