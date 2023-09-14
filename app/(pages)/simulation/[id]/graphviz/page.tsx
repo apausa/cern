@@ -65,10 +65,8 @@ export default function Graphviz(
         case 'Completed' || 'Error':
           if (graphvizData) {
             graphviz(ref.current).renderDot(graphvizData);
-            setLoading(false);
-          } else {
-            return notFound();
           }
+          setLoading(false);
           break;
         default:
           break;
@@ -79,6 +77,11 @@ export default function Graphviz(
   }, [selectedSimulation]);
 
   if (!loading && !selectedSimulation) return notFound();
+  /* @develop, when simulation returns error nothing happens. to do:
+   - useEffect to control when...
+   - b
+  */
+
   return (
     <>
       <header className="p-4 border-b border-b-neutral-800 flex justify-between">
