@@ -1,20 +1,25 @@
 import { Button } from '@nextui-org/react';
-import React, { useCallback, useReducer } from 'react';
+import React, {
+  useCallback, useReducer,
+} from 'react';
 import Link from 'next/link';
 
 import formActionCreators from '@/_private/lib/actions/formActions';
 
 import formReducer from '@/_private/lib/reducers/formReducer';
-import { Simulation } from '@/_private/types/lib/simulationTypes';
+import { Simulation, SimulationAction } from '@/_private/types/lib/simulationTypes';
+import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
-export default function SimulationFooter(
+export default function SimulationFooter( // @develop
   {
-    loading, isOpen, selectedSimulation, onClose,
+    loading, isOpen, selectedSimulation, onClose, dispatchSimulation, setDeleted,
   }: {
     loading: boolean,
     isOpen: boolean,
     selectedSimulation: Simulation,
     onClose: () => void;
+    dispatchSimulation: React.Dispatch<SimulationAction>,
+    setDeleted: React.Dispatch<React.SetStateAction<boolean>>
   },
 ) {
   const [, dispatchForm] = useReducer(formReducer, null);
@@ -22,9 +27,13 @@ export default function SimulationFooter(
   const onRecreate = useCallback((): void => {
     formActionCreators.createForm(dispatchForm, selectedSimulation.form);
     if (isOpen) onClose();
-  }, [selectedSimulation]);
+  }, [selectedSimulation, isOpen]);
 
-  const onDelete = useCallback((): void => {}, []);
+  const onDelete = useCallback((): void => {
+    simulationActionCreators.deleteSimulation(dispatchSimulation, selectedSimulation.id);
+    if (isOpen) onClose();
+    setDeleted(true);
+  }, [selectedSimulation, isOpen]);
 
   const onCopy = useCallback((): void => {
     navigator.clipboard.writeText(window.location.toString());

@@ -3,7 +3,7 @@
 import {
   Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, Spinner, useDisclosure,
 } from '@nextui-org/react';
-import { usePathname, useRouter, notFound } from 'next/navigation';
+import { notFound, usePathname, useRouter } from 'next/navigation';
 import React, {
   useCallback, useEffect, useMemo, useReducer, useState,
 } from 'react';
@@ -31,6 +31,7 @@ export default function SimulationModal(
   const pathName = usePathname();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -39,10 +40,7 @@ export default function SimulationModal(
     router.push('/');
   }, [router]);
 
-  const selectedSimulation = useMemo((): Simulation | undefined => (
-    simulations.find((simulation: Simulation): boolean => simulation.id === id)
-  ), [simulations, id]);
-
+  // First, gets simulations
   useEffect(() => {
     if (pathName.startsWith('/simulation')) {
       onOpen();
@@ -50,13 +48,22 @@ export default function SimulationModal(
     }
   }, [pathName]);
 
+  // Then, finds simulation
+  const selectedSimulation = useMemo((): Simulation | undefined => (
+    simulations.find((simulation: Simulation): boolean => simulation.id === id)
+  ), [simulations, id]);
+
   useEffect(() => {
-    setLoading(false);
-  }, [selectedSimulation]);
+    if (loading) setLoading(false);
+    if (!selectedSimulation && deleted) {
+      router.push('/');
+    }
+  }, [selectedSimulation, deleted]);
 
-  if (!loading && !selectedSimulation) return notFound();
+  if (!loading && !selectedSimulation && !deleted) {
+    return notFound();
+  }
 
-  //  Functionalities
   return (
     <Modal
       isOpen={isOpen}
@@ -91,6 +98,8 @@ export default function SimulationModal(
             selectedSimulation={selectedSimulation as Simulation}
             isOpen={isOpen}
             onClose={onClose}
+            dispatchSimulation={dispatchSimulation}
+            setDeleted={setDeleted}
           />
         </ModalFooter>
       </ModalContent>

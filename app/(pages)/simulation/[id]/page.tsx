@@ -4,7 +4,7 @@ import { Button, Spinner } from '@nextui-org/react';
 import React, {
   useEffect, useMemo, useReducer, useState,
 } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 
 // Components
 import Link from 'next/link';
@@ -24,22 +24,31 @@ export default function SimulationPage(
   { params: { id } }:
   { params: { id: string } },
 ) {
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
 
+  // First, gets simulations
+  useEffect(() => {
+    simulationActionCreators.readAllSimulations(dispatchSimulation);
+  }, []);
+
+  // Then, finds simulation
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
 
   useEffect(() => {
-    simulationActionCreators.readAllSimulations(dispatchSimulation);
-  }, []);
+    if (loading) setLoading(false);
+    if (!selectedSimulation && deleted) {
+      router.push('/');
+    }
+  }, [selectedSimulation, deleted]);
 
-  useEffect(() => {
-    setLoading(false);
-  }, [selectedSimulation]);
-
-  if (!loading && !selectedSimulation) return notFound();
+  if (!loading && !selectedSimulation && !deleted) {
+    return notFound();
+  }
 
   return (
     <>
@@ -70,6 +79,8 @@ export default function SimulationPage(
           selectedSimulation={selectedSimulation as Simulation}
           isOpen={false}
           onClose={() => {}}
+          dispatchSimulation={dispatchSimulation}
+          setDeleted={setDeleted}
         />
       </footer>
     </>

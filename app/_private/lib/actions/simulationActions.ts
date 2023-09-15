@@ -19,6 +19,15 @@ const simulationActionCreators: SimulationActionCreators = {
     if (simulation) dispatch({ type: 'CREATE_SIMULATION', simulation });
   },
 
+  deleteSimulation: async (dispatch, id) => {
+    await fetch(
+      '/api/simulation',
+      { method: 'DELETE', body: JSON.stringify(id) },
+    );
+
+    dispatch({ type: 'DELETE_SIMULATION', id });
+  },
+
   updateSimulationScriptStatus: (dispatch, simulation, script) => {
     const unresolvedSimulation: Simulation = {
       ...simulation,

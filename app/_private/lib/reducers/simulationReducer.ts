@@ -9,10 +9,13 @@ const simulationReducer = (
 
   switch (action.type) {
     case 'READ_ALL_SIMULATIONS': {
-      nextState = action.simulations;
+      nextState = [...action.simulations];
       break; }
     case 'CREATE_SIMULATION': {
       nextState = [action.simulation, ...currentState];
+      break; }
+    case 'DELETE_SIMULATION': {
+      nextState = [...currentState.filter(({ id }: Simulation) => id !== action.id)];
       break; }
     case 'UPDATE_SIMULATION': {
       nextState = currentState.map((simulation: Simulation): Simulation => (
