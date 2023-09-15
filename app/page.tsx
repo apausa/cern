@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useEffect, useMemo, useReducer } from 'react';
+import React, {
+  useEffect, useReducer, useState,
+} from 'react';
 
 // Components
 import { usePathname } from 'next/navigation';
@@ -17,7 +19,7 @@ import simulationReducer from './_private/lib/reducers/simulationReducer';
 
 // Types
 import { Simulation, UseReducer } from './_private/types/lib/simulationTypes';
-import { TableUseReducer } from './_private/types/lib/tableTypes';
+import { TableType, TableUseReducer } from './_private/types/lib/tableTypes';
 
 // Actions
 import simulationActionCreators from './_private/lib/actions/simulationActions';
@@ -26,25 +28,30 @@ export default function Dashboard() {
   const pathname: string = usePathname();
   const [table, dispatchTable]: TableUseReducer = useReducer(tableReducer, INITIAL_TABLE);
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
-
-  const allPagesItems = useMemo((): Simulation[] => {
-    const { filter: { query, status } } = table;
-    const filteredSimulationByQuery = (query)
-      ? simulations.filter(({ form: { title } }: Simulation) => (
-        title.toLowerCase().includes(query.toLowerCase())))
-      : simulations;
-
-    return (status === 'all')
-      ? filteredSimulationByQuery
-      : filteredSimulationByQuery.filter(
-        ({ scripts: { gridRunWorkflow: { scriptStatus } } }: Simulation) => (
-          Array.from(status).includes(scriptStatus)),
-      );
-  }, [simulations, table]);
+  const [allItems, setAllItems] = useState<Simulation[]>([]);
 
   useEffect(() => {
     simulationActionCreators.readAllSimulations(dispatchSimulation);
   }, [pathname]);
+
+  useEffect(() => {
+    const { filter: { query, status } }: TableType = table;
+    const filteredSimulationByQuery: Simulation[] = (query)
+      ? simulations.filter(({ form: { title } }: Simulation) => (
+        title.toLowerCase().includes(query.toLowerCase())))
+      : simulations;
+
+    setAllItems((status === 'all')
+      ? filteredSimulationByQuery
+      : filteredSimulationByQuery.filter(
+        ({ scripts: { gridRunWorkflow: { scriptStatus } } }: Simulation) => (
+          Array.from(status).includes(scriptStatus)),
+      ));
+  }, [simulations, table.filter]);
+
+  useEffect(() => {
+    setAllItems([...allItems.reverse()]);
+  }, [table.sortDescriptor]);
 
   return (
     <>
@@ -53,13 +60,13 @@ export default function Dashboard() {
         <DashboardMain
           table={table}
           dispatchTable={dispatchTable}
-          allPagesItems={allPagesItems}
+          allItems={allItems}
         />
       </main>
       <DashboardFooter
         table={table}
         dispatchTable={dispatchTable}
-        allPagesItems={allPagesItems}
+        allItems={allItems}
       />
     </>
   );

@@ -11,11 +11,11 @@ export default function TopContent(
   {
     table,
     dispatchTable,
-    allPagesItems,
+    allItems,
   }: {
     table: TableType,
     dispatchTable: React.Dispatch<TableAction>,
-    allPagesItems: Simulation[]
+    allItems: Simulation[]
   },
 ) {
   const onChange = useCallback(({ target: { value } }: any) => {
@@ -26,7 +26,7 @@ export default function TopContent(
   return (
     <div className="flex justify-between text-small">
       <div>
-        {allPagesItems.length}
+        {allItems.length}
         {' '}
         total jobs
       </div>

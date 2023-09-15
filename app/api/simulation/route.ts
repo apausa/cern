@@ -7,7 +7,7 @@ import { Form } from '@/_private/types/lib/formTypes';
 import { PostSimulation } from '@/_private/types/app/apiTypes';
 
 // Utils
-import { getSelectedVersion } from '@/_private/utils/getDate';
+import { getCurrentDate, getSelectedVersion } from '@/_private/utils/getDate';
 import getScript from '@/_private/utils/getScript';
 import { getSegment } from '@/_private/utils/api';
 
@@ -41,7 +41,7 @@ export async function POST(request: Request): Promise<PostSimulation> {
 
     return NextResponse.json({
       id,
-      date: new Date(),
+      date: getCurrentDate(),
       form: { ...form, script, title: form.title || id },
       scripts: {
         localCreateWorkflow: {

@@ -1,7 +1,7 @@
 /* eslint-disable no-template-curly-in-string */
 
 import { CreateWorkflow, Form, RunWorkflow } from '@/_private/types/lib/formTypes';
-import { getCurrentDate } from '@/_private/utils/getDate';
+import { getLatestVersion } from '@/_private/utils/getDate';
 
 const INITIAL_BUILD_CMD: CreateWorkflow = {
   name: '${O2DPG_ROOT}/MC/bin/o2dpg_sim_workflow.py',
@@ -585,7 +585,7 @@ const INITIAL_RUN_CMD: RunWorkflow = {
 
 const INITIAL_FORM: Form = {
   title: '',
-  version: getCurrentDate(),
+  version: getLatestVersion(),
   script: '',
   createWorkflow: INITIAL_BUILD_CMD,
   runWorkflow: INITIAL_RUN_CMD,
