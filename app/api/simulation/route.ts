@@ -7,7 +7,7 @@ import { Form } from '@/_private/types/lib/formTypes';
 import { PostSimulation } from '@/_private/types/app/apiTypes';
 
 // Utils
-import { getSelectedVersion } from '@/_private/utils/getDate';
+import { getCurrentDate, getSelectedVersion } from '@/_private/utils/getDate';
 import getScript from '@/_private/utils/getScript';
 import { getSegment } from '@/_private/utils/api';
 
@@ -34,14 +34,14 @@ export async function POST(request: Request): Promise<PostSimulation> {
   try {
     const version: string = getSelectedVersion(form.version);
     const id: string = uuidv4();
-    const segment: string = getSegment(id);
+    const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
     const script: string = (form.advanced && form.script !== null)
       ? form.script
       : getScript(form.createWorkflow, form.runWorkflow);
 
     return NextResponse.json({
       id,
-      date: new Date(),
+      date: getCurrentDate(),
       form: { ...form, script, title: form.title || id },
       scripts: {
         localCreateWorkflow: {

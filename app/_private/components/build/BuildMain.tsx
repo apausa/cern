@@ -8,7 +8,7 @@ import AdvancedMode from './tabs/AdvancedTab';
 import DefaultMode from './tabs/defaultTab/DefaultTab';
 
 // Utils
-import { getCurrentDate } from '@/_private/utils/getDate';
+import { getLatestVersion } from '@/_private/utils/getDate';
 
 // Actions
 import formActionCreators from '@/_private/lib/actions/formActions';
@@ -55,7 +55,7 @@ export default function BuildMain(
         min="2021-09-22"
         variant="faded"
         color="default"
-        max={getCurrentDate()}
+        max={getLatestVersion()}
         value={form.version}
         onValueChange={onVersionChange}
       />

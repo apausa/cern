@@ -2,10 +2,9 @@
 
 import { Button, Spinner } from '@nextui-org/react';
 import React, {
-  useCallback,
   useEffect, useMemo, useReducer, useState,
 } from 'react';
-import { notFound, useRouter } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
 // Components
 import Link from 'next/link';
@@ -16,39 +15,28 @@ import { Simulation } from '@/_private/types/lib/simulationTypes';
 
 // Actions
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
-import formActionCreators from '@/_private/lib/actions/formActions';
 
 // Reducers
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
-import formReducer from '@/_private/lib/reducers/formReducer';
+import SimulationFooter from '@/_private/components/simulation/SimulationFooter';
 
 export default function SimulationPage(
   { params: { id } }:
   { params: { id: string } },
 ) {
-  const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
-  const [, dispatchForm] = useReducer(formReducer, null);
 
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
-
-  const onRecreate = useCallback((): void => {
-    formActionCreators.createForm(dispatchForm, selectedSimulation!.form);
-    router.push('/');
-    router.push('/build');
-  }, [selectedSimulation, router]);
-
-  const onDelete = useCallback((): void => {}, []); // @develop
 
   useEffect(() => {
     simulationActionCreators.readAllSimulations(dispatchSimulation);
   }, []);
 
   useEffect(() => {
-    if (selectedSimulation) setLoading(false);
+    setLoading(false);
   }, [selectedSimulation]);
 
   if (!loading && !selectedSimulation) return notFound();
@@ -64,14 +52,9 @@ export default function SimulationPage(
           ←
         </Button>
         <div className="pt-2">Job details</div>
-        <Button
-          onClick={onRecreate}
-          isDisabled={loading}
-        >
-          Recreate
-        </Button>
+        <div />
       </header>
-      <main className="px-4 pt-2 mb-auto">
+      <main className="px-4 pt-2 mb-auto overflow-auto">
         {(loading)
           ? (<Spinner />)
           : (
@@ -82,19 +65,12 @@ export default function SimulationPage(
           )}
       </main>
       <footer className="p-4 border-t border-t-neutral-800  flex justify-between">
-        <Button
-          onClick={onDelete}
-          variant="light"
-          isDisabled={loading}
-        >
-          Delete
-        </Button>
-        <Button
-          variant="light"
-        >
-          Copy link
-        </Button>
-        <div />
+        <SimulationFooter
+          loading={loading}
+          selectedSimulation={selectedSimulation as Simulation}
+          isOpen={false}
+          onClose={() => {}}
+        />
       </footer>
     </>
   );

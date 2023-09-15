@@ -66,7 +66,7 @@ export default function BuildPage() {
           Stage
         </Button>
       </header>
-      <main className="px-4 py-2 mb-auto">
+      <main className="px-4 py-2 mb-auto overflow-auto">
         {loading ? <Spinner /> : <BuildMain form={form} dispatchForm={dispatchForm} />}
       </main>
       <footer className="p-4 border-t border-t-neutral-800">

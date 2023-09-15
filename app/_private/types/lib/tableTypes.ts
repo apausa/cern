@@ -7,7 +7,6 @@ export type ColumnKey = 'Title' | 'Number' | 'Local status' | 'WLCG status' | 'D
 
 export type Column = {
   key: ColumnKey,
-  selected: boolean,
   allowSorting: boolean,
 };
 

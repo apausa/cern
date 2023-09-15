@@ -11,15 +11,15 @@ import { TableAction, TableType } from '@/_private/types/lib/tableTypes';
 export default function DashboardFooter({
   table,
   dispatchTable,
-  allPagesItems,
+  allItems,
 }: {
   table: TableType,
   dispatchTable: React.Dispatch<TableAction>,
-  allPagesItems: Simulation[]
+  allItems: Simulation[]
 }) {
   const pages = useMemo((): number => (
-    Math.ceil((allPagesItems.length || 1) / table.page.rows)
-  ), [allPagesItems.length, table.page.rows]);
+    Math.ceil((allItems.length || 1) / table.page.rows)
+  ), [allItems.length, table.page.rows]);
 
   const onNextPage = useCallback((): void => {
     if (table.page.current < pages) {

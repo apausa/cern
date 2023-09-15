@@ -4,9 +4,9 @@ import React, {
 import {
   Table, TableHeader, TableRow, TableCell, TableBody, TableColumn, SortDescriptor,
 } from '@nextui-org/react';
+import Link from 'next/link';
 
 // Components
-import Link from 'next/link';
 import CellContent from './content/CellContent';
 import TopContent from './content/TopContent';
 
@@ -19,19 +19,19 @@ import tableActionCreators from '@/_private/lib/actions/tableActions';
 
 export default function DashboardMain(
   {
-    table, dispatchTable, allPagesItems,
+    table, dispatchTable, allItems,
   }: {
     table: TableType,
     dispatchTable: React.Dispatch<TableAction>,
-    allPagesItems: Simulation[],
+    allItems: Simulation[],
   },
 ) {
   const currentPageItems = useMemo((): Simulation[] => {
-    const { page: { rows, current } } = table;
-    const start = (current - 1) * rows;
+    const { page: { rows, current } }: TableType = table;
+    const start: number = (current - 1) * rows;
 
-    return allPagesItems.slice(start, start + rows);
-  }, [allPagesItems, table.page]);
+    return allItems.slice(start, start + rows);
+  }, [allItems, table.page]);
 
   const onSortChange = useCallback((sortDescriptor: SortDescriptor) => {
     tableActionCreators.updateSortDescriptor(dispatchTable, sortDescriptor);
@@ -48,7 +48,7 @@ export default function DashboardMain(
       aria-label="Monitor table"
       selectionMode="single"
       topContentPlacement="outside"
-      selectedKeys={table.selectedKey}
+      defaultSelectedKeys={table.selectedKey}
       sortDescriptor={table.sortDescriptor}
       onSelectionChange={onSelectionChange}
       onSortChange={onSortChange}
@@ -56,7 +56,7 @@ export default function DashboardMain(
         <TopContent
           table={table}
           dispatchTable={dispatchTable}
-          allPagesItems={allPagesItems}
+          allItems={allItems}
         />
           )}
     >
@@ -71,9 +71,9 @@ export default function DashboardMain(
             {(columnKey) => (
               <TableCell key={`${simulation.id} ${columnKey}`}>
                 <Link
-                  as={`/simulation/${simulation.id}`}
                   key={simulation.id}
                   href={`/simulation/${simulation.id}`}
+                  as={`/simulation/${simulation.id}`}
                 >
                   <CellContent simulation={simulation} columnKey={columnKey} />
                 </Link>

@@ -1,8 +1,12 @@
 import React from 'react';
 
 export default function StdoutData(
-  { stdoutData }:
-  { stdoutData: string },
+  {
+    stdoutData,
+  }:
+  {
+    stdoutData: string,
+  },
 ) {
   return (
     <div className="my-2">

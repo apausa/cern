@@ -2,10 +2,11 @@ import { Accordion, AccordionItem, Button } from '@nextui-org/react';
 import React, { useCallback } from 'react';
 
 // Components
-import ReadOnlyInput from '../inputs/ReadOnlyInput';
-import ReadOnlyTextarea from '../inputs/ReadOnlyTextarea';
-import StdoutData from './outputData/StdoutData';
-import StderrData from './outputData/StderrData';
+import Link from 'next/link';
+import ReadOnlyInput from './inputs/ReadOnlyInput';
+import StdoutData from './outputs/StdoutData';
+import StderrData from './outputs/StderrData';
+import ReadOnlyTextarea from './inputs/ReadOnlyTextarea';
 
 // Utils
 import { getStatusColor } from '@/_private/utils/getStatus';
@@ -16,31 +17,32 @@ import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 // Types
 import { Simulation, UpdateSimulationAction } from '@/_private/types/lib/simulationTypes';
 
-export default function DefaultTab(
+export default function SimulationTab(
   {
     dispatchSimulation, selectedSimulation, script,
   }:
   {
     dispatchSimulation: React.Dispatch<UpdateSimulationAction>,
     selectedSimulation: Simulation,
-    script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow',
+    script: 'localRunWorkflow' | 'gridRunWorkflow',
   },
 ) {
   const {
+    id,
     scripts: {
       [script]: {
         scriptBody, scriptPath, scriptStatus, stderrData, stdoutData,
       },
     },
-  } = selectedSimulation;
+  }: Simulation = selectedSimulation;
 
   const handleRunSimulationScript = useCallback((): void => {
     simulationActionCreators.updateSimulationScriptStatus(
       dispatchSimulation,
       selectedSimulation,
       script,
-      'Running',
     );
+
     simulationActionCreators.runSimulationScript(
       dispatchSimulation,
       selectedSimulation,
@@ -57,8 +59,18 @@ export default function DefaultTab(
         isLoading={scriptStatus === 'Running'}
         onClick={handleRunSimulationScript}
       >
-        Run
+        Run script
       </Button>
+      {script === 'localRunWorkflow' && (
+      <Button
+        className="my-2"
+        as={Link}
+        href={`/simulation/${id}/graphviz`}
+        target="_blank"
+      >
+        Open visualization
+      </Button>
+      )}
       <ReadOnlyInput
         color={getStatusColor(scriptStatus)}
         label="Status"
