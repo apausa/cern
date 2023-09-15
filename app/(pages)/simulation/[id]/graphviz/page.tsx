@@ -24,7 +24,7 @@ export default function Graphviz(
   { params: { id } }:
   { params: { id: string } },
 ) {
-  const ref = useRef(null);
+  const ref: any = useRef(null);
   const [loading, setLoading] = useState(true);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
 
@@ -64,7 +64,8 @@ export default function Graphviz(
           break;
         case 'Completed' || 'Error':
           if (graphvizData) {
-            graphviz(ref.current).renderDot(graphvizData);
+            graphviz(ref.current)
+              .renderDot(graphvizData);
           }
           setLoading(false);
           break;
@@ -95,10 +96,10 @@ export default function Graphviz(
         <div className="pt-2">Job visualization</div>
         <div />
       </header>
-      <main className="flex justify-center items-center overflow-auto">
+      <main className="mb-auto overflow-auto">
         {loading ? <Spinner /> : <div ref={ref} />}
       </main>
-      <footer className="p-4 border-t border-t-neutral-800  flex justify-between">
+      <footer className="p-4 border-t border-t-neutral-800 flex justify-between">
         <SimulationFooter
           loading={loading}
           selectedSimulation={selectedSimulation as Simulation}
