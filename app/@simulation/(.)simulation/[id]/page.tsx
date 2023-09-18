@@ -9,7 +9,7 @@ import React, {
 } from 'react';
 
 // Components
-import SimulationMain from '@/_private/components/simulation/SimulationMain';
+import SimulationMain from '@/_private/components/simulation/simulationMain/SimulationMain';
 import DeleteButton from '@/_private/components/simulation/simulationFooter/deleteButton';
 import CopyButton from '@/_private/components/simulation/simulationFooter/copyButton';
 import RecreateButton from '@/_private/components/simulation/simulationFooter/recreateButton';
@@ -56,8 +56,8 @@ export default function SimulationModal(
   ), [simulations, id]);
 
   useEffect(() => {
+    if (deleted) handleClose();
     if (loading) setLoading(false);
-    if (!selectedSimulation && deleted) handleClose();
   }, [selectedSimulation, deleted]);
 
   if (deleted) return null;

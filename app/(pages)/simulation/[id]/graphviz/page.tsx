@@ -6,7 +6,7 @@ import React, {
   useCallback,
   useEffect, useMemo, useReducer, useRef, useState,
 } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { graphviz } from 'd3-graphviz';
 
 // Types
@@ -18,14 +18,18 @@ import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 // Reducers
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
-import SimulationFooter from '@/_private/components/simulation/SimulationFooter';
+import DeleteButton from '@/_private/components/simulation/simulationFooter/deleteButton';
+import CopyButton from '@/_private/components/simulation/simulationFooter/copyButton';
+import RecreateButton from '@/_private/components/simulation/simulationFooter/recreateButton';
 
 export default function Graphviz(
   { params: { id } }:
   { params: { id: string } },
 ) {
   const ref: any = useRef(null);
+  const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
 
   useEffect(() => {
@@ -51,7 +55,9 @@ export default function Graphviz(
   }, [dispatchSimulation, selectedSimulation]);
 
   useEffect(() => {
-    if (selectedSimulation) {
+    if (deleted) {
+      router.push('/');
+    } else if (selectedSimulation) {
       const {
         scripts: {
           localCreateWorkflow: { graphvizData, scriptStatus },
@@ -72,16 +78,12 @@ export default function Graphviz(
         default:
           break;
       }
-    } else {
-      setLoading(false);
-    }
-  }, [selectedSimulation]);
+    } else if (loading) setLoading(false);
+  }, [selectedSimulation, deleted]);
+
+  if (deleted) return null;
 
   if (!loading && !selectedSimulation) return notFound();
-  /* @develop, when simulation returns error nothing happens. to do:
-   - useEffect to control when...
-   - b
-  */
 
   return (
     <>
@@ -97,15 +99,28 @@ export default function Graphviz(
         <div />
       </header>
       <main className="mb-auto overflow-auto">
-        {loading ? <Spinner /> : <div ref={ref} />}
+        {(loading && !selectedSimulation)
+          ? <Spinner />
+          : <div ref={ref} />}
       </main>
       <footer className="p-4 border-t border-t-neutral-800 flex justify-between">
-        <SimulationFooter
-          loading={loading}
-          selectedSimulation={selectedSimulation as Simulation}
-          isOpen={false}
-          onClose={() => {}}
-        />
+        {(loading && !selectedSimulation)
+          ? (<Spinner />)
+          : (
+            <>
+              <DeleteButton
+                selectedSimulation={selectedSimulation as Simulation}
+                dispatchSimulation={dispatchSimulation}
+                setDeleted={setDeleted}
+              />
+              <CopyButton />
+              <RecreateButton
+                selectedSimulation={selectedSimulation as Simulation}
+                isOpen={false}
+                onClose={() => {}}
+              />
+            </>
+          )}
       </footer>
     </>
   );

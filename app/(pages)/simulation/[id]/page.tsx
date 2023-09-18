@@ -8,7 +8,7 @@ import { notFound, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 // Components
-import SimulationMain from '@/_private/components/simulation/SimulationMain';
+import SimulationMain from '@/_private/components/simulation/simulationMain/SimulationMain';
 import DeleteButton from '@/_private/components/simulation/simulationFooter/deleteButton';
 import RecreateButton from '@/_private/components/simulation/simulationFooter/recreateButton';
 import CopyButton from '@/_private/components/simulation/simulationFooter/copyButton';
@@ -42,8 +42,8 @@ export default function SimulationPage(
   ), [simulations, id]);
 
   useEffect(() => {
+    if (deleted) router.push('/');
     if (loading) setLoading(false);
-    if (!selectedSimulation && deleted) router.push('/');
   }, [selectedSimulation, deleted]);
 
   if (deleted) return null;
