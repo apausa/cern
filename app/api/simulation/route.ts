@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import path from 'node:path';
 import { v4 as uuidv4 } from 'uuid';
+import * as fs from 'node:fs/promises';
 
 // Types
 import { Form } from '@/_private/types/lib/formTypes';
@@ -67,6 +68,24 @@ export async function POST(request: Request): Promise<PostSimulation> {
         },
       },
     }, { status: 200 });
+  } catch {
+    return NextResponse.json(null, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request): Promise<PostSimulation> {
+  const id: string = await request.json();
+
+  try {
+    const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
+
+    try {
+      await fs.access(segment);
+      await fs.rmdir(segment, { recursive: true });
+    // eslint-disable-next-line no-empty
+    } catch {}
+
+    return NextResponse.json(null, { status: 200 });
   } catch {
     return NextResponse.json(null, { status: 500 });
   }

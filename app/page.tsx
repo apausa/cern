@@ -31,7 +31,9 @@ export default function Dashboard() {
   const [allItems, setAllItems] = useState<Simulation[]>([]);
 
   useEffect(() => {
-    simulationActionCreators.readAllSimulations(dispatchSimulation);
+    if (pathname === '/') {
+      simulationActionCreators.readAllSimulations(dispatchSimulation);
+    }
   }, [pathname]);
 
   useEffect(() => {
@@ -42,11 +44,11 @@ export default function Dashboard() {
       : simulations;
 
     setAllItems((status === 'all')
-      ? filteredSimulationByQuery
-      : filteredSimulationByQuery.filter(
+      ? [...filteredSimulationByQuery]
+      : [...filteredSimulationByQuery.filter(
         ({ scripts: { gridRunWorkflow: { scriptStatus } } }: Simulation) => (
           Array.from(status).includes(scriptStatus)),
-      ));
+      )]);
   }, [simulations, table.filter]);
 
   useEffect(() => {

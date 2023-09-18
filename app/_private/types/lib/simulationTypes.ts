@@ -37,7 +37,7 @@ DeleteSimulationAction;
 export type ReadAllSimulationAction = { type: 'READ_ALL_SIMULATIONS', simulations: Simulation[] };
 export type CreateSimulationAction = { type: 'CREATE_SIMULATION', simulation: Simulation };
 export type UpdateSimulationAction = { type: 'UPDATE_SIMULATION', simulation: Simulation };
-export type DeleteSimulationAction = { type: 'DELETE_SIMULATION', simulation: Simulation };
+export type DeleteSimulationAction = { type: 'DELETE_SIMULATION', id: string };
 
 export type ReadAllSimulation = (
   dispatch: React.Dispatch<ReadAllSimulationAction>
@@ -56,10 +56,15 @@ export type RunSimulationScript = (
   simulation: Simulation,
   script: 'localRunWorkflow' | 'localCreateWorkflow' | 'gridRunWorkflow'
 ) => void;
+export type DeleteSimulation = (
+  dispatch: React.Dispatch<DeleteSimulationAction>,
+  id: string
+) => void;
 
 export type SimulationActionCreators = {
   readAllSimulations: ReadAllSimulation,
   createSimulation: CreateSimulation,
+  deleteSimulation: DeleteSimulation,
   updateSimulationScriptStatus: UpdateSimulationScriptStatus,
   runSimulationScript: RunSimulationScript
 };
