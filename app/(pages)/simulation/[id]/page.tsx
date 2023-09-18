@@ -42,8 +42,8 @@ export default function SimulationPage(
   ), [simulations, id]);
 
   useEffect(() => {
-    if (deleted) router.push('/');
     if (loading) setLoading(false);
+    if (!selectedSimulation && deleted) router.push('/');
   }, [selectedSimulation, deleted]);
 
   if (deleted) return null;
