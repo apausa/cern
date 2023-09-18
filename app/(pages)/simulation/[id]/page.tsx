@@ -5,10 +5,13 @@ import React, {
   useEffect, useMemo, useReducer, useState,
 } from 'react';
 import { notFound, useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 // Components
-import Link from 'next/link';
 import SimulationMain from '@/_private/components/simulation/SimulationMain';
+import DeleteButton from '@/_private/components/simulation/simulationFooter/deleteButton';
+import RecreateButton from '@/_private/components/simulation/simulationFooter/recreateButton';
+import CopyButton from '@/_private/components/simulation/simulationFooter/copyButton';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
@@ -18,7 +21,6 @@ import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 // Reducers
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
-import SimulationFooter from '@/_private/components/simulation/SimulationFooter';
 
 export default function SimulationPage(
   { params: { id } }:
@@ -39,16 +41,22 @@ export default function SimulationPage(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
 
+  // And stops loading when finished
   useEffect(() => {
     if (loading) setLoading(false);
+  }, [selectedSimulation]);
+
+  // If simulation is deleted, redirects to main page
+  useEffect(() => {
     if (!selectedSimulation && deleted) {
       router.push('/');
     }
-  }, [selectedSimulation, deleted]);
+  }, [deleted]);
 
-  if (!loading && !selectedSimulation && !deleted) {
-    return notFound();
-  }
+  // And doesn't render component
+  if (deleted) return null;
+
+  if (!loading && !selectedSimulation) return notFound();
 
   return (
     <>
@@ -64,7 +72,7 @@ export default function SimulationPage(
         <div />
       </header>
       <main className="px-4 pt-2 mb-auto overflow-auto">
-        {(loading)
+        {(loading && !selectedSimulation)
           ? (<Spinner />)
           : (
             <SimulationMain
@@ -74,14 +82,23 @@ export default function SimulationPage(
           )}
       </main>
       <footer className="p-4 border-t border-t-neutral-800  flex justify-between">
-        <SimulationFooter
-          loading={loading}
-          selectedSimulation={selectedSimulation as Simulation}
-          isOpen={false}
-          onClose={() => {}}
-          dispatchSimulation={dispatchSimulation}
-          setDeleted={setDeleted}
-        />
+        {(loading && !selectedSimulation)
+          ? (<Spinner />)
+          : (
+            <>
+              <DeleteButton
+                selectedSimulation={selectedSimulation as Simulation}
+                dispatchSimulation={dispatchSimulation}
+                setDeleted={setDeleted}
+              />
+              <CopyButton />
+              <RecreateButton
+                selectedSimulation={selectedSimulation as Simulation}
+                isOpen={false}
+                onClose={() => {}}
+              />
+            </>
+          )}
       </footer>
     </>
   );

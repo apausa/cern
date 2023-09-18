@@ -37,7 +37,6 @@ export default function Dashboard() {
   }, [pathname]);
 
   useEffect(() => {
-    console.log('current state', simulations);
     const { filter: { query, status } }: TableType = table;
     const filteredSimulationByQuery: Simulation[] = (query)
       ? simulations.filter(({ form: { title } }: Simulation) => (

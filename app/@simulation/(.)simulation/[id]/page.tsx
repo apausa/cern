@@ -10,6 +10,9 @@ import React, {
 
 // Components
 import SimulationMain from '@/_private/components/simulation/SimulationMain';
+import DeleteButton from '@/_private/components/simulation/simulationFooter/deleteButton';
+import CopyButton from '@/_private/components/simulation/simulationFooter/copyButton';
+import RecreateButton from '@/_private/components/simulation/simulationFooter/recreateButton';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
@@ -19,7 +22,6 @@ import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 // Reducers
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
-import SimulationFooter from '@/_private/components/simulation/SimulationFooter';
 
 export default function SimulationModal(
   {
@@ -53,16 +55,20 @@ export default function SimulationModal(
     simulations.find((simulation: Simulation): boolean => simulation.id === id)
   ), [simulations, id]);
 
+  // Then, stops loading when finished
   useEffect(() => {
     if (loading) setLoading(false);
-    if (!selectedSimulation && deleted) {
-      router.push('/');
-    }
-  }, [selectedSimulation, deleted]);
+  }, [selectedSimulation]);
 
-  if (!loading && !selectedSimulation && !deleted) {
-    return notFound();
-  }
+  // When simulation is deleted, redirects to main page
+  useEffect(() => {
+    if (deleted) handleClose();
+  }, [deleted]);
+
+  // And doesn't render component
+  if (deleted) return null;
+
+  if (!loading && !selectedSimulation) return notFound();
 
   return (
     <Modal
@@ -83,7 +89,7 @@ export default function SimulationModal(
           </div>
         </ModalHeader>
         <ModalBody className="pb-0 gap-0">
-          {(loading)
+          {(loading && !selectedSimulation)
             ? (<Spinner />)
             : (
               <SimulationMain
@@ -93,14 +99,23 @@ export default function SimulationModal(
             )}
         </ModalBody>
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
-          <SimulationFooter
-            loading={loading}
-            selectedSimulation={selectedSimulation as Simulation}
-            isOpen={isOpen}
-            onClose={onClose}
-            dispatchSimulation={dispatchSimulation}
-            setDeleted={setDeleted}
-          />
+          {(loading && !selectedSimulation)
+            ? (<Spinner />)
+            : (
+              <>
+                <DeleteButton
+                  selectedSimulation={selectedSimulation as Simulation}
+                  dispatchSimulation={dispatchSimulation}
+                  setDeleted={setDeleted}
+                />
+                <CopyButton />
+                <RecreateButton
+                  selectedSimulation={selectedSimulation as Simulation}
+                  isOpen={isOpen}
+                  onClose={onClose}
+                />
+              </>
+            )}
         </ModalFooter>
       </ModalContent>
     </Modal>
