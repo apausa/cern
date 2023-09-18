@@ -56,8 +56,8 @@ export default function SimulationModal(
   ), [simulations, id]);
 
   useEffect(() => {
-    if (deleted) handleClose();
     if (loading) setLoading(false);
+    if (!selectedSimulation && deleted) handleClose();
   }, [selectedSimulation, deleted]);
 
   if (deleted) return null;
