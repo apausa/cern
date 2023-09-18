@@ -41,19 +41,11 @@ export default function SimulationPage(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
 
-  // And stops loading when finished
   useEffect(() => {
     if (loading) setLoading(false);
-  }, [selectedSimulation]);
+    if (!selectedSimulation && deleted) router.push('/');
+  }, [selectedSimulation, deleted]);
 
-  // If simulation is deleted, redirects to main page
-  useEffect(() => {
-    if (!selectedSimulation && deleted) {
-      router.push('/');
-    }
-  }, [deleted]);
-
-  // And doesn't render component
   if (deleted) return null;
 
   if (!loading && !selectedSimulation) return notFound();

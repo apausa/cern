@@ -55,17 +55,11 @@ export default function SimulationModal(
     simulations.find((simulation: Simulation): boolean => simulation.id === id)
   ), [simulations, id]);
 
-  // Then, stops loading when finished
   useEffect(() => {
     if (loading) setLoading(false);
-  }, [selectedSimulation]);
+    if (!selectedSimulation && deleted) handleClose();
+  }, [selectedSimulation, deleted]);
 
-  // When simulation is deleted, redirects to main page
-  useEffect(() => {
-    if (deleted) handleClose();
-  }, [deleted]);
-
-  // And doesn't render component
   if (deleted) return null;
 
   if (!loading && !selectedSimulation) return notFound();
