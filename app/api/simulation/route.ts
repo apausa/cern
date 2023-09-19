@@ -81,7 +81,7 @@ export async function DELETE(request: Request): Promise<PostSimulation> {
 
     try {
       await fs.access(segment);
-      await fs.rmdir(segment, { recursive: true });
+      await fs.rm(segment, { recursive: true });
     // eslint-disable-next-line no-empty
     } catch {}
 
