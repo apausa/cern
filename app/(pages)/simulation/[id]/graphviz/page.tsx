@@ -26,70 +26,71 @@ export default function Graphviz(
   { params: { id } }:
   { params: { id: string } },
 ) {
-  const ref: any = useRef(null);
   const router = useRouter();
+
+  const ref = useRef(null);
   const [loading, setLoading] = useState(true);
   const [rendered, setRendered] = useState<null | boolean>(null);
   const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
 
+  // First, gets simulations
   useEffect(() => {
     simulationActionCreators.readAllSimulations(dispatchSimulation);
   }, []);
 
+  // Then, finds simulation
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => (simulation.id === id),
   ), [simulations, id]);
 
-  const onRunSimulationScript = useCallback((): void => {
-    simulationActionCreators.updateSimulationScriptStatus(
-      dispatchSimulation,
-      selectedSimulation as Simulation,
-      'localCreateWorkflow',
-    );
+  const onSimulation = useCallback((): void => {
+    const {
+      scripts: {
+        localCreateWorkflow: { graphvizData, scriptStatus },
+      },
+    }: Simulation = selectedSimulation!;
 
-    simulationActionCreators.runSimulationScript(
-      dispatchSimulation,
-      selectedSimulation as Simulation,
-      'localCreateWorkflow',
-    );
-  }, [dispatchSimulation, selectedSimulation]);
+    switch (scriptStatus) {
+      case 'Staged':
+        simulationActionCreators.updateSimulationScriptStatus(
+          dispatchSimulation,
+          selectedSimulation as Simulation,
+          'localCreateWorkflow',
+        );
 
-  useEffect(() => {
-    if (!selectedSimulation && deleted) {
-      router.push('/');
-    } else if (loading) setLoading(false);
-
-    if (selectedSimulation) {
-      const {
-        scripts: {
-          localCreateWorkflow: { graphvizData, scriptStatus },
-        },
-      }: Simulation = selectedSimulation;
-
-      switch (scriptStatus) {
-        case 'Staged':
-          onRunSimulationScript();
-          break;
-        case 'Completed':
-          if (graphvizData) {
-            graphviz(ref.current)
-              .renderDot(graphvizData)
-              .on('end', () => { setRendered(true); });
-          } else {
-            setRendered(false);
-          }
-          break;
-        case 'Error':
+        simulationActionCreators.runSimulationScript(
+          dispatchSimulation,
+          selectedSimulation as Simulation,
+          'localCreateWorkflow',
+        );
+        break;
+      case 'Completed':
+        if (graphvizData) {
+          graphviz(ref.current)
+            .renderDot(graphvizData)
+            .on('end', () => { setRendered(true); });
+        } else {
           setRendered(false);
-          break;
-        default:
-          break;
-      }
+        }
+        break;
+      case 'Error':
+        setRendered(false);
+        break;
+      default:
+        break;
     }
+  }, [selectedSimulation]);
+
+  useEffect((): void => {
+    if (!selectedSimulation && deleted) router.push('/');
+    else if (loading) setLoading(false);
+
+    if (selectedSimulation) onSimulation();
   }, [selectedSimulation, deleted]);
 
   if (deleted) return null;
+
   if ((!loading && !selectedSimulation) || (rendered === false)) return notFound();
 
   return (

@@ -30,20 +30,16 @@ export default function SimulationModal(
     params: { id: string }
   },
 ) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const pathName = usePathname();
   const router = useRouter();
+
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const handleClose = useCallback((): void => {
-    onClose();
-    router.push('/');
-  }, [router]);
 
   // First, gets simulations
-  useEffect(() => {
+  useEffect((): void => {
     if (pathName.startsWith('/simulation')) {
       onOpen();
       simulationActionCreators.readAllSimulations(dispatchSimulation);
@@ -54,6 +50,11 @@ export default function SimulationModal(
   const selectedSimulation = useMemo((): Simulation | undefined => (
     simulations.find((simulation: Simulation): boolean => simulation.id === id)
   ), [simulations, id]);
+
+  const handleClose = useCallback((): void => {
+    onClose();
+    router.push('/');
+  }, [router]);
 
   useEffect(() => {
     if (!selectedSimulation && deleted) handleClose();

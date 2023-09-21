@@ -24,9 +24,10 @@ import formActionCreators from '@/_private/lib/actions/formActions';
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 export default function BuildModal() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const pathName = usePathname();
   const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [loading, setLoading] = useState(true);
   const [, dispatchSimulation] = useReducer(simulationReducer, []);
   const [form, dispatchForm] = useReducer(formReducer, null);

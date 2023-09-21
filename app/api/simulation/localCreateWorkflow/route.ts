@@ -16,10 +16,10 @@ import {
 export async function PUT(request: Request): Promise<PutSimulation> {
   const unresolvedSimulation: Simulation = await request.json();
   const { scripts: { localCreateWorkflow }, id }: Simulation = unresolvedSimulation;
-  const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   try {
     // Creates script
+    const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
     await createFile(segment, localCreateWorkflow);
 
     // Runs script

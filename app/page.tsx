@@ -3,9 +3,9 @@
 import React, {
   useEffect, useReducer, useState,
 } from 'react';
+import { usePathname } from 'next/navigation';
 
 // Components
-import { usePathname } from 'next/navigation';
 import DashboardMain from '@/_private/components/dashboard/dashboardMain/DashboardMain';
 import DashboardHeader from './_private/components/dashboard/DashboardHeader';
 import DashboardFooter from './_private/components/dashboard/DashboardFooter';

@@ -27,6 +27,7 @@ export default function SimulationPage(
   { params: { id: string } },
 ) {
   const router = useRouter();
+
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);

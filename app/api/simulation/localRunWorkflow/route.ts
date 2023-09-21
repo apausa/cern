@@ -14,10 +14,10 @@ import { createFile, getLocalArgs, getSegment } from '@/_private/utils/api';
 export async function PUT(request: Request): Promise<PutSimulation> {
   const unresolvedSimulation: Simulation = await request.json();
   const { scripts: { localRunWorkflow }, id }: Simulation = unresolvedSimulation;
-  const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   try {
     // Creates script
+    const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
     await createFile(segment, localRunWorkflow);
 
     // Runs script
