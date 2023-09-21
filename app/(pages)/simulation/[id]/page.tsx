@@ -42,8 +42,8 @@ export default function SimulationPage(
   ), [simulations, id]);
 
   useEffect(() => {
-    if (loading) setLoading(false);
     if (!selectedSimulation && deleted) router.push('/');
+    else if (loading) setLoading(false);
   }, [selectedSimulation, deleted]);
 
   if (deleted) return null;
@@ -64,7 +64,7 @@ export default function SimulationPage(
         <Button className="invisible" />
       </header>
       <main className="px-4 pt-2 mb-auto overflow-auto">
-        {(loading && !selectedSimulation)
+        {(loading)
           ? (<Spinner className="flex justify-center" />)
           : (
             <SimulationMain
@@ -74,7 +74,7 @@ export default function SimulationPage(
           )}
       </main>
       <footer className="p-4 border-t border-t-neutral-800 ">
-        {(loading && !selectedSimulation)
+        {(loading)
           ? (
             <div className="flex justify-center">
               <Spinner />
