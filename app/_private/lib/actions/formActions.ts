@@ -21,6 +21,9 @@ const formActionCreators: FormActionCreators = {
   updateFormTitle: (dispatch, title) => {
     dispatch({ type: 'UPDATE_FORM_TITLE', title });
   },
+  updateFormSubjobs: (dispatch, subjobs) => {
+    dispatch({ type: 'UPDATE_FORM_SUBJOBS', subjobs });
+  },
   updateFormAdvanced: (dispatch, advanced) => {
     dispatch({ type: 'UPDATE_FORM_ADVANCED', advanced });
   },

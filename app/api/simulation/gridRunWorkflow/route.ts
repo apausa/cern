@@ -10,7 +10,7 @@ import { createFile, getSegment } from '@/_private/utils/api';
 
 export async function PUT(request: Request): Promise<PutSimulation> {
   const unresolvedSimulation: Simulation = await request.json();
-  const { scripts: { gridRunWorkflow }, id }: Simulation = unresolvedSimulation;
+  const { form: { subjobs }, scripts: { gridRunWorkflow }, id }: Simulation = unresolvedSimulation;
   const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   try {
@@ -18,7 +18,7 @@ export async function PUT(request: Request): Promise<PutSimulation> {
     await createFile(segment, gridRunWorkflow);
 
     // Runs script
-    const args: GridRunArgs = ['--script', gridRunWorkflow.scriptPath, '--wait', '--fetch-output-files'];
+    const args: GridRunArgs = ['--script', gridRunWorkflow.scriptPath, '--wait', '--fetch-output-files', '--split', subjobs];
     const childProcess: ChildProcess = spawn(process.env.GRID_SUBMIT_PATH!, args);
     const stderrData: string[] = [];
     const stdoutData: string[] = [];

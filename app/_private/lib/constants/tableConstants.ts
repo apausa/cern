@@ -11,7 +11,7 @@ export const INITIAL_TABLE: TableType = {
       allowSorting: false,
     },
     {
-      key: 'Number',
+      key: 'Sub-jobs number',
       allowSorting: false,
     },
     {
@@ -23,7 +23,7 @@ export const INITIAL_TABLE: TableType = {
       allowSorting: false,
     },
     {
-      key: 'Date',
+      key: 'Creation date',
       allowSorting: true,
     },
   ],

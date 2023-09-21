@@ -28,6 +28,9 @@ const formReducer = (
     case 'UPDATE_FORM_TITLE':
       nextState = { ...currentState, title: action.title };
       break;
+    case 'UPDATE_FORM_SUBJOBS':
+      nextState = { ...currentState, subjobs: action.subjobs };
+      break;
     case 'UPDATE_FORM_ADVANCED':
       nextState = { ...currentState, advanced: action.advanced };
       break;

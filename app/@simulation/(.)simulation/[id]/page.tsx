@@ -67,7 +67,7 @@ export default function SimulationModal(
   return (
     <Modal
       isOpen={isOpen}
-      size="xl"
+      size="2xl"
       scrollBehavior="inside"
       onClose={handleClose}
       backdrop="opaque"
