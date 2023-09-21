@@ -61,11 +61,11 @@ export default function SimulationPage(
           ←
         </Button>
         <div className="pt-2">Job details</div>
-        <div />
+        <Button className="invisible" />
       </header>
       <main className="px-4 pt-2 mb-auto overflow-auto">
         {(loading && !selectedSimulation)
-          ? (<Spinner />)
+          ? (<Spinner className="flex justify-center" />)
           : (
             <SimulationMain
               selectedSimulation={selectedSimulation as Simulation}
@@ -73,11 +73,15 @@ export default function SimulationPage(
             />
           )}
       </main>
-      <footer className="p-4 border-t border-t-neutral-800  flex justify-between">
+      <footer className="p-4 border-t border-t-neutral-800 ">
         {(loading && !selectedSimulation)
-          ? (<Spinner />)
+          ? (
+            <div className="flex justify-center">
+              <Spinner />
+            </div>
+          )
           : (
-            <>
+            <div className="flex justify-between">
               <DeleteButton
                 selectedSimulation={selectedSimulation as Simulation}
                 dispatchSimulation={dispatchSimulation}
@@ -89,7 +93,7 @@ export default function SimulationPage(
                 isOpen={false}
                 onClose={() => {}}
               />
-            </>
+            </div>
           )}
       </footer>
     </>

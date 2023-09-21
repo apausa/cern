@@ -26,6 +26,7 @@ export default function StringInput(
     <Input
       type="text"
       aria-label="Text input"
+      placeholder={arg.description}
       isDisabled={arg.disabled}
       value={arg.value}
       onValueChange={onValueChange}

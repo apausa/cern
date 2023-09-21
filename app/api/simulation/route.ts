@@ -18,7 +18,7 @@ export async function POST(request: Request): Promise<PostSimulation> {
   const getLocalCreateWorkflowBody = (version: string, script: string): string => ([
     `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`,
     'pip install graphviz',
-    script,
+    `${script} --visualize-workflow`,
   ].join('\n\n'));
 
   const getLocalRunWorkflowBody = (version: string, script: string): string => ([

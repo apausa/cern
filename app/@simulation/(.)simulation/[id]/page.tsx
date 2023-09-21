@@ -84,7 +84,7 @@ export default function SimulationModal(
         </ModalHeader>
         <ModalBody className="pb-0 gap-0">
           {(loading && !selectedSimulation)
-            ? (<Spinner />)
+            ? (<Spinner className="flex justify-center" />)
             : (
               <SimulationMain
                 selectedSimulation={selectedSimulation as Simulation}

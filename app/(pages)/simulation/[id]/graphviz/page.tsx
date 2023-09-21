@@ -96,18 +96,18 @@ export default function Graphviz(
           ←
         </Button>
         <div className="pt-2">Job visualization</div>
-        <div />
+        <Button className="invisible" />
       </header>
       <main className="mb-auto overflow-auto">
         {(loading && !selectedSimulation)
-          ? <Spinner />
+          ? (<Spinner className="flex justify-center" />)
           : <div ref={ref} />}
       </main>
-      <footer className="p-4 border-t border-t-neutral-800 flex justify-between">
+      <footer className="p-4 border-t border-t-neutral-800 ">
         {(loading && !selectedSimulation)
-          ? (<Spinner />)
+          ? <Spinner className="flex justify-center" />
           : (
-            <>
+            <div className="flex justify-between">
               <DeleteButton
                 selectedSimulation={selectedSimulation as Simulation}
                 dispatchSimulation={dispatchSimulation}
@@ -119,7 +119,7 @@ export default function Graphviz(
                 isOpen={false}
                 onClose={() => {}}
               />
-            </>
+            </div>
           )}
       </footer>
     </>
