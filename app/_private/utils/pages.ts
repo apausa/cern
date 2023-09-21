@@ -1,3 +1,22 @@
+import { Arg, CreateWorkflow, RunWorkflow } from '@/_private/types/lib/formTypes';
+import { ArgAcc, Status, StatusColor } from '@/_private/types/utils';
+
+export const getScript = (...commands: (CreateWorkflow | RunWorkflow)[]): string => (
+  commands.map(({ name, args }: CreateWorkflow | RunWorkflow): string => [
+    name, ...args.reduce((acc: ArgAcc, val: Arg): ArgAcc => (
+      acc.concat(val.selected ? [val.name, val.value] : [])), []),
+  ].join(' ')).join('\n\n')
+);
+
+export const getStatusColor = (status: Status): StatusColor => {
+  switch (status) {
+    case 'Running': return 'warning';
+    case 'Completed': return 'success';
+    case 'Error': return 'danger';
+    default: return 'primary';
+  }
+};
+
 export const getSelectedVersion = (selectedDate: string): string => {
   const [YYYY, MM, DD]: string[] = selectedDate.split('-');
 

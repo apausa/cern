@@ -2,7 +2,6 @@ import {
   Arg,
   Form, FormAction,
 } from '@/_private/types/lib/formTypes';
-import { setForm } from '@/_private/utils/localStorage';
 
 const formReducer = (
   currentState: Form,
@@ -91,7 +90,7 @@ const formReducer = (
       break;
   }
 
-  setForm(nextState);
+  localStorage.setItem('form', JSON.stringify(nextState));
 
   return nextState;
 };

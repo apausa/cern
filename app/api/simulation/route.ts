@@ -10,8 +10,7 @@ import { Form } from '@/_private/types/lib/formTypes';
 import { PostSimulation } from '@/_private/types/app/apiTypes';
 
 // Utils
-import { getCurrentDate, getSelectedVersion } from '@/_private/utils/getDate';
-import getScript from '@/_private/utils/getScript';
+import { getCurrentDate, getScript, getSelectedVersion } from '@/_private/utils/pages';
 import {
   getGridRunWorkflowBody, getLocalCreateWorkflowBody, getLocalRunWorkflowBody, getSegment,
 } from '@/_private/utils/api';

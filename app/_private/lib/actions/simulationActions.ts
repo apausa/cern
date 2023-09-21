@@ -1,10 +1,13 @@
+// Types
 import { Simulation, SimulationActionCreators } from '@/_private/types/lib/simulationTypes';
-import { getAllSimulations } from '@/_private/utils/localStorage';
+
+// Constants
 import { API_GRID_RUN_WORKFLOW, API_LOCAL_CREATE_WORKFLOW, API_LOCAL_RUN_WORKFLOW } from '../constants/apiConstants';
 
 const simulationActionCreators: SimulationActionCreators = {
   readAllSimulations: (dispatch) => {
-    const simulations: Simulation[] | [] = getAllSimulations();
+    const response: string | null = localStorage.getItem('simulations');
+    const simulations: Simulation[] | [] = (response) ? JSON.parse(response) : [];
 
     dispatch({ type: 'READ_ALL_SIMULATIONS', simulations });
   },

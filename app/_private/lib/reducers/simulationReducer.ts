@@ -1,5 +1,4 @@
 import { Simulation, SimulationAction } from '@/_private/types/lib/simulationTypes';
-import { setAllSimulations } from '@/_private/utils/localStorage';
 
 const simulationReducer = (
   currentState: Simulation[],
@@ -26,7 +25,7 @@ const simulationReducer = (
       break; }
   }
 
-  setAllSimulations(nextState);
+  localStorage.setItem('simulations', JSON.stringify(nextState));
 
   return nextState;
 };

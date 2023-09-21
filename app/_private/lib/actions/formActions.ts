@@ -1,10 +1,14 @@
+// Types
 import { Form, FormActionCreators } from '@/_private/types/lib/formTypes';
-import { getForm } from '@/_private/utils/localStorage';
+
+// Constants
+import INITIAL_FORM from '../constants/formConstants';
 
 const formActionCreators: FormActionCreators = {
   // Read form
   readForm: (dispatch) => {
-    const form: Form = getForm();
+    const response: string | null = localStorage.getItem('form');
+    const form: Form = (response) ? JSON.parse(response) : INITIAL_FORM;
 
     dispatch({ type: 'READ_FORM', form });
   },
