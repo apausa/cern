@@ -63,9 +63,10 @@ export default function BuildModal() {
   return (
     <Modal
       isOpen={isOpen}
-      size="xl"
+      size="2xl"
       scrollBehavior="inside"
       onClose={handleClose}
+      isDismissable={false}
       backdrop="opaque"
     >
       <ModalContent>

@@ -56,8 +56,8 @@ export default function SimulationModal(
   ), [simulations, id]);
 
   useEffect(() => {
-    if (loading) setLoading(false);
     if (!selectedSimulation && deleted) handleClose();
+    else if (loading) setLoading(false);
   }, [selectedSimulation, deleted]);
 
   if (deleted) return null;
@@ -67,7 +67,7 @@ export default function SimulationModal(
   return (
     <Modal
       isOpen={isOpen}
-      size="xl"
+      size="2xl"
       scrollBehavior="inside"
       onClose={handleClose}
       backdrop="opaque"
@@ -83,8 +83,8 @@ export default function SimulationModal(
           </div>
         </ModalHeader>
         <ModalBody className="pb-0 gap-0">
-          {(loading && !selectedSimulation)
-            ? (<Spinner />)
+          {(loading)
+            ? (<Spinner className="flex justify-center" />)
             : (
               <SimulationMain
                 selectedSimulation={selectedSimulation as Simulation}
@@ -93,7 +93,7 @@ export default function SimulationModal(
             )}
         </ModalBody>
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
-          {(loading && !selectedSimulation)
+          {(loading)
             ? (<Spinner />)
             : (
               <>

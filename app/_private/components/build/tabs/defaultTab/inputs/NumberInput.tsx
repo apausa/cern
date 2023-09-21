@@ -24,8 +24,10 @@ export default function NumberInput(
     <Input
       type="number"
       aria-label="Number input"
+      min="0"
+      placeholder={arg.description}
       isDisabled={arg.disabled}
-      value={`${arg.value}`}
+      value={arg.value}
       onValueChange={onValueChange}
     />
   );

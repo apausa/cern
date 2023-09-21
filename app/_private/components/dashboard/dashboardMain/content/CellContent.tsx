@@ -17,7 +17,7 @@ export default function CellContent(
 ) {
   switch (columnKey) {
     case 'Title': return (<div>{simulation.form.title}</div>);
-    case 'Number': return (<div>1</div>);
+    case 'Sub-jobs number': return (<div>{simulation.form.subjobs}</div>);
     case 'Local status': return (
       <Chip variant="flat" color={getStatusColor(simulation.scripts.localRunWorkflow.scriptStatus)}>
         {simulation.scripts.localRunWorkflow.scriptStatus}
@@ -28,7 +28,7 @@ export default function CellContent(
         {simulation.scripts.gridRunWorkflow.scriptStatus}
       </Chip>
     );
-    case 'Date': return (<div>{simulation.date}</div>);
+    case 'Creation date': return (<div>{simulation.date}</div>);
     default: return null;
   }
 }

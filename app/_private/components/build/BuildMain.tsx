@@ -37,6 +37,10 @@ export default function BuildMain(
     formActionCreators.updateFormAdvanced(dispatchForm, key === 'advanced');
   }, []);
 
+  const onSubjobsChange = useCallback((value: string) => {
+    formActionCreators.updateFormSubjobs(dispatchForm, value);
+  }, []);
+
   return (
     <form>
       <Input
@@ -48,17 +52,27 @@ export default function BuildMain(
         value={form.title}
         onValueChange={onTitleChange}
       />
-      <Input
-        className="m-0 py-2"
-        label="Select version"
-        type="date"
-        min="2021-09-22"
-        variant="faded"
-        color="default"
-        max={getLatestVersion()}
-        value={form.version}
-        onValueChange={onVersionChange}
-      />
+      <div className="m-0 py-2 flex justify-between gap-4">
+        <Input
+          label="Select version"
+          type="date"
+          min="2021-09-22"
+          variant="faded"
+          color="default"
+          max={getLatestVersion()}
+          value={form.version}
+          onValueChange={onVersionChange}
+        />
+        <Input
+          label="Set number of sub-jobs"
+          type="number"
+          min="1"
+          variant="faded"
+          color="default"
+          value={form.subjobs}
+          onValueChange={onSubjobsChange}
+        />
+      </div>
       <div className="mb-2">
         <Tabs
           aria-label="Select mode"

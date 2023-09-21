@@ -18,7 +18,7 @@ export async function POST(request: Request): Promise<PostSimulation> {
   const getLocalCreateWorkflowBody = (version: string, script: string): string => ([
     `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`,
     'pip install graphviz',
-    script,
+    `${script} --visualize-workflow`,
   ].join('\n\n'));
 
   const getLocalRunWorkflowBody = (version: string, script: string): string => ([
@@ -81,7 +81,7 @@ export async function DELETE(request: Request): Promise<PostSimulation> {
 
     try {
       await fs.access(segment);
-      await fs.rmdir(segment, { recursive: true });
+      await fs.rm(segment, { recursive: true });
     // eslint-disable-next-line no-empty
     } catch {}
 

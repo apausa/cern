@@ -29,6 +29,7 @@ export default function Graphviz(
   const ref: any = useRef(null);
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [rendered, setRendered] = useState<null | boolean>(null);
   const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
 
@@ -40,7 +41,7 @@ export default function Graphviz(
     (simulation: Simulation): boolean => (simulation.id === id),
   ), [simulations, id]);
 
-  const handleRunSimulationScript = useCallback((): void => {
+  const onRunSimulationScript = useCallback((): void => {
     simulationActionCreators.updateSimulationScriptStatus(
       dispatchSimulation,
       selectedSimulation as Simulation,
@@ -55,9 +56,11 @@ export default function Graphviz(
   }, [dispatchSimulation, selectedSimulation]);
 
   useEffect(() => {
-    if (deleted) {
+    if (!selectedSimulation && deleted) {
       router.push('/');
-    } else if (selectedSimulation) {
+    } else if (loading) setLoading(false);
+
+    if (selectedSimulation) {
       const {
         scripts: {
           localCreateWorkflow: { graphvizData, scriptStatus },
@@ -66,24 +69,28 @@ export default function Graphviz(
 
       switch (scriptStatus) {
         case 'Staged':
-          handleRunSimulationScript();
+          onRunSimulationScript();
           break;
-        case 'Completed' || 'Error':
+        case 'Completed':
           if (graphvizData) {
             graphviz(ref.current)
-              .renderDot(graphvizData);
+              .renderDot(graphvizData)
+              .on('end', () => { setRendered(true); });
+          } else {
+            setRendered(false);
           }
-          setLoading(false);
+          break;
+        case 'Error':
+          setRendered(false);
           break;
         default:
           break;
       }
-    } else if (loading) setLoading(false);
+    }
   }, [selectedSimulation, deleted]);
 
   if (deleted) return null;
-
-  if (!loading && !selectedSimulation) return notFound();
+  if ((!loading && !selectedSimulation) || (rendered === false)) return notFound();
 
   return (
     <>
@@ -96,18 +103,18 @@ export default function Graphviz(
           ←
         </Button>
         <div className="pt-2">Job visualization</div>
-        <div />
+        <Button className="invisible" />
       </header>
       <main className="mb-auto overflow-auto">
-        {(loading && !selectedSimulation)
-          ? <Spinner />
-          : <div ref={ref} />}
+        <div ref={ref}>
+          {!rendered && <Spinner className="pt-2 flex justify-center" />}
+        </div>
       </main>
-      <footer className="p-4 border-t border-t-neutral-800 flex justify-between">
-        {(loading && !selectedSimulation)
-          ? (<Spinner />)
+      <footer className="p-4 border-t border-t-neutral-800 ">
+        {(loading)
+          ? <Spinner className="flex justify-center" />
           : (
-            <>
+            <div className="flex justify-between">
               <DeleteButton
                 selectedSimulation={selectedSimulation as Simulation}
                 dispatchSimulation={dispatchSimulation}
@@ -119,7 +126,7 @@ export default function Graphviz(
                 isOpen={false}
                 onClose={() => {}}
               />
-            </>
+            </div>
           )}
       </footer>
     </>

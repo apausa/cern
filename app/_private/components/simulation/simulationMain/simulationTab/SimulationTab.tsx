@@ -1,12 +1,12 @@
-import { Accordion, AccordionItem, Button } from '@nextui-org/react';
+import {
+  Accordion, AccordionItem, Button, Input, Textarea,
+} from '@nextui-org/react';
 import React, { useCallback } from 'react';
 
 // Components
 import Link from 'next/link';
-import ReadOnlyInput from './inputs/ReadOnlyInput';
 import StdoutData from './outputs/StdoutData';
 import StderrData from './outputs/StderrData';
-import ReadOnlyTextarea from './inputs/ReadOnlyTextarea';
 
 // Utils
 import { getStatusColor } from '@/_private/utils/getStatus';
@@ -54,7 +54,7 @@ export default function SimulationTab(
     <>
       <Button
         className="mb-2"
-        color="primary"
+        color={getStatusColor(scriptStatus)}
         isDisabled={scriptStatus === 'Running'}
         isLoading={scriptStatus === 'Running'}
         onClick={handleRunSimulationScript}
@@ -71,19 +71,18 @@ export default function SimulationTab(
         Open visualization
       </Button>
       )}
-      <ReadOnlyInput
-        color={getStatusColor(scriptStatus)}
-        label="Status"
-        value={scriptStatus}
-        variant="bordered"
-      />
-      <ReadOnlyInput
+      <Input
+        className="py-2"
+        type="text"
         color="default"
         label="Path"
+        isReadOnly
         value={scriptPath}
         variant="bordered"
       />
-      <ReadOnlyTextarea
+      <Textarea
+        className="pt-2 pb-1"
+        isReadOnly
         color="default"
         label="Content"
         value={scriptBody}
