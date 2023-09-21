@@ -13,11 +13,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  build,
+  configuration,
   simulation,
 }: {
   children: ReactNode,
-  build: ReactNode,
+  configuration: ReactNode,
   simulation: ReactNode,
 }) {
   return (
@@ -25,7 +25,7 @@ export default function RootLayout({
       <body className="font-sans">
         <Providers>
           <div className="flex justify-center">
-            {build}
+            {configuration}
             {simulation}
             <div className="w-full xl:w-2/5 h-screen flex flex-col justify-between">
               {children}

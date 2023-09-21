@@ -67,7 +67,7 @@ export default function DashboardHeader(
         </DropdownMenu>
       </Dropdown>
       <Button
-        href="/build"
+        href="/configuration"
         as={Link}
         color="primary"
       >

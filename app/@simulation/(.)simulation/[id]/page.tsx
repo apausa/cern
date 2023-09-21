@@ -9,10 +9,10 @@ import React, {
 } from 'react';
 
 // Components
-import SimulationMain from '@/_private/components/simulation/simulationMain/SimulationMain';
-import DeleteButton from '@/_private/components/simulation/simulationFooter/deleteButton';
-import CopyButton from '@/_private/components/simulation/simulationFooter/copyButton';
-import RecreateButton from '@/_private/components/simulation/simulationFooter/recreateButton';
+import DetailsMain from '@/_private/components/details/detailsMain/DetailsMain';
+import DeleteButton from '@/_private/components/details/detailsFooter/DeleteButton';
+import CopyButton from '@/_private/components/details/detailsFooter/CopyButton';
+import RecreateButton from '@/_private/components/details/detailsFooter/RecreateButton';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
@@ -23,7 +23,7 @@ import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 // Reducers
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
 
-export default function SimulationModal(
+export default function DetailsModal(
   {
     params: { id },
   }: {
@@ -87,7 +87,7 @@ export default function SimulationModal(
           {(loading)
             ? (<Spinner className="flex justify-center" />)
             : (
-              <SimulationMain
+              <DetailsMain
                 selectedSimulation={selectedSimulation as Simulation}
                 dispatchSimulation={dispatchSimulation}
               />

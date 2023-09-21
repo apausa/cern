@@ -18,11 +18,11 @@ import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
 // Reducers
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
-import DeleteButton from '@/_private/components/simulation/simulationFooter/deleteButton';
-import CopyButton from '@/_private/components/simulation/simulationFooter/copyButton';
-import RecreateButton from '@/_private/components/simulation/simulationFooter/recreateButton';
+import DeleteButton from '@/_private/components/details/detailsFooter/DeleteButton';
+import CopyButton from '@/_private/components/details/detailsFooter/CopyButton';
+import RecreateButton from '@/_private/components/details/detailsFooter/RecreateButton';
 
-export default function Graphviz(
+export default function GraphvizPage(
   { params: { id } }:
   { params: { id: string } },
 ) {
