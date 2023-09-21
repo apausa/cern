@@ -3,7 +3,7 @@ import { ChildProcess, spawn } from 'child_process';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
-import { GridRunArgs, PutSimulation } from '@/_private/types/app/apiTypes';
+import { GridRunArgs, PutSimulation } from '@/_private/types/api';
 
 // Utils
 import { createFile, getSegment } from '@/_private/utils/api';
@@ -11,10 +11,10 @@ import { createFile, getSegment } from '@/_private/utils/api';
 export async function PUT(request: Request): Promise<PutSimulation> {
   const unresolvedSimulation: Simulation = await request.json();
   const { form: { subjobs }, scripts: { gridRunWorkflow }, id }: Simulation = unresolvedSimulation;
-  const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
 
   try {
     // Creates script
+    const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
     await createFile(segment, gridRunWorkflow);
 
     // Runs script

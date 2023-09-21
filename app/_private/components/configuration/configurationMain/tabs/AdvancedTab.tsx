@@ -3,7 +3,9 @@ import { Textarea } from '@nextui-org/react';
 
 // Actions
 import formActionCreators from '@/_private/lib/actions/formActions';
-import getScript from '@/_private/utils/getScript';
+
+// Utils
+import { getScript } from '@/_private/utils/pages';
 
 // Types
 import { Form, FormAction } from '@/_private/types/lib/formTypes';

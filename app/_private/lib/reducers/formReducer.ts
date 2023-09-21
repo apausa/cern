@@ -2,7 +2,6 @@ import {
   Arg,
   Form, FormAction,
 } from '@/_private/types/lib/formTypes';
-import { setForm } from '@/_private/utils/localStorage';
 
 const formReducer = (
   currentState: Form,
@@ -21,24 +20,7 @@ const formReducer = (
       nextState = { ...action.form };
       break;
 
-    // Update form
-    case 'UPDATE_FORM_VERSION':
-      nextState = { ...currentState, version: action.version };
-      break;
-    case 'UPDATE_FORM_TITLE':
-      nextState = { ...currentState, title: action.title };
-      break;
-    case 'UPDATE_FORM_SUBJOBS':
-      nextState = { ...currentState, subjobs: action.subjobs };
-      break;
-    case 'UPDATE_FORM_ADVANCED':
-      nextState = { ...currentState, advanced: action.advanced };
-      break;
-    case 'UPDATE_FORM_SCRIPT':
-      nextState = { ...currentState, script: action.script };
-      break;
-
-    // Update form, createWorkflow properties
+      // Update form, createWorkflow property
     case 'UPDATE_BUILD_CMD_SELECTED':
       nextState = {
         ...currentState,
@@ -62,7 +44,7 @@ const formReducer = (
       };
       break;
 
-    // Update form, runWorkflow properties
+      // Update form, runWorkflow property
     case 'UPDATE_RUN_CMD_SELECTED':
       nextState = {
         ...currentState,
@@ -86,12 +68,29 @@ const formReducer = (
       };
       break;
 
+      // Update form, other propperty
+    case 'UPDATE_FORM_VERSION':
+      nextState = { ...currentState, version: action.version };
+      break;
+    case 'UPDATE_FORM_TITLE':
+      nextState = { ...currentState, title: action.title };
+      break;
+    case 'UPDATE_FORM_SUBJOBS':
+      nextState = { ...currentState, subjobs: action.subjobs };
+      break;
+    case 'UPDATE_FORM_ADVANCED':
+      nextState = { ...currentState, advanced: action.advanced };
+      break;
+    case 'UPDATE_FORM_SCRIPT':
+      nextState = { ...currentState, script: action.script };
+      break;
+
     default:
       nextState = currentState;
       break;
   }
 
-  setForm(nextState);
+  localStorage.setItem('form', JSON.stringify(nextState));
 
   return nextState;
 };

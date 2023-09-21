@@ -8,10 +8,10 @@ import { notFound, useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 // Components
-import SimulationMain from '@/_private/components/simulation/simulationMain/SimulationMain';
-import DeleteButton from '@/_private/components/simulation/simulationFooter/deleteButton';
-import RecreateButton from '@/_private/components/simulation/simulationFooter/recreateButton';
-import CopyButton from '@/_private/components/simulation/simulationFooter/copyButton';
+import DetailsMain from '@/_private/components/details/detailsMain/DetailsMain';
+import DeleteButton from '@/_private/components/details/detailsFooter/DeleteButton';
+import RecreateButton from '@/_private/components/details/detailsFooter/RecreateButton';
+import CopyButton from '@/_private/components/details/detailsFooter/CopyButton';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
@@ -22,11 +22,12 @@ import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 // Reducers
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
 
-export default function SimulationPage(
+export default function DetailsPage(
   { params: { id } }:
   { params: { id: string } },
 ) {
   const router = useRouter();
+
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
@@ -67,7 +68,7 @@ export default function SimulationPage(
         {(loading)
           ? (<Spinner className="flex justify-center" />)
           : (
-            <SimulationMain
+            <DetailsMain
               selectedSimulation={selectedSimulation as Simulation}
               dispatchSimulation={dispatchSimulation}
             />

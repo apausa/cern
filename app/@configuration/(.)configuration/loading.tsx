@@ -9,7 +9,7 @@ import React, { useEffect } from 'react';
 export default function Loading() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  useEffect(() => {
+  useEffect((): (() => void) => {
     onOpen();
     return () => { onClose(); };
   }, []);

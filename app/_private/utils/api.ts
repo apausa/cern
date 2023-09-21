@@ -1,15 +1,16 @@
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 
+// Types
 import {
   Script,
 } from '@/_private/types/lib/simulationTypes';
-import { LocalRunArgs } from '../types/app/apiTypes';
+import { LocalRunArgs } from '../types/api';
 
 export const getSegment = (segment1: string, segment2: string): string => (
   path.join(segment1, segment2));
 
-export const readFile = async (workflowPath: string) => (
+export const readFile = async (workflowPath: string): Promise<string> => (
   fs.readFile(workflowPath, { encoding: 'utf-8' }));
 
 export const createFile = async (
@@ -39,3 +40,20 @@ export const getLocalArgs = (segment: string, scriptPath: string): LocalRunArgs 
   '-c',
   scriptPath,
 ];
+
+export const getLocalCreateWorkflowBody = (version: string, script: string): string => ([
+  `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`,
+  'pip install graphviz',
+  `${script} --visualize-workflow`,
+].join('\n\n'));
+
+export const getLocalRunWorkflowBody = (version: string, script: string): string => ([
+  `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`,
+  script,
+].join('\n\n'));
+
+export const getGridRunWorkflowBody = (version: string, script: string): string => ([
+  `#JDL_PACKAGE=O2sim::${version}`,
+  '#JDL_OUTPUT=*.root@disk=1,*.log@disk=1',
+  script,
+].join('\n\n'));

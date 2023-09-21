@@ -31,7 +31,7 @@ export default function RecreateButton(
     <Button
       onClick={onRecreate}
       isDisabled={selectedSimulation.form.advanced}
-      href="/build"
+      href="/configuration"
       as={Link}
       variant="light"
     >

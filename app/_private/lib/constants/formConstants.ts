@@ -1,7 +1,10 @@
 /* eslint-disable no-template-curly-in-string */
 
+// Types
 import { CreateWorkflow, Form, RunWorkflow } from '@/_private/types/lib/formTypes';
-import { getLatestVersion } from '@/_private/utils/getDate';
+
+// Utils
+import { getLatestVersion } from '@/_private/utils/pages';
 
 const INITIAL_BUILD_CMD: CreateWorkflow = {
   name: '${O2DPG_ROOT}/MC/bin/o2dpg_sim_workflow.py',

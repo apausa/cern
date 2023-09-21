@@ -10,7 +10,7 @@ import React, {
 import { notFound, usePathname, useRouter } from 'next/navigation';
 
 // Components
-import BuildMain from '@/_private/components/build/BuildMain';
+import ConfigurationMain from '@/_private/components/configuration/configurationMain/ConfigurationMain';
 
 // Constants
 import INITIAL_FORM from '@/_private/lib/constants/formConstants';
@@ -23,10 +23,11 @@ import simulationReducer from '@/_private/lib/reducers/simulationReducer';
 import formActionCreators from '@/_private/lib/actions/formActions';
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 
-export default function BuildModal() {
+export default function ConfigurationModal() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const pathName = usePathname();
   const router = useRouter();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [loading, setLoading] = useState(true);
   const [, dispatchSimulation] = useReducer(simulationReducer, []);
   const [form, dispatchForm] = useReducer(formReducer, null);
@@ -47,7 +48,7 @@ export default function BuildModal() {
   }, []);
 
   useEffect(() => {
-    if (pathName === '/build') {
+    if (pathName === '/configuration') {
       simulationActionCreators.readAllSimulations(dispatchSimulation);
       formActionCreators.readForm(dispatchForm);
       onOpen();
@@ -74,7 +75,7 @@ export default function BuildModal() {
           <div className="pt-2">Job configuration</div>
         </ModalHeader>
         <ModalBody className="gap-0">
-          {loading ? <Spinner /> : <BuildMain form={form} dispatchForm={dispatchForm} />}
+          {loading ? <Spinner /> : <ConfigurationMain form={form} dispatchForm={dispatchForm} />}
         </ModalBody>
         <ModalFooter className="border-t border-t-neutral-800 flex justify-between">
           <Button

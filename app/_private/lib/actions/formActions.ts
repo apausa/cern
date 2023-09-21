@@ -1,10 +1,14 @@
+// Types
 import { Form, FormActionCreators } from '@/_private/types/lib/formTypes';
-import { getForm } from '@/_private/utils/localStorage';
+
+// Constants
+import INITIAL_FORM from '../constants/formConstants';
 
 const formActionCreators: FormActionCreators = {
   // Read form
   readForm: (dispatch) => {
-    const form: Form = getForm();
+    const response: string | null = localStorage.getItem('form');
+    const form: Form = (response) ? JSON.parse(response) : INITIAL_FORM;
 
     dispatch({ type: 'READ_FORM', form });
   },
@@ -14,7 +18,23 @@ const formActionCreators: FormActionCreators = {
     dispatch({ type: 'CREATE_FORM', form });
   },
 
-  // Update form
+  // Update form, createWorkflow property
+  updateBuildCmdSelected: (dispatch, values) => {
+    dispatch({ type: 'UPDATE_BUILD_CMD_SELECTED', values });
+  },
+  updateBuildCmdValue: (dispatch, value, name) => {
+    dispatch({ type: 'UPDATE_BUILD_CMD_VALUE', value, name });
+  },
+
+  // Update form, unWorkflow properties
+  updateRunCmdSelected: (dispatch, values) => {
+    dispatch({ type: 'UPDATE_RUN_CMD_SELECTED', values });
+  },
+  updateRunCmdValue: (dispatch, value, name) => {
+    dispatch({ type: 'UPDATE_RUN_CMD_VALUE', value, name });
+  },
+
+  // Update form, other properties
   updateFormVersion: (dispatch, version) => {
     dispatch({ type: 'UPDATE_FORM_VERSION', version });
   },
@@ -29,22 +49,6 @@ const formActionCreators: FormActionCreators = {
   },
   updateFormScript: (dispatch, script) => {
     dispatch({ type: 'UPDATE_FORM_SCRIPT', script });
-  },
-
-  // Update form, createWorkflow properties
-  updateBuildCmdSelected: (dispatch, values) => {
-    dispatch({ type: 'UPDATE_BUILD_CMD_SELECTED', values });
-  },
-  updateBuildCmdValue: (dispatch, value, name) => {
-    dispatch({ type: 'UPDATE_BUILD_CMD_VALUE', value, name });
-  },
-
-  // Update form, runWorkflow properties
-  updateRunCmdSelected: (dispatch, values) => {
-    dispatch({ type: 'UPDATE_RUN_CMD_SELECTED', values });
-  },
-  updateRunCmdValue: (dispatch, value, name) => {
-    dispatch({ type: 'UPDATE_RUN_CMD_VALUE', value, name });
   },
 };
 

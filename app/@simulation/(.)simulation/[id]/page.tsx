@@ -9,10 +9,10 @@ import React, {
 } from 'react';
 
 // Components
-import SimulationMain from '@/_private/components/simulation/simulationMain/SimulationMain';
-import DeleteButton from '@/_private/components/simulation/simulationFooter/deleteButton';
-import CopyButton from '@/_private/components/simulation/simulationFooter/copyButton';
-import RecreateButton from '@/_private/components/simulation/simulationFooter/recreateButton';
+import DetailsMain from '@/_private/components/details/detailsMain/DetailsMain';
+import DeleteButton from '@/_private/components/details/detailsFooter/DeleteButton';
+import CopyButton from '@/_private/components/details/detailsFooter/CopyButton';
+import RecreateButton from '@/_private/components/details/detailsFooter/RecreateButton';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
@@ -23,27 +23,23 @@ import simulationActionCreators from '@/_private/lib/actions/simulationActions';
 // Reducers
 import simulationReducer from '@/_private/lib/reducers/simulationReducer';
 
-export default function SimulationModal(
+export default function DetailsModal(
   {
     params: { id },
   }: {
     params: { id: string }
   },
 ) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const pathName = usePathname();
   const router = useRouter();
+
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const handleClose = useCallback((): void => {
-    onClose();
-    router.push('/');
-  }, [router]);
 
   // First, gets simulations
-  useEffect(() => {
+  useEffect((): void => {
     if (pathName.startsWith('/simulation')) {
       onOpen();
       simulationActionCreators.readAllSimulations(dispatchSimulation);
@@ -54,6 +50,11 @@ export default function SimulationModal(
   const selectedSimulation = useMemo((): Simulation | undefined => (
     simulations.find((simulation: Simulation): boolean => simulation.id === id)
   ), [simulations, id]);
+
+  const handleClose = useCallback((): void => {
+    onClose();
+    router.push('/');
+  }, [router]);
 
   useEffect(() => {
     if (!selectedSimulation && deleted) handleClose();
@@ -86,7 +87,7 @@ export default function SimulationModal(
           {(loading)
             ? (<Spinner className="flex justify-center" />)
             : (
-              <SimulationMain
+              <DetailsMain
                 selectedSimulation={selectedSimulation as Simulation}
                 dispatchSimulation={dispatchSimulation}
               />

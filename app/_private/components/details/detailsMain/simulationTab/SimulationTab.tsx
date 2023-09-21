@@ -2,14 +2,14 @@ import {
   Accordion, AccordionItem, Button, Input, Textarea,
 } from '@nextui-org/react';
 import React, { useCallback } from 'react';
+import Link from 'next/link';
 
 // Components
-import Link from 'next/link';
 import StdoutData from './outputs/StdoutData';
 import StderrData from './outputs/StderrData';
 
 // Utils
-import { getStatusColor } from '@/_private/utils/getStatus';
+import { getStatusColor } from '@/_private/utils/pages';
 
 // Actions
 import simulationActionCreators from '@/_private/lib/actions/simulationActions';

@@ -2,7 +2,7 @@ import { Chip } from '@nextui-org/react';
 import React, { Key } from 'react';
 
 // Utils
-import { getStatusColor } from '@/_private/utils/getStatus';
+import { getStatusColor } from '@/_private/utils/pages';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';

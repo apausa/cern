@@ -8,7 +8,7 @@ import AdvancedMode from './tabs/AdvancedTab';
 import DefaultMode from './tabs/defaultTab/DefaultTab';
 
 // Utils
-import { getLatestVersion } from '@/_private/utils/getDate';
+import { getLatestVersion } from '@/_private/utils/pages';
 
 // Actions
 import formActionCreators from '@/_private/lib/actions/formActions';
