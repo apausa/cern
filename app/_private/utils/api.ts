@@ -1,15 +1,16 @@
 import * as fs from 'node:fs/promises';
 import path from 'node:path';
 
+// Types
 import {
   Script,
 } from '@/_private/types/lib/simulationTypes';
-import { LocalRunArgs } from '../types/app/apiTypes';
+import { LocalRunArgs } from '../types/api';
 
 export const getSegment = (segment1: string, segment2: string): string => (
   path.join(segment1, segment2));
 
-export const readFile = async (workflowPath: string) => (
+export const readFile = async (workflowPath: string): Promise<string> => (
   fs.readFile(workflowPath, { encoding: 'utf-8' }));
 
 export const createFile = async (

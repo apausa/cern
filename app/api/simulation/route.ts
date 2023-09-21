@@ -7,7 +7,7 @@ import * as fs from 'node:fs/promises';
 
 // Types
 import { Form } from '@/_private/types/lib/formTypes';
-import { PostSimulation } from '@/_private/types/app/apiTypes';
+import { PostSimulation } from '@/_private/types/api';
 
 // Utils
 import { getCurrentDate, getScript, getSelectedVersion } from '@/_private/utils/pages';

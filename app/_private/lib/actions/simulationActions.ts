@@ -1,8 +1,11 @@
 // Types
+import { ApiGridRunWorkflow, ApiLocalCreateWorkflow, ApiLocalRunWorkflow } from '@/_private/types/api';
 import { Simulation, SimulationActionCreators } from '@/_private/types/lib/simulationTypes';
 
 // Constants
-import { API_GRID_RUN_WORKFLOW, API_LOCAL_CREATE_WORKFLOW, API_LOCAL_RUN_WORKFLOW } from '../constants/apiConstants';
+export const API_GRID_RUN_WORKFLOW: ApiGridRunWorkflow = '/api/simulation/gridRunWorkflow';
+export const API_LOCAL_RUN_WORKFLOW: ApiLocalRunWorkflow = '/api/simulation/localRunWorkflow';
+export const API_LOCAL_CREATE_WORKFLOW: ApiLocalCreateWorkflow = '/api/simulation/localCreateWorkflow';
 
 const simulationActionCreators: SimulationActionCreators = {
   readAllSimulations: (dispatch) => {

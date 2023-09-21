@@ -1,17 +1,17 @@
 import { NextResponse } from 'next/server';
 import { ChildProcess, spawn } from 'child_process';
 
-//  Constants
-import { APPTAINER_PATH } from '@/_private/lib/constants/apiConstants';
-
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
-import { LocalRunArgs, PutSimulation } from '@/_private/types/app/apiTypes';
+import { ApptainerPath, LocalRunArgs, PutSimulation } from '@/_private/types/api';
 
 // Utils
 import {
   createFile, getLocalArgs, getSegment, readFile,
 } from '@/_private/utils/api';
+
+// Constants
+const APPTAINER_PATH: ApptainerPath = '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer';
 
 export async function PUT(request: Request): Promise<PutSimulation> {
   const unresolvedSimulation: Simulation = await request.json();

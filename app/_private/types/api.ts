@@ -30,7 +30,15 @@ export type TestExecCmd = {
     '-c']
 };
 
-export type GridRunArgs = ['--script', string, '--wait', '--fetch-output-files', '--split', string];
+export type GridRunArgs = [
+  '--script',
+  string,
+  '--wait',
+  '--fetch-output-files',
+  '--split',
+  string,
+];
+
 export type LocalRunArgs = [
   'exec',
   '-C',

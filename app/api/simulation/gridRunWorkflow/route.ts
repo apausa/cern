@@ -3,7 +3,7 @@ import { ChildProcess, spawn } from 'child_process';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
-import { GridRunArgs, PutSimulation } from '@/_private/types/app/apiTypes';
+import { GridRunArgs, PutSimulation } from '@/_private/types/api';
 
 // Utils
 import { createFile, getSegment } from '@/_private/utils/api';
