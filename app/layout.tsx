@@ -5,9 +5,9 @@ import './globals.css';
 import Providers from './providers';
 
 export const metadata: Metadata = {
-  title: 'Dashboard',
-  description: 'Dashboard',
-  applicationName: 'Monte Carlo Simulations Dashboard',
+  title: 'Monte Carlo Methods Dashboard',
+  description: 'Monte Carlo Methods Dashboard',
+  applicationName: 'Monte Carlo Methods Dashboard',
   themeColor: 'dark',
 };
 

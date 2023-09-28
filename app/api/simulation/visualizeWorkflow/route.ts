@@ -15,15 +15,15 @@ const APPTAINER_PATH: ApptainerPath = '/cvmfs/alice.cern.ch/containers/bin/appta
 
 export async function PUT(request: Request): Promise<PutSimulation> {
   const unresolvedSimulation: Simulation = await request.json();
-  const { scripts: { localCreateWorkflow }, id }: Simulation = unresolvedSimulation;
+  const { scripts: { visualizeWorkflow }, id }: Simulation = unresolvedSimulation;
 
   try {
     // Creates script
     const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
-    await createFile(segment, localCreateWorkflow);
+    await createFile(segment, visualizeWorkflow);
 
     // Runs script
-    const args: LocalRunArgs = getLocalArgs(segment, localCreateWorkflow.scriptPath);
+    const args: LocalRunArgs = getLocalArgs(segment, visualizeWorkflow.scriptPath);
     const childProcess: ChildProcess = spawn(APPTAINER_PATH, args);
     const stderrData: string[] = [];
     const stdoutData: string[] = [];
@@ -37,8 +37,8 @@ export async function PUT(request: Request): Promise<PutSimulation> {
           ...unresolvedSimulation,
           scripts: {
             ...unresolvedSimulation.scripts,
-            localCreateWorkflow: {
-              ...unresolvedSimulation.scripts.localCreateWorkflow,
+            visualizeWorkflow: {
+              ...unresolvedSimulation.scripts.visualizeWorkflow,
               scriptStatus: (output === 0) ? 'Completed' : 'Error',
               stdoutData: stdoutData.join(''),
               stderrData: stderrData.join(''),
@@ -49,7 +49,7 @@ export async function PUT(request: Request): Promise<PutSimulation> {
     });
 
     // Assigns workflow.gv to graphvizData
-    resolvedSimulation.scripts.localCreateWorkflow.graphvizData = await readFile(getSegment(segment, 'workflow.gv'));
+    resolvedSimulation.scripts.visualizeWorkflow.graphvizData = await readFile(getSegment(segment, 'workflow.gv'));
 
     // Returns script
     return NextResponse.json(resolvedSimulation, { status: 200 });
@@ -59,8 +59,8 @@ export async function PUT(request: Request): Promise<PutSimulation> {
         ...unresolvedSimulation,
         scripts: {
           ...unresolvedSimulation.scripts,
-          localCreateWorkflow: {
-            ...unresolvedSimulation.scripts.localCreateWorkflow,
+          visualizeWorkflow: {
+            ...unresolvedSimulation.scripts.visualizeWorkflow,
             scriptStatus: 'Error',
             stderrData: (error instanceof Error) ? error.message : null,
           },

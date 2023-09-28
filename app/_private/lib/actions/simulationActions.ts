@@ -1,11 +1,11 @@
 // Types
-import { ApiGridRunWorkflow, ApiLocalCreateWorkflow, ApiLocalRunWorkflow } from '@/_private/types/api';
+import { ApiGridRunWorkflow, ApiVisualizeWorkflow, ApiLocalRunWorkflow } from '@/_private/types/api';
 import { Simulation, SimulationActionCreators } from '@/_private/types/lib/simulationTypes';
 
 // Constants
 export const API_GRID_RUN_WORKFLOW: ApiGridRunWorkflow = '/api/simulation/gridRunWorkflow';
 export const API_LOCAL_RUN_WORKFLOW: ApiLocalRunWorkflow = '/api/simulation/localRunWorkflow';
-export const API_LOCAL_CREATE_WORKFLOW: ApiLocalCreateWorkflow = '/api/simulation/localCreateWorkflow';
+export const API_VISUALIZE_WORKFLOW: ApiVisualizeWorkflow = '/api/simulation/visualizeWorkflow';
 
 const simulationActionCreators: SimulationActionCreators = {
   readAllSimulations: (dispatch) => {
@@ -50,7 +50,7 @@ const simulationActionCreators: SimulationActionCreators = {
     const getRoute = () => {
       switch (script) {
         case 'localRunWorkflow': return API_LOCAL_RUN_WORKFLOW;
-        case 'localCreateWorkflow': return API_LOCAL_CREATE_WORKFLOW;
+        case 'visualizeWorkflow': return API_VISUALIZE_WORKFLOW;
         case 'gridRunWorkflow': return API_GRID_RUN_WORKFLOW;
         default: return '';
       }

@@ -47,7 +47,7 @@ export default function GraphvizPage(
   const onSimulation = useCallback((): void => {
     const {
       scripts: {
-        localCreateWorkflow: { graphvizData, scriptStatus },
+        visualizeWorkflow: { graphvizData, scriptStatus },
       },
     }: Simulation = selectedSimulation!;
 
@@ -56,13 +56,13 @@ export default function GraphvizPage(
         simulationActionCreators.updateSimulationScriptStatus(
           dispatchSimulation,
           selectedSimulation as Simulation,
-          'localCreateWorkflow',
+          'visualizeWorkflow',
         );
 
         simulationActionCreators.runSimulationScript(
           dispatchSimulation,
           selectedSimulation as Simulation,
-          'localCreateWorkflow',
+          'visualizeWorkflow',
         );
         break;
       case 'Completed':

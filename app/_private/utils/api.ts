@@ -41,7 +41,7 @@ export const getLocalArgs = (segment: string, scriptPath: string): LocalRunArgs 
   scriptPath,
 ];
 
-export const getLocalCreateWorkflowBody = (version: string, script: string): string => ([
+export const getVisualizeWorkflowBody = (version: string, script: string): string => ([
   `eval $(/cvmfs/alice.cern.ch/bin/alienv printenv O2sim/${version})`,
   'pip install graphviz',
   `${script} --visualize-workflow`,

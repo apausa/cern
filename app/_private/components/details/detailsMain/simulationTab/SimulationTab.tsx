@@ -65,7 +65,7 @@ export default function SimulationTab(
       <Button
         className="my-2"
         as={Link}
-        href={`/simulation/${id}/graphviz`}
+        href={`/simulation/${id}/visualizeWorkflow`}
         target="_blank"
       >
         Open visualization

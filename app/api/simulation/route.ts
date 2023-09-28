@@ -12,7 +12,7 @@ import { PostSimulation } from '@/_private/types/api';
 // Utils
 import { getCurrentDate, getScript, getSelectedVersion } from '@/_private/utils/pages';
 import {
-  getGridRunWorkflowBody, getLocalCreateWorkflowBody, getLocalRunWorkflowBody, getSegment,
+  getGridRunWorkflowBody, getVisualizeWorkflowBody, getLocalRunWorkflowBody, getSegment,
 } from '@/_private/utils/api';
 
 export async function POST(request: Request): Promise<PostSimulation> {
@@ -31,9 +31,9 @@ export async function POST(request: Request): Promise<PostSimulation> {
       date: getCurrentDate(),
       form: { ...form, script, title: form.title || id },
       scripts: {
-        localCreateWorkflow: {
-          scriptPath: path.join(segment, 'localCreateWorkflow.sh'),
-          scriptBody: getLocalCreateWorkflowBody(version, script),
+        visualizeWorkflow: {
+          scriptPath: path.join(segment, 'visualizeWorkflow.sh'),
+          scriptBody: getVisualizeWorkflowBody(version, script),
           scriptStatus: 'Staged',
           stderrData: null,
           stdoutData: null,
