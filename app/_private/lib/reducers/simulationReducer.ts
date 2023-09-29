@@ -25,6 +25,7 @@ const simulationReducer = (
       break; }
   }
 
+  // Stores jobs in localStorage
   localStorage.setItem('simulations', JSON.stringify(nextState));
 
   return nextState;

@@ -10,17 +10,14 @@ const formReducer = (
   let nextState = null;
 
   switch (action.type) {
-    // Read form
     case 'READ_FORM':
       nextState = { ...action.form };
       break;
 
-    // Create form
     case 'CREATE_FORM':
       nextState = { ...action.form };
       break;
 
-      // Update form, createWorkflow property
     case 'UPDATE_BUILD_CMD_SELECTED':
       nextState = {
         ...currentState,
@@ -44,7 +41,6 @@ const formReducer = (
       };
       break;
 
-      // Update form, runWorkflow property
     case 'UPDATE_RUN_CMD_SELECTED':
       nextState = {
         ...currentState,
@@ -68,7 +64,6 @@ const formReducer = (
       };
       break;
 
-      // Update form, other propperty
     case 'UPDATE_FORM_VERSION':
       nextState = { ...currentState, version: action.version };
       break;
@@ -90,6 +85,7 @@ const formReducer = (
       break;
   }
 
+  // Stores form in localStorage
   localStorage.setItem('form', JSON.stringify(nextState));
 
   return nextState;

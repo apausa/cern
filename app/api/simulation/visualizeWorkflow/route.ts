@@ -48,10 +48,8 @@ export async function PUT(request: Request): Promise<PutSimulation> {
       });
     });
 
-    // Assigns workflow.gv to graphvizData
     resolvedSimulation.scripts.visualizeWorkflow.graphvizData = await readFile(getSegment(segment, 'workflow.gv'));
 
-    // Returns script
     return NextResponse.json(resolvedSimulation, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(

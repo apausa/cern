@@ -30,12 +30,14 @@ export default function Dashboard() {
   const [simulations, dispatchSimulation]: UseReducer = useReducer(simulationReducer, []);
   const [allItems, setAllItems] = useState<Simulation[]>([]);
 
+  // Gets all configured jobs
   useEffect(() => {
     if (pathname === '/') {
       simulationActionCreators.readAllSimulations(dispatchSimulation);
     }
   }, [pathname]);
 
+  // Filters jobs by WLCG status or query
   useEffect(() => {
     const { filter: { query, status } }: TableType = table;
     const filteredSimulationByQuery: Simulation[] = (query)
@@ -51,10 +53,12 @@ export default function Dashboard() {
       )]);
   }, [simulations, table.filter]);
 
+  // Sorts jobs by date
   useEffect(() => {
     setAllItems([...allItems.reverse()]);
   }, [table.sortDescriptor]);
 
+  // Renders page
   return (
     <>
       <DashboardHeader table={table} dispatchTable={dispatchTable} />

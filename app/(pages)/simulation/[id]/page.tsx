@@ -32,25 +32,31 @@ export default function DetailsPage(
   const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
 
-  // First, gets simulations
+  // Gets all configured jobs
   useEffect(() => {
     simulationActionCreators.readAllSimulations(dispatchSimulation);
   }, []);
 
-  // Then, finds simulation
+  // Finds job by query
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => simulation.id === id,
   ), [simulations, id]);
 
+  // When job is deleted or assigned a value
   useEffect(() => {
+    // If job is deleted, redirects to root segment
     if (!selectedSimulation && deleted) router.push('/');
+    // If job is assigned a value, stops loading
     else if (loading) setLoading(false);
   }, [selectedSimulation, deleted]);
 
+  // If job is deleted, does not render page
   if (deleted) return null;
 
+  // If job is undefined, redirects to not found
   if (!loading && !selectedSimulation) return notFound();
 
+  // Renders page
   return (
     <>
       <header className="p-4 border-b border-b-neutral-800  flex justify-between">

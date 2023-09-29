@@ -43,7 +43,6 @@ export async function PUT(request: Request): Promise<PutSimulation> {
       });
     });
 
-    // Returns script
     return NextResponse.json(resolvedSimulation, { status: 200 });
   } catch (error: unknown) {
     return NextResponse.json(

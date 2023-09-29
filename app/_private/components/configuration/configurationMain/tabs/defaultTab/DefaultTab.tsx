@@ -30,17 +30,21 @@ export default function DefaultTab(
   const getSelectedKeys = (args: Arg[]): string[] => (
     args.filter(({ selected }: Arg) => selected).map(({ name }: Arg) => name));
 
-  const buildArgs = useMemo((): string[] => (
+  // Gets all build workflow command arguments
+  const buildWorkflowArgs = useMemo((): string[] => (
     getSelectedKeys(createWorkflow.args)), [createWorkflow.args]);
 
-  const runArgs = useMemo((): string[] => (
+  // Gets all run workflow command arguments
+  const runWorkflowArgs = useMemo((): string[] => (
     getSelectedKeys(runWorkflow.args)), [runWorkflow.args]);
 
-  const onBuildCmdChange = useCallback((values: string[]): void => {
+  // Selects a build workflow command argument
+  const onBuildWorkflowArgsChange = useCallback((values: string[]): void => {
     formActionCreator.updateBuildCmdSelected(dispatchForm, values);
   }, []);
 
-  const onRunCmdChange = useCallback((values: string[]): void => {
+  // Selects a run workflow command argument
+  const onRunWorkflowArgsChange = useCallback((values: string[]): void => {
     formActionCreator.updateRunCmdSelected(dispatchForm, values);
   }, []);
 
@@ -50,11 +54,11 @@ export default function DefaultTab(
         key="1"
         aria-label="Create workflow"
         title="Create workflow"
-        subtitle={<span>{`${buildArgs.length} of ${createWorkflow.args.length} argments selected`}</span>}
+        subtitle={<span>{`${buildWorkflowArgs.length} of ${createWorkflow.args.length} argments selected`}</span>}
       >
         <CheckboxGroup
-          onValueChange={onBuildCmdChange}
-          value={buildArgs}
+          onValueChange={onBuildWorkflowArgsChange}
+          value={buildWorkflowArgs}
           color="primary"
           aria-label="Select arguments"
         >
@@ -87,11 +91,11 @@ export default function DefaultTab(
         key="2"
         aria-label="Run workflow"
         title="Run workflow"
-        subtitle={<span>{`${runArgs.length} of ${runWorkflow.args.length} argments selected`}</span>}
+        subtitle={<span>{`${runWorkflowArgs.length} of ${runWorkflow.args.length} argments selected`}</span>}
       >
         <CheckboxGroup
-          onValueChange={onRunCmdChange}
-          value={runArgs}
+          onValueChange={onRunWorkflowArgsChange}
+          value={runWorkflowArgs}
           color="primary"
           aria-label="Select arguments"
         >

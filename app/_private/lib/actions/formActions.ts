@@ -5,7 +5,6 @@ import { Form, FormActionCreators } from '@/_private/types/lib/formTypes';
 import INITIAL_FORM from '../constants/formConstants';
 
 const formActionCreators: FormActionCreators = {
-  // Read form
   readForm: (dispatch) => {
     const response: string | null = localStorage.getItem('form');
     const form: Form = (response) ? JSON.parse(response) : INITIAL_FORM;
@@ -13,12 +12,10 @@ const formActionCreators: FormActionCreators = {
     dispatch({ type: 'READ_FORM', form });
   },
 
-  // Create form
   createForm: (dispatch, form) => {
     dispatch({ type: 'CREATE_FORM', form });
   },
 
-  // Update form, createWorkflow property
   updateBuildCmdSelected: (dispatch, values) => {
     dispatch({ type: 'UPDATE_BUILD_CMD_SELECTED', values });
   },
@@ -26,7 +23,6 @@ const formActionCreators: FormActionCreators = {
     dispatch({ type: 'UPDATE_BUILD_CMD_VALUE', value, name });
   },
 
-  // Update form, unWorkflow properties
   updateRunCmdSelected: (dispatch, values) => {
     dispatch({ type: 'UPDATE_RUN_CMD_SELECTED', values });
   },
@@ -34,7 +30,6 @@ const formActionCreators: FormActionCreators = {
     dispatch({ type: 'UPDATE_RUN_CMD_VALUE', value, name });
   },
 
-  // Update form, other properties
   updateFormVersion: (dispatch, version) => {
     dispatch({ type: 'UPDATE_FORM_VERSION', version });
   },

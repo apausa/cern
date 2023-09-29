@@ -38,15 +38,15 @@ export default function DetailsModal(
   const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
 
-  // First, gets simulations
+  // Gets all configured jobs
   useEffect((): void => {
     if (pathName.startsWith('/simulation')) {
-      onOpen();
       simulationActionCreators.readAllSimulations(dispatchSimulation);
+      onOpen();
     }
   }, [pathName]);
 
-  // Then, finds simulation
+  // Finds job by query
   const selectedSimulation = useMemo((): Simulation | undefined => (
     simulations.find((simulation: Simulation): boolean => simulation.id === id)
   ), [simulations, id]);
@@ -56,15 +56,21 @@ export default function DetailsModal(
     router.push('/');
   }, [router]);
 
+  // When job is deleted or assigned a value
   useEffect(() => {
+    // If job is deleted, closes modal
     if (!selectedSimulation && deleted) handleClose();
+    // If job is assigned a value, stops loading
     else if (loading) setLoading(false);
   }, [selectedSimulation, deleted]);
 
+  // If job is deleted, does not render page
   if (deleted) return null;
 
+  // If job is undefined, redirects to not found
   if (!loading && !selectedSimulation) return notFound();
 
+  // Else, renders page
   return (
     <Modal
       isOpen={isOpen}

@@ -3,7 +3,6 @@
 'use client';
 
 import React, {
-  useCallback,
   useEffect, useMemo, useReducer, useRef, useState,
 } from 'react';
 import { notFound, useRouter } from 'next/navigation';
@@ -34,65 +33,69 @@ export default function GraphvizPage(
   const [deleted, setDeleted] = useState(false);
   const [simulations, dispatchSimulation] = useReducer(simulationReducer, []);
 
-  // First, gets simulations
+  // Gets all configured jobs
   useEffect(() => {
     simulationActionCreators.readAllSimulations(dispatchSimulation);
   }, []);
 
-  // Then, finds simulation
+  // Finds job by query
   const selectedSimulation: Simulation | undefined = useMemo(() => simulations.find(
     (simulation: Simulation): boolean => (simulation.id === id),
   ), [simulations, id]);
 
-  const onSimulation = useCallback((): void => {
-    const {
-      scripts: {
-        visualizeWorkflow: { graphvizData, scriptStatus },
-      },
-    }: Simulation = selectedSimulation!;
-
-    switch (scriptStatus) {
-      case 'Staged':
-        simulationActionCreators.updateSimulationScriptStatus(
-          dispatchSimulation,
-          selectedSimulation as Simulation,
-          'visualizeWorkflow',
-        );
-
-        simulationActionCreators.runSimulationScript(
-          dispatchSimulation,
-          selectedSimulation as Simulation,
-          'visualizeWorkflow',
-        );
-        break;
-      case 'Completed':
-        if (graphvizData) {
-          graphviz(ref.current)
-            .renderDot(graphvizData)
-            .on('end', () => { setRendered(true); });
-        } else {
-          setRendered(false);
-        }
-        break;
-      case 'Error':
-        setRendered(false);
-        break;
-      default:
-        break;
-    }
-  }, [selectedSimulation]);
-
+  // When job is deleted or assigned a value
   useEffect((): void => {
+    // If job is deleted, redirects to root segment
     if (!selectedSimulation && deleted) router.push('/');
+    // If job is assigned a value, stops loading
     else if (loading) setLoading(false);
 
-    if (selectedSimulation) onSimulation();
+    if (selectedSimulation) {
+      const {
+        scripts: {
+          visualizeWorkflow: { graphvizData, scriptStatus },
+        },
+      }: Simulation = selectedSimulation!;
+
+      switch (scriptStatus) {
+        case 'Staged': // Creates and runs script
+          simulationActionCreators.updateSimulationScriptStatus(
+            dispatchSimulation,
+            selectedSimulation as Simulation,
+            'visualizeWorkflow',
+          );
+
+          simulationActionCreators.runSimulationScript(
+            dispatchSimulation,
+            selectedSimulation as Simulation,
+            'visualizeWorkflow',
+          );
+          break;
+        case 'Completed': // Renders visualization
+          if (graphvizData) {
+            graphviz(ref.current)
+              .renderDot(graphvizData)
+              .on('end', () => { setRendered(true); });
+          } else {
+            setRendered(false);
+          }
+          break;
+        case 'Error':
+          setRendered(false);
+          break;
+        default:
+          break;
+      }
+    }
   }, [selectedSimulation, deleted]);
 
+  // If job is deleted, does not render page
   if (deleted) return null;
 
+  // If job is undefined or visualization isn't rendered, redirects to not found
   if ((!loading && !selectedSimulation) || (rendered === false)) return notFound();
 
+  // Else, renders page
   return (
     <>
       <header className="p-4 border-b border-b-neutral-800 flex justify-between">

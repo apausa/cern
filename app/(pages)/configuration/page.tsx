@@ -5,7 +5,6 @@ import React, {
 } from 'react';
 import { Button, Spinner } from '@nextui-org/react';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
 
 // Reducers
 import formReducer from '@/_private/lib/reducers/formReducer';
@@ -26,6 +25,18 @@ export default function ConfigurationPage() {
   const [, dispatchSimulation] = useReducer(simulationReducer, []);
   const [form, dispatchForm] = useReducer(formReducer, null);
 
+  // Gets form
+  useEffect(() => {
+    simulationActionCreators.readAllSimulations(dispatchSimulation);
+    formActionCreators.readForm(dispatchForm);
+  }, []);
+
+  // When form is assigned a value, stops loading
+  useEffect(() => {
+    if (form) setLoading(false);
+  }, [form]);
+
+  // Stages configuration
   const onStage = useCallback(async (): Promise<void> => {
     await simulationActionCreators.createSimulation(dispatchSimulation, form);
   }, [form]);
@@ -34,17 +45,7 @@ export default function ConfigurationPage() {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
   }, []);
 
-  useEffect(() => {
-    simulationActionCreators.readAllSimulations(dispatchSimulation);
-    formActionCreators.readForm(dispatchForm);
-  }, []);
-
-  useEffect(() => {
-    if (form) setLoading(false);
-  }, [form]);
-
-  if (!loading && !form) return notFound();
-
+  // Renders page
   return (
     <>
       <header className="p-4 border-b border-b-neutral-800 flex justify-between">

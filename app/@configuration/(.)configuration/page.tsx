@@ -7,7 +7,7 @@ import {
 import React, {
   useCallback, useReducer, useEffect, useState,
 } from 'react';
-import { notFound, usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 // Components
 import ConfigurationMain from '@/_private/components/configuration/configurationMain/ConfigurationMain';
@@ -37,6 +37,21 @@ export default function ConfigurationModal() {
     router.push('/');
   }, [router]);
 
+  // Gets form
+  useEffect(() => {
+    if (pathName === '/configuration') {
+      simulationActionCreators.readAllSimulations(dispatchSimulation);
+      formActionCreators.readForm(dispatchForm);
+      onOpen();
+    }
+  }, [pathName]);
+
+  // When form is assigned a value, stops loading
+  useEffect(() => {
+    if (form) setLoading(false);
+  }, [form]);
+
+  // Stages configuration
   const onStage = useCallback(async (): Promise<void> => {
     await simulationActionCreators.createSimulation(dispatchSimulation, form);
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
@@ -47,20 +62,7 @@ export default function ConfigurationModal() {
     formActionCreators.createForm(dispatchForm, INITIAL_FORM);
   }, []);
 
-  useEffect(() => {
-    if (pathName === '/configuration') {
-      simulationActionCreators.readAllSimulations(dispatchSimulation);
-      formActionCreators.readForm(dispatchForm);
-      onOpen();
-    }
-  }, [pathName]);
-
-  useEffect(() => {
-    if (form) setLoading(false);
-  }, [form]);
-
-  if (!loading && !form) return notFound();
-
+  // Renders page
   return (
     <Modal
       isOpen={isOpen}
