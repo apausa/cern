@@ -1,58 +1,95 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Monte Carlo Simulations Dashboard
 
-First, define environment variables by creating a ```.env``` file.
+Full-stack web application to streamline Monte Carlo Methods
+
+## Environment Variables
+
+To run this project, define the following environment variables in a .env file
+
+`SCRIPTS_DIRECTORY_PATH`
+
+`GRID_SUBMIT_PATH`
+
+## Run Locally
+
+Clone project
 
 ```bash
-SCRIPTS_DIRECTORY_PATH=/Users/User/Work/Scripts
-GRID_SUBMIT_PATH=/Users/User/Work/grid_submit.sh
+  git clone https://gitlab.cern.ch/papausac/monteCarloMethodsDashboard
 ```
 
-Then, generate build:
+Access directory
+
+```bash
+  cd monteCarloMethodsDashboard
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Generate build:
 
 ```bash
 npm run build
-# or
-yarn build
-# or
-pnpm build
 ```
 
-Then, run alienv:
+Run alienv:
 
 ```bash
 /cvmfs/alice.cern.ch/bin/alienv enter O2sim
 ```
 
-
-Finally, run the production server:
+Start server:
 
 ```bash
 npm run start
-# or
-yarn start
-# or
-pnpm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## API Reference
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+#### Create job
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```http
+  POST /api/simulation
+```
 
-## Learn More
+#### Delete job and scripts
 
-To learn more about Next.js, take a look at the following resources:
+```http
+  DELETE /api/simulation
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### Create and execute gridRunWorkflow.sh
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```http
+  POST /api/simulation/gridRunWorkflow
+```
 
-## Deploy on Vercel
+#### Create and execute localRunWorkflow.sh
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```http
+  POST /api/simulation/localRunWorkflow
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+#### Create and execute visualizeWorkflow.sh
+
+```http
+  POST /api/simulation/visualizeWorkflow
+```
+
+
+## Technologies
+
+**Languages**: JavaScript/TypeScript and Bash
+
+**Application framework**: Next.js
+* **Client:** React.js, d3-graphviz, TailwindCSS and NextUI
+* **Server:** Node.js and uuid
+
+**Testing framework**: Jest.js with React Testing Library
+
+**Linter**: ESLint with TypeScript Airbnb configuration
