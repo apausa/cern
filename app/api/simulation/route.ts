@@ -14,13 +14,14 @@ import { getCurrentDate, getScript, getSelectedVersion } from '@/_private/utils/
 import {
   getGridRunWorkflowBody, getLocalCreateWorkflowBody, getLocalRunWorkflowBody, getSegment,
 } from '@/_private/utils/api';
+import { MOCK_PATH } from '@/_private/utils/mock';
 
 export async function POST(request: Request): Promise<PostSimulation> {
   const form: Form = await request.json();
 
   try {
     const id: string = uuidv4();
-    const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
+    const segment: string = getSegment(MOCK_PATH, id);
     const version: string = getSelectedVersion(form.version);
     const script: string = (form.advanced && form.script !== null)
       ? form.script
@@ -63,7 +64,7 @@ export async function DELETE(request: Request): Promise<PostSimulation> {
   const id: string = await request.json();
 
   try {
-    const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
+    const segment: string = getSegment(MOCK_PATH, id);
 
     try {
       await fs.access(segment);

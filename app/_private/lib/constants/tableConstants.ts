@@ -11,6 +11,10 @@ export const INITIAL_TABLE: TableType = {
       allowSorting: false,
     },
     {
+      key: 'User',
+      allowSorting: false,
+    },
+    {
       key: 'Sub-jobs number',
       allowSorting: false,
     },

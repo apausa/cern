@@ -19,7 +19,7 @@ export default function Loading() {
       isOpen={isOpen}
       size="2xl"
       scrollBehavior="inside"
-      backdrop="opaque"
+      backdrop="blur"
       isDismissable={false}
     >
       <ModalContent>

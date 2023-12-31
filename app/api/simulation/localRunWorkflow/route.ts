@@ -1,67 +1,26 @@
 import { NextResponse } from 'next/server';
-import { ChildProcess, spawn } from 'child_process';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
-import { ApptainerPath, LocalRunArgs, PutSimulation } from '@/_private/types/api';
 
 // Utils
-import { createFile, getLocalArgs, getSegment } from '@/_private/utils/api';
+import { MOCK_STDERR, MOCK_STDOUT } from '@/_private/utils/mock';
 
 // Constants
-const APPTAINER_PATH: ApptainerPath = '/cvmfs/alice.cern.ch/containers/bin/apptainer/current/bin/apptainer';
 
-export async function PUT(request: Request): Promise<PutSimulation> {
+export async function PUT(request: Request): Promise<any> {
   const unresolvedSimulation: Simulation = await request.json();
-  const { scripts: { localRunWorkflow }, id }: Simulation = unresolvedSimulation;
 
-  try {
-    // Creates script
-    const segment: string = getSegment(process.env.SCRIPTS_DIRECTORY_PATH!, id);
-    await createFile(segment, localRunWorkflow);
-
-    // Runs script
-    const args: LocalRunArgs = getLocalArgs(segment, localRunWorkflow.scriptPath);
-    const childProcess: ChildProcess = spawn(APPTAINER_PATH, args);
-    const stderrData: string[] = [];
-    const stdoutData: string[] = [];
-
-    const resolvedSimulation: Simulation = await new Promise((resolve, reject): void => {
-      childProcess.stdout?.on('data', (data: Buffer): void => { stdoutData.push(data.toString()); });
-      childProcess.stderr?.on('data', (data: Buffer): void => { stderrData.push(data.toString()); });
-      childProcess.on('error', (error: Error): void => { reject(error); });
-      childProcess.on('close', (output: number): void => {
-        resolve({
-          ...unresolvedSimulation,
-          scripts: {
-            ...unresolvedSimulation.scripts,
-            localRunWorkflow: {
-              ...unresolvedSimulation.scripts.localRunWorkflow,
-              scriptStatus: (output === 0) ? 'Completed' : 'Error',
-              stdoutData: stdoutData.join(''),
-              stderrData: stderrData.join(''),
-            },
-          },
-        });
-      });
-    });
-
-    // Returns script
-    return NextResponse.json(resolvedSimulation, { status: 200 });
-  } catch (error: unknown) {
-    return NextResponse.json(
-      {
-        ...unresolvedSimulation,
-        scripts: {
-          ...unresolvedSimulation.scripts,
-          localRunWorkflow: {
-            ...unresolvedSimulation.scripts.localRunWorkflow,
-            scriptStatus: 'Error',
-            stderrData: (error instanceof Error) ? error.message : null,
-          },
-        },
+  return NextResponse.json({
+    ...unresolvedSimulation,
+    scripts: {
+      ...unresolvedSimulation.scripts,
+      localRunWorkflow: {
+        ...unresolvedSimulation.scripts.localRunWorkflow,
+        scriptStatus: 'Completed',
+        stdoutData: MOCK_STDOUT,
+        stderrData: MOCK_STDERR,
       },
-      { status: 500 },
-    );
-  }
+    },
+  }, { status: 200 });
 }

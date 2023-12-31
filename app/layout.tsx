@@ -27,7 +27,7 @@ export default function RootLayout({
           <div className="flex justify-center">
             {configuration}
             {simulation}
-            <div className="w-full xl:w-2/5 h-screen flex flex-col justify-between">
+            <div className="w-full xl:w-2/3 h-screen flex flex-col justify-between">
               {children}
             </div>
           </div>

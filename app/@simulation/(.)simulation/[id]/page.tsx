@@ -71,7 +71,7 @@ export default function DetailsModal(
       size="2xl"
       scrollBehavior="inside"
       onClose={handleClose}
-      backdrop="opaque"
+      backdrop="blur"
     >
       <ModalContent>
         <ModalHeader className="border-b border-b-neutral-800">

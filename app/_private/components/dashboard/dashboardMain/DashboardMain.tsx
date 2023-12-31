@@ -65,7 +65,7 @@ export default function DashboardMain(
           <TableColumn key={key} allowsSorting={allowSorting}>{key}</TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent="No jobs to display" items={currentPageItems}>
+      <TableBody emptyContent="Click on 'Add job' to configure a simulation" items={currentPageItems}>
         {(simulation: Simulation) => (
           <TableRow>
             {(columnKey) => (

@@ -68,7 +68,7 @@ export default function ConfigurationModal() {
       scrollBehavior="inside"
       onClose={handleClose}
       isDismissable={false}
-      backdrop="opaque"
+      backdrop="blur"
     >
       <ModalContent>
         <ModalHeader className="border-b border-b-neutral-800">

@@ -20,7 +20,7 @@ export default function Loading() {
       size="2xl"
       isDismissable={false}
       scrollBehavior="inside"
-      backdrop="opaque"
+      backdrop="blur"
     >
       <ModalContent>
         <ModalHeader />

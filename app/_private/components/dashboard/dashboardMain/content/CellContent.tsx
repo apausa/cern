@@ -6,6 +6,7 @@ import { getStatusColor } from '@/_private/utils/pages';
 
 // Types
 import { Simulation } from '@/_private/types/lib/simulationTypes';
+import { MOCK_USER } from '@/_private/utils/mock';
 
 export default function CellContent(
   {
@@ -17,6 +18,7 @@ export default function CellContent(
 ) {
   switch (columnKey) {
     case 'Title': return (<div>{simulation.form.title}</div>);
+    case 'User': return (<div>{MOCK_USER}</div>);
     case 'Sub-jobs number': return (<div>{simulation.form.subjobs}</div>);
     case 'Local status': return (
       <Chip variant="flat" color={getStatusColor(simulation.scripts.localRunWorkflow.scriptStatus)}>

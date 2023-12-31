@@ -1,4 +1,5 @@
 import {
+  Avatar,
   Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Input, Selection,
 } from '@nextui-org/react';
 import React, { useCallback } from 'react';
@@ -37,42 +38,59 @@ export default function DashboardHeader(
   }, []);
 
   return (
-    <div className="p-4 border-b border-b-neutral-800 flex justify-between gap-4">
-      <Input
-        isClearable
-        placeholder="Search name"
-        value={table.filter.query}
-        onClear={onClear}
-        onValueChange={onValueChange}
-      />
-      <Dropdown>
-        <DropdownTrigger>
-          <Button>
-            Filter status
-          </Button>
-        </DropdownTrigger>
-        <DropdownMenu
-          disallowEmptySelection
-          aria-label="Table Status"
-          closeOnSelect={false}
-          selectedKeys={table.filter.status}
-          selectionMode="multiple"
-          onSelectionChange={onSelectionChange}
+    <>
+      <div className="p-4 border-b border-b-neutral-800 flex justify-between gap-4">
+        <div className="pt-2">Monte Carlo Simulations Dashboard</div>
+        <Dropdown placement="bottom-end">
+          <DropdownTrigger>
+            <Avatar
+              as={Button}
+              isIconOnly
+            />
+          </DropdownTrigger>
+          <DropdownMenu aria-label="Profile Actions" variant="flat" disabledKeys={['logout', 'profile']}>
+            <DropdownItem key="profile">My profile</DropdownItem>
+            <DropdownItem key="logout" className="text-danger" color="danger">Log Out</DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+      <div className="p-4 border-b border-b-neutral-800 flex justify-between gap-4">
+        <Input
+          isClearable
+          placeholder="Search name"
+          value={table.filter.query}
+          onClear={onClear}
+          onValueChange={onValueChange}
+        />
+        <Dropdown>
+          <DropdownTrigger>
+            <Button>
+              Filter status
+            </Button>
+          </DropdownTrigger>
+          <DropdownMenu
+            disallowEmptySelection
+            aria-label="Table Status"
+            closeOnSelect={false}
+            selectedKeys={table.filter.status}
+            selectionMode="multiple"
+            onSelectionChange={onSelectionChange}
+          >
+            {STATUS.map((status: Status) => (
+              <DropdownItem key={status}>
+                {status}
+              </DropdownItem>
+            ))}
+          </DropdownMenu>
+        </Dropdown>
+        <Button
+          href="/configuration"
+          as={Link}
+          color="primary"
         >
-          {STATUS.map((status: Status) => (
-            <DropdownItem key={status}>
-              {status}
-            </DropdownItem>
-          ))}
-        </DropdownMenu>
-      </Dropdown>
-      <Button
-        href="/configuration"
-        as={Link}
-        color="primary"
-      >
-        Add job
-      </Button>
-    </div>
+          Add job
+        </Button>
+      </div>
+    </>
   );
 }

@@ -3,7 +3,7 @@ import { Dispatch } from 'react';
 
 // CONSTANT
 
-export type ColumnKey = 'Title' | 'Sub-jobs number' | 'Local status' | 'WLCG status' | 'Creation date' | 'Options';
+export type ColumnKey = 'Title' | 'User' | 'Sub-jobs number' | 'Local status' | 'WLCG status' | 'Creation date' | 'Options';
 
 export type Column = {
   key: ColumnKey,
