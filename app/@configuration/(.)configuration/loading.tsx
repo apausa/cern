@@ -17,7 +17,7 @@ export default function Loading() {
   return (
     <Modal
       isOpen={isOpen}
-      size="2xl"
+      size="xl"
       scrollBehavior="inside"
       backdrop="blur"
       isDismissable={false}

@@ -64,7 +64,7 @@ export default function ConfigurationModal() {
   return (
     <Modal
       isOpen={isOpen}
-      size="2xl"
+      size="xl"
       scrollBehavior="inside"
       onClose={handleClose}
       isDismissable={false}

@@ -68,7 +68,7 @@ export default function DetailsModal(
   return (
     <Modal
       isOpen={isOpen}
-      size="2xl"
+      size="xl"
       scrollBehavior="inside"
       onClose={handleClose}
       backdrop="blur"
