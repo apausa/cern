@@ -1,4 +1,14 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Monte Carlo Methods Dashboard
+
+![Mock-up](https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/935504195588461.660ffbad6340c.png)
+
+## Design Final Project Report 
+
+[](https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/935504195588461.660ffbad6340c.png)
+
+## CERN Report
+
+[](https://cds.cern.ch/record/2882150?ln=en)
 
 ## Getting Started
 
