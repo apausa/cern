@@ -1,6 +1,6 @@
 # Monte Carlo Methods Dashboard
 
-![Mock-up](https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/935504195588461.660ffbad6340c.png)
+![Mock-up](https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/2736e0195579681.660fdd36d5fae.jpeg)
 
 ## Design Final Project Report 
 
