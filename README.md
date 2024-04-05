@@ -4,11 +4,11 @@
 
 ## Design Final Project Report 
 
-You can find a project report, from an interaction design perspective, in the following link: [Design Final Project Report](https://www.behance.net/gallery/195579681/1-Degree-Final-Project-Report)
+You can find the project report, from an interaction design perspective, in the following link: [Design Final Project Report](https://www.behance.net/gallery/195579681/1-Degree-Final-Project-Report)
 
 ## CERN Note
 
-You can find a project report, from a software development perspective, in the following link: [CERN Note](https://cds.cern.ch/record/2882150?ln=en). 
+You can find the project report, from a software development perspective, in the following link: [CERN Note](https://cds.cern.ch/record/2882150?ln=en). 
 
 ## Getting Started
 
