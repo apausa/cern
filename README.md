@@ -4,9 +4,13 @@
 
 ## Design Final Project Report 
 
+Project report from a interaction design perspective for my university. 
+
 [Design Final Project Report](https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/935504195588461.660ffbad6340c.png)
 
 ## CERN Note
+
+Project report from a software development perspective for CERN. 
 
 [CERN Note](https://cds.cern.ch/record/2882150?ln=en)
 
