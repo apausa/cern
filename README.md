@@ -4,7 +4,7 @@
 
 ## Design Final Project Report 
 
-You can find a project report, from an interaction design perspective, in the following link: [Design Final Project Report](https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/935504195588461.660ffbad6340c.png)
+You can find a project report, from an interaction design perspective, in the following link: [Design Final Project Report](https://www.behance.net/gallery/195579681/1-Degree-Final-Project-Report)
 
 ## CERN Note
 
