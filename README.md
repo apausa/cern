@@ -1,14 +1,16 @@
 # Monte Carlo Methods Dashboard
 
+Full stack web application for Detector Simulation team researchers within the ALICE Collaboration at CERN to manage Monte Carlo Methods.
+
 ![Mock-up](https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/2736e0195579681.660fdd36d5fae.jpeg)
 
-## Design Final Project Report 
+## Interaction Design Project Report 
 
-You can find the project report, from an interaction design perspective, in the following link: [Design Final Project Report](https://www.behance.net/gallery/195579681/1-Degree-Final-Project-Report)
+Please, contact me for the project report focusing on **interaction design**.
 
 ## CERN Note
 
-You can find the project report, from a software development perspective, in the following link: [CERN Note](https://cds.cern.ch/record/2882150?ln=en). 
+Otherwise, you can find a shorter report focusing on **software development**, in the following link: [CERN Note](https://cds.cern.ch/record/2882150?ln=en). 
 
 ## Getting Started
 
@@ -34,7 +36,6 @@ Then, run alienv:
 ```bash
 /cvmfs/alice.cern.ch/bin/alienv enter O2sim
 ```
-
 
 Finally, run the production server:
 
