@@ -1,6 +1,8 @@
 # Monte Carlo Methods Dashboard
 
-Full stack web application for Detector Simulation team researchers within the ALICE Collaboration at CERN to manage Monte Carlo Methods.
+Full stack web application to help Detector Simulation team researchers within the ALICE Collaboration manage Monte Carlo methods.
+
+The project objective is to streamline the configuration, execution and consultation phases of these simulations through a digital tool; validating the configuration automatically and managing multiple executions simultaneously. Also, to facilitate the consultation of Monte Carlo methods, regarding their content, status and result. The idea is inspired by ALICE Hyperloop and Detector Control System.
 
 ![Mock-up](https://mir-s3-cdn-cf.behance.net/project_modules/2800_opt_1/2736e0195579681.660fdd36d5fae.jpeg)
 
